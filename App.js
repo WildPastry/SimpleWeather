@@ -17,13 +17,14 @@ export default class App extends React.Component {
 }
 
 class MyButton extends React.Component {
+	_onPressButton() {
+    Alert.alert('You will receive the weather')
+  }
 	render() {
 		return (
 			<View style={styles.button}>
-				<Button
-					onPress={() => {
-						Alert.alert('You will receive the weather');
-					}}
+				<Button 
+					onPress={this._onPressButton}
 					title='Get the weather'
 				/>
 			</View>
@@ -76,5 +77,11 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		padding: 5,
 		marginTop: 20,
+		borderWidth: 10,
+    borderColor: '#114180',
 	},
+	buttonBorder: {
+		borderWidth: 1,
+    borderColor: '#114180',
+	}
 });
