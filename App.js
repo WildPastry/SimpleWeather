@@ -1,33 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AppRegistry, Image } from 'react-native';
+import { StyleSheet, AppRegistry, Text, View, Button, Alert } from 'react-native';
+// import { AppRegistry, Image } from 'react-native';
 // import SvgUri from 'react-native-svg-uri';
 
 // <SvgUri source={require('./assets/sleet.svg')} />
 
-// export default class App extends React.Component {
-// 	render() {
-// 		return (
-// 			<View style={styles.container}>
-// 				<Text style={styles.heading}>BASIC WEATHER</Text>
-// 				{/* <SvgUri /> */}
-// 			</View>
-// 		);
-// 	}
-// }
-
-export default class Bananas extends React.Component {
-  render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
-    return (
-      <Image source={pic} style={{width: 193, height: 110}}/>
-    );
-  }
+export default class App extends React.Component {
+	render() {
+		return (
+			<View style={styles.container}>
+				<Text style={styles.heading}>BASIC WEATHER</Text>
+				<MyButton />
+			</View>
+		);
+	}
 }
 
-AppRegistry.registerComponent('AwesomeProject', () => Bananas);
+class MyButton extends React.Component {
+	render() {
+		return (
+			<View style={styles.button}>
+				<Button
+					onPress={() => {
+						Alert.alert('You will receive the weather');
+					}}
+					title='Get the weather'
+				/>
+			</View>
+		);
+	}
+}
+
+AppRegistry.registerComponent('basic-weather', () => ButtonBasics);
+
+// export default class Bananas extends React.Component {
+//   render() {
+//     let pic = {
+//       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+//     };
+//     return (
+//       <Image source={pic} style={{width: 193, height: 110}}/>
+//     );
+//   }
+// }
+
+// AppRegistry.registerComponent('AwesomeProject', () => Bananas);
 
 // class WeatherIcon extends React.Component {
 // 	render() {
@@ -52,5 +69,12 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		fontWeight: '900',
 		textAlign: 'center',
+	},
+	button: {
+		color: '#114180',
+		backgroundColor: '#fff',
+		borderRadius: 15,
+		padding: 5,
+		marginTop: 20,
 	},
 });
