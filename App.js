@@ -1,12 +1,112 @@
 import React from 'react';
 import { StyleSheet, AppRegistry, Text, View, Button, Alert } from 'react-native';
+import configData from "./data/config.json";
+
+const key = configData.OAUTH;
 // import { AppRegistry, Image } from 'react-native';
 // import SvgUri from 'react-native-svg-uri';
 
 // <SvgUri source={require('./assets/sleet.svg')} />
+// constructor(props) {
+// 	super(props);
+// 	this.state = {
+// 		loading: true,
+// 		dataSource:[]
+// 	 };
+//  }
+console.log('console connected...');
+
+// WORKING
+// fetch('https://my.api.mockaroo.com/general_person.json?key=b3615c60')
+// 	.then(res => res.json())
+// 	.then(json => {
+// 		var items = json;
+// 		// this.setState({
+// 		// 	isLoaded: true,
+// 		// 	items: json,
+// 		// });
+// 		console.log(items);
+// 	});
+
+// WEATHER NOT WORKING
+// fetch('https://d81889ae141f2a188008c3f6f9632222https://api.darksky.net/forecast/?units=si')
+// 	.then(res => res.json())
+// 	.then(json => {
+// 		var weatherData = json;
+// 		// this.setState({
+// 		// 	isLoaded: true,
+// 		// 	weatherData: json,
+// 		// });
+// 		console.log(weatherData);
+// 	});
+
+// var responseJson;
+
+// function getMoviesFromApiAsync() {
+//   return fetch('https://facebook.github.io/react-native/movies.json')
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       return responseJson.movies;
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
+// getMoviesFromApiAsync();
+// console.log(responseJson);
+
+// function getskyData() {
+//   return fetch('https://cors-anywhere.herokuapp.com/d81889ae141f2a188008c3f6f9632222https://api.darksky.net/forecast/?units=si')
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       return responseJson.skyData;
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
+
+// getskyData();
+// console.log(responseJson.skyData);
+
+// var skyData = fetch(
+// 	'https://cors-anywhere.herokuapp.com/d81889ae141f2a188008c3f6f9632222https://api.darksky.net/forecast/?units=si'
+// );
+// console.log(skyData);
 
 export default class App extends React.Component {
+
+	constructor (props){
+		super(props);
+		this.state={
+			item:[],
+			isLoaded:false
+		}
+		console.log(this.state);
+
+	}
+	componentDidMount(){
+		fetch('https://my.api.mockaroo.com/general_person.json?key=' + key)
+		.then(res=>res.json())
+		.then(json=>{
+			this.setState({
+				isLoaded:true,
+				items:json
+			})
+		})
+	}
+
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = {
+	// 		item: [],
+	// 		isLoaded: false,
+	// 	};
+	// 	console.log(this.state.item);
+	// 	console.log(items);
+	// }
 	render() {
+		console.log(this.state);
 		return (
 			<View style={styles.container}>
 				<Text style={styles.heading}>BASIC WEATHER</Text>
@@ -18,15 +118,12 @@ export default class App extends React.Component {
 
 class MyButton extends React.Component {
 	_onPressButton() {
-    Alert.alert('You will receive the weather')
-  }
+		Alert.alert('You will receive the weather');
+	}
 	render() {
 		return (
 			<View style={styles.button}>
-				<Button 
-					onPress={this._onPressButton}
-					title='Get the weather'
-				/>
+				<Button onPress={this._onPressButton} title='Get the weather' />
 			</View>
 		);
 	}
@@ -77,11 +174,11 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		padding: 5,
 		marginTop: 20,
-		borderWidth: 10,
-    borderColor: '#114180',
+		// borderWidth: 10,
+		// borderColor: '#114180',
 	},
 	buttonBorder: {
 		borderWidth: 1,
-    borderColor: '#114180',
-	}
+		borderColor: '#114180',
+	},
 });
