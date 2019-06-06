@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, AppRegistry, Text, View, Button, Alert } from 'react-native';
-import configData from "./data/config.json";
+import configData from './data/config.json';
 
 const key = configData.OAUTH;
 // import { AppRegistry, Image } from 'react-native';
@@ -16,8 +16,7 @@ const key = configData.OAUTH;
 //  }
 console.log('console connected...');
 
-// WORKING
-// fetch('https://my.api.mockaroo.com/general_person.json?key=b3615c60')
+// fetch('https://my.api.mockaroo.com/general_person.json?key=KEY')
 // 	.then(res => res.json())
 // 	.then(json => {
 // 		var items = json;
@@ -28,8 +27,7 @@ console.log('console connected...');
 // 		console.log(items);
 // 	});
 
-// WEATHER NOT WORKING
-// fetch('https://d81889ae141f2a188008c3f6f9632222https://api.darksky.net/forecast/?units=si')
+// fetch('https://KEY://api.darksky.net/forecast/?units=si')
 // 	.then(res => res.json())
 // 	.then(json => {
 // 		var weatherData = json;
@@ -56,7 +54,7 @@ console.log('console connected...');
 // console.log(responseJson);
 
 // function getskyData() {
-//   return fetch('https://cors-anywhere.herokuapp.com/d81889ae141f2a188008c3f6f9632222https://api.darksky.net/forecast/?units=si')
+//   return fetch('https://cors-anywhere.herokuapp.com/KEYhttps://api.darksky.net/forecast/?units=si')
 //     .then((response) => response.json())
 //     .then((responseJson) => {
 //       return responseJson.skyData;
@@ -70,30 +68,28 @@ console.log('console connected...');
 // console.log(responseJson.skyData);
 
 // var skyData = fetch(
-// 	'https://cors-anywhere.herokuapp.com/d81889ae141f2a188008c3f6f9632222https://api.darksky.net/forecast/?units=si'
+// 	'https://cors-anywhere.herokuapp.com/KEYhttps://api.darksky.net/forecast/?units=si'
 // );
 // console.log(skyData);
 
 export default class App extends React.Component {
-
-	constructor (props){
+	constructor(props) {
 		super(props);
-		this.state={
-			item:[],
-			isLoaded:false
-		}
+		this.state = {
+			item: [],
+			isLoaded: false,
+		};
 		console.log(this.state);
-
 	}
-	componentDidMount(){
+	componentDidMount() {
 		fetch('https://my.api.mockaroo.com/general_person.json?key=' + key)
-		.then(res=>res.json())
-		.then(json=>{
-			this.setState({
-				isLoaded:true,
-				items:json
-			})
-		})
+			.then(res => res.json())
+			.then(json => {
+				this.setState({
+					isLoaded: true,
+					items: json,
+				});
+			});
 	}
 
 	// constructor(props) {
@@ -106,13 +102,22 @@ export default class App extends React.Component {
 	// 	console.log(items);
 	// }
 	render() {
-		console.log(this.state);
-		return (
-			<View style={styles.container}>
-				<Text style={styles.heading}>BASIC WEATHER</Text>
-				<MyButton />
-			</View>
-		);
+		var { isLoaded, items } = this.state;
+		console.log(items);
+		if (!isLoaded) {
+			return (
+				<View style={styles.loader}>
+					<Text style={styles.headingLoader}>Loading...</Text>
+				</View>
+			);
+		} else {
+			return (
+				<View style={styles.container}>
+					<Text style={styles.heading}>BASIC WEATHER</Text>
+					<MyButton />
+				</View>
+			);
+		}
 	}
 }
 
@@ -156,6 +161,18 @@ AppRegistry.registerComponent('basic-weather', () => ButtonBasics);
 // AppRegistry.registerComponent('basic-weather', () => WeatherIcon);
 
 const styles = StyleSheet.create({
+	loader: {
+		flex: 1,
+		backgroundColor: '#303030',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	headingLoader: {
+		color: '#fff',
+		fontSize: 20,
+		fontWeight: '500',
+		textAlign: 'center',
+	},
 	container: {
 		flex: 1,
 		backgroundColor: '#114180',
