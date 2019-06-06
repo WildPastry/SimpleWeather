@@ -1,2 +1,2 @@
-# Basic-Weather-Mobile
-Basic weather app for mobile
+# Base-Weather-iOS
+Intuative and functional weather app designed for iOS
