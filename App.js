@@ -14,6 +14,7 @@ const key = configData.OAUTH;
 // 		dataSource:[]
 // 	 };
 //  }
+
 console.log('console connected...');
 
 // fetch('https://my.api.mockaroo.com/general_person.json?key=KEY')
