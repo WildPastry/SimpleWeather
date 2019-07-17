@@ -1,6 +1,13 @@
-import React from 'react';
-import { StyleSheet, AppRegistry, Text, View, Button, Alert } from 'react-native';
-import configData from './data/config.json';
+import React from "react";
+import {
+  StyleSheet,
+  AppRegistry,
+  Text,
+  View,
+  Button,
+  Alert
+} from "react-native";
+import configData from "./data/config.json";
 
 const key = configData.OAUTH;
 // import { AppRegistry, Image } from 'react-native';
@@ -15,7 +22,7 @@ const key = configData.OAUTH;
 // 	 };
 //  }
 
-console.log('console connected...');
+console.log("console connected...");
 
 // fetch('https://my.api.mockaroo.com/general_person.json?key=KEY')
 // 	.then(res => res.json())
@@ -74,68 +81,68 @@ console.log('console connected...');
 // console.log(skyData);
 
 export default class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			item: [],
-			isLoaded: false,
-		};
-		console.log(this.state);
-	}
-	componentDidMount() {
-		fetch('https://my.api.mockaroo.com/general_person.json?key=' + key)
-			.then(res => res.json())
-			.then(json => {
-				this.setState({
-					isLoaded: true,
-					items: json,
-				});
-			});
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      item: [],
+      isLoaded: false
+    };
+    console.log(this.state);
+  }
+  componentDidMount() {
+    fetch("https://my.api.mockaroo.com/general_person.json?key=" + key)
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          isLoaded: true,
+          items: json
+        });
+      });
+  }
 
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = {
-	// 		item: [],
-	// 		isLoaded: false,
-	// 	};
-	// 	console.log(this.state.item);
-	// 	console.log(items);
-	// }
-	render() {
-		var { isLoaded, items } = this.state;
-		console.log(items);
-		if (!isLoaded) {
-			return (
-				<View style={styles.loader}>
-					<Text style={styles.headingLoader}>Loading...</Text>
-				</View>
-			);
-		} else {
-			return (
-				<View style={styles.container}>
-					<Text style={styles.heading}>BASIC WEATHER</Text>
-					<MyButton />
-				</View>
-			);
-		}
-	}
+  // constructor(props) {
+  // 	super(props);
+  // 	this.state = {
+  // 		item: [],
+  // 		isLoaded: false,
+  // 	};
+  // 	console.log(this.state.item);
+  // 	console.log(items);
+  // }
+  render() {
+    var { isLoaded, items } = this.state;
+    console.log(items);
+    if (!isLoaded) {
+      return (
+        <View style={styles.loader}>
+          <Text style={styles.headingLoader}>Loading...</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.heading}>BASIC WEATHER</Text>
+          <MyButton />
+        </View>
+      );
+    }
+  }
 }
 
 class MyButton extends React.Component {
-	_onPressButton() {
-		Alert.alert('You will receive the weather');
-	}
-	render() {
-		return (
-			<View style={styles.button}>
-				<Button onPress={this._onPressButton} title='Get the weather' />
-			</View>
-		);
-	}
+  _onPressButton() {
+    Alert.alert("You will receive the weather");
+  }
+  render() {
+    return (
+      <View style={styles.button}>
+        <Button onPress={this._onPressButton} title="Get the weather" />
+      </View>
+    );
+  }
 }
 
-AppRegistry.registerComponent('basic-weather', () => ButtonBasics);
+AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
 
 // export default class Bananas extends React.Component {
 //   render() {
@@ -162,41 +169,41 @@ AppRegistry.registerComponent('basic-weather', () => ButtonBasics);
 // AppRegistry.registerComponent('basic-weather', () => WeatherIcon);
 
 const styles = StyleSheet.create({
-	loader: {
-		flex: 1,
-		backgroundColor: '#303030',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	headingLoader: {
-		color: '#fff',
-		fontSize: 20,
-		fontWeight: '500',
-		textAlign: 'center',
-	},
-	container: {
-		flex: 1,
-		backgroundColor: '#114180',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	heading: {
-		color: '#fff',
-		fontSize: 50,
-		fontWeight: '900',
-		textAlign: 'center',
-	},
-	button: {
-		color: '#114180',
-		backgroundColor: '#fff',
-		borderRadius: 15,
-		padding: 5,
-		marginTop: 20,
-		// borderWidth: 10,
-		// borderColor: '#114180',
-	},
-	buttonBorder: {
-		borderWidth: 1,
-		borderColor: '#114180',
-	},
+  loader: {
+    flex: 1,
+    backgroundColor: "#303030",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  headingLoader: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "500",
+    textAlign: "center"
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#114180",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  heading: {
+    color: "#fff",
+    fontSize: 50,
+    fontWeight: "900",
+    textAlign: "center"
+  },
+  button: {
+    color: "#114180",
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    padding: 5,
+    marginTop: 20
+    // borderWidth: 10,
+    // borderColor: '#114180',
+  },
+  buttonBorder: {
+    borderWidth: 1,
+    borderColor: "#114180"
+  }
 });
