@@ -7,12 +7,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "ws": ">=3.3.1",
     "expo": "^32.0.0",
+    "expo-cli": "^3.0.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-svg": "^9.4.0",
-    "react-native-svg-uri": "^1.2.3"
+    "react-native-svg-uri": "^1.2.3",
+    "ws": ">=3.3.1"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

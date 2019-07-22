@@ -1,3 +1,4 @@
+// imports
 import React from "react";
 import {
   StyleSheet,
@@ -9,109 +10,80 @@ import {
 } from "react-native";
 import configData from "./data/config.json";
 
+// set up auth keys for data
 const key = configData.OAUTH;
-// import { AppRegistry, Image } from 'react-native';
-// import SvgUri from 'react-native-svg-uri';
+const sky = configData.SKY;
 
-// <SvgUri source={require('./assets/sleet.svg')} />
-// constructor(props) {
-// 	super(props);
-// 	this.state = {
-// 		loading: true,
-// 		dataSource:[]
-// 	 };
-//  }
+// log keys
+console.log(key);
+console.log(sky);
 
-console.log("console connected...");
+// set up lat and lng
+var myLat = -41.2865;
+var myLng = 174.7762;
 
-// fetch('https://my.api.mockaroo.com/general_person.json?key=KEY')
-// 	.then(res => res.json())
-// 	.then(json => {
-// 		var items = json;
-// 		// this.setState({
-// 		// 	isLoaded: true,
-// 		// 	items: json,
-// 		// });
-// 		console.log(items);
-// 	});
+// log lat and lng
+console.log(myLat);
+console.log(myLng);
 
-// fetch('https://KEY://api.darksky.net/forecast/?units=si')
-// 	.then(res => res.json())
-// 	.then(json => {
-// 		var weatherData = json;
-// 		// this.setState({
-// 		// 	isLoaded: true,
-// 		// 	weatherData: json,
-// 		// });
-// 		console.log(weatherData);
-// 	});
-
-// var responseJson;
-
-// function getMoviesFromApiAsync() {
-//   return fetch('https://facebook.github.io/react-native/movies.json')
-//     .then((response) => response.json())
-//     .then((responseJson) => {
-//       return responseJson.movies;
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-// getMoviesFromApiAsync();
-// console.log(responseJson);
-
-// function getskyData() {
-//   return fetch('https://cors-anywhere.herokuapp.com/KEYhttps://api.darksky.net/forecast/?units=si')
-//     .then((response) => response.json())
-//     .then((responseJson) => {
-//       return responseJson.skyData;
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-// getskyData();
-// console.log(responseJson.skyData);
-
-// var skyData = fetch(
-// 	'https://cors-anywhere.herokuapp.com/KEYhttps://api.darksky.net/forecast/?units=si'
-// );
-// console.log(skyData);
-
+// default class app
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: [],
+      weather: [],
       isLoaded: false
     };
-    console.log(this.state);
+    // log the items in the state
+    console.log(this.state.weather);
+    console.log(this.state.isLoaded);
   }
   componentDidMount() {
-    fetch("https://my.api.mockaroo.com/general_person.json?key=" + key)
-      .then(res => res.json())
-      .then(json => {
+    // fetch data
+    fetch(
+      "https://api.darksky.net/forecast/" +
+        sky +
+        "/" +
+        myLat +
+        "," +
+        myLng +
+        "?units=si"
+    )
+      // log response error or success
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Failed with HTTP code " + res.status);
+        } else {
+          console.log("Success with HTTP code " + res.status);
+        }
+        return res;
+      })
+      // convert data into json
+      .then(result => result.json())
+      .then(data => {
         this.setState({
           isLoaded: true,
-          items: json
+          weather: data.currently
         });
+        // console.log(this.state.weather.currently);
+      })
+      // catch and log any other errors
+      .catch(error => {
+        if (error.res) {
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("error ", error.message);
+        }
+        console.log(error.config);
       });
   }
 
-  // constructor(props) {
-  // 	super(props);
-  // 	this.state = {
-  // 		item: [],
-  // 		isLoaded: false,
-  // 	};
-  // 	console.log(this.state.item);
-  // 	console.log(items);
-  // }
   render() {
-    var { isLoaded, items } = this.state;
-    console.log(items);
+    var { isLoaded, weather } = this.state;
+    // console.log(this.state);
+    console.log(isLoaded);
+    console.log(weather.temperature);
     if (!isLoaded) {
       return (
         <View style={styles.loader}>
@@ -199,8 +171,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 5,
     marginTop: 20
-    // borderWidth: 10,
-    // borderColor: '#114180',
   },
   buttonBorder: {
     borderWidth: 1,
