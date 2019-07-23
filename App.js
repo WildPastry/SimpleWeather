@@ -11,12 +11,7 @@ import {
 import configData from "./data/config.json";
 
 // set up auth keys for data
-const key = configData.OAUTH;
 const sky = configData.SKY;
-
-// log keys
-console.log(key);
-console.log(sky);
 
 // set up lat and lng
 var myLat = -41.2865;
@@ -31,13 +26,17 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoaded: false,
       weather: [],
-      isLoaded: false
+      temp: "",
+      desc: ""
     };
     // log the items in the state
     console.log(this.state.weather);
     console.log(this.state.isLoaded);
   }
+
+  // component mounted
   componentDidMount() {
     // fetch data
     fetch(
@@ -63,7 +62,9 @@ export default class App extends React.Component {
       .then(data => {
         this.setState({
           isLoaded: true,
-          weather: data.currently
+          weather: data.currently,
+          temp: data.currently.temperature,
+          desc: data.currently.summary
         });
         // console.log(this.state.weather.currently);
       })
@@ -79,67 +80,82 @@ export default class App extends React.Component {
       });
   }
 
+  // render app display
   render() {
-    var { isLoaded, weather } = this.state;
-    // console.log(this.state);
+    var { isLoaded, temp } = this.state;
+    console.log(this.state);
     console.log(isLoaded);
-    console.log(weather.temperature);
+    console.log(temp);
+
+    // loading function
     if (!isLoaded) {
       return (
         <View style={styles.loader}>
           <Text style={styles.headingLoader}>Loading...</Text>
         </View>
       );
+
+      // finish loading function
     } else {
       return (
+        // container
         <View style={styles.container}>
+          {/* heading */}
           <Text style={styles.heading}>BASIC WEATHER</Text>
+          {/* button */}
           <MyButton />
+          {/* info */}
+          <MyInfo temp={this.state.temp} desc={this.state.desc} />
         </View>
       );
     }
   }
 }
 
+// button
 class MyButton extends React.Component {
-  _onPressButton() {
-    Alert.alert("You will receive the weather");
+
+  getSkyData() {
+    Alert.alert("The current temperature is: ");
   }
+
+  // button function
+  // _onPressButton() {
+  //   this.getSkyData;
+  //   // Alert.alert("The current temperature is: ");
+  // }
+  // render button display
   render() {
     return (
       <View style={styles.button}>
-        <Button onPress={this._onPressButton} title="Get the weather" />
+        <Button
+          title="Get the weather"
+          onPress={() => {
+            this.getSkyData();
+          }}
+        />
       </View>
     );
   }
 }
 
+// info
+class MyInfo extends React.Component {
+  // render info display
+  render() {
+    return (
+      <View style={styles.info}>
+        <Text style={styles.text}>{this.props.temp}</Text>
+        <Text style={styles.text}>{this.props.desc}</Text>
+      </View>
+    );
+  }
+}
+
+// register app
 AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
 
-// export default class Bananas extends React.Component {
-//   render() {
-//     let pic = {
-//       uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-//     };
-//     return (
-//       <Image source={pic} style={{width: 193, height: 110}}/>
-//     );
-//   }
-// }
-
-// AppRegistry.registerComponent('AwesomeProject', () => Bananas);
-
-// class WeatherIcon extends React.Component {
-// 	render() {
-// 		let pic = {
-// 			uri: '/assets/sleet.svg',
-// 		};
-// 		return <Image source={pic} style={{ width: 193, height: 110 }} />;
-// 	}
-// }
-
-// AppRegistry.registerComponent('basic-weather', () => WeatherIcon);
-
+// styles
 const styles = StyleSheet.create({
   loader: {
     flex: 1,
@@ -175,5 +191,14 @@ const styles = StyleSheet.create({
   buttonBorder: {
     borderWidth: 1,
     borderColor: "#114180"
+  },
+  info: {
+    marginTop: 20
+  },
+  text: {
+    color: "#fff",
+    padding: 5,
+    fontSize: 20,
+    textAlign: "center"
   }
 });
