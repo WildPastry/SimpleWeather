@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 // START stylesheet
 const myStylesheet = StyleSheet.create({
+  // loading page
   loader: {
     flex: 1,
     backgroundColor: "#303030",
@@ -14,18 +15,44 @@ const myStylesheet = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center"
   },
+
+  // main container
   container: {
     flex: 1,
     backgroundColor: "#114180",
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: "center"
+    // justifyContent: "center"
+  },
+
+  // heading component
+  headingWrap: {
+    alignSelf: "stretch"
+  },
+  headingTopBar: {
+    backgroundColor: "#66a9d7",
+    height: 22,
+    marginBottom: 8
   },
   heading: {
     color: "#fff",
-    fontSize: 50,
-    fontWeight: "900",
+    fontSize: 30,
+    fontWeight: "700",
     textAlign: "center"
   },
+
+  // current component
+  currentWrap: {
+    backgroundColor: "red",
+    marginTop: 8
+  },
+  currentText: {
+    color: "#fff",
+    padding: 5,
+    fontSize: 20,
+    textAlign: "center"
+  },
+
+  // button
   button: {
     color: "#114180",
     backgroundColor: "#fff",
@@ -36,15 +63,6 @@ const myStylesheet = StyleSheet.create({
   buttonBorder: {
     borderWidth: 1,
     borderColor: "#114180"
-  },
-  info: {
-    marginTop: 20
-  },
-  text: {
-    color: "#fff",
-    padding: 5,
-    fontSize: 20,
-    textAlign: "center"
   }
 });
 // END stylesheet

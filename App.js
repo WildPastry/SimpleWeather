@@ -6,6 +6,7 @@ import { AppRegistry, Text, View, Button, Alert } from "react-native";
 
 // components
 import Current from "./inc/Current";
+import Heading from "./inc/Heading";
 
 // configuration data
 import configData from "./data/config.json";
@@ -98,10 +99,10 @@ export default class App extends React.Component {
         // START app display
         <View style={styles.container}>
           {/* heading */}
-          <Text style={styles.heading}>BASIC WEATHER</Text>
+          <Heading />
           {/* button */}
           {/* <MyButton /> */}
-          {/* info */}
+          {/* current */}
           <Current temp={this.state.temp} desc={this.state.desc} />
         </View>
         // END app display

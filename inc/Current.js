@@ -2,10 +2,7 @@
 import React from "react";
 
 // default component functions
-import {
-  Text,
-  View
-} from "react-native";
+import { Text, View } from "react-native";
 
 // stylesheet
 var styles = require("./styles.js");
@@ -14,12 +11,12 @@ var styles = require("./styles.js");
 class Current extends React.Component {
   render() {
     return (
-        // START info display
-      <View style={styles.info}>
-        <Text style={styles.text}>{this.props.temp}</Text>
-        <Text style={styles.text}>{this.props.desc}</Text>
+      // START info display
+      <View style={styles.currentWrap}>
+        <Text style={styles.currentText}>{this.props.temp}</Text>
+        <Text style={styles.currentText}>{this.props.desc}</Text>
       </View>
-        // END info display
+      // END info display
     );
   }
 }
