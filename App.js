@@ -1,7 +1,6 @@
 // imports
 import React from "react";
 import {
-  StyleSheet,
   AppRegistry,
   Text,
   View,
@@ -9,6 +8,9 @@ import {
   Alert
 } from "react-native";
 import configData from "./data/config.json";
+
+// import stylesheet
+const styles = require("./inc/styles.js");
 
 // set up auth keys for data
 const sky = configData.SKY;
@@ -21,7 +23,7 @@ var myLng = 174.7762;
 console.log(myLat);
 console.log(myLng);
 
-// default class app
+// START default class app
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +38,7 @@ export default class App extends React.Component {
     console.log(this.state.isLoaded);
   }
 
-  // component mounted
+  // START component mounted
   componentDidMount() {
     // fetch data
     fetch(
@@ -79,26 +81,29 @@ export default class App extends React.Component {
         console.log(error.config);
       });
   }
+  // END component mounted
 
-  // render app display
+  // START render app display
   render() {
+    // declare variables as current state
     var { isLoaded, temp } = this.state;
     console.log(this.state);
     console.log(isLoaded);
     console.log(temp);
 
-    // loading function
+    // START loading function
     if (!isLoaded) {
       return (
         <View style={styles.loader}>
           <Text style={styles.headingLoader}>Loading...</Text>
         </View>
       );
+    // END loading function
 
       // finish loading function
     } else {
       return (
-        // container
+        // START app display
         <View style={styles.container}>
           {/* heading */}
           <Text style={styles.heading}>BASIC WEATHER</Text>
@@ -107,26 +112,24 @@ export default class App extends React.Component {
           {/* info */}
           <MyInfo temp={this.state.temp} desc={this.state.desc} />
         </View>
+         // END app display
       );
     }
   }
+  // END render app display
 }
+// END default class app
 
-// button
+// START button
 class MyButton extends React.Component {
-
+  // alert function
   getSkyData() {
     Alert.alert("The current temperature is: ");
   }
 
-  // button function
-  // _onPressButton() {
-  //   this.getSkyData;
-  //   // Alert.alert("The current temperature is: ");
-  // }
-  // render button display
   render() {
     return (
+        // START button display
       <View style={styles.button}>
         <Button
           title="Get the weather"
@@ -135,70 +138,27 @@ class MyButton extends React.Component {
           }}
         />
       </View>
+        // END button display
     );
   }
+  // END button display
 }
+// END button
 
-// info
+// START info
 class MyInfo extends React.Component {
-  // render info display
   render() {
     return (
+        // START info display
       <View style={styles.info}>
         <Text style={styles.text}>{this.props.temp}</Text>
         <Text style={styles.text}>{this.props.desc}</Text>
       </View>
+        // END info display
     );
   }
 }
+// END info
 
-// register app
+// register button functionality for buttons
 AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
-
-// styles
-const styles = StyleSheet.create({
-  loader: {
-    flex: 1,
-    backgroundColor: "#303030",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  headingLoader: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "500",
-    textAlign: "center"
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#114180",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  heading: {
-    color: "#fff",
-    fontSize: 50,
-    fontWeight: "900",
-    textAlign: "center"
-  },
-  button: {
-    color: "#114180",
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    padding: 5,
-    marginTop: 20
-  },
-  buttonBorder: {
-    borderWidth: 1,
-    borderColor: "#114180"
-  },
-  info: {
-    marginTop: 20
-  },
-  text: {
-    color: "#fff",
-    padding: 5,
-    fontSize: 20,
-    textAlign: "center"
-  }
-});
