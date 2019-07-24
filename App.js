@@ -5,8 +5,11 @@ import React from "react";
 import { AppRegistry, Text, View, Button, Alert } from "react-native";
 
 // components
+import Header from "./inc/Header";
+import Location from "./inc/Location";
 import Current from "./inc/Current";
-import Heading from "./inc/Heading";
+import Week from "./inc/Week";
+import Footer from "./inc/Footer";
 
 // configuration data
 import configData from "./data/config.json";
@@ -98,12 +101,18 @@ export default class App extends React.Component {
       return (
         // START app display
         <View style={styles.container}>
-          {/* heading */}
-          <Heading />
-          {/* button */}
-          {/* <MyButton /> */}
+          {/* header */}
+          <Header />
+          {/* location */}
+          <Location />
           {/* current */}
           <Current temp={this.state.temp} desc={this.state.desc} />
+          {/* week */}
+          <Week />
+          {/* footer */}
+          <Footer />
+          {/* button */}
+          {/* <MyButton /> */}
         </View>
         // END app display
       );

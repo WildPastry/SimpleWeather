@@ -24,45 +24,85 @@ const myStylesheet = StyleSheet.create({
     // justifyContent: "center"
   },
 
-  // heading component
-  headingWrap: {
+  // header component
+  headerWrap: {
     alignSelf: "stretch"
   },
-  headingTopBar: {
+  headerTopBar: {
     backgroundColor: "#66a9d7",
     height: 22,
     marginBottom: 8
   },
-  heading: {
+  header: {
     color: "#fff",
-    fontSize: 30,
-    fontWeight: "700",
+    fontSize: 20,
+    fontWeight: "300",
+    textAlign: "center"
+  },
+
+  // location component
+  locationWrap: {
+    alignSelf: "stretch",
+    backgroundColor: "#525252",
+    marginTop: 8
+  },
+  locationText: {
+    color: "#fff",
+    fontSize: 20,
+    padding: 5,
     textAlign: "center"
   },
 
   // current component
   currentWrap: {
-    backgroundColor: "red",
+    alignSelf: "stretch",
+    backgroundColor: "#525252",
     marginTop: 8
   },
   currentText: {
     color: "#fff",
-    padding: 5,
     fontSize: 20,
+    padding: 5,
     textAlign: "center"
   },
 
+  // week component
+  weekWrap: {
+    alignSelf: "stretch",
+    backgroundColor: "#525252",
+    marginTop: 8
+  },
+  weekText: {
+    color: "#fff",
+    fontSize: 20,
+    padding: 5,
+    textAlign: "center"
+  },
+
+ // footer component
+ footerWrap: {
+  alignSelf: "stretch",
+  backgroundColor: "#525252",
+  marginTop: 8
+},
+footerText: {
+  color: "#fff",
+  fontSize: 20,
+  padding: 5,
+  textAlign: "center"
+},
+
   // button
   button: {
-    color: "#114180",
     backgroundColor: "#fff",
     borderRadius: 15,
-    padding: 5,
-    marginTop: 20
+    color: "#114180",
+    marginTop: 20,
+    padding: 5
   },
   buttonBorder: {
-    borderWidth: 1,
-    borderColor: "#114180"
+    borderColor: "#114180",
+    borderWidth: 1
   }
 });
 // END stylesheet
