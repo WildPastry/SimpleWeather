@@ -1,7 +1,7 @@
-var React = require('react-native');
+import { StyleSheet } from 'react-native';
 
 // START stylesheet
-const myStylesheet = React.StyleSheet.create({
+const myStylesheet = StyleSheet.create({
   loader: {
     flex: 1,
     backgroundColor: "#303030",

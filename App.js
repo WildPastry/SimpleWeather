@@ -1,16 +1,17 @@
 // imports
 import React from "react";
-import {
-  AppRegistry,
-  Text,
-  View,
-  Button,
-  Alert
-} from "react-native";
+
+// default component functions
+import { AppRegistry, Text, View, Button, Alert } from "react-native";
+
+// components
+import Current from "./inc/Current";
+
+// configuration data
 import configData from "./data/config.json";
 
-// import stylesheet
-const styles = require("./inc/styles.js");
+// stylesheet
+var styles = require("./inc/styles.js");
 
 // set up auth keys for data
 const sky = configData.SKY;
@@ -19,12 +20,9 @@ const sky = configData.SKY;
 var myLat = -41.2865;
 var myLng = 174.7762;
 
-// log lat and lng
-console.log(myLat);
-console.log(myLng);
-
 // START default class app
 export default class App extends React.Component {
+  // default class app constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -33,9 +31,6 @@ export default class App extends React.Component {
       temp: "",
       desc: ""
     };
-    // log the items in the state
-    console.log(this.state.weather);
-    console.log(this.state.isLoaded);
   }
 
   // START component mounted
@@ -50,7 +45,7 @@ export default class App extends React.Component {
         myLng +
         "?units=si"
     )
-      // log response error or success
+      // log HTTP response error or success for data call
       .then(res => {
         if (!res.ok) {
           throw new Error("Failed with HTTP code " + res.status);
@@ -59,7 +54,7 @@ export default class App extends React.Component {
         }
         return res;
       })
-      // convert data into json
+      // convert raw data call into json
       .then(result => result.json())
       .then(data => {
         this.setState({
@@ -70,7 +65,7 @@ export default class App extends React.Component {
         });
         // console.log(this.state.weather.currently);
       })
-      // catch and log any other errors
+      // catch and log errors
       .catch(error => {
         if (error.res) {
         } else if (error.request) {
@@ -83,24 +78,21 @@ export default class App extends React.Component {
   }
   // END component mounted
 
-  // START render app display
+  // START render app
   render() {
-    // declare variables as current state
-    var { isLoaded, temp } = this.state;
-    console.log(this.state);
-    console.log(isLoaded);
-    console.log(temp);
+    // declare variable in current state
+    var { isLoaded } = this.state;
 
     // START loading function
     if (!isLoaded) {
       return (
+        // START loading display
         <View style={styles.loader}>
           <Text style={styles.headingLoader}>Loading...</Text>
         </View>
+        // END loading display
       );
-    // END loading function
-
-      // finish loading function
+      // END loading function
     } else {
       return (
         // START app display
@@ -108,57 +100,42 @@ export default class App extends React.Component {
           {/* heading */}
           <Text style={styles.heading}>BASIC WEATHER</Text>
           {/* button */}
-          <MyButton />
+          {/* <MyButton /> */}
           {/* info */}
-          <MyInfo temp={this.state.temp} desc={this.state.desc} />
+          <Current temp={this.state.temp} desc={this.state.desc} />
         </View>
-         // END app display
+        // END app display
       );
     }
   }
-  // END render app display
+  // END render app
 }
 // END default class app
 
-// START button
-class MyButton extends React.Component {
-  // alert function
-  getSkyData() {
-    Alert.alert("The current temperature is: ");
-  }
+// // START button
+// class MyButton extends React.Component {
+//   // alert function
+//   getSkyData() {
+//     Alert.alert("The current temperature is: ");
+//   }
 
-  render() {
-    return (
-        // START button display
-      <View style={styles.button}>
-        <Button
-          title="Get the weather"
-          onPress={() => {
-            this.getSkyData();
-          }}
-        />
-      </View>
-        // END button display
-    );
-  }
-  // END button display
-}
-// END button
-
-// START info
-class MyInfo extends React.Component {
-  render() {
-    return (
-        // START info display
-      <View style={styles.info}>
-        <Text style={styles.text}>{this.props.temp}</Text>
-        <Text style={styles.text}>{this.props.desc}</Text>
-      </View>
-        // END info display
-    );
-  }
-}
-// END info
+//   render() {
+//     return (
+//       // START button display
+//       <View style={styles.button}>
+//         <Button
+//           title="Get the weather"
+//           onPress={() => {
+//             this.getSkyData();
+//           }}
+//         />
+//       </View>
+//       // END button display
+//     );
+//   }
+//   // END button display
+// }
+// // END button
 
 // register button functionality for buttons
 AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
