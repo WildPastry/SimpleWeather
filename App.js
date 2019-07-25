@@ -32,6 +32,8 @@ export default class App extends React.Component {
     this.state = {
       isLoaded: false,
       weather: [],
+      icon: "",
+      currentIcon: "",
       temp: "",
       high: "",
       low: "",
@@ -63,18 +65,21 @@ export default class App extends React.Component {
       // convert raw data call into json
       .then(result => result.json())
       .then(data => {
-        this.setState({
-          isLoaded: true,
-          weather: data,
-          icon: data.currently.icon,
-          temp: Math.trunc(data.currently.temperature),
-          high: Math.trunc(data.daily.data[0].temperatureHigh),
-          low: Math.trunc(data.daily.data[0].temperatureLow),
-          desc: data.daily.data[0].summary
-        });
+        this.setState(
+          {
+            isLoaded: true,
+            weather: data,
+            icon: data.currently.icon,
+            temp: Math.trunc(data.currently.temperature),
+            high: Math.trunc(data.daily.data[0].temperatureHigh),
+            low: Math.trunc(data.daily.data[0].temperatureLow),
+            desc: data.daily.data[0].summary
+          },
+          () => {
+            this.setCurrentIcon();
+          }
+        );
         // console.log(this.state.weather);
-        // console.log(this.state.high);
-        // console.log(this.state.low);
       })
       // catch and log errors
       .catch(error => {
@@ -88,6 +93,18 @@ export default class App extends React.Component {
       });
   }
   // END component mounted
+
+  // set current weather icon
+  setCurrentIcon() {
+    this.setState(
+      {
+        currentIcon: this.state.icon
+      },
+      () => {
+        console.log(this.state.currentIcon);
+      }
+    );
+  }
 
   // START render app
   render() {
@@ -114,7 +131,7 @@ export default class App extends React.Component {
           <Location />
           {/* current */}
           <Current
-            icon={this.state.icon}
+            currentIcon={this.state.currentIcon}
             temp={this.state.temp}
             high={this.state.high}
             low={this.state.low}
@@ -133,30 +150,5 @@ export default class App extends React.Component {
 }
 // END default class app
 
-// // START button
-// class MyButton extends React.Component {
-//   // alert function
-//   getSkyData() {
-//     Alert.alert("The current temperature is: ");
-//   }
-
-//   render() {
-//     return (
-//       // START button display
-//       <View style={styles.button}>
-//         <Button
-//           title="Get the weather"
-//           onPress={() => {
-//             this.getSkyData();
-//           }}
-//         />
-//       </View>
-//       // END button display
-//     );
-//   }
-//   // END button display
-// }
-// // END button
-
-// register button functionality for buttons
+// register button functionality
 AppRegistry.registerComponent("basic-weather", () => ButtonBasics);

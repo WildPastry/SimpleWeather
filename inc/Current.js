@@ -4,18 +4,66 @@ import React from "react";
 // default component functions
 import { Text, View } from "react-native";
 
+// weather icons
+// import IconCloudy from "./../assets/weather/iconCloudy.svg";
+// import IconPartlyCloudy from "./../assets/weather/iconPartlyCloudy.svg";
+// import IconRainbow from "./../assets/weather/iconRainbow.svg";
+// import IconRainy from "./../assets/weather/iconRainy.svg";
+// import IconSnowy from "./../assets/weather/iconSnowy.svg";
+// import IconSunny from "./../assets/weather/iconSunny.svg";
+// import IconWindy from "./../assets/weather/iconWindy.svg";
+
 // stylesheet
 var styles = require("./styles.js");
 
 // START current
 class Current extends React.Component {
+  // class current constructor
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     currentIcon: this.props.icon
+  //   };
+  // }
+
+  // set current weather icon
+  // setCurrentIcon() {
+  //   this.setState({
+  //     currentIcon: this.props.icon
+  //   });
+  // }
+
   render() {
+    // set current weather icon
+    let weatherDisplay;
+    // var currentIcon = this.props.currentIcon;
+    // if (currentIcon === "cloudy") {
+    //   weatherDisplay = <IconCloudy />;
+    // } else if (currentIcon === "partly-cloudy-day") {
+    //   weatherDisplay = <IconPartlyCloudy />;
+    // } else if (currentIcon === "fog") {
+    //   weatherDisplay = <IconRainbow />;
+    // } else if (currentIcon === "rain") {
+    //   weatherDisplay = <IconRainy />;
+    // } else if (currentIcon === "snow") {
+    //   weatherDisplay = <IconSnowy />;
+    // } else if (currentIcon === "clear-day") {
+    //   weatherDisplay = <IconSunny />;
+    // } else if (currentIcon === "wind") {
+    //   weatherDisplay = <IconWindy />;
+    // } else if (currentIcon === "sleet") {
+    //   weatherDisplay = <IconSnowy />;
+    // } else if (currentIcon === "clear-night") {
+    //   weatherDisplay = <IconSunny />;
+    // } else if (currentIcon === "partly-cloudy-night") {
+    //   weatherDisplay = <IconPartlyCloudy />;
+    // }
     return (
       // START current display
       <View style={styles.currentWrap}>
         {/* START main icon and temp */}
         <View style={styles.currentTextWrap}>
-          <Text style={styles.currentText}>{this.props.icon}</Text>
+          <Text style={styles.currentText}>{weatherDisplay}</Text>
           <Text style={styles.currentText}>{this.props.temp}°</Text>
         </View>
         {/* END main icon and temp */}
