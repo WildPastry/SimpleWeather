@@ -4,9 +4,9 @@ import { StyleSheet } from "react-native";
 const myStylesheet = StyleSheet.create({
   // loading page
   loader: {
-    flex: 1,
-    backgroundColor: "#303030",
     alignItems: "center",
+    backgroundColor: "#303030",
+    flex: 1,
     justifyContent: "center"
   },
   headingLoader: {
@@ -18,15 +18,16 @@ const myStylesheet = StyleSheet.create({
 
   // main container
   container: {
-    flex: 1,
+    alignItems: "center",
     backgroundColor: "#114180",
-    alignItems: "center"
+    flex: 1
     // justifyContent: "center"
   },
 
   // header component
   headerWrap: {
-    alignSelf: "stretch"
+    alignSelf: "stretch",
+    flex: 1
   },
   headerTopBar: {
     backgroundColor: "#66a9d7",
@@ -44,6 +45,7 @@ const myStylesheet = StyleSheet.create({
   locationWrap: {
     alignSelf: "stretch",
     backgroundColor: "#525252",
+    flex: 1,
     marginTop: 8
   },
   locationText: {
@@ -57,6 +59,7 @@ const myStylesheet = StyleSheet.create({
   currentWrap: {
     alignSelf: "stretch",
     backgroundColor: "#525252",
+    flex: 2,
     marginTop: 8
   },
   currentText: {
@@ -70,6 +73,7 @@ const myStylesheet = StyleSheet.create({
   weekWrap: {
     alignSelf: "stretch",
     backgroundColor: "#525252",
+    flex: 4,
     marginTop: 8
   },
   weekText: {
@@ -82,6 +86,7 @@ const myStylesheet = StyleSheet.create({
  // footer component
  footerWrap: {
   alignSelf: "stretch",
+  flex: 1,
   backgroundColor: "#525252",
   marginTop: 8
 },

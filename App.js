@@ -111,8 +111,6 @@ export default class App extends React.Component {
           <Week />
           {/* footer */}
           <Footer />
-          {/* button */}
-          {/* <MyButton /> */}
         </View>
         // END app display
       );
