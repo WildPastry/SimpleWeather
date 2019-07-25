@@ -33,6 +33,8 @@ export default class App extends React.Component {
       isLoaded: false,
       weather: [],
       temp: "",
+      high: "",
+      low: "",
       desc: ""
     };
   }
@@ -63,11 +65,16 @@ export default class App extends React.Component {
       .then(data => {
         this.setState({
           isLoaded: true,
-          weather: data.currently,
-          temp: data.currently.temperature,
-          desc: data.currently.summary
+          weather: data,
+          icon: data.currently.icon,
+          temp: Math.trunc(data.currently.temperature),
+          high: Math.trunc(data.daily.data[0].temperatureHigh),
+          low: Math.trunc(data.daily.data[0].temperatureLow),
+          desc: data.daily.data[0].summary
         });
-        // console.log(this.state.weather.currently);
+        // console.log(this.state.weather);
+        // console.log(this.state.high);
+        // console.log(this.state.low);
       })
       // catch and log errors
       .catch(error => {
@@ -106,7 +113,13 @@ export default class App extends React.Component {
           {/* location */}
           <Location />
           {/* current */}
-          <Current temp={this.state.temp} desc={this.state.desc} />
+          <Current
+            icon={this.state.icon}
+            temp={this.state.temp}
+            high={this.state.high}
+            low={this.state.low}
+            desc={this.state.desc}
+          />
           {/* week */}
           <Week />
           {/* footer */}

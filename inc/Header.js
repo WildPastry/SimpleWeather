@@ -16,7 +16,7 @@ class Header extends React.Component {
         {/* top bar */}
         <View style={styles.headerTopBar} />
         {/* header display */}
-        <Text style={styles.header}>BASIC WEATHER</Text>
+        <Text style={styles.headerText}>basic weather</Text>
       </View>
     );
   }

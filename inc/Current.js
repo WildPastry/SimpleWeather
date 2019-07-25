@@ -13,8 +13,23 @@ class Current extends React.Component {
     return (
       // START current display
       <View style={styles.currentWrap}>
-        <Text style={styles.currentText}>{this.props.temp}</Text>
+        {/* START main icon and temp */}
+        <View style={styles.currentTextWrap}>
+          <Text style={styles.currentText}>{this.props.icon}</Text>
+          <Text style={styles.currentText}>{this.props.temp}°</Text>
+        </View>
+        {/* END main icon and temp */}
+
+        {/* START high and low temps */}
+        <View style={styles.currentTextWrap}>
+          <Text style={styles.currentText}>{this.props.high}°</Text>
+          <Text style={styles.currentText}>{this.props.low}°</Text>
+        </View>
+        {/* END high and low temps */}
+
+        {/* START description */}
         <Text style={styles.currentText}>{this.props.desc}</Text>
+        {/* END description */}
       </View>
       // END current display
     );

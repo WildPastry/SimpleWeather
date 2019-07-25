@@ -1,5 +1,8 @@
 import { StyleSheet } from "react-native";
 
+// get phone width and height
+// const { width, height } = Dimensions.get('window');
+
 // START stylesheet
 const myStylesheet = StyleSheet.create({
   // loading page
@@ -34,7 +37,7 @@ const myStylesheet = StyleSheet.create({
     height: 22,
     marginBottom: 8
   },
-  header: {
+  headerText: {
     color: "#fff",
     fontSize: 20,
     fontWeight: "300",
@@ -44,7 +47,7 @@ const myStylesheet = StyleSheet.create({
   // location component
   locationWrap: {
     alignSelf: "stretch",
-    backgroundColor: "#525252",
+    backgroundColor: "#303030",
     flex: 1,
     marginTop: 8
   },
@@ -58,9 +61,13 @@ const myStylesheet = StyleSheet.create({
   // current component
   currentWrap: {
     alignSelf: "stretch",
-    backgroundColor: "#525252",
     flex: 2,
+    backgroundColor: "#303030",
     marginTop: 8
+  },
+  currentTextWrap: {
+    flexDirection: "row",
+    justifyContent: "space-around"
   },
   currentText: {
     color: "#fff",
@@ -72,7 +79,7 @@ const myStylesheet = StyleSheet.create({
   // week component
   weekWrap: {
     alignSelf: "stretch",
-    backgroundColor: "#525252",
+    backgroundColor: "#303030",
     flex: 4,
     marginTop: 8
   },
@@ -83,32 +90,33 @@ const myStylesheet = StyleSheet.create({
     textAlign: "center"
   },
 
- // footer component
- footerWrap: {
-  alignSelf: "stretch",
-  flex: 1,
-  backgroundColor: "#525252",
-  marginTop: 8
-},
-footerText: {
-  color: "#fff",
-  fontSize: 20,
-  padding: 5,
-  textAlign: "center"
-},
+  // footer component
+  footerWrap: {
+    alignSelf: "stretch",
+    flex: 1,
+    justifyContent: "center",
+    marginTop: 8
+  },
+  footerText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    padding: 5,
+    textAlign: "center"
+  }
 
   // button
-  button: {
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    color: "#114180",
-    marginTop: 20,
-    padding: 5
-  },
-  buttonBorder: {
-    borderColor: "#114180",
-    borderWidth: 1
-  }
+  // button: {
+  //   backgroundColor: "#fff",
+  //   borderRadius: 15,
+  //   color: "#114180",
+  //   marginTop: 20,
+  //   padding: 5
+  // },
+  // buttonBorder: {
+  //   borderColor: "#114180",
+  //   borderWidth: 1
+  // }
 });
 // END stylesheet
 
