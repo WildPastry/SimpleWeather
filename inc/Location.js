@@ -5,7 +5,7 @@ import React from "react";
 import { Text, View } from "react-native";
 
 // stylesheet
-var styles = require("./styles.js");
+var styles = require("../styles.js");
 
 // START location
 class Location extends React.Component {

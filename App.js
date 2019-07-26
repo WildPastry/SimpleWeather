@@ -15,7 +15,7 @@ import Footer from "./inc/Footer";
 import configData from "./data/config.json";
 
 // stylesheet
-var styles = require("./inc/styles.js");
+var styles = require("./styles.js");
 
 // set up auth keys for data
 const sky = configData.SKY;

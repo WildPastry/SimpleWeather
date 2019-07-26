@@ -5,16 +5,16 @@ import React from "react";
 import { Text, View } from "react-native";
 
 // weather icons
-// import IconCloudy from "./../assets/weather/iconCloudy.svg";
-// import IconPartlyCloudy from "./../assets/weather/iconPartlyCloudy.svg";
-// import IconRainbow from "./../assets/weather/iconRainbow.svg";
-// import IconRainy from "./../assets/weather/iconRainy.svg";
-// import IconSnowy from "./../assets/weather/iconSnowy.svg";
-// import IconSunny from "./../assets/weather/iconSunny.svg";
-// import IconWindy from "./../assets/weather/iconWindy.svg";
+// import IconCloudy from "./../assets/weather/iconCloudy";
+// import IconPartlyCloudy from "./../assets/weather/iconPartlyCloudy";
+// import IconRainbow from "./../assets/weather/iconRainbow";
+// import IconRainy from "./../assets/weather/iconRainy";
+// import IconSnowy from "./../assets/weather/iconSnowy";
+// import IconSunny from "./../assets/weather/iconSunny";
+// import IconWindy from "./../assets/weather/iconWindy";
 
 // stylesheet
-var styles = require("./styles.js");
+var styles = require("../styles.js");
 
 // START current
 class Current extends React.Component {
@@ -38,7 +38,7 @@ class Current extends React.Component {
     let weatherDisplay;
     // var currentIcon = this.props.currentIcon;
     // if (currentIcon === "cloudy") {
-    //   weatherDisplay = <IconCloudy />;
+      // weatherDisplay = <IconCloudy />;
     // } else if (currentIcon === "partly-cloudy-day") {
     //   weatherDisplay = <IconPartlyCloudy />;
     // } else if (currentIcon === "fog") {
@@ -63,7 +63,7 @@ class Current extends React.Component {
       <View style={styles.currentWrap}>
         {/* START main icon and temp */}
         <View style={styles.currentTextWrap}>
-          <Text style={styles.currentText}>{weatherDisplay}</Text>
+          <Text>{weatherDisplay}</Text>
           <Text style={styles.currentText}>{this.props.temp}°</Text>
         </View>
         {/* END main icon and temp */}
