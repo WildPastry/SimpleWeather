@@ -61,9 +61,26 @@ const myStylesheet = StyleSheet.create({
   // current component
   currentWrap: {
     alignSelf: "stretch",
-    flex: 2,
+    flex: 3,
     backgroundColor: "#303030",
     marginTop: 8
+  },
+  currentIconTempWrap: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    height: 80
+  },
+  currentIcon: {
+    alignSelf: "center",
+    height: 80,
+    width: 80
+  },
+  currentTemp: {
+    color: "#fff",
+    fontSize: 60,
+    fontWeight: "700",
+    padding: 5,
+    textAlign: "center"
   },
   currentTextWrap: {
     flexDirection: "row",

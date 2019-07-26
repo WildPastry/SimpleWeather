@@ -2,10 +2,10 @@
 import React from "react";
 
 // default component functions
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 // weather icons
-// import IconCloudy from "./../assets/weather/iconCloudy";
+import IconCloudy from "./../assets/weather/256x256/cloudy.png";
 // import IconPartlyCloudy from "./../assets/weather/iconPartlyCloudy";
 // import IconRainbow from "./../assets/weather/iconRainbow";
 // import IconRainy from "./../assets/weather/iconRainy";
@@ -38,7 +38,7 @@ class Current extends React.Component {
     let weatherDisplay;
     // var currentIcon = this.props.currentIcon;
     // if (currentIcon === "cloudy") {
-      // weatherDisplay = <IconCloudy />;
+    weatherDisplay = IconCloudy;
     // } else if (currentIcon === "partly-cloudy-day") {
     //   weatherDisplay = <IconPartlyCloudy />;
     // } else if (currentIcon === "fog") {
@@ -62,9 +62,15 @@ class Current extends React.Component {
       // START current display
       <View style={styles.currentWrap}>
         {/* START main icon and temp */}
-        <View style={styles.currentTextWrap}>
-          <Text>{weatherDisplay}</Text>
-          <Text style={styles.currentText}>{this.props.temp}°</Text>
+        <View style={styles.currentIconTempWrap}>
+          {/* main icon */}
+          <Image
+            style={styles.currentIcon}
+            source={weatherDisplay}
+            resizeMode="contain"
+          />
+          {/* temp */}
+          <Text style={styles.currentTemp}>{this.props.temp}°</Text>
         </View>
         {/* END main icon and temp */}
 
