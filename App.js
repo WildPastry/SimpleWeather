@@ -6,7 +6,7 @@ import { AppRegistry, Text, View, Button, Alert } from "react-native";
 
 // components
 import Header from "./inc/Header";
-import Location from "./inc/Location";
+import UserInput from "./inc/UserInput";
 import Current from "./inc/Current";
 import Week from "./inc/Week";
 import Footer from "./inc/Footer";
@@ -128,7 +128,7 @@ export default class App extends React.Component {
           {/* header */}
           <Header />
           {/* location */}
-          <Location />
+          <UserInput />
           {/* current */}
           <Current
             currentIcon={this.state.currentIcon}
