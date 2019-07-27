@@ -7,6 +7,12 @@ import { Platform, Text, View } from "react-native";
 // permissions API
 import { Constants, Location, Permissions } from "expo";
 
+// configuration data
+import configData from "./../data/config.json";
+
+// set up auth key for sky data
+const geo = configData.GEO;
+
 // stylesheet
 var styles = require("../styles.js");
 
@@ -17,7 +23,9 @@ class UserInput extends React.Component {
     super(props);
     this.state = {
       location: null,
-      errorMessage: null
+      errorMessage: null,
+      currentLat: -41.2865,
+      currentLng: 174.7762
     };
   }
 
@@ -61,8 +69,29 @@ class UserInput extends React.Component {
     // success function
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ location });
+    this.reverseGeo();
   };
   // END get location function
+
+  // START reverse geo function
+  reverseGeo() {
+    var myLat = this.state.currentLat;
+    var myLng = this.state.currentLng;
+    console.log(myLat + myLng);
+    fetch(
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        myLat +
+        "," +
+        myLng +
+        "&key=" +
+        geo
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson.results[3].address_components[3].long_name);
+      });
+  }
+  // END reverse geo fucntion
 
   // START render user input
   render() {

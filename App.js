@@ -17,7 +17,7 @@ import configData from "./data/config.json";
 // stylesheet
 var styles = require("./styles.js");
 
-// set up auth keys for data
+// set up auth key for sky data
 const sky = configData.SKY;
 
 // set up lat and lng
