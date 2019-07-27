@@ -82,17 +82,31 @@ const myStylesheet = StyleSheet.create({
     padding: 5,
     textAlign: "center"
   },
-  currentTextWrap: {
+  currentDescTempWrap: {
     flexDirection: "row",
     justifyContent: "space-around"
   },
-  currentText: {
+  currentTempHigh: {
     color: "#fff",
     fontSize: 20,
+    fontWeight: "300",
     padding: 5,
     textAlign: "center"
   },
-
+  currentTempLow: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    padding: 5,
+    textAlign: "center"
+  },
+  currentDesc: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    padding: 5,
+    textAlign: "center"
+  },
   // week component
   weekWrap: {
     alignSelf: "stretch",
