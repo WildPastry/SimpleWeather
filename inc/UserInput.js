@@ -23,9 +23,10 @@ class UserInput extends React.Component {
     super(props);
     this.state = {
       location: null,
+      currentLocation: null,
       errorMessage: null,
-      currentLat: -41.2865,
-      currentLng: 174.7762
+      currentLat: null,
+      currentLng: null
     };
   }
 
@@ -68,7 +69,11 @@ class UserInput extends React.Component {
 
     // success function
     let location = await Location.getCurrentPositionAsync({});
-    this.setState({ location });
+    this.setState({
+      location: location,
+      currentLat: location.coords.latitude.toFixed(5),
+      currentLng: location.coords.longitude.toFixed(5)
+    });
     this.reverseGeo();
   };
   // END get location function
@@ -77,7 +82,6 @@ class UserInput extends React.Component {
   reverseGeo() {
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-    console.log(myLat + myLng);
     fetch(
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         myLat +
@@ -88,7 +92,10 @@ class UserInput extends React.Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson.results[3].address_components[3].long_name);
+        this.setState({
+          currentLocation: responseJson.results[3].address_components[3].long_name
+        });
+        // console.log(responseJson.results[3].address_components[3].long_name);
       });
   }
   // END reverse geo fucntion
@@ -99,19 +106,20 @@ class UserInput extends React.Component {
     if (this.state.errorMessage) {
       // display error text
       text = this.state.errorMessage;
-    } else if (this.state.location) {
-      // display success text
-      text = this.state.location;
-      var myLat = text.coords.latitude.toFixed(5);
-      var myLng = text.coords.longitude.toFixed(5);
-      console.log(myLat);
-      console.log(myLng);
+    } else if (this.state.currentLocation) {
+      // display success text (users current location)
+      text = this.state.currentLocation;
+      // var myLat = this.state.location.coords.latitude.toFixed(5);
+      // var myLng = this.state.location.coords.longitude.toFixed(5);
+      // console.log(myLat);
+      // console.log(myLng);
+      console.log(text);
     }
 
     return (
       // START user input display
       <View style={styles.locationWrap}>
-        {/* <Text style={styles.locationText}>{text}</Text> */}
+        <Text style={styles.locationText}>{text}</Text>
       </View>
       // END user input display
     );
