@@ -19,11 +19,12 @@ class Week extends React.Component {
 
   // START component mounted
   // componentdidMount() {
+  //   console.log(this.state);
   // }
   // END component mounted
 
   render() {
-    console.log(this.state.weather[0]);
+    // console.log(this.state.weather[0]);
     return (
       // START week display
       <View style={styles.weekWrap}>

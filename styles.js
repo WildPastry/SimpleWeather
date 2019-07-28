@@ -44,7 +44,7 @@ const myStylesheet = StyleSheet.create({
     textAlign: "center"
   },
 
-  // location component
+  // user input component
   locationWrap: {
     alignSelf: "stretch",
     backgroundColor: "#303030",
@@ -52,9 +52,11 @@ const myStylesheet = StyleSheet.create({
     marginTop: 8
   },
   locationText: {
-    color: "#fff",
+    color: "#ffca76",
     fontSize: 20,
+    fontWeight: "500",
     padding: 5,
+    textTransform: 'uppercase',
     textAlign: "center"
   },
 

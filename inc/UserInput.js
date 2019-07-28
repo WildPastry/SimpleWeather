@@ -22,20 +22,20 @@ class UserInput extends React.Component {
 
   // START render user input
   render() {
-    let text = "Loading...";
+    let currentLocation = "Loading...";
     if (this.state.errorMessage) {
       // display error text
-      text = this.state.errorMessage;
+      currentLocation = this.state.errorMessage;
     } else if (this.state.currentLocation) {
       // display success text (users current location)
-      text = this.state.currentLocation;
-      console.log(text);
+      currentLocation = this.state.currentLocation;
+      // console.log(currentLocation);
     }
 
     return (
       // START user input display
       <View style={styles.locationWrap}>
-        <Text style={styles.locationText}>{text}</Text>
+        <Text style={styles.locationText}>{currentLocation}</Text>
       </View>
       // END user input display
     );

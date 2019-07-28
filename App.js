@@ -189,6 +189,7 @@ export default class App extends React.Component {
 
   // START render app
   render() {
+    // console.log(this.state.weather);
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -207,7 +208,7 @@ export default class App extends React.Component {
         // START app display
         <View style={styles.container}>
           {/* header */}
-          <Header />
+          <Header time={this.state.weather.currently.time} />
           {/* location */}
           <UserInput
             errorMessage={this.state.errorMessag}
