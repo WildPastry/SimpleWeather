@@ -2,7 +2,10 @@
 import React from "react";
 
 // default component functions
-import { AppRegistry, Text, View, Button, Alert } from "react-native";
+import { Alert, AppRegistry, Button, Platform, Text, View } from "react-native";
+
+// permissions API
+import { Constants, Location, Permissions } from "expo";
 
 // components
 import Header from "./inc/Header";
@@ -20,9 +23,8 @@ var styles = require("./styles.js");
 // set up auth key for sky data
 const sky = configData.SKY;
 
-// set up lat and lng
-var myLat = -41.2865;
-var myLng = 174.7762;
+// set up auth key for sky data
+const geo = configData.GEO;
 
 // START default class app
 export default class App extends React.Component {
@@ -32,18 +34,97 @@ export default class App extends React.Component {
     this.state = {
       isLoaded: false,
       weather: [],
+      errorMessage: null,
+      currentLocation: null,
+      currentLat: null,
+      currentLng: null,
+      currentIcon: null,
+      location: "",
       icon: "",
-      currentIcon: "",
       temp: "",
       high: "",
       low: "",
       desc: ""
     };
+    // bind functions to state
+    this._getLocationAsync = this._getLocationAsync.bind(this);
+    this.setCurrentIcon = this.setCurrentIcon.bind(this);
+    this.reverseGeo = this.reverseGeo.bind(this);
+    // this.updateLocation = this.updateLocation.bind(this);
   }
 
-  // START component mounted
-  componentDidMount() {
-    // fetch data
+  // START component pre mount
+  componentWillMount() {
+    // console.log(this.state);
+    // platform check
+    if (Platform.OS === "android" && !Constants.isDevice) {
+      this.setState({
+        errorMessage:
+          "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
+      });
+      // run get location function
+    } else {
+      this._getLocationAsync();
+    }
+  }
+  // END component pre mount
+
+  // START get location function
+  _getLocationAsync = async () => {
+    // check provider and if location services are enabled
+    let providerStatus = await Location.getProviderStatusAsync();
+    // services disabled error
+    if (!providerStatus.locationServicesEnabled) {
+      this.setState({
+        errorMessage: "Location Services Disabled"
+      });
+      return;
+    }
+
+    // check permissions
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    // permission denied error
+    if (status !== "granted") {
+      this.setState({
+        errorMessage: "Permission to access location was denied"
+      });
+      return;
+    }
+
+    // success function
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({
+      location: location,
+      currentLat: location.coords.latitude.toFixed(5),
+      currentLng: location.coords.longitude.toFixed(5)
+    });
+    this.reverseGeo();
+  };
+  // END get location function
+
+  // START reverse geo function
+  reverseGeo() {
+    // console.log(this.state);
+    var myLat = this.state.currentLat;
+    var myLng = this.state.currentLng;
+    // fetch location data
+    fetch(
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        myLat +
+        "," +
+        myLng +
+        "&key=" +
+        geo
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          currentLocation:
+            responseJson.results[3].address_components[3].long_name
+        });
+        // this.updateLocation();
+      });
+    // fetch sky data
     fetch(
       "https://api.darksky.net/forecast/" +
         sky +
@@ -92,6 +173,17 @@ export default class App extends React.Component {
         console.log(error.config);
       });
   }
+  // END reverse geo fucntion
+
+  // START update location function
+  // updateLocation() {
+  //   console.log(this.state.currentLocation);
+  // }
+  // END update location fucntion
+
+  // START component mounted
+  // componentDidMount() {
+  // }
   // END component mounted
 
   // set current weather icon
@@ -128,7 +220,12 @@ export default class App extends React.Component {
           {/* header */}
           <Header />
           {/* location */}
-          <UserInput />
+          <UserInput
+            errorMessage={this.state.errorMessag}
+            currentLocation={this.state.currentLocation}
+            currentLat={this.state.currentLat}
+            currentLng={this.state.currentLng}
+          />
           {/* current */}
           <Current
             currentIcon={this.state.currentIcon}
