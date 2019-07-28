@@ -9,11 +9,31 @@ var styles = require("../styles.js");
 
 // START week
 class Week extends React.Component {
+  // default class week constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      weather: this.props.weather
+    };
+  }
+
+  // START component mounted
+  // componentdidMount() {
+  // }
+  // END component mounted
+
   render() {
+    console.log(this.state.weather[0]);
     return (
       // START week display
       <View style={styles.weekWrap}>
-        <Text style={styles.weekText}>Week Component</Text>
+        {/* <View style={styles.weekText}> */}
+        {this.state.weather.map(dailyWeather => (
+          <View key={dailyWeather.time}>
+            <Text style={styles.weekIcon}>{dailyWeather.icon}</Text>
+          </View>
+        ))}
+        {/* </View> */}
       </View>
       // END week display
     );

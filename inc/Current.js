@@ -23,21 +23,7 @@ class Current extends React.Component {
     let weatherDisplay;
     var currentIcon = this.props.currentIcon;
 
-    // switch (currentIcon['type']) {
-    //   case 'partly-cloudy-day':
-
-    //     break;
-    //   case 'fog':
-
-    //     break;
-    //   case 'rain':
-
-    //     break;
-    //   case 'snow':
-
-    //     }
-    //     break;
-
+    // weather else if logic
     if (currentIcon === "cloudy") {
       weatherDisplay = IconCloudy;
     } else if (currentIcon === "partly-cloudy-day") {

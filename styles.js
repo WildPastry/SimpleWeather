@@ -114,6 +114,12 @@ const myStylesheet = StyleSheet.create({
     flex: 4,
     marginTop: 8
   },
+  weekIcon: {
+    color: "#fff",
+    fontSize: 20,
+    padding: 5,
+    textAlign: "left"
+  },
   weekText: {
     color: "#fff",
     fontSize: 20,

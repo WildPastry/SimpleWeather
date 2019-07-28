@@ -50,7 +50,6 @@ export default class App extends React.Component {
     this._getLocationAsync = this._getLocationAsync.bind(this);
     this.setCurrentIcon = this.setCurrentIcon.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
-    // this.updateLocation = this.updateLocation.bind(this);
   }
 
   // START component pre mount
@@ -175,26 +174,16 @@ export default class App extends React.Component {
   }
   // END reverse geo fucntion
 
-  // START update location function
-  // updateLocation() {
-  //   console.log(this.state.currentLocation);
-  // }
-  // END update location fucntion
-
-  // START component mounted
-  // componentDidMount() {
-  // }
-  // END component mounted
-
   // set current weather icon
   setCurrentIcon() {
     this.setState(
       {
         currentIcon: this.state.icon
-      },
-      () => {
-        console.log(this.state.currentIcon);
       }
+      // ,
+      // () => {
+      //   console.log(this.state.currentIcon);
+      // }
     );
   }
 
@@ -235,7 +224,7 @@ export default class App extends React.Component {
             desc={this.state.desc}
           />
           {/* week */}
-          <Week />
+          <Week weather={this.state.weather.daily.data} />
           {/* footer */}
           <Footer />
         </View>
