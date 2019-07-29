@@ -39,8 +39,8 @@ const myStylesheet = StyleSheet.create({
   },
   headerText: {
     color: "#fff",
-    fontSize: 20,
-    fontWeight: "300",
+    fontSize: 15,
+    fontWeight: "700",
     textAlign: "center"
   },
 
@@ -59,7 +59,13 @@ const myStylesheet = StyleSheet.create({
     textTransform: "uppercase",
     textAlign: "center"
   },
-
+  dateText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    padding: 5,
+    textAlign: "center"
+  },
   // current component
   currentWrap: {
     alignSelf: "stretch",
@@ -120,26 +126,29 @@ const myStylesheet = StyleSheet.create({
   weekIconTempWrap: {
     flexDirection: "row",
     justifyContent: "space-between",
+    height: 30
   },
   weekIcon: {
+    alignSelf: "flex-start",
     height: 30,
     width: 30
   },
   weekLowTemp: {
     color: "#fff",
     fontSize: 15,
-    fontWeight: "500"
+    fontWeight: "500",
+    textAlign: "right"
   },
   weekHighTemp: {
     color: "#fff",
     fontSize: 15,
-    fontWeight: "500"
+    fontWeight: "500",
+    textAlign: "right"
   },
   weekText: {
     color: "#fff",
-    fontSize: 20,
-    padding: 5,
-    textAlign: "center"
+    fontSize: 15,
+    textAlign: "left"
   },
 
   // footer component

@@ -13,6 +13,9 @@ import IconSnowy from "./../assets/weather/snowy.png";
 import IconSunny from "./../assets/weather/sunny.png";
 import IconWindy from "./../assets/weather/windy.png";
 
+// moment set up
+var moment = require("moment");
+
 // stylesheet
 var styles = require("../styles.js");
 
@@ -32,8 +35,14 @@ class Week extends React.Component {
     return (
       <View style={styles.weekWrap}>
         {/* START map */}
-        {this.state.weather.map(dailyWeather => {
-          // set up variable
+        {this.state.weather.slice(1).map(dailyWeather => {
+          console.log(dailyWeather.time);
+          
+          // set up date constants
+          var today = moment.unix(dailyWeather.time);
+          var day = moment(today).format("dddd");
+
+          // set up weather display variable
           let dailyWeatherDisplay;
 
           // weather else if logic
@@ -61,6 +70,8 @@ class Week extends React.Component {
           return (
             // START week display
             <View style={styles.weekIconTempWrap} key={dailyWeather.time}>
+              {/* day */}
+              <Text style={styles.weekText}>{day}</Text>
               {/* daily icon */}
               <Image
                 style={styles.weekIcon}

@@ -12,11 +12,11 @@ import Swiper from 'react-native-swiper'
 console.log(Swiper);
 
 // components
-import Header from "./inc/Header";
+// import Header from "./inc/Header";
 import UserInput from "./inc/UserInput";
 import Current from "./inc/Current";
 import Week from "./inc/Week";
-import Footer from "./inc/Footer";
+// import Footer from "./inc/Footer";
 
 // configuration data
 import configData from "./data/config.json";
@@ -212,7 +212,7 @@ export default class App extends React.Component {
         // START app display
         <View style={styles.container}>
           {/* header */}
-          <Header time={this.state.weather.currently.time} />
+          {/* <Header /> */}
           {/* location */}
           <UserInput
             errorMessage={this.state.errorMessag}
@@ -231,7 +231,7 @@ export default class App extends React.Component {
           {/* week */}
           <Week weather={this.state.weather.daily.data} />
           {/* footer */}
-          <Footer />
+          {/* <Footer /> */}
         </View>
         // END app display
       );
