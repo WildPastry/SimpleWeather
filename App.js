@@ -7,9 +7,14 @@ import { Alert, AppRegistry, Button, Platform, Text, View } from "react-native";
 // permissions API
 import { Constants, Location, Permissions } from "expo";
 
+// font
+import { Font } from "expo";
+
 // swiper
 import Swiper from "react-native-swiper";
-console.log(Swiper);
+
+// configuration data
+import configData from "./data/config.json";
 
 // components
 import Header from "./inc/Header";
@@ -17,9 +22,6 @@ import UserInput from "./inc/UserInput";
 import Current from "./inc/Current";
 import Week from "./inc/Week";
 import Footer from "./inc/Footer";
-
-// configuration data
-import configData from "./data/config.json";
 
 // stylesheet
 var styles = require("./styles.js");
@@ -75,6 +77,17 @@ export default class App extends React.Component {
     }
   }
   // END component pre mount
+
+  // START component mounted
+  // componentDidMount() {
+    // load custom fonts
+  //   Font.loadAsync({
+  //     "poppins-light": require("./assets/fonts/Poppins-Light.otf"),
+  //     "poppins-med": require("./assets/fonts/Poppins-Medium.otf"),
+  //     "poppins-bold": require("./assets/fonts/Poppins-Bold.otf")
+  //   });
+  // }
+  // END component mounted
 
   // START get location function
   _getLocationAsync = async () => {
@@ -213,7 +226,8 @@ export default class App extends React.Component {
             <Swiper
               showsButtons={false}
               horizontal={false}
-              showsPagination={false} >
+              showsPagination={false}
+            >
               {/* START app display */}
               {/* START slide 1 */}
               <View style={styles.slide1}>

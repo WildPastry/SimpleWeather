@@ -167,6 +167,14 @@ const myStylesheet = StyleSheet.create({
     fontWeight: "300",
     textAlign: "right"
   },
+  weekHeading: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    marginBottom: 15,
+    padding: 5,
+    textAlign: "center"
+  },
   weekText: {
     color: "#fff",
     fontSize: 20,

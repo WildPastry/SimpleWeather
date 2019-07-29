@@ -35,6 +35,8 @@ class Week extends React.Component {
     // set current weather icon based on weather
     return (
       <View style={styles.weekWrap}>
+        {/* weekly weather heading */}
+        <Text style={styles.weekHeading}>REST OF THE WEEK</Text>
         <View>
           {/* START map */}
           {this.state.weather.slice(1).map(dailyWeather => {
