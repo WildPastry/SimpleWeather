@@ -54,7 +54,7 @@ const myStylesheet = StyleSheet.create({
   locationText: {
     color: "#ff6666",
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "700",
     padding: 5,
     textTransform: "uppercase",
     textAlign: "center"
@@ -66,10 +66,11 @@ const myStylesheet = StyleSheet.create({
     padding: 5,
     textAlign: "center"
   },
+
   // current component
   currentWrap: {
     alignSelf: "stretch",
-    flex: 3,
+    flex: 2.5,
     backgroundColor: "#303030",
     marginTop: 8
   },
@@ -95,14 +96,14 @@ const myStylesheet = StyleSheet.create({
     justifyContent: "space-around"
   },
   currentTempHigh: {
-    color: "#fff",
+    color: "#ff6666",
     fontSize: 20,
     fontWeight: "300",
     padding: 5,
     textAlign: "center"
   },
   currentTempLow: {
-    color: "#fff",
+    color: "#66a9d7",
     fontSize: 20,
     fontWeight: "300",
     padding: 5,
@@ -115,6 +116,7 @@ const myStylesheet = StyleSheet.create({
     padding: 5,
     textAlign: "center"
   },
+
   // week component
   weekWrap: {
     alignSelf: "stretch",
@@ -126,7 +128,14 @@ const myStylesheet = StyleSheet.create({
   weekIconTempWrap: {
     flexDirection: "row",
     justifyContent: "space-between",
-    height: 30
+    alignItems: "center",
+    height: 40
+  },
+  // weekColWrapDay: {
+  //   width: 150
+  // },
+  weekColWrap: {
+    width: 50
   },
   weekIcon: {
     alignSelf: "flex-start",
@@ -134,20 +143,20 @@ const myStylesheet = StyleSheet.create({
     width: 30
   },
   weekLowTemp: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "500",
+    color: "#66a9d7",
+    fontSize: 20,
+    fontWeight: "300",
     textAlign: "right"
   },
   weekHighTemp: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "500",
+    color: "#ff6666",
+    fontSize: 20,
+    fontWeight: "300",
     textAlign: "right"
   },
   weekText: {
     color: "#fff",
-    fontSize: 15,
+    fontSize: 20,
     textAlign: "left"
   },
 

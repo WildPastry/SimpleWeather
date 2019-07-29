@@ -37,10 +37,10 @@ class Week extends React.Component {
         {/* START map */}
         {this.state.weather.slice(1).map(dailyWeather => {
           console.log(dailyWeather.time);
-          
+
           // set up date constants
           var today = moment.unix(dailyWeather.time);
-          var day = moment(today).format("dddd");
+          var day = moment(today).format("ddd");
 
           // set up weather display variable
           let dailyWeatherDisplay;
@@ -71,21 +71,29 @@ class Week extends React.Component {
             // START week display
             <View style={styles.weekIconTempWrap} key={dailyWeather.time}>
               {/* day */}
-              <Text style={styles.weekText}>{day}</Text>
+              <View style={styles.weekColWrap}>
+                <Text style={styles.weekText}>{day}</Text>
+              </View>
               {/* daily icon */}
+              <View style={styles.weekColWrap}>
               <Image
                 style={styles.weekIcon}
                 source={dailyWeatherDisplay}
                 resizeMode="contain"
               />
+              </View>
               {/* daily low temp */}
+              <View style={styles.weekColWrap}>
               <Text style={styles.weekLowTemp}>
                 {Math.round(dailyWeather.temperatureLow)}°
               </Text>
+              </View>
               {/* daily high temp */}
+              <View style={styles.weekColWrap}>
               <Text style={styles.weekHighTemp}>
                 {Math.round(dailyWeather.temperatureHigh)}°
               </Text>
+              </View>
             </View>
             // END week display
           );
