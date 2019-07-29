@@ -1,11 +1,24 @@
+// imports
 import { StyleSheet } from "react-native";
-
-// get phone width and height
-// const { width, height } = Dimensions.get('window');
 
 // START stylesheet
 const myStylesheet = StyleSheet.create({
-  // loading page
+  // slider
+  swiperWrap: {
+    flex: 8
+  },
+  slide1: {
+    backgroundColor: "#114180",
+    flex: 1,
+    justifyContent: "center"
+  },
+  slide2: {
+    backgroundColor: "#114180",
+    flex: 1,
+    justifyContent: "center"
+  },
+
+  // loading screen
   loader: {
     alignItems: "center",
     backgroundColor: "#303030",
@@ -24,7 +37,6 @@ const myStylesheet = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#114180",
     flex: 1
-    // justifyContent: "center"
   },
 
   // header component
@@ -41,14 +53,17 @@ const myStylesheet = StyleSheet.create({
     color: "#fff",
     fontSize: 15,
     fontWeight: "700",
+    padding: 5,
     textAlign: "center"
   },
 
   // user input component
   locationWrap: {
+    alignItems: "center",
     alignSelf: "stretch",
     backgroundColor: "#303030",
     flex: 1,
+    justifyContent: "center",
     marginTop: 8
   },
   locationText: {
@@ -56,8 +71,8 @@ const myStylesheet = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     padding: 5,
-    textTransform: "uppercase",
-    textAlign: "center"
+    textAlign: "center",
+    textTransform: "uppercase"
   },
   dateText: {
     color: "#fff",
@@ -70,14 +85,14 @@ const myStylesheet = StyleSheet.create({
   // current component
   currentWrap: {
     alignSelf: "stretch",
-    flex: 2.5,
     backgroundColor: "#303030",
+    flex: 2.5,
     marginTop: 8
   },
   currentIconTempWrap: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    height: 80
+    height: 80,
+    justifyContent: "space-around"
   },
   currentIcon: {
     alignSelf: "center",
@@ -122,18 +137,16 @@ const myStylesheet = StyleSheet.create({
     alignSelf: "stretch",
     backgroundColor: "#303030",
     flex: 4,
-    padding: 10,
-    marginTop: 8
+    justifyContent: "center",
+    marginTop: 8,
+    padding: 10
   },
   weekIconTempWrap: {
-    flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    height: 40
+    flexDirection: "row",
+    height: 40,
+    justifyContent: "space-between"
   },
-  // weekColWrapDay: {
-  //   width: 150
-  // },
   weekColWrap: {
     width: 50
   },
@@ -169,8 +182,8 @@ const myStylesheet = StyleSheet.create({
   },
   footerText: {
     color: "#fff",
-    fontSize: 20,
-    fontWeight: "300",
+    fontSize: 15,
+    fontWeight: "700",
     padding: 5,
     textAlign: "center"
   }

@@ -8,15 +8,15 @@ import { Alert, AppRegistry, Button, Platform, Text, View } from "react-native";
 import { Constants, Location, Permissions } from "expo";
 
 // swiper
-import Swiper from 'react-native-swiper'
+import Swiper from "react-native-swiper";
 console.log(Swiper);
 
 // components
-// import Header from "./inc/Header";
+import Header from "./inc/Header";
 import UserInput from "./inc/UserInput";
 import Current from "./inc/Current";
 import Week from "./inc/Week";
-// import Footer from "./inc/Footer";
+import Footer from "./inc/Footer";
 
 // configuration data
 import configData from "./data/config.json";
@@ -36,13 +36,18 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // loading screen
       isLoaded: false,
+      // weather data array
       weather: [],
+      // error message
       errorMessage: null,
+      // current weather and location data
       currentLocation: null,
       currentLat: null,
       currentLng: null,
       currentIcon: null,
+      // weather and location data
       location: "",
       icon: "",
       temp: "",
@@ -58,7 +63,6 @@ export default class App extends React.Component {
 
   // START component pre mount
   componentWillMount() {
-    // console.log(this.state);
     // platform check
     if (Platform.OS === "android" && !Constants.isDevice) {
       this.setState({
@@ -107,7 +111,6 @@ export default class App extends React.Component {
 
   // START reverse geo function
   reverseGeo() {
-    // console.log(this.state);
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
     // fetch location data
@@ -125,8 +128,8 @@ export default class App extends React.Component {
           currentLocation:
             responseJson.results[3].address_components[3].long_name
         });
-        // this.updateLocation();
       });
+
     // fetch sky data
     fetch(
       "https://api.darksky.net/forecast/" +
@@ -163,7 +166,6 @@ export default class App extends React.Component {
             this.setCurrentIcon();
           }
         );
-        // console.log(this.state.weather);
       })
       // catch and log errors
       .catch(error => {
@@ -180,20 +182,13 @@ export default class App extends React.Component {
 
   // set current weather icon
   setCurrentIcon() {
-    this.setState(
-      {
-        currentIcon: this.state.icon
-      }
-      // ,
-      // () => {
-      //   console.log(this.state.currentIcon);
-      // }
-    );
+    this.setState({
+      currentIcon: this.state.icon
+    });
   }
 
   // START render app
   render() {
-    // console.log(this.state.weather);
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -209,31 +204,50 @@ export default class App extends React.Component {
       // END loading function
     } else {
       return (
-        // START app display
+        // START main container
         <View style={styles.container}>
           {/* header */}
-          {/* <Header /> */}
-          {/* location */}
-          <UserInput
-            errorMessage={this.state.errorMessag}
-            currentLocation={this.state.currentLocation}
-            currentLat={this.state.currentLat}
-            currentLng={this.state.currentLng}
-          />
-          {/* current */}
-          <Current
-            currentIcon={this.state.currentIcon}
-            temp={this.state.temp}
-            high={this.state.high}
-            low={this.state.low}
-            desc={this.state.desc}
-          />
-          {/* week */}
-          <Week weather={this.state.weather.daily.data} />
+          <Header />
+          {/* START swiper */}
+          <View style={styles.swiperWrap}>
+            <Swiper
+              showsButtons={false}
+              horizontal={false}
+              showsPagination={false} >
+              {/* START app display */}
+              {/* START slide 1 */}
+              <View style={styles.slide1}>
+                {/* location */}
+                <UserInput
+                  errorMessage={this.state.errorMessag}
+                  currentLocation={this.state.currentLocation}
+                  currentLat={this.state.currentLat}
+                  currentLng={this.state.currentLng}
+                />
+                {/* current */}
+                <Current
+                  currentIcon={this.state.currentIcon}
+                  temp={this.state.temp}
+                  high={this.state.high}
+                  low={this.state.low}
+                  desc={this.state.desc}
+                />
+              </View>
+              {/* END slide 1 */}
+              {/* START slide 2 */}
+              <View style={styles.slide2}>
+                {/* week */}
+                <Week weather={this.state.weather.daily.data} />
+              </View>
+              {/* END slide 2 */}
+              {/* END app display */}
+            </Swiper>
+          </View>
+          {/* END swiper */}
           {/* footer */}
-          {/* <Footer /> */}
+          <Footer />
         </View>
-        // END app display
+        // END main container
       );
     }
   }
@@ -245,4 +259,4 @@ export default class App extends React.Component {
 AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
 
 // register swiper functionality
-AppRegistry.registerComponent('basic-weather', () => SwiperComponent)
+AppRegistry.registerComponent("basic-weather", () => SwiperComponent);

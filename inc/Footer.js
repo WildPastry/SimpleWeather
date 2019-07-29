@@ -9,6 +9,7 @@ var styles = require("../styles.js");
 
 // START footer
 class Footer extends React.Component {
+  // START render footer
   render() {
     return (
       // START footer display
@@ -18,6 +19,7 @@ class Footer extends React.Component {
       // END footer display
     );
   }
+  // END render footer
 }
 // END footer
 

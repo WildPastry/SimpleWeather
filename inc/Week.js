@@ -25,6 +25,7 @@ class Week extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // weather from APP
       weather: this.props.weather
     };
   }
@@ -34,71 +35,71 @@ class Week extends React.Component {
     // set current weather icon based on weather
     return (
       <View style={styles.weekWrap}>
-        {/* START map */}
-        {this.state.weather.slice(1).map(dailyWeather => {
-          console.log(dailyWeather.time);
+        <View>
+          {/* START map */}
+          {this.state.weather.slice(1).map(dailyWeather => {
+            // set up date constants
+            var today = moment.unix(dailyWeather.time);
+            var day = moment(today).format("ddd");
 
-          // set up date constants
-          var today = moment.unix(dailyWeather.time);
-          var day = moment(today).format("ddd");
+            // set up weather display variable
+            let dailyWeatherDisplay;
 
-          // set up weather display variable
-          let dailyWeatherDisplay;
-
-          // weather else if logic
-          if (dailyWeather.icon === "cloudy") {
-            dailyWeatherDisplay = IconCloudy;
-          } else if (dailyWeather.icon === "partly-cloudy-day") {
-            dailyWeatherDisplay = IconPartlyCloudy;
-          } else if (dailyWeather.icon === "fog") {
-            dailyWeatherDisplay = IconFoggy;
-          } else if (dailyWeather.icon === "rain") {
-            dailyWeatherDisplay = IconRainy;
-          } else if (dailyWeather.icon === "snow") {
-            dailyWeatherDisplay = IconSnowy;
-          } else if (dailyWeather.icon === "clear-day") {
-            dailyWeatherDisplay = IconSunny;
-          } else if (dailyWeather.icon === "wind") {
-            dailyWeatherDisplay = IconWindy;
-          } else if (dailyWeather.icon === "sleet") {
-            dailyWeatherDisplay = IconSnowy;
-          } else if (dailyWeather.icon === "clear-night") {
-            dailyWeatherDisplay = IconSunny;
-          } else {
-            dailyWeatherDisplay = IconPartlyCloudy;
-          }
-          return (
-            // START week display
-            <View style={styles.weekIconTempWrap} key={dailyWeather.time}>
-              {/* day */}
-              <View style={styles.weekColWrap}>
-                <Text style={styles.weekText}>{day}</Text>
+            // weather else if logic
+            if (dailyWeather.icon === "cloudy") {
+              dailyWeatherDisplay = IconCloudy;
+            } else if (dailyWeather.icon === "partly-cloudy-day") {
+              dailyWeatherDisplay = IconPartlyCloudy;
+            } else if (dailyWeather.icon === "fog") {
+              dailyWeatherDisplay = IconFoggy;
+            } else if (dailyWeather.icon === "rain") {
+              dailyWeatherDisplay = IconRainy;
+            } else if (dailyWeather.icon === "snow") {
+              dailyWeatherDisplay = IconSnowy;
+            } else if (dailyWeather.icon === "clear-day") {
+              dailyWeatherDisplay = IconSunny;
+            } else if (dailyWeather.icon === "wind") {
+              dailyWeatherDisplay = IconWindy;
+            } else if (dailyWeather.icon === "sleet") {
+              dailyWeatherDisplay = IconSnowy;
+            } else if (dailyWeather.icon === "clear-night") {
+              dailyWeatherDisplay = IconSunny;
+            } else {
+              dailyWeatherDisplay = IconPartlyCloudy;
+            }
+            return (
+              // START week display
+              <View style={styles.weekIconTempWrap} key={dailyWeather.time}>
+                {/* day */}
+                <View style={styles.weekColWrap}>
+                  <Text style={styles.weekText}>{day}</Text>
+                </View>
+                {/* daily icon */}
+                <View style={styles.weekColWrap}>
+                  <Image
+                    style={styles.weekIcon}
+                    source={dailyWeatherDisplay}
+                    resizeMode="contain"
+                  />
+                </View>
+                {/* daily low temp */}
+                <View style={styles.weekColWrap}>
+                  <Text style={styles.weekLowTemp}>
+                    {Math.round(dailyWeather.temperatureLow)}°
+                  </Text>
+                </View>
+                {/* daily high temp */}
+                <View style={styles.weekColWrap}>
+                  <Text style={styles.weekHighTemp}>
+                    {Math.round(dailyWeather.temperatureHigh)}°
+                  </Text>
+                </View>
               </View>
-              {/* daily icon */}
-              <View style={styles.weekColWrap}>
-              <Image
-                style={styles.weekIcon}
-                source={dailyWeatherDisplay}
-                resizeMode="contain"
-              />
-              </View>
-              {/* daily low temp */}
-              <View style={styles.weekColWrap}>
-              <Text style={styles.weekLowTemp}>
-                {Math.round(dailyWeather.temperatureLow)}°
-              </Text>
-              </View>
-              {/* daily high temp */}
-              <View style={styles.weekColWrap}>
-              <Text style={styles.weekHighTemp}>
-                {Math.round(dailyWeather.temperatureHigh)}°
-              </Text>
-              </View>
-            </View>
-            // END week display
-          );
-        })}
-        {/* END map */}
+              // END week display
+            );
+          })}
+          {/* END map */}
+        </View>
       </View>
     );
   }
