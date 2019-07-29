@@ -7,6 +7,10 @@ import { Alert, AppRegistry, Button, Platform, Text, View } from "react-native";
 // permissions API
 import { Constants, Location, Permissions } from "expo";
 
+// swiper
+import Swiper from 'react-native-swiper'
+console.log(Swiper);
+
 // components
 import Header from "./inc/Header";
 import UserInput from "./inc/UserInput";
@@ -150,9 +154,9 @@ export default class App extends React.Component {
             isLoaded: true,
             weather: data,
             icon: data.currently.icon,
-            temp: Math.trunc(data.currently.temperature),
-            high: Math.trunc(data.daily.data[0].temperatureHigh),
-            low: Math.trunc(data.daily.data[0].temperatureLow),
+            temp: Math.round(data.currently.temperature),
+            high: Math.round(data.daily.data[0].temperatureHigh),
+            low: Math.round(data.daily.data[0].temperatureLow),
             desc: data.daily.data[0].summary
           },
           () => {
@@ -239,3 +243,6 @@ export default class App extends React.Component {
 
 // register button functionality
 AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
+
+// register swiper functionality
+AppRegistry.registerComponent('basic-weather', () => SwiperComponent)

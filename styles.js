@@ -56,7 +56,7 @@ const myStylesheet = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
     padding: 5,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     textAlign: "center"
   },
 
@@ -114,13 +114,26 @@ const myStylesheet = StyleSheet.create({
     alignSelf: "stretch",
     backgroundColor: "#303030",
     flex: 4,
+    padding: 10,
     marginTop: 8
   },
+  weekIconTempWrap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   weekIcon: {
+    height: 30,
+    width: 30
+  },
+  weekLowTemp: {
     color: "#fff",
-    fontSize: 20,
-    padding: 5,
-    textAlign: "left"
+    fontSize: 15,
+    fontWeight: "500"
+  },
+  weekHighTemp: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "500"
   },
   weekText: {
     color: "#fff",

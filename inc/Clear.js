@@ -2,13 +2,13 @@
 import React from "react";
 
 // default component functions
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 // weather icons
 // import IconCloudy from "./../assets/weather/cloudy.png";
 // import IconPartlyCloudy from "./../assets/weather/partlycloudy.png";
 // import IconFoggy from "./../assets/weather/foggy.png";
-// import IconRainy from "./../assets/weather/rainy.png";
+import IconRainy from "./../assets/weather/rainy.png";
 // import IconSnowy from "./../assets/weather/snowy.png";
 // import IconSunny from "./../assets/weather/sunny.png";
 // import IconWindy from "./../assets/weather/windy.png";
@@ -31,7 +31,7 @@ class Week extends React.Component {
   //   console.log(this.state);
   // }
   // END component mounted
-  
+
   // renderSwitch(param) {
   //   switch(param) {
   //     case 'foo':
@@ -75,13 +75,27 @@ class Week extends React.Component {
       // START week display
       <View style={styles.weekWrap}>
         {/* <View style={styles.weekText}> */}
-        {this.state.weather.map(dailyWeather => (
+        {this.state.weather.map(dailyWeather => {
+          // let dailyWeatherDisplay;
+          // if (dailyWeather.icon === "rain") {
+          //   dailyWeatherDisplay = IconRainy;
+          // } else dailyWeatherDisplay = IconRainy;
+          // console.log(dailyWeatherDisplay);
+
           <View style={styles.weekIconTempWrap} key={dailyWeather.time}>
-            <Text style={styles.weekIcon}>{dailyWeather.icon}</Text>
-            <Text style={styles.weekLowTemp}>{Math.round(dailyWeather.temperatureLow)}°</Text>
-            <Text style={styles.weekHighTemp}>{Math.round(dailyWeather.temperatureHigh)}°</Text>
-          </View>
-        ))}
+            {/* <Image
+              style={styles.weekIcon}
+              source={IconRainy}
+              resizeMode="contain"
+            /> */}
+            <Text style={styles.weekLowTemp}>
+              {Math.round(dailyWeather.temperatureLow)}°
+            </Text>
+            <Text style={styles.weekHighTemp}>
+              {Math.round(dailyWeather.temperatureHigh)}°
+            </Text>
+          </View>;
+        })}
         {/* </View> */}
       </View>
       // END week display
@@ -89,13 +103,5 @@ class Week extends React.Component {
   }
 }
 // END week
-
-{
-  /* <Image
-style={styles.currentIcon}
-source={weatherDisplay}
-resizeMode="contain"
-/> */
-}
 
 export default Week;
