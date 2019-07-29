@@ -18,11 +18,23 @@ var styles = require("../styles.js");
 
 // START current
 class Current extends React.Component {
+  // default class current constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      // weather and location data from APP
+      currentIcon: this.props.currentIcon,
+      temp: this.props.temp,
+      high: this.props.high,
+      low: this.props.low,
+      desc: this.props.desc
+    };
+  }
   render() {
     // set current weather icon based on weather
     // set up variables
     let weatherDisplay;
-    var currentIcon = this.props.currentIcon;
+    var currentIcon = this.state.currentIcon;
 
     // weather else if logic
     if (currentIcon === "cloudy") {
@@ -43,7 +55,7 @@ class Current extends React.Component {
       weatherDisplay = IconSnowy;
     } else if (currentIcon === "clear-night") {
       weatherDisplay = IconSunny;
-    } else if (currentIcon === "partly-cloudy-night") {
+    } else {
       weatherDisplay = IconPartlyCloudy;
     }
     return (
@@ -58,19 +70,19 @@ class Current extends React.Component {
             resizeMode="contain"
           />
           {/* temp */}
-          <Text style={styles.currentTemp}>{this.props.temp}°</Text>
+          <Text style={styles.currentTemp}>{this.state.temp}°</Text>
         </View>
         {/* END main icon and temp */}
 
         {/* START high and low temps */}
         <View style={styles.currentDescTempWrap}>
-        <Text style={styles.currentTempLow}>low: {this.props.low}°</Text>
-          <Text style={styles.currentTempHigh}>high: {this.props.high}°</Text>
+          <Text style={styles.currentTempLow}>low: {this.state.low}°</Text>
+          <Text style={styles.currentTempHigh}>high: {this.state.high}°</Text>
         </View>
         {/* END high and low temps */}
 
         {/* START description */}
-        <Text style={styles.currentDesc}>{this.props.desc}</Text>
+        <Text style={styles.currentDesc}>{this.state.desc}</Text>
         {/* END description */}
       </View>
       // END current display

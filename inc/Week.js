@@ -26,7 +26,8 @@ class Week extends React.Component {
     super(props);
     this.state = {
       // weather from APP
-      weather: this.props.weather
+      weather: this.props.weather,
+      summary: this.props.summary
     };
   }
 
@@ -35,8 +36,9 @@ class Week extends React.Component {
     // set current weather icon based on weather
     return (
       <View style={styles.weekWrap}>
-        {/* weekly weather heading */}
-        <Text style={styles.weekHeading}>REST OF THE WEEK</Text>
+        {/* weekly weather heading and description */}
+        <Text style={styles.weekHeading}>7 Day forecast</Text>
+        <Text style={styles.weekText}>{this.state.summary}</Text>
         <View>
           {/* START map */}
           {this.state.weather.slice(1).map(dailyWeather => {

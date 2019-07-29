@@ -55,7 +55,9 @@ export default class App extends React.Component {
       temp: "",
       high: "",
       low: "",
-      desc: ""
+      desc: "",
+      time: "",
+      sunsetTime: ""
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
@@ -80,7 +82,7 @@ export default class App extends React.Component {
 
   // START component mounted
   // componentDidMount() {
-    // load custom fonts
+  // load custom fonts
   //   Font.loadAsync({
   //     "poppins-light": require("./assets/fonts/Poppins-Light.otf"),
   //     "poppins-med": require("./assets/fonts/Poppins-Medium.otf"),
@@ -173,10 +175,15 @@ export default class App extends React.Component {
             temp: Math.round(data.currently.temperature),
             high: Math.round(data.daily.data[0].temperatureHigh),
             low: Math.round(data.daily.data[0].temperatureLow),
-            desc: data.daily.data[0].summary
+            desc: data.daily.data[0].summary,
+            time: data.daily.data[0].time,
+            sunsetTime: data.daily.data[0].sunsetTime
           },
           () => {
             this.setCurrentIcon();
+            // console.log(this.state.weather.daily.data[0]);
+            console.log(this.state.time);
+            console.log(this.state.sunsetTime);
           }
         );
       })
@@ -202,6 +209,8 @@ export default class App extends React.Component {
 
   // START render app
   render() {
+    // console.log(this.state.weather.currently);
+    // console.log(this.state.weather.daily.data[0]);
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -251,7 +260,10 @@ export default class App extends React.Component {
               {/* START slide 2 */}
               <View style={styles.slide2}>
                 {/* week */}
-                <Week weather={this.state.weather.daily.data} />
+                <Week
+                  weather={this.state.weather.daily.data}
+                  summary={this.state.weather.daily.summary}
+                />
               </View>
               {/* END slide 2 */}
               {/* END app display */}
