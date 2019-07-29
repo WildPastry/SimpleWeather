@@ -29,7 +29,6 @@ class UserInput extends React.Component {
     } else if (this.state.currentLocation) {
       // display success text (users current location)
       currentLocation = this.state.currentLocation;
-      // console.log(currentLocation);
     }
 
     return (

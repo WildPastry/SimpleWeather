@@ -52,7 +52,7 @@ const myStylesheet = StyleSheet.create({
     marginTop: 8
   },
   locationText: {
-    color: "#ffca76",
+    color: "#ff6666",
     fontSize: 20,
     fontWeight: "500",
     padding: 5,

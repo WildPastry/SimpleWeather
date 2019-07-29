@@ -20,6 +20,7 @@ var styles = require("../styles.js");
 class Current extends React.Component {
   render() {
     // set current weather icon based on weather
+    // set up variables
     let weatherDisplay;
     var currentIcon = this.props.currentIcon;
 
