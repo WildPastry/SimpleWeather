@@ -38,7 +38,7 @@ class Week extends React.Component {
       <View style={styles.weekWrap}>
         {/* weekly weather heading and description */}
         <Text style={styles.weekHeading}>7 Day forecast</Text>
-        <Text style={styles.weekText}>{this.state.summary}</Text>
+        <Text style={styles.weekDesc}>{this.state.summary}</Text>
         <View>
           {/* START map */}
           {this.state.weather.slice(1).map(dailyWeather => {

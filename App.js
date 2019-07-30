@@ -2,7 +2,15 @@
 import React from "react";
 
 // default component functions
-import { Alert, AppRegistry, Button, Platform, Text, View } from "react-native";
+import {
+  Alert,
+  AppRegistry,
+  Button,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 
 // permissions API
 import { Constants, Location, Permissions } from "expo";
@@ -62,7 +70,14 @@ export default class App extends React.Component {
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
     this.setCurrentIcon = this.setCurrentIcon.bind(this);
+    this.updateSkyData = this.updateSkyData.bind(this);
+    this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
+  }
+
+  updateSkyData(value) {
+      console.log(value["googleLat"]);
+      console.log(value["googleLng"]);
   }
 
   // START component pre mount
@@ -144,7 +159,14 @@ export default class App extends React.Component {
             responseJson.results[3].address_components[3].long_name
         });
       });
+    this.getSkyData();
+  }
+  // END reverse geo fucntion
 
+  // START sky data function
+  getSkyData() {
+    var myLat = this.state.currentLat;
+    var myLng = this.state.currentLng;
     // fetch sky data
     fetch(
       "https://api.darksky.net/forecast/" +
@@ -182,8 +204,8 @@ export default class App extends React.Component {
           () => {
             this.setCurrentIcon();
             // console.log(this.state.weather.daily.data[0]);
-            console.log(this.state.time);
-            console.log(this.state.sunsetTime);
+            // console.log(this.state.time);
+            // console.log(this.state.sunsetTime);
           }
         );
       })
@@ -198,7 +220,7 @@ export default class App extends React.Component {
         console.log(error.config);
       });
   }
-  // END reverse geo fucntion
+  // END sky data fucntion
 
   // set current weather icon
   setCurrentIcon() {
@@ -240,8 +262,13 @@ export default class App extends React.Component {
               {/* START app display */}
               {/* START slide 1 */}
               <View style={styles.slide1}>
+                {/* <TouchableOpacity
+                  onPress={console.log("Pressed")}
+                  style={styles.dismissList}
+                > */}
                 {/* location */}
                 <UserInput
+                  updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}
                   currentLat={this.state.currentLat}
@@ -255,6 +282,7 @@ export default class App extends React.Component {
                   low={this.state.low}
                   desc={this.state.desc}
                 />
+                {/* </TouchableOpacity> */}
               </View>
               {/* END slide 1 */}
               {/* START slide 2 */}

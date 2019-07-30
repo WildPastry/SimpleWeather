@@ -180,7 +180,13 @@ const myStylesheet = StyleSheet.create({
     fontSize: 20,
     textAlign: "left"
   },
-
+  weekDesc: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "300",
+    padding: 5,
+    textAlign: "center"
+  },
   // footer component
   footerWrap: {
     alignSelf: "stretch",
@@ -194,20 +200,16 @@ const myStylesheet = StyleSheet.create({
     fontWeight: "700",
     padding: 5,
     textAlign: "center"
-  }
+  },
 
-  // button
-  // button: {
-  //   backgroundColor: "#fff",
-  //   borderRadius: 15,
-  //   color: "#114180",
-  //   marginTop: 20,
-  //   padding: 5
-  // },
-  // buttonBorder: {
-  //   borderColor: "#114180",
-  //   borderWidth: 1
-  // }
+  // dismiss list view
+  dismissList: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
+  }
 });
 // END stylesheet
 
