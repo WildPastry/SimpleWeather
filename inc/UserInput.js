@@ -27,6 +27,10 @@ class UserInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // autocomplete information
+      googleLat: "",
+      googleLng: "",
+      googleName: "",
       // error message
       errorMessage: this.props.errorMessage,
       // get current location
@@ -37,13 +41,14 @@ class UserInput extends React.Component {
       // get current date
       currentDate: new Date()
     };
-    this.updateSkyDataValue = this.updateSkyDataValue.bind(this);
+    this.updateSkyData = this.updateSkyData.bind(this);
   }
 
-  updateSkyDataValue(value) {
+  updateSkyData() {
     var options = {
-      googleLat: value[0],
-      googleLng: value[1]
+      googleLat: this.state.googleLat,
+      googleLng: this.state.googleLng,
+      googleName: this.state.googleName
     };
     this.props.updateSkyData(options);
   }
@@ -72,13 +77,25 @@ class UserInput extends React.Component {
           placeholder={this.state.currentLocation}
           minLength={2} // minimum length of text to search
           autoFocus={false}
-          returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+          // returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
           listViewDisplayed="true" // true/false/undefined
           fetchDetails={true}
           renderDescription={row => row.description} // custom description render
           onPress={(data, details = null) => {
+            this.setState({
+              googleLat: details.geometry.location.lat.toFixed(5),
+              googleLng: details.geometry.location.lng.toFixed(5),
+              googleName: details.address_components[0].short_name
+            });
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
+            // console.log(data, details);
+            // console.log(this.state.googleLat);
+            // console.log(this.state.googleLng);
+            // console.log(this.state.googleName);
+            this.updateSkyData();
+            // console.log(details.geometry.location.lat.toFixed(5));
+            // console.log(details.geometry.location.lng.toFixed(5));
+            // console.log(details.address_components[0].short_name);
           }}
           getDefaultValue={() => ""}
           query={{
@@ -88,6 +105,9 @@ class UserInput extends React.Component {
             types: "(cities)" // default: 'geocode'
           }}
           styles={{
+            container: {
+              zIndex: 50
+            },
             textInputContainer: {
               backgroundColor: "#fff",
               borderStyle: "none",
@@ -113,11 +133,15 @@ class UserInput extends React.Component {
           currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
           currentLocationLabel="Current location"
           nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-          GoogleReverseGeocodingQuery={
-            {
-              // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-            }
-          }
+          // GoogleReverseGeocodingQuery={
+          //   {
+          //     // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+          //   }
+          // }
+          GooglePlacesDetailsQuery={{
+            // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+            fields: "formatted_address"
+          }}
           // GooglePlacesSearchQuery={{
           //   // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
           //   rankby: "distance",
@@ -135,7 +159,11 @@ class UserInput extends React.Component {
         />
         {/* location display */}
         <Text
-          onPress={this.updateSkyDataValue.bind(this, [454545, 787878])}
+          // onPress={this.updateSkyData.bind(this, [
+          //   this.state.googleLat,
+          //   this.state.googleLng,
+          //   this.state.googleName
+          // ])}
           style={styles.locationText}
         >
           {currentLocation}

@@ -53,9 +53,9 @@ export default class App extends React.Component {
       // error message
       errorMessage: null,
       // current weather and location data
-      currentLocation: null,
       currentLat: null,
       currentLng: null,
+      currentLocation: null,
       currentIcon: null,
       // weather and location data
       location: "",
@@ -76,8 +76,15 @@ export default class App extends React.Component {
   }
 
   updateSkyData(value) {
+    this.setState({
+      currentLat: value["googleLat"],
+      currentLng: value["googleLng"],
+      currentLocation: value["googleName"]
+    });
       console.log(value["googleLat"]);
       console.log(value["googleLng"]);
+      console.log(value["googleName"]);
+      // console.log(this.state);
   }
 
   // START component pre mount
