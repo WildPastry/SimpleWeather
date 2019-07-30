@@ -63,10 +63,10 @@ class UserInput extends React.Component {
     let currentLocation = "Loading...";
     if (this.state.errorMessage) {
       // display error text
-      currentLocation = this.state.errorMessage;
-    } else if (this.state.currentLocation) {
+      currentLocation = this.props.errorMessage;
+    } else if (this.props.currentLocation) {
       // display success text (users current location)
-      currentLocation = this.state.currentLocation;
+      currentLocation = this.props.currentLocation;
     }
 
     return (
@@ -74,7 +74,7 @@ class UserInput extends React.Component {
       <View style={styles.locationWrap}>
         {/* autocomplete input */}
         <GooglePlacesAutocomplete
-          placeholder={this.state.currentLocation}
+          placeholder={this.props.currentLocation}
           minLength={2} // minimum length of text to search
           autoFocus={false}
           // returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype

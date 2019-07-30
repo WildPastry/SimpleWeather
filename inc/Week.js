@@ -38,10 +38,10 @@ class Week extends React.Component {
       <View style={styles.weekWrap}>
         {/* weekly weather heading and description */}
         <Text style={styles.weekHeading}>7 Day forecast</Text>
-        <Text style={styles.weekDesc}>{this.state.summary}</Text>
+        <Text style={styles.weekDesc}>{this.props.summary}</Text>
         <View>
           {/* START map */}
-          {this.state.weather.slice(1).map(dailyWeather => {
+          {this.props.weather.slice(1).map(dailyWeather => {
             // set up date constants
             var today = moment.unix(dailyWeather.time);
             var day = moment(today).format("ddd");

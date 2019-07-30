@@ -30,11 +30,12 @@ class Current extends React.Component {
       desc: this.props.desc
     };
   }
+  
   render() {
     // set current weather icon based on weather
     // set up variables
     let weatherDisplay;
-    var currentIcon = this.state.currentIcon;
+    var currentIcon = this.props.currentIcon;
 
     // weather else if logic
     if (currentIcon === "cloudy") {
@@ -70,19 +71,19 @@ class Current extends React.Component {
             resizeMode="contain"
           />
           {/* temp */}
-          <Text style={styles.currentTemp}>{this.state.temp}°</Text>
+          <Text style={styles.currentTemp}>{this.props.temp}°</Text>
         </View>
         {/* END main icon and temp */}
 
         {/* START high and low temps */}
         <View style={styles.currentDescTempWrap}>
-          <Text style={styles.currentTempLow}>low: {this.state.low}°</Text>
-          <Text style={styles.currentTempHigh}>high: {this.state.high}°</Text>
+          <Text style={styles.currentTempLow}>low: {this.props.low}°</Text>
+          <Text style={styles.currentTempHigh}>high: {this.props.high}°</Text>
         </View>
         {/* END high and low temps */}
 
         {/* START description */}
-        <Text style={styles.currentDesc}>{this.state.desc}</Text>
+        <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
       </View>
       // END current display

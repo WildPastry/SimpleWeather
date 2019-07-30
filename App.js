@@ -46,6 +46,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      pressed: "START",
       // loading screen
       isLoaded: false,
       // weather data array
@@ -73,6 +74,7 @@ export default class App extends React.Component {
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
+    this.setPressedState = this.setPressedState.bind(this);
   }
 
   updateSkyData(value) {
@@ -81,10 +83,10 @@ export default class App extends React.Component {
       currentLng: value["googleLng"],
       currentLocation: value["googleName"]
     });
-      console.log(value["googleLat"]);
-      console.log(value["googleLng"]);
-      console.log(value["googleName"]);
-      // console.log(this.state);
+    console.log(value["googleLat"]);
+    console.log(value["googleLng"]);
+    console.log(value["googleName"]);
+    // console.log(this.state);
   }
 
   // START component pre mount
@@ -236,6 +238,23 @@ export default class App extends React.Component {
     });
   }
 
+  // setTest() {
+  //   this.setState({
+  //     currentLat: 30.04442,
+  //     currentLng: 31.23571,
+  //     currentLocation: "TEST"
+  //   });
+  //     console.log(this.state.currentLat);
+  //     console.log(this.state.currentLng);
+  //     console.log(this.state.currentLocation);
+  // }
+
+  setPressedState = press => {
+    this.setState({ currentLocation: press }, () => {
+      Alert.alert(this.state.pressed);
+    });
+  };
+
   // START render app
   render() {
     // console.log(this.state.weather.currently);
@@ -305,6 +324,10 @@ export default class App extends React.Component {
             </Swiper>
           </View>
           {/* END swiper */}
+          <TouchableOpacity onPress={() => this.setPressedState("CHANGED")}>
+            <Text>TEST</Text>
+            <Text>{this.state.pressed}</Text>
+          </TouchableOpacity>
           {/* footer */}
           <Footer />
         </View>
