@@ -6,9 +6,11 @@ import {
   Alert,
   AppRegistry,
   Button,
+  Keyboard,
   Platform,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View
 } from "react-native";
 
@@ -46,7 +48,6 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pressed: "START",
       // loading screen
       isLoaded: false,
       // weather data array
@@ -74,7 +75,7 @@ export default class App extends React.Component {
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
-    this.setPressedState = this.setPressedState.bind(this);
+    // this.setPressedState = this.setPressedState.bind(this);
   }
 
   updateSkyData(value) {
@@ -86,7 +87,10 @@ export default class App extends React.Component {
     console.log(value["googleLat"]);
     console.log(value["googleLng"]);
     console.log(value["googleName"]);
-    // console.log(this.state);
+    console.log(this.state.currentLat);
+    console.log(this.state.currentLng);
+    console.log(this.state.currentLocation);
+    this.getSkyData();
   }
 
   // START component pre mount
@@ -174,6 +178,9 @@ export default class App extends React.Component {
 
   // START sky data function
   getSkyData() {
+    this.setState({
+      isLoaded: false
+    });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
     // fetch sky data
@@ -212,9 +219,6 @@ export default class App extends React.Component {
           },
           () => {
             this.setCurrentIcon();
-            // console.log(this.state.weather.daily.data[0]);
-            // console.log(this.state.time);
-            // console.log(this.state.sunsetTime);
           }
         );
       })
@@ -238,27 +242,8 @@ export default class App extends React.Component {
     });
   }
 
-  // setTest() {
-  //   this.setState({
-  //     currentLat: 30.04442,
-  //     currentLng: 31.23571,
-  //     currentLocation: "TEST"
-  //   });
-  //     console.log(this.state.currentLat);
-  //     console.log(this.state.currentLng);
-  //     console.log(this.state.currentLocation);
-  // }
-
-  setPressedState = press => {
-    this.setState({ currentLocation: press }, () => {
-      Alert.alert(this.state.pressed);
-    });
-  };
-
   // START render app
   render() {
-    // console.log(this.state.weather.currently);
-    // console.log(this.state.weather.daily.data[0]);
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -275,23 +260,20 @@ export default class App extends React.Component {
     } else {
       return (
         // START main container
-        <View style={styles.container}>
+        <View keyboardShouldPersistTaps="handled" style={styles.container}>
           {/* header */}
           <Header />
           {/* START swiper */}
-          <View style={styles.swiperWrap}>
+          <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
             <Swiper
+              keyboardShouldPersistTaps="handled"
               showsButtons={false}
               horizontal={false}
               showsPagination={false}
             >
               {/* START app display */}
               {/* START slide 1 */}
-              <View style={styles.slide1}>
-                {/* <TouchableOpacity
-                  onPress={console.log("Pressed")}
-                  style={styles.dismissList}
-                > */}
+              <View keyboardShouldPersistTaps="handled" style={styles.slide1}>
                 {/* location */}
                 <UserInput
                   updateSkyData={this.updateSkyData}
@@ -308,7 +290,6 @@ export default class App extends React.Component {
                   low={this.state.low}
                   desc={this.state.desc}
                 />
-                {/* </TouchableOpacity> */}
               </View>
               {/* END slide 1 */}
               {/* START slide 2 */}
@@ -324,10 +305,6 @@ export default class App extends React.Component {
             </Swiper>
           </View>
           {/* END swiper */}
-          <TouchableOpacity onPress={() => this.setPressedState("CHANGED")}>
-            <Text>TEST</Text>
-            <Text>{this.state.pressed}</Text>
-          </TouchableOpacity>
           {/* footer */}
           <Footer />
         </View>

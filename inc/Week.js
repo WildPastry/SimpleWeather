@@ -21,16 +21,6 @@ var styles = require("../styles.js");
 
 // START week
 class Week extends React.Component {
-  // default class week constructor
-  constructor(props) {
-    super(props);
-    this.state = {
-      // weather from APP
-      weather: this.props.weather,
-      summary: this.props.summary
-    };
-  }
-
   // START week render
   render() {
     // set current weather icon based on weather

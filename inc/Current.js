@@ -18,19 +18,7 @@ var styles = require("../styles.js");
 
 // START current
 class Current extends React.Component {
-  // default class current constructor
-  constructor(props) {
-    super(props);
-    this.state = {
-      // weather and location data from APP
-      currentIcon: this.props.currentIcon,
-      temp: this.props.temp,
-      high: this.props.high,
-      low: this.props.low,
-      desc: this.props.desc
-    };
-  }
-  
+  // START render current
   render() {
     // set current weather icon based on weather
     // set up variables
@@ -89,6 +77,7 @@ class Current extends React.Component {
       // END current display
     );
   }
+  // END render current
 }
 // END current
 

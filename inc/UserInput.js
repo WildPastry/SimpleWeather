@@ -5,7 +5,7 @@ import React from "react";
 import configData from "./../data/config.json";
 
 // default component functions
-import { Text, View } from "react-native";
+import { Text, ScrollView, View } from "react-native";
 
 // autocomplete
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -15,11 +15,10 @@ const geo = configData.GEO;
 
 // stylesheet
 var styles = require("../styles.js");
+var googleStyles = require("../google.js");
 
 // moment set up
 var moment = require("moment");
-
-// const yourLocation = { description: this.state.currentLocation, geometry: { location: { lat: this.state.currentLat, lng: this.state.currentLng } }};
 
 // START user input
 class UserInput extends React.Component {
@@ -31,19 +30,13 @@ class UserInput extends React.Component {
       googleLat: "",
       googleLng: "",
       googleName: "",
-      // error message
-      errorMessage: this.props.errorMessage,
-      // get current location
-      currentLocation: this.props.currentLocation,
-      // get current lat lng
-      currentLat: this.props.currentLat,
-      currentLng: this.props.currentLng,
       // get current date
       currentDate: new Date()
     };
     this.updateSkyData = this.updateSkyData.bind(this);
   }
 
+  // update sky data function
   updateSkyData() {
     var options = {
       googleLat: this.state.googleLat,
@@ -75,99 +68,43 @@ class UserInput extends React.Component {
         {/* autocomplete input */}
         <GooglePlacesAutocomplete
           placeholder={this.props.currentLocation}
-          minLength={2} // minimum length of text to search
+          minLength={2}
           autoFocus={false}
-          // returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-          listViewDisplayed="true" // true/false/undefined
+          listViewDisplayed={false}
           fetchDetails={true}
-          renderDescription={row => row.description} // custom description render
+          renderDescription={row => row.description}
           onPress={(data, details = null) => {
             this.setState({
+              // set state with google details
               googleLat: details.geometry.location.lat.toFixed(5),
               googleLng: details.geometry.location.lng.toFixed(5),
-              googleName: details.address_components[0].short_name
+              googleName: details.address_components[0].long_name
             });
-            // 'details' is provided when fetchDetails = true
-            // console.log(data, details);
-            // console.log(this.state.googleLat);
-            // console.log(this.state.googleLng);
-            // console.log(this.state.googleName);
+            // update sky data function
             this.updateSkyData();
-            // console.log(details.geometry.location.lat.toFixed(5));
-            // console.log(details.geometry.location.lng.toFixed(5));
-            // console.log(details.address_components[0].short_name);
           }}
-          getDefaultValue={() => ""}
+          // data query
           query={{
-            // available options: https://developers.google.com/places/web-service/autocomplete
             key: geo,
-            language: "en", // language of the results
-            types: "(cities)" // default: 'geocode'
+            language: "en",
+            types: "(cities)"
           }}
-          styles={{
-            container: {
-              zIndex: 50
-            },
-            textInputContainer: {
-              backgroundColor: "#fff",
-              borderStyle: "none",
-              width: "100%",
-              zIndex: 100
-            },
-            textInput: {
-              textAlign: "center"
-            },
-            description: {
-              fontWeight: "700"
-            },
-            predefinedPlacesDescription: {
-              color: "#1faadb"
-            },
-            listView: {
-              backgroundColor: "#fff",
-              color: "#000",
-              zIndex: 5000,
-              position: "absolute"
-            }
-          }}
-          currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
+          // load google styles
+          styles={googleStyles}
+          currentLocation={false}
           currentLocationLabel="Current location"
-          nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-          // GoogleReverseGeocodingQuery={
-          //   {
-          //     // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-          //   }
-          // }
+          nearbyPlacesAPI="GooglePlacesSearch"
           GooglePlacesDetailsQuery={{
-            // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
             fields: "formatted_address"
           }}
-          // GooglePlacesSearchQuery={{
-          //   // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-          //   rankby: "distance",
-          //   types: "bar"
-          // }}
           filterReverseGeocodingByTypes={[
             "locality",
             "administrative_area_level_3"
-          ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-          // predefinedPlaces={[yourLocation]}
-
-          debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-          // renderLeftButton={()  => <Text>Custom text after the input</Text>}
-          // renderRightButton={() => <Text>Custom text after the input</Text>}
+          ]}
+          debounce={200}
         />
         {/* location display */}
-        <Text
-          // onPress={this.updateSkyData.bind(this, [
-          //   this.state.googleLat,
-          //   this.state.googleLng,
-          //   this.state.googleName
-          // ])}
-          style={styles.locationText}
-        >
-          {currentLocation}
-        </Text>
+        <Text style={styles.locationText}>{currentLocation}</Text>
         {/* date display */}
         <Text style={styles.dateText}>
           {day} {date}
