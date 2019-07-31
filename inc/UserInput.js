@@ -10,6 +10,9 @@ import { Text, ScrollView, View } from "react-native";
 // autocomplete
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
+// database storage
+import { AsyncStorage } from "react-native";
+
 // set up auth key for sky data
 const geo = configData.GEO;
 
@@ -19,6 +22,50 @@ var googleStyles = require("../google.js");
 
 // moment set up
 var moment = require("moment");
+
+// saved location array
+var savedLocation = [];
+
+// saved location function
+AsyncStorage.setItem(
+  "savedLocationKey",
+  JSON.stringify(savedLocation),
+  async () => {
+    try {
+      const req = await AsyncStorage.getItem("savedLocationKey");
+      const json = JSON.parse(req);
+      if (!json.length) {
+        console.log("No saved location data");
+      } else {
+        return console.log(json);
+      }
+    } catch (error) {
+      return console.log("error!");
+    }
+  }
+);
+
+// let savedLocation_object = {
+//   savedLat: "",
+//   savedLng: "",
+//   savedName: ""
+// };
+
+// AsyncStorage.setItem(
+//   "savedLocation",
+//   JSON.stringify(savedLocation_object),
+//   () => {
+//     AsyncStorage.getItem("savedLocation", (err, result) => {
+//       console.log(result);
+//       // if (result.savedLat === ""){
+//       //   console.log("blank");
+//       // } else {
+//       //   console.log(result);
+//       // }
+//     });
+//     // this.updateSkyData();
+//   }
+// );
 
 // START user input
 class UserInput extends React.Component {
@@ -43,11 +90,19 @@ class UserInput extends React.Component {
       googleLng: this.state.googleLng,
       googleName: this.state.googleName
     };
+    savedLocation = [];
+    savedLocation.push(
+      this.state.googleLat,
+      this.state.googleLng,
+      this.state.googleName
+    );
+    console.log(savedLocation);
     this.props.updateSkyData(options);
   }
 
   // START render user input
   render() {
+    console.log(savedLocation);
     // set up date constants
     const today = this.state.currentDate;
     const day = moment(today).format("dddd,");

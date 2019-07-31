@@ -33,6 +33,9 @@ import Current from "./inc/Current";
 import Week from "./inc/Week";
 import Footer from "./inc/Footer";
 
+// database storage
+// import { AsyncStorage } from "react-native";
+
 // stylesheet
 var styles = require("./styles.js");
 
@@ -41,6 +44,23 @@ const sky = configData.SKY;
 
 // set up auth key for sky data
 const geo = configData.GEO;
+
+// saved data fucntion
+// let savedLocation_object = {
+//   savedLat: "",
+//   savedLng: "",
+//   savedName: ""
+// };
+
+// AsyncStorage.setItem(
+//   "savedLocation",
+//   JSON.stringify(savedLocation_object),
+//   () => {
+//     AsyncStorage.getItem("savedLocation", (err, result) => {
+//       console.log(result);
+//     });
+//   }
+// );
 
 // START default class app
 export default class App extends React.Component {
@@ -84,12 +104,12 @@ export default class App extends React.Component {
       currentLng: value["googleLng"],
       currentLocation: value["googleName"]
     });
-    console.log(value["googleLat"]);
-    console.log(value["googleLng"]);
-    console.log(value["googleName"]);
-    console.log(this.state.currentLat);
-    console.log(this.state.currentLng);
-    console.log(this.state.currentLocation);
+    // console.log(value["googleLat"]);
+    // console.log(value["googleLng"]);
+    // console.log(value["googleName"]);
+    // console.log(this.state.currentLat);
+    // console.log(this.state.currentLng);
+    // console.log(this.state.currentLocation);
     this.getSkyData();
   }
 
