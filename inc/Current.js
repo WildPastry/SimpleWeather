@@ -73,6 +73,9 @@ class Current extends React.Component {
         {/* START description */}
         <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
+        {/* START wind speed */}
+        <Text style={styles.currentDesc}>{this.props.wind}</Text>
+        {/* END wind speed */}
       </View>
       // END current display
     );

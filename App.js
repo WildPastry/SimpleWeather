@@ -6,6 +6,7 @@ import {
   Alert,
   AppRegistry,
   Button,
+  Dimensions,
   Keyboard,
   Platform,
   Text,
@@ -45,6 +46,7 @@ const sky = configData.SKY;
 // set up auth key for sky data
 const geo = configData.GEO;
 
+const window = Dimensions.get("window");
 // saved data fucntion
 // let savedLocation_object = {
 //   savedLat: "",
@@ -87,6 +89,7 @@ export default class App extends React.Component {
       low: "",
       desc: "",
       time: "",
+      windSpeed: "",
       sunsetTime: ""
     };
     // bind functions to state
@@ -115,16 +118,17 @@ export default class App extends React.Component {
 
   // START component pre mount
   componentWillMount() {
+    this._getLocationAsync();
     // platform check
-    if (Platform.OS === "android" && !Constants.isDevice) {
-      this.setState({
-        errorMessage:
-          "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
-      });
-      // run get location function
-    } else {
-      this._getLocationAsync();
-    }
+    // if (Platform.OS === "android" && !Constants.isDevice) {
+    //   this.setState({
+    //     errorMessage:
+    //       "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
+    //   });
+    //   // run get location function
+    // } else {
+    //   this._getLocationAsync();
+    // }
   }
   // END component pre mount
 
@@ -230,6 +234,7 @@ export default class App extends React.Component {
             isLoaded: true,
             weather: data,
             icon: data.currently.icon,
+            wind: data.currently.windSpeed,
             temp: Math.round(data.currently.temperature),
             high: Math.round(data.daily.data[0].temperatureHigh),
             low: Math.round(data.daily.data[0].temperatureLow),
@@ -286,6 +291,7 @@ export default class App extends React.Component {
           {/* START swiper */}
           <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
             <Swiper
+              width={window.width}
               keyboardShouldPersistTaps="handled"
               showsButtons={false}
               horizontal={false}
@@ -305,6 +311,7 @@ export default class App extends React.Component {
                 {/* current */}
                 <Current
                   currentIcon={this.state.currentIcon}
+                  wind={this.state.windSpeed}
                   temp={this.state.temp}
                   high={this.state.high}
                   low={this.state.low}
