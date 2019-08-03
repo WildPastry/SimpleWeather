@@ -7,18 +7,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^32.0.0",
-    "expo-cli": "^3.0.2",
+    "@nart/react-native-swiper": "^1.5.13",
+    "expo": "^34.0.3",
+    "expo-cli": "^3.0.8",
     "expo-location": "^6.0.0",
     "moment": "^2.24.0",
-    "react": "16.5.0",
+    "react": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-google-places-autocomplete": "^1.3.9",
-    "react-native-swiper": "^1.5.14",
-    "ws": ">=3.3.1"
+    "ws": "^7.1.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.2.0"
   },
   "private": true
 }

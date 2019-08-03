@@ -122,6 +122,7 @@ class UserInput extends React.Component {
       <View style={styles.locationWrap}>
         {/* autocomplete input */}
         <GooglePlacesAutocomplete
+          keyboardShouldPersistTaps="handled"
           placeholder={this.props.currentLocation}
           minLength={2}
           autoFocus={false}

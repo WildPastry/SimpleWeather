@@ -9,6 +9,7 @@ import {
   Dimensions,
   Keyboard,
   Platform,
+  ScrollView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -22,7 +23,7 @@ import { Constants, Location, Permissions } from "expo";
 import { Font } from "expo";
 
 // swiper
-import Swiper from "react-native-swiper";
+import Swiper from "@nart/react-native-swiper";
 
 // configuration data
 import configData from "./data/config.json";
@@ -46,6 +47,7 @@ const sky = configData.SKY;
 // set up auth key for sky data
 const geo = configData.GEO;
 
+// get device width
 const window = Dimensions.get("window");
 // saved data fucntion
 // let savedLocation_object = {
@@ -286,11 +288,13 @@ export default class App extends React.Component {
       return (
         // START main container
         <View keyboardShouldPersistTaps="handled" style={styles.container}>
-          {/* header */}
-          <Header />
-          {/* START swiper */}
-          <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
-            <Swiper
+          {/* <ScrollView > */}
+            {/* header */}
+            <Header />
+            {/* START swiper */}
+            <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
+              <Swiper
+              loop={false}
               width={window.width}
               keyboardShouldPersistTaps="handled"
               showsButtons={false}
@@ -329,11 +333,12 @@ export default class App extends React.Component {
               </View>
               {/* END slide 2 */}
               {/* END app display */}
-            </Swiper>
-          </View>
-          {/* END swiper */}
-          {/* footer */}
-          <Footer />
+              </Swiper>
+            </View>
+            {/* END swiper */}
+            {/* footer */}
+            <Footer />
+          {/* </ScrollView> */}
         </View>
         // END main container
       );

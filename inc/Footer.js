@@ -14,7 +14,7 @@ class Footer extends React.Component {
     return (
       // START footer display
       <View style={styles.footerWrap}>
-        <Text style={styles.footerText}>an app by mike parker</Text>
+        <Text style={styles.footerText}>powered by DarkSky</Text>
       </View>
       // END footer display
     );
