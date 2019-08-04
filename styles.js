@@ -1,5 +1,5 @@
 // imports
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 // START stylesheet
 const myStylesheet = StyleSheet.create({
@@ -8,198 +8,198 @@ const myStylesheet = StyleSheet.create({
     flex: 8
   },
   slide1: {
-    backgroundColor: "#114180",
+    backgroundColor: '#114180',
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   slide2: {
-    backgroundColor: "#114180",
+    backgroundColor: '#114180',
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
 
   // loading screen
   loader: {
-    alignItems: "center",
-    backgroundColor: "#303030",
+    alignItems: 'center',
+    backgroundColor: '#303030',
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   headingLoader: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
-    fontWeight: "500",
-    textAlign: "center"
+    fontWeight: '500',
+    textAlign: 'center'
   },
 
   // main container
   container: {
-    alignItems: "center",
-    backgroundColor: "#114180",
+    alignItems: 'center',
+    backgroundColor: '#114180',
     flex: 1
   },
 
   // header component
   headerWrap: {
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     flex: 1
   },
   headerTopBar: {
-    backgroundColor: "#66a9d7",
+    backgroundColor: '#66a9d7',
     height: 22,
     marginBottom: 8
   },
   headerText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 15,
-    fontWeight: "700",
+    fontWeight: '700',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
 
   // user input component
   locationWrap: {
-    alignItems: "center",
-    alignSelf: "stretch",
-    backgroundColor: "#303030",
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: '#303030',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 8
   },
   locationText: {
-    color: "#ff6666",
+    color: '#ff6666',
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: '700',
     padding: 5,
-    textAlign: "center",
-    textTransform: "uppercase"
+    textAlign: 'center',
+    textTransform: 'uppercase'
   },
   dateText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
-    fontWeight: "300",
+    fontWeight: '300',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
 
   // current component
   currentWrap: {
-    alignSelf: "stretch",
-    backgroundColor: "#303030",
-    flex: 2.5,
+    alignSelf: 'stretch',
+    backgroundColor: '#303030',
+    flex: 1,
     marginTop: 8
   },
   currentIconTempWrap: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 80,
-    justifyContent: "space-around"
+    justifyContent: 'space-around'
   },
   currentIcon: {
-    alignSelf: "center",
+    alignSelf: 'center',
     height: 80,
     width: 80
   },
   currentTemp: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 60,
-    fontWeight: "700",
+    fontWeight: '700',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
   currentDescTempWrap: {
-    flexDirection: "row",
-    justifyContent: "space-around"
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   currentTempHigh: {
-    color: "#ff6666",
+    color: '#ff6666',
     fontSize: 20,
-    fontWeight: "300",
+    fontWeight: '300',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
   currentTempLow: {
-    color: "#66a9d7",
+    color: '#66a9d7',
     fontSize: 20,
-    fontWeight: "300",
+    fontWeight: '300',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
   currentDesc: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
-    fontWeight: "300",
+    fontWeight: '300',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
 
   // week component
   weekWrap: {
-    alignSelf: "stretch",
-    backgroundColor: "#303030",
+    alignSelf: 'stretch',
+    backgroundColor: '#303030',
     flex: 4,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 8,
     padding: 10
   },
   weekIconTempWrap: {
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
     height: 40,
-    justifyContent: "space-between"
+    justifyContent: 'space-between'
   },
   weekColWrap: {
     width: 50
   },
   weekIcon: {
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
     height: 30,
     width: 30
   },
   weekLowTemp: {
-    color: "#66a9d7",
+    color: '#66a9d7',
     fontSize: 20,
-    fontWeight: "300",
-    textAlign: "right"
+    fontWeight: '300',
+    textAlign: 'right'
   },
   weekHighTemp: {
-    color: "#ff6666",
+    color: '#ff6666',
     fontSize: 20,
-    fontWeight: "300",
-    textAlign: "right"
+    fontWeight: '300',
+    textAlign: 'right'
   },
   weekHeading: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
-    fontWeight: "300",
+    fontWeight: '300',
     marginBottom: 15,
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
   weekText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
-    textAlign: "left"
+    textAlign: 'left'
   },
   weekDesc: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 20,
-    fontWeight: "300",
+    fontWeight: '300',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
   // footer component
   footerWrap: {
-    alignSelf: "stretch",
+    alignSelf: 'stretch',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 8
   },
   footerText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 15,
-    fontWeight: "700",
+    fontWeight: '700',
     padding: 5,
-    textAlign: "center"
+    textAlign: 'center'
   },
 
   // dismiss list view

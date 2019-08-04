@@ -30,7 +30,7 @@ import configData from "./data/config.json";
 
 // components
 import Header from "./inc/Header";
-import UserInput from "./inc/UserInput";
+// import UserInput from "./inc/UserInput";
 import Current from "./inc/Current";
 import Week from "./inc/Week";
 import Footer from "./inc/Footer";
@@ -195,7 +195,7 @@ export default class App extends React.Component {
       .then(responseJson => {
         this.setState({
           currentLocation:
-            responseJson.results[3].address_components[3].long_name
+            responseJson.results[3].address_components[2].long_name
         });
       });
     this.getSkyData();
@@ -293,28 +293,33 @@ export default class App extends React.Component {
             <Header />
             {/* START swiper */}
             <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
-              <Swiper
-              loop={false}
-              width={window.width}
-              keyboardShouldPersistTaps="handled"
-              showsButtons={false}
-              horizontal={false}
-              showsPagination={false}
+              <ScrollView keyboardShouldPersistTaps="handled"
+              // loop={false}
+              // width={window.width}
+              // keyboardShouldPersistTaps="handled"
+              // showsButtons={false}
+              // horizontal={false}
+              // showsPagination={false}
             >
               {/* START app display */}
               {/* START slide 1 */}
               <View keyboardShouldPersistTaps="handled" style={styles.slide1}>
                 {/* location */}
-                <UserInput
+                {/* <UserInput
                   updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}
                   currentLat={this.state.currentLat}
                   currentLng={this.state.currentLng}
-                />
+                /> */}
                 {/* current */}
-                <Current
+                <Current keyboardShouldPersistTaps="handled"
                   currentIcon={this.state.currentIcon}
+                  updateSkyData={this.updateSkyData}
+                  errorMessage={this.state.errorMessag}
+                  currentLocation={this.state.currentLocation}
+                  currentLat={this.state.currentLat}
+                  currentLng={this.state.currentLng}
                   wind={this.state.windSpeed}
                   temp={this.state.temp}
                   high={this.state.high}
@@ -333,7 +338,7 @@ export default class App extends React.Component {
               </View>
               {/* END slide 2 */}
               {/* END app display */}
-              </Swiper>
+              </ScrollView>
             </View>
             {/* END swiper */}
             {/* footer */}

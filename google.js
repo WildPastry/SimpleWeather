@@ -1,32 +1,61 @@
 // imports
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 // START stylesheet
 const googleStylesheet = StyleSheet.create({
   // google
   container: {
-    zIndex: 50
+    // zIndex: 10,
+    // position: "absolute",
+    // top: 0,
+    // width: "100%",
+    // overflow: 'visible',
+    // flexGrow: 0,
+    // flexShrink: 0
+    // height: 60
   },
   textInputContainer: {
-    backgroundColor: "#fff",
-    width: "100%"
+    alignContent: 'center',
+    backgroundColor: '#1faadb',
+    width: '100%'
   },
   textInput: {
-    textAlign: "center"
+    alignItems: 'center',
+    backgroundColor: '#1faadb',
+    color: '#fff',
+    fontWeight: '700',
+    textAlign: 'center',
+    zIndex: 1
   },
   description: {
-    fontWeight: "700"
+    alignItems: 'center',
+    color: '#fff',
+    fontWeight: '700',
+    textAlign: 'center'
   },
-  predefinedPlacesDescription: {
-    color: "#1faadb"
-  },
+  // predefinedPlacesDescription: {
+  //   alignItems: "center",
+  //   color: "#fff",
+  //   fontWeight: "700",
+  //   textAlign: "center"
+  // },
   listView: {
-    backgroundColor: "#fff",
-    color: "#000",
-    position: "absolute",
+    backgroundColor: '#1faadb',
+    color: '#fff',
+    position: 'absolute',
     top: 44,
     elevation: 1
   },
+  separator: {
+    backgroundColor: '#66a9d7',
+    height: 0.5
+  }
+  //   searchBox: {
+  //     top: 0,
+  //     position: "absolute",
+  //     flex: 1,
+  //     justifyContent: 'center',
+  // }
 });
 // END stylesheet
 

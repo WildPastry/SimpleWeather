@@ -1,23 +1,60 @@
 // imports
-import React from "react";
+import React from 'react';
+
+// configuration data
+import configData from './../data/config.json';
 
 // default component functions
-import { Image, Text, View } from "react-native";
+import { Image, Text, SafeAreaView, View } from 'react-native';
+
+// autocomplete
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // weather icons
-import IconCloudy from "./../assets/weather/cloudy.png";
-import IconPartlyCloudy from "./../assets/weather/partlycloudy.png";
-import IconFoggy from "./../assets/weather/foggy.png";
-import IconRainy from "./../assets/weather/rainy.png";
-import IconSnowy from "./../assets/weather/snowy.png";
-import IconSunny from "./../assets/weather/sunny.png";
-import IconWindy from "./../assets/weather/windy.png";
+import IconCloudy from './../assets/weather/cloudy.png';
+import IconPartlyCloudy from './../assets/weather/partlycloudy.png';
+import IconFoggy from './../assets/weather/foggy.png';
+import IconRainy from './../assets/weather/rainy.png';
+import IconSnowy from './../assets/weather/snowy.png';
+import IconSunny from './../assets/weather/sunny.png';
+import IconWindy from './../assets/weather/windy.png';
+
+// set up auth key for sky data
+const geo = configData.GEO;
 
 // stylesheet
-var styles = require("../styles.js");
+var styles = require('../styles.js');
+var googleStyles = require('../google.js');
+
+// moment set up
+var moment = require('moment');
 
 // START current
 class Current extends React.Component {
+  // default class current constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      // autocomplete information
+      googleLat: '',
+      googleLng: '',
+      googleName: '',
+      // get current date
+      currentDate: new Date()
+    };
+    this.updateSkyData = this.updateSkyData.bind(this);
+  }
+
+  // update sky data function
+  updateSkyData() {
+    var options = {
+      googleLat: this.state.googleLat,
+      googleLng: this.state.googleLng,
+      googleName: this.state.googleName
+    };
+    this.props.updateSkyData(options);
+  }
+
   // START render current
   render() {
     // set current weather icon based on weather
@@ -25,31 +62,82 @@ class Current extends React.Component {
     let weatherDisplay;
     var currentIcon = this.props.currentIcon;
 
+    // set up date constants
+    const today = this.state.currentDate;
+    const day = moment(today).format('dddd,');
+    const date = moment(today).format('MMMM D');
+
     // weather else if logic
-    if (currentIcon === "cloudy") {
+    if (currentIcon === 'cloudy') {
       weatherDisplay = IconCloudy;
-    } else if (currentIcon === "partly-cloudy-day") {
+    } else if (currentIcon === 'partly-cloudy-day') {
       weatherDisplay = IconPartlyCloudy;
-    } else if (currentIcon === "fog") {
+    } else if (currentIcon === 'fog') {
       weatherDisplay = IconFoggy;
-    } else if (currentIcon === "rain") {
+    } else if (currentIcon === 'rain') {
       weatherDisplay = IconRainy;
-    } else if (currentIcon === "snow") {
+    } else if (currentIcon === 'snow') {
       weatherDisplay = IconSnowy;
-    } else if (currentIcon === "clear-day") {
+    } else if (currentIcon === 'clear-day') {
       weatherDisplay = IconSunny;
-    } else if (currentIcon === "wind") {
+    } else if (currentIcon === 'wind') {
       weatherDisplay = IconWindy;
-    } else if (currentIcon === "sleet") {
+    } else if (currentIcon === 'sleet') {
       weatherDisplay = IconSnowy;
-    } else if (currentIcon === "clear-night") {
+    } else if (currentIcon === 'clear-night') {
       weatherDisplay = IconSunny;
     } else {
       weatherDisplay = IconPartlyCloudy;
     }
     return (
       // START current display
-      <View style={styles.currentWrap}>
+      <SafeAreaView keyboardShouldPersistTaps="handled" style={styles.currentWrap}>
+        {/* START autocomplete input */}
+        <GooglePlacesAutocomplete
+          keyboardShouldPersistTaps="handled"
+          placeholder={this.props.currentLocation}
+          placeholderTextColor="#fff"
+          minLength={2}
+          autoFocus={false}
+          returnKeyType={'default'}
+          listViewDisplayed={true}
+          fetchDetails={true}
+          renderDescription={row => row.description}
+          onPress={(data, details = null) => {
+            this.setState({
+              // set state with google details
+              googleLat: details.geometry.location.lat.toFixed(5),
+              googleLng: details.geometry.location.lng.toFixed(5),
+              googleName: details.address_components[0].long_name
+            });
+            // update sky data function
+            this.updateSkyData();
+          }}
+          // data query
+          query={{
+            key: geo,
+            language: 'en',
+            types: '(cities)'
+          }}
+          // load google styles
+          styles={googleStyles}
+          currentLocation={false}
+          currentLocationLabel="Current location"
+          nearbyPlacesAPI="GooglePlacesSearch"
+          GooglePlacesDetailsQuery={{
+            fields: 'formatted_address'
+          }}
+          filterReverseGeocodingByTypes={[
+            'locality',
+            'administrative_area_level_3'
+          ]}
+          debounce={100}
+        />
+        {/* END autocomplete input */}
+        {/* date display */}
+        <Text style={styles.dateText}>
+          {day} {date}
+        </Text>
         {/* START main icon and temp */}
         <View style={styles.currentIconTempWrap}>
           {/* main icon */}
@@ -76,7 +164,7 @@ class Current extends React.Component {
         {/* START wind speed */}
         <Text style={styles.currentDesc}>{this.props.wind}</Text>
         {/* END wind speed */}
-      </View>
+      </SafeAreaView>
       // END current display
     );
   }

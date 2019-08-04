@@ -35,7 +35,7 @@ AsyncStorage.setItem(
       const req = await AsyncStorage.getItem("savedLocationKey");
       const json = JSON.parse(req);
       if (!json.length) {
-        console.log("No saved location data");
+        // console.log("No saved location data");
       } else {
         return console.log(json);
       }
@@ -102,7 +102,7 @@ class UserInput extends React.Component {
 
   // START render user input
   render() {
-    console.log(savedLocation);
+    // console.log(savedLocation);
     // set up date constants
     const today = this.state.currentDate;
     const day = moment(today).format("dddd,");
@@ -157,10 +157,10 @@ class UserInput extends React.Component {
             "locality",
             "administrative_area_level_3"
           ]}
-          debounce={200}
+          debounce={100}
         />
         {/* location display */}
-        <Text style={styles.locationText}>{currentLocation}</Text>
+        {/* <Text style={styles.locationText}>{currentLocation}</Text> */}
         {/* date display */}
         <Text style={styles.dateText}>
           {day} {date}
