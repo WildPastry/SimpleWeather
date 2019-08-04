@@ -79,7 +79,8 @@ const myStylesheet = StyleSheet.create({
     fontSize: 20,
     fontWeight: '300',
     padding: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 60,
   },
 
   // current component

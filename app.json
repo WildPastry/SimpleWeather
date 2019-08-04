@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Basic Weather",
-    "slug": "basic-weather",
+    "name": "Base Weather",
+    "slug": "base-weather",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Simplistic and functional weather app designed for iOS and Android",
+    "githubUrl": "https://github.com/WildPastry/base-weather"
   }
 }

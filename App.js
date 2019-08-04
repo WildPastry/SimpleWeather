@@ -1,5 +1,5 @@
 // imports
-import React from "react";
+import React from 'react';
 
 // default component functions
 import {
@@ -14,32 +14,32 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View
-} from "react-native";
+} from 'react-native';
 
 // permissions API
-import { Constants, Location, Permissions } from "expo";
+import { Constants, Location, Permissions } from 'expo';
 
 // font
-import { Font } from "expo";
+import { Font } from 'expo';
 
 // swiper
-import Swiper from "@nart/react-native-swiper";
+import Swiper from '@nart/react-native-swiper';
 
 // configuration data
-import configData from "./data/config.json";
+import configData from './data/config.json';
 
 // components
-import Header from "./inc/Header";
+import Header from './inc/Header';
 // import UserInput from "./inc/UserInput";
-import Current from "./inc/Current";
-import Week from "./inc/Week";
-import Footer from "./inc/Footer";
+import Current from './inc/Current';
+import Week from './inc/Week';
+import Footer from './inc/Footer';
 
 // database storage
 // import { AsyncStorage } from "react-native";
 
 // stylesheet
-var styles = require("./styles.js");
+var styles = require('./styles.js');
 
 // set up auth key for sky data
 const sky = configData.SKY;
@@ -48,7 +48,7 @@ const sky = configData.SKY;
 const geo = configData.GEO;
 
 // get device width
-const window = Dimensions.get("window");
+const window = Dimensions.get('window');
 // saved data fucntion
 // let savedLocation_object = {
 //   savedLat: "",
@@ -84,15 +84,15 @@ export default class App extends React.Component {
       currentLocation: null,
       currentIcon: null,
       // weather and location data
-      location: "",
-      icon: "",
-      temp: "",
-      high: "",
-      low: "",
-      desc: "",
-      time: "",
-      windSpeed: "",
-      sunsetTime: ""
+      location: '',
+      icon: '',
+      temp: '',
+      high: '',
+      low: '',
+      desc: '',
+      time: '',
+      windSpeed: '',
+      sunsetTime: ''
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
@@ -105,9 +105,9 @@ export default class App extends React.Component {
 
   updateSkyData(value) {
     this.setState({
-      currentLat: value["googleLat"],
-      currentLng: value["googleLng"],
-      currentLocation: value["googleName"]
+      currentLat: value['googleLat'],
+      currentLng: value['googleLng'],
+      currentLocation: value['googleName']
     });
     // console.log(value["googleLat"]);
     // console.log(value["googleLng"]);
@@ -152,18 +152,32 @@ export default class App extends React.Component {
     // services disabled error
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
-        errorMessage: "Location Services Disabled"
+        errorMessage: 'Please enable location services for this app',
+        // fallback
+        currentLocation: 'Wellington',
+        currentLat: -41.2865,
+        currentLng: 174.7762
       });
+      Alert.alert(this.state.errorMessage);
+      console.log(this.state.errorMessage);
+      this.getSkyData();
       return;
     }
 
     // check permissions
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     // permission denied error
-    if (status !== "granted") {
+    if (status !== 'granted') {
       this.setState({
-        errorMessage: "Permission to access location was denied"
+        errorMessage: 'Permission to access location was denied',
+        // fallback
+        currentLocation: 'Wellington',
+        currentLat: -41.2865,
+        currentLng: 174.7762
       });
+      Alert.alert(this.state.errorMessage);
+      console.log(this.state.errorMessage);
+      this.getSkyData();
       return;
     }
 
@@ -184,11 +198,11 @@ export default class App extends React.Component {
     var myLng = this.state.currentLng;
     // fetch location data
     fetch(
-      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
         myLat +
-        "," +
+        ',' +
         myLng +
-        "&key=" +
+        '&key=' +
         geo
     )
       .then(response => response.json())
@@ -211,20 +225,20 @@ export default class App extends React.Component {
     var myLng = this.state.currentLng;
     // fetch sky data
     fetch(
-      "https://api.darksky.net/forecast/" +
+      'https://api.darksky.net/forecast/' +
         sky +
-        "/" +
+        '/' +
         myLat +
-        "," +
+        ',' +
         myLng +
-        "?units=si"
+        '?units=si'
     )
       // log HTTP response error or success for data call
       .then(res => {
         if (!res.ok) {
-          throw new Error("Failed with HTTP code " + res.status);
+          throw new Error('Failed with HTTP code ' + res.status);
         } else {
-          console.log("Success with HTTP code " + res.status);
+          console.log('Success with HTTP code ' + res.status);
         }
         return res;
       })
@@ -255,7 +269,7 @@ export default class App extends React.Component {
         } else if (error.request) {
           console.log(error.request);
         } else {
-          console.log("error ", error.message);
+          console.log('error ', error.message);
         }
         console.log(error.config);
       });
@@ -288,11 +302,11 @@ export default class App extends React.Component {
       return (
         // START main container
         <View keyboardShouldPersistTaps="handled" style={styles.container}>
-            {/* header */}
-            <Header />
-            {/* START swiper */}
-            <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
-              <Swiper
+          {/* header */}
+          <Header />
+          {/* START swiper */}
+          <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
+            <Swiper
               loop={false}
               width={window.width}
               keyboardShouldPersistTaps="handled"
@@ -304,7 +318,8 @@ export default class App extends React.Component {
               {/* START slide 1 */}
               <View keyboardShouldPersistTaps="handled" style={styles.slide1}>
                 {/* current */}
-                <Current keyboardShouldPersistTaps="handled"
+                <Current
+                  keyboardShouldPersistTaps="handled"
                   currentIcon={this.state.currentIcon}
                   updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
@@ -329,11 +344,11 @@ export default class App extends React.Component {
               </View>
               {/* END slide 2 */}
               {/* END app display */}
-              </Swiper>
-            </View>
-            {/* END swiper */}
-            {/* footer */}
-            <Footer />
+            </Swiper>
+          </View>
+          {/* END swiper */}
+          {/* footer */}
+          <Footer />
         </View>
         // END main container
       );
@@ -344,7 +359,7 @@ export default class App extends React.Component {
 // END default class app
 
 // register button functionality
-AppRegistry.registerComponent("basic-weather", () => ButtonBasics);
+AppRegistry.registerComponent('basic-weather', () => ButtonBasics);
 
 // register swiper functionality
-AppRegistry.registerComponent("basic-weather", () => SwiperComponent);
+AppRegistry.registerComponent('basic-weather', () => SwiperComponent);
