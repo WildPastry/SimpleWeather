@@ -288,30 +288,21 @@ export default class App extends React.Component {
       return (
         // START main container
         <View keyboardShouldPersistTaps="handled" style={styles.container}>
-          {/* <ScrollView > */}
             {/* header */}
             <Header />
             {/* START swiper */}
             <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
-              <ScrollView keyboardShouldPersistTaps="handled"
-              // loop={false}
-              // width={window.width}
-              // keyboardShouldPersistTaps="handled"
-              // showsButtons={false}
-              // horizontal={false}
-              // showsPagination={false}
+              <Swiper
+              loop={false}
+              width={window.width}
+              keyboardShouldPersistTaps="handled"
+              showsButtons={false}
+              horizontal={false}
+              showsPagination={false}
             >
               {/* START app display */}
               {/* START slide 1 */}
               <View keyboardShouldPersistTaps="handled" style={styles.slide1}>
-                {/* location */}
-                {/* <UserInput
-                  updateSkyData={this.updateSkyData}
-                  errorMessage={this.state.errorMessag}
-                  currentLocation={this.state.currentLocation}
-                  currentLat={this.state.currentLat}
-                  currentLng={this.state.currentLng}
-                /> */}
                 {/* current */}
                 <Current keyboardShouldPersistTaps="handled"
                   currentIcon={this.state.currentIcon}
@@ -338,12 +329,11 @@ export default class App extends React.Component {
               </View>
               {/* END slide 2 */}
               {/* END app display */}
-              </ScrollView>
+              </Swiper>
             </View>
             {/* END swiper */}
             {/* footer */}
             <Footer />
-          {/* </ScrollView> */}
         </View>
         // END main container
       );

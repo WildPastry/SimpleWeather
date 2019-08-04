@@ -5,11 +5,12 @@ import { StyleSheet } from 'react-native';
 const googleStylesheet = StyleSheet.create({
   // google
   container: {
-    // zIndex: 10,
-    // position: "absolute",
-    // top: 0,
-    // width: "100%",
-    // overflow: 'visible',
+    zIndex: 1,
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    height: "100%",
+    overflow: 'visible',
     // flexGrow: 0,
     // flexShrink: 0
     // height: 60
@@ -33,12 +34,6 @@ const googleStylesheet = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center'
   },
-  // predefinedPlacesDescription: {
-  //   alignItems: "center",
-  //   color: "#fff",
-  //   fontWeight: "700",
-  //   textAlign: "center"
-  // },
   listView: {
     backgroundColor: '#1faadb',
     color: '#fff',
@@ -50,12 +45,6 @@ const googleStylesheet = StyleSheet.create({
     backgroundColor: '#66a9d7',
     height: 0.5
   }
-  //   searchBox: {
-  //     top: 0,
-  //     position: "absolute",
-  //     flex: 1,
-  //     justifyContent: 'center',
-  // }
 });
 // END stylesheet
 

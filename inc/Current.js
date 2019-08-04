@@ -91,7 +91,10 @@ class Current extends React.Component {
     }
     return (
       // START current display
-      <SafeAreaView keyboardShouldPersistTaps="handled" style={styles.currentWrap}>
+      <SafeAreaView
+        keyboardShouldPersistTaps="handled"
+        style={styles.currentWrap}
+      >
         {/* START autocomplete input */}
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps="handled"
