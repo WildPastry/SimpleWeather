@@ -245,7 +245,7 @@ export default class App extends React.Component {
             weather: data,
             icon: data.currently.icon,
             wind: data.currently.windSpeed,
-            humidity: JSON.stringify(data.currently.humidity),
+            humidity: data.currently.humidity.toFixed(2),
             sunsetTime: data.currently.sunsetTime,
             temp: Math.round(data.currently.temperature),
             high: Math.round(data.daily.data[0].temperatureHigh),
@@ -255,6 +255,7 @@ export default class App extends React.Component {
           },
           () => {
             this.setCurrentIcon();
+            console.log(this.state.humidity);
           }
         );
       })

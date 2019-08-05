@@ -38,7 +38,8 @@ class Week extends React.Component {
               var day = moment(today).format('ddd');
 
               // set up humidity percentage
-              var percentage = JSON.stringify(dailyWeather.humidity);
+              var toFixed = dailyWeather.humidity.toFixed(2);
+              var percentage = toFixed.toString();
 
               // set up weather display variable
               let dailyWeatherDisplay;
@@ -102,7 +103,7 @@ class Week extends React.Component {
                     Wind Speed: {dailyWeather.windSpeed} km/ph
                   </Text>
                   <Text style={styles.weekTextBot}>
-                    Humidity: {percentage.substring(2, 6)}%
+                    Humidity: {percentage.substring(2)}%
                   </Text>
                   {/* <View style={styles.weekIconTempWrap}>
                     <View style={styles.weekFullWrap}>

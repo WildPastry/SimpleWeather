@@ -62,6 +62,7 @@ class Current extends React.Component {
     var currentPlaceholder =
       this.props.currentLocation + ', ' + this.props.currentCity;
     // set current weather icon based on weather
+
     // set up variables
     let weatherDisplay;
     var currentIcon = this.props.currentIcon;
@@ -70,6 +71,9 @@ class Current extends React.Component {
     const today = this.state.currentDate;
     const day = moment(today).format('dddd,');
     const date = moment(today).format('MMMM D');
+
+    // set up humidity percentage
+    var percentage = this.props.humidity.toString();
 
     // weather else if logic
     if (currentIcon === 'cloudy') {
@@ -172,10 +176,14 @@ class Current extends React.Component {
         <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
         {/* START wind speed */}
-        <Text style={styles.currentDesc}>Wind Speed: {this.props.wind} km/ph</Text>
+        <Text style={styles.currentDesc}>
+          Wind Speed: {this.props.wind} km/ph
+        </Text>
         {/* END wind speed */}
         {/* START humidity */}
-        <Text style={styles.currentDesc}>Humidity: {this.props.humidity.substring(2, 6)}%</Text>
+        <Text style={styles.currentDesc}>
+          Humidity: {percentage.substring(2)}%
+        </Text>
         {/* END humidity */}
       </SafeAreaView>
       // END current display
