@@ -144,9 +144,12 @@ const myStylesheet = StyleSheet.create({
   },
   weekIconTempWrap: {
     alignItems: 'center',
+    borderTopWidth : 0.5,
+    borderTopColor: '#66a9d7',
     flexDirection: 'row',
-    height: 40,
-    justifyContent: 'space-between'
+    height: 70,
+    justifyContent: 'space-between',
+    marginTop: 5
   },
   weekColWrap: {
     width: 50
@@ -180,6 +183,12 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     textAlign: 'left'
+  },
+  weekTextBot: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'left',
+    marginBottom: 12
   },
   weekDesc: {
     color: '#fff',

@@ -49,6 +49,7 @@ const geo = configData.GEO;
 
 // get device width
 const window = Dimensions.get('window');
+
 // saved data fucntion
 // let savedLocation_object = {
 //   savedLat: "",
@@ -82,6 +83,7 @@ export default class App extends React.Component {
       currentLat: null,
       currentLng: null,
       currentLocation: null,
+      currentCity: null,
       currentIcon: null,
       // weather and location data
       location: '',
@@ -91,8 +93,12 @@ export default class App extends React.Component {
       low: '',
       desc: '',
       time: '',
-      windSpeed: '',
-      sunsetTime: ''
+      sunsetTime: '',
+      wind: '',
+      humidity: '',
+      dailyWind: '',
+      dailyHumidity: ''
+
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
@@ -107,30 +113,16 @@ export default class App extends React.Component {
     this.setState({
       currentLat: value['googleLat'],
       currentLng: value['googleLng'],
-      currentLocation: value['googleName']
+      currentLocation: value['googleName'],
+      currentCity: value['googleNameLong']
     });
-    // console.log(value["googleLat"]);
-    // console.log(value["googleLng"]);
-    // console.log(value["googleName"]);
-    // console.log(this.state.currentLat);
-    // console.log(this.state.currentLng);
-    // console.log(this.state.currentLocation);
     this.getSkyData();
   }
 
   // START component pre mount
   componentWillMount() {
+    // get user location function
     this._getLocationAsync();
-    // platform check
-    // if (Platform.OS === "android" && !Constants.isDevice) {
-    //   this.setState({
-    //     errorMessage:
-    //       "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
-    //   });
-    //   // run get location function
-    // } else {
-    //   this._getLocationAsync();
-    // }
   }
   // END component pre mount
 
@@ -207,9 +199,11 @@ export default class App extends React.Component {
     )
       .then(response => response.json())
       .then(responseJson => {
+        // console.log(responseJson.results[3].address_components[3].long_name)
         this.setState({
           currentLocation:
-            responseJson.results[3].address_components[2].long_name
+            responseJson.results[3].address_components[2].long_name,
+          currentCity: responseJson.results[3].address_components[3].long_name
         });
       });
     this.getSkyData();
@@ -251,14 +245,17 @@ export default class App extends React.Component {
             weather: data,
             icon: data.currently.icon,
             wind: data.currently.windSpeed,
+            humidity: JSON.stringify(data.currently.humidity),
+            sunsetTime: data.currently.sunsetTime,
             temp: Math.round(data.currently.temperature),
             high: Math.round(data.daily.data[0].temperatureHigh),
             low: Math.round(data.daily.data[0].temperatureLow),
             desc: data.daily.data[0].summary,
             time: data.daily.data[0].time,
-            sunsetTime: data.daily.data[0].sunsetTime
           },
           () => {
+            // console.log(this.state.weather.currently)
+            // console.log(this.state.weather.daily.data[0])
             this.setCurrentIcon();
           }
         );
@@ -306,7 +303,7 @@ export default class App extends React.Component {
           <Header />
           {/* START swiper */}
           <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
-            <Swiper
+            <ScrollView
               loop={false}
               width={window.width}
               keyboardShouldPersistTaps="handled"
@@ -324,9 +321,11 @@ export default class App extends React.Component {
                   updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}
+                  currentCity={this.state.currentCity}
                   currentLat={this.state.currentLat}
                   currentLng={this.state.currentLng}
-                  wind={this.state.windSpeed}
+                  wind={this.state.wind}
+                  humidity={this.state.humidity}
                   temp={this.state.temp}
                   high={this.state.high}
                   low={this.state.low}
@@ -344,7 +343,7 @@ export default class App extends React.Component {
               </View>
               {/* END slide 2 */}
               {/* END app display */}
-            </Swiper>
+            </ScrollView>
           </View>
           {/* END swiper */}
           {/* footer */}

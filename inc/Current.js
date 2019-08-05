@@ -50,13 +50,17 @@ class Current extends React.Component {
     var options = {
       googleLat: this.state.googleLat,
       googleLng: this.state.googleLng,
-      googleName: this.state.googleName
+      googleName: this.state.googleName,
+      googleNameLong: this.state.googleNameLong
     };
     this.props.updateSkyData(options);
   }
 
   // START render current
   render() {
+    // set up location
+    var currentPlaceholder =
+      this.props.currentLocation + ', ' + this.props.currentCity;
     // set current weather icon based on weather
     // set up variables
     let weatherDisplay;
@@ -98,7 +102,7 @@ class Current extends React.Component {
         {/* START autocomplete input */}
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps="handled"
-          placeholder={this.props.currentLocation}
+          placeholder={currentPlaceholder}
           placeholderTextColor="#fff"
           minLength={2}
           autoFocus={false}
@@ -111,8 +115,11 @@ class Current extends React.Component {
               // set state with google details
               googleLat: details.geometry.location.lat.toFixed(5),
               googleLng: details.geometry.location.lng.toFixed(5),
-              googleName: details.address_components[0].long_name
+              googleName: details.address_components[0].long_name,
+              googleNameLong: details.address_components[2].long_name
             });
+            // console.log(details.address_components)
+
             // update sky data function
             this.updateSkyData();
           }}
@@ -165,8 +172,11 @@ class Current extends React.Component {
         <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
         {/* START wind speed */}
-        <Text style={styles.currentDesc}>{this.props.wind}</Text>
+        <Text style={styles.currentDesc}>Wind Speed: {this.props.wind} km/ph</Text>
         {/* END wind speed */}
+        {/* START humidity */}
+        <Text style={styles.currentDesc}>Humidity: {this.props.humidity.substring(2, 6)}%</Text>
+        {/* END humidity */}
       </SafeAreaView>
       // END current display
     );
