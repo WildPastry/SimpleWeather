@@ -255,7 +255,6 @@ export default class App extends React.Component {
           },
           () => {
             this.setCurrentIcon();
-            console.log(this.state.humidity);
           }
         );
       })

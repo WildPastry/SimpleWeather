@@ -13,6 +13,14 @@ import IconSnowy from './../assets/weather/snowy.png';
 import IconSunny from './../assets/weather/sunny.png';
 import IconWindy from './../assets/weather/windy.png';
 
+// accordian
+import {
+  Collapse,
+  CollapseHeader,
+  CollapseBody,
+  AccordionList
+} from 'accordion-collapse-react-native';
+
 // moment set up
 var moment = require('moment');
 
@@ -30,6 +38,16 @@ class Week extends React.Component {
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>7 Day forecast</Text>
           <Text style={styles.weekDesc}>{this.props.summary}</Text>
+          {/* <Collapse>
+            <CollapseHeader>
+              <View>
+                <Text>Click here</Text>
+              </View>
+            </CollapseHeader>
+            <CollapseBody>
+              <Text>Ta daa!</Text>
+            </CollapseBody>
+          </Collapse> */}
           <View>
             {/* START map */}
             {this.props.weather.slice(1).map(dailyWeather => {
@@ -69,43 +87,49 @@ class Week extends React.Component {
               return (
                 // START week display
                 <View key={dailyWeather.time}>
-                  <View style={styles.weekIconTempWrap}>
-                    {/* day */}
-                    <View style={styles.weekColWrap}>
-                      <Text style={styles.weekText}>{day}</Text>
-                    </View>
-                    {/* daily icon */}
-                    <View style={styles.weekColWrap}>
-                      <Image
-                        style={styles.weekIcon}
-                        source={dailyWeatherDisplay}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    {/* daily low temp */}
-                    <View style={styles.weekColWrap}>
-                      <Text style={styles.weekLowTemp}>
-                        {Math.round(dailyWeather.temperatureLow)}°
-                      </Text>
-                    </View>
-                    {/* daily high temp */}
-                    <View style={styles.weekColWrap}>
-                      <Text style={styles.weekHighTemp}>
-                        {Math.round(dailyWeather.temperatureHigh)}°
-                      </Text>
-                    </View>
-                  </View>
+                  <Collapse>
+                    <CollapseHeader>
+                      <View style={styles.weekIconTempWrap}>
+                        {/* day */}
+                        <View style={styles.weekColWrap}>
+                          <Text style={styles.weekText}>{day}</Text>
+                        </View>
+                        {/* daily icon */}
+                        <View style={styles.weekColWrap}>
+                          <Image
+                            style={styles.weekIcon}
+                            source={dailyWeatherDisplay}
+                            resizeMode="contain"
+                          />
+                        </View>
+                        {/* daily low temp */}
+                        <View style={styles.weekColWrap}>
+                          <Text style={styles.weekLowTemp}>
+                            {Math.round(dailyWeather.temperatureLow)}°
+                          </Text>
+                        </View>
+                        {/* daily high temp */}
+                        <View style={styles.weekColWrap}>
+                          <Text style={styles.weekHighTemp}>
+                            {Math.round(dailyWeather.temperatureHigh)}°
+                          </Text>
+                        </View>
+                      </View>
+                    </CollapseHeader>
 
-                  {/* <View style={styles.weekFullWrap}> */}
-                  <Text style={styles.weekText}>{dailyWeather.summary}</Text>
-                  {/* </View> */}
-                  <Text style={styles.weekText}>
-                    Wind Speed: {dailyWeather.windSpeed} km/ph
-                  </Text>
-                  <Text style={styles.weekTextBot}>
-                    Humidity: {percentage.substring(2)}%
-                  </Text>
-                  {/* <View style={styles.weekIconTempWrap}>
+                    <CollapseBody>
+                      {/* <View style={styles.weekFullWrap}> */}
+                      <Text style={styles.weekText}>
+                        {dailyWeather.summary}
+                      </Text>
+                      {/* </View> */}
+                      <Text style={styles.weekText}>
+                        Wind Speed: {dailyWeather.windSpeed} km/ph
+                      </Text>
+                      <Text style={styles.weekTextBot}>
+                        Humidity: {percentage.substring(2)}%
+                      </Text>
+                      {/* <View style={styles.weekIconTempWrap}>
                     <View style={styles.weekFullWrap}>
                       <Text style={styles.weekText}>
                         Wind Speed: {dailyWeather.windSpeed} km/ph
@@ -117,6 +141,8 @@ class Week extends React.Component {
                       </Text>
                     </View>
                   </View> */}
+                    </CollapseBody>
+                  </Collapse>
                 </View>
                 // END week display
               );
