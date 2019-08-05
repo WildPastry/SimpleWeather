@@ -5,18 +5,18 @@ import { StyleSheet } from 'react-native';
 const myStylesheet = StyleSheet.create({
   // slider
   swiperWrap: {
-    flex: 8
+    flex: 1
   },
-  slide1: {
-    backgroundColor: '#114180',
-    flex: 1,
-    justifyContent: 'center'
-  },
-  slide2: {
-    backgroundColor: '#114180',
-    flex: 1,
-    justifyContent: 'center'
-  },
+  // slide1: {
+  //   backgroundColor: '#114180',
+  //   flex: 1,
+  //   justifyContent: 'center'
+  // },
+  // slide2: {
+  //   backgroundColor: '#114180',
+  //   flex: 1,
+  //   justifyContent: 'center'
+  // },
 
   // loading screen
   loader: {
@@ -202,7 +202,8 @@ const myStylesheet = StyleSheet.create({
     alignSelf: 'stretch',
     flex: 1,
     justifyContent: 'center',
-    marginTop: 8
+    marginTop: 8,
+    marginBottom: 8
   },
   footerText: {
     color: '#fff',

@@ -254,8 +254,6 @@ export default class App extends React.Component {
             time: data.daily.data[0].time,
           },
           () => {
-            // console.log(this.state.weather.currently)
-            // console.log(this.state.weather.daily.data[0])
             this.setCurrentIcon();
           }
         );
@@ -299,8 +297,7 @@ export default class App extends React.Component {
       return (
         // START main container
         <View keyboardShouldPersistTaps="handled" style={styles.container}>
-          {/* header */}
-          <Header />
+
           {/* START swiper */}
           <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
             <ScrollView
@@ -311,9 +308,11 @@ export default class App extends React.Component {
               horizontal={false}
               showsPagination={false}
             >
+                        {/* header */}
+          <Header />
               {/* START app display */}
               {/* START slide 1 */}
-              <View keyboardShouldPersistTaps="handled" style={styles.slide1}>
+              {/* <View keyboardShouldPersistTaps="handled" style={styles.slide1}> */}
                 {/* current */}
                 <Current
                   keyboardShouldPersistTaps="handled"
@@ -331,23 +330,24 @@ export default class App extends React.Component {
                   low={this.state.low}
                   desc={this.state.desc}
                 />
-              </View>
+              {/* </View> */}
               {/* END slide 1 */}
               {/* START slide 2 */}
-              <View style={styles.slide2}>
+              {/* <View style={styles.slide2}> */}
                 {/* week */}
                 <Week
                   weather={this.state.weather.daily.data}
                   summary={this.state.weather.daily.summary}
                 />
-              </View>
+              {/* </View> */}
               {/* END slide 2 */}
               {/* END app display */}
+                        {/* footer */}
+          <Footer />
             </ScrollView>
           </View>
           {/* END swiper */}
-          {/* footer */}
-          <Footer />
+
         </View>
         // END main container
       );
