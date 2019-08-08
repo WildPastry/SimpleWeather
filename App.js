@@ -7,6 +7,8 @@ import {
   AppRegistry,
   Button,
   Dimensions,
+  Image,
+  ImageBackground,
   Keyboard,
   Platform,
   ScrollView,
@@ -34,6 +36,11 @@ import Header from './inc/Header';
 import Current from './inc/Current';
 import Week from './inc/Week';
 import Footer from './inc/Footer';
+
+// image bgs
+import sunnyHot from './assets/bgs/sunny-hot.png';
+import sunnyCold from './assets/bgs/sunny-cold.png';
+import rainyCold from './assets/bgs/rainy-cold.png';
 
 // database storage
 // import { AsyncStorage } from "react-native";
@@ -98,7 +105,6 @@ export default class App extends React.Component {
       humidity: '',
       dailyWind: '',
       dailyHumidity: ''
-
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
@@ -251,7 +257,7 @@ export default class App extends React.Component {
             high: Math.round(data.daily.data[0].temperatureHigh),
             low: Math.round(data.daily.data[0].temperatureLow),
             desc: data.daily.data[0].summary,
-            time: data.daily.data[0].time,
+            time: data.daily.data[0].time
           },
           () => {
             this.setCurrentIcon();
@@ -278,11 +284,106 @@ export default class App extends React.Component {
     });
   }
 
+  coldBg(){
+    console.log('I am cold');
+  }
+
+  hotBg(){
+    console.log('I am hot');
+  }
+
+  normalBg(){
+    console.log('I am normal');
+  }
+  
   // START render app
   render() {
     // declare variable in current state
     var { isLoaded } = this.state;
 
+    // image resize mode
+    const resizeMode = 'center';
+
+    // set up image display variable
+    let imageBG;
+
+    if (this.state.temp <= 10) {
+      this.coldBg();
+    } else if (this.state.temp >= 20) {
+      this.hotBg();
+    } else {
+      this.normalBg();
+    }
+
+    // image else if logic
+    if (this.state.icon === 'clear-day') {
+      imageBG = sunnyHot;
+    } else {
+      imageBG = rainyCold;
+    }
+
+    // switch (value) {
+    //   case 1:
+    //      for (int i = 0; i < something_in_the_array.length; i++)
+    //         if (whatever_value == (something_in_the_array[i])) {
+    //            value = 2;
+    //            break;
+    //         } else if (whatever_value == 2) {
+    //            value = 3;
+    //            break;
+    //         } else if (whatever_value == 3) {
+    //            value = 4;
+    //            break;
+    //         }
+    //      break;
+    //      case 2:
+    //       for (int i = 0; i < something_in_the_array.length; i++)
+    //          if (whatever_value == (something_in_the_array[i])) {
+    //             value = 2;
+    //             break;
+    //          } else if (whatever_value == 2) {
+    //             value = 3;
+    //             break;
+    //          } else if (whatever_value == 3) {
+    //             value = 4;
+    //             break;
+    //          }
+    //         }
+    // switch ($singleField['type']) {
+    //   case 'text':
+    //     echo '<div id="' . $customField . '" ' . $condition . ' >';
+    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
+    //     echo '<input type="text" name="' . $customField . '" class="inputField" value="' . $customValues[$customField][0] . '">';
+    //     echo '</div>';
+    //     break;
+    //   case 'number':
+    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
+    //     echo '<input type="number" name="' . $customField . '" class="inputField" value="' . $customValues[$customField][0] . '">';
+    //     break;
+    //   case 'textarea':
+    //     echo $customValues[$customField][0];
+    //     echo '<br>';
+    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
+    //     echo '<textarea class="inputField" name="' . $customField . '" rows="' . $singleField['rows'] . '"></textarea>';
+    //     break;
+    //   case 'select':
+    //     echo $customValues[$customField][0];
+    //     echo '<br>';
+    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
+    //     echo '<select name="' . $customField . '" class="inputField customSelect">';
+    //     echo '<option class="customSelect"> -- Please Enter a value -- </option>';
+    //     foreach ($singleField['choices'] as $choice) {
+    //       echo '<option class="customSelect" value="' . $choice . '">' . $choice . '</option>';
+    //     }
+    //     echo '</select>';
+    //     break;
+    //   default:
+    //     echo $customValues[$customField][0];
+    //     echo '<br>';
+    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
+    //     echo '<input type="text" name="' . $customField . '" class="inputField">';
+    //     break;
+    // }
     // START loading function
     if (!isLoaded) {
       return (
@@ -295,24 +396,31 @@ export default class App extends React.Component {
       // END loading function
     } else {
       return (
-        // START main container
-        <View keyboardShouldPersistTaps="handled" style={styles.container}>
-
-          {/* START swiper */}
-          <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
-            <ScrollView
-              loop={false}
-              width={window.width}
-              keyboardShouldPersistTaps="handled"
-              showsButtons={false}
-              horizontal={false}
-              showsPagination={false}
-            >
-                        {/* header */}
-          <Header />
-              {/* START app display */}
-              {/* START slide 1 */}
-              {/* <View keyboardShouldPersistTaps="handled" style={styles.slide1}> */}
+        // START dynamic image bg
+        <ImageBackground
+          style={{
+            flex: 1,
+            resizeMode
+          }}
+          source={imageBG}
+        >
+          {/* START main container */}
+          <View keyboardShouldPersistTaps="handled" style={styles.container}>
+            {/* START swiper */}
+            <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
+              <ScrollView
+                loop={false}
+                width={window.width}
+                keyboardShouldPersistTaps="handled"
+                showsButtons={false}
+                horizontal={false}
+                showsPagination={false}
+              >
+                {/* header */}
+                <Header />
+                {/* START app display */}
+                {/* START slide 1 */}
+                {/* <View keyboardShouldPersistTaps="handled" style={styles.slide1}> */}
                 {/* current */}
                 <Current
                   keyboardShouldPersistTaps="handled"
@@ -330,26 +438,27 @@ export default class App extends React.Component {
                   low={this.state.low}
                   desc={this.state.desc}
                 />
-              {/* </View> */}
-              {/* END slide 1 */}
-              {/* START slide 2 */}
-              {/* <View style={styles.slide2}> */}
+                {/* </View> */}
+                {/* END slide 1 */}
+                {/* START slide 2 */}
+                {/* <View style={styles.slide2}> */}
                 {/* week */}
                 <Week
                   weather={this.state.weather.daily.data}
                   summary={this.state.weather.daily.summary}
                 />
-              {/* </View> */}
-              {/* END slide 2 */}
-              {/* END app display */}
-                        {/* footer */}
-          <Footer />
-            </ScrollView>
+                {/* </View> */}
+                {/* END slide 2 */}
+                {/* END app display */}
+                {/* footer */}
+                <Footer />
+              </ScrollView>
+            </View>
+            {/* END swiper */}
           </View>
-          {/* END swiper */}
-
-        </View>
-        // END main container
+          {/* END main container */}
+        </ImageBackground>
+        // END dynamic image bg
       );
     }
   }
