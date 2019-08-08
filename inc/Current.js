@@ -120,7 +120,7 @@ class Current extends React.Component {
               googleLat: details.geometry.location.lat.toFixed(5),
               googleLng: details.geometry.location.lng.toFixed(5),
               googleName: details.address_components[0].long_name,
-              googleNameLong: details.address_components[2].long_name
+              googleNameLong: details.address_components[1].long_name
             });
             // console.log(details.address_components)
 

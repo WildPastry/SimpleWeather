@@ -40,7 +40,10 @@ import Footer from './inc/Footer';
 // image bgs
 import sunnyHot from './assets/bgs/sunny-hot.png';
 import sunnyCold from './assets/bgs/sunny-cold.png';
+import sunnyNorm from './assets/bgs/sunny-norm.png';
+import rainyHot from './assets/bgs/rainy-hot.png';
 import rainyCold from './assets/bgs/rainy-cold.png';
+import rainyNorm from './assets/bgs/rainy-norm.png';
 
 // database storage
 // import { AsyncStorage } from "react-native";
@@ -56,6 +59,9 @@ const geo = configData.GEO;
 
 // get device width
 const window = Dimensions.get('window');
+
+// set up image display variable
+let imageBg;
 
 // saved data fucntion
 // let savedLocation_object = {
@@ -261,6 +267,7 @@ export default class App extends React.Component {
           },
           () => {
             this.setCurrentIcon();
+            this.bgTemp();
           }
         );
       })
@@ -284,43 +291,60 @@ export default class App extends React.Component {
     });
   }
 
-  coldBg(){
-    console.log('I am cold');
+  // image else if logic
+  bgTemp() {
+    if (this.state.temp >= 20) {
+      this.hotBg();
+    } else if (this.state.temp <= 10) {
+      this.coldBg();
+    } else {
+      this.normalBg();
+    }
   }
 
-  hotBg(){
-    console.log('I am hot');
+  // high temp bg images
+  hotBg() {
+    if (this.state.icon === 'clear-day') {
+      imageBg = sunnyHot;
+    } else {
+      imageBg = rainyHot;
+    }
   }
 
-  normalBg(){
-    console.log('I am normal');
+  // low temp bg images
+  coldBg() {
+    if (this.state.icon === 'clear-day') {
+      imageBg = sunnyCold;
+    } else {
+      imageBg = rainyCold;
+    }
   }
-  
+
+  // average temp bg images
+  normalBg() {
+    if (this.state.icon === 'clear-day') {
+      imageBg = sunnyNorm;
+    } else {
+      imageBg = rainyNorm;
+    }
+  }
+
   // START render app
   render() {
+    // console.log(imageBg);
+
     // declare variable in current state
     var { isLoaded } = this.state;
 
     // image resize mode
     const resizeMode = 'center';
 
-    // set up image display variable
-    let imageBG;
-
-    if (this.state.temp <= 10) {
-      this.coldBg();
-    } else if (this.state.temp >= 20) {
-      this.hotBg();
-    } else {
-      this.normalBg();
-    }
-
     // image else if logic
-    if (this.state.icon === 'clear-day') {
-      imageBG = sunnyHot;
-    } else {
-      imageBG = rainyCold;
-    }
+    // if (this.state.icon === 'clear-day') {
+    //   imageBG = sunnyHot;
+    // } else {
+    //   imageBG = rainyCold;
+    // }
 
     // switch (value) {
     //   case 1:
@@ -402,7 +426,7 @@ export default class App extends React.Component {
             flex: 1,
             resizeMode
           }}
-          source={imageBG}
+          source={imageBg}
         >
           {/* START main container */}
           <View keyboardShouldPersistTaps="handled" style={styles.container}>
