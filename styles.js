@@ -6,7 +6,7 @@ const myStylesheet = StyleSheet.create({
   // loading screen
   loader: {
     alignItems: 'center',
-    backgroundColor: '#0d3866',
+    backgroundColor: '#303030',
     flex: 1,
     justifyContent: 'center'
   },
@@ -159,6 +159,7 @@ const myStylesheet = StyleSheet.create({
     padding: 10,
     textAlign: 'center'
   },
+
   // footer component
   footerWrap: {
     alignSelf: 'stretch',

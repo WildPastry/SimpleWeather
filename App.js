@@ -328,8 +328,6 @@ export default class App extends React.Component {
 
   // START render app
   render() {
-    // console.log(imageBg);
-
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -342,6 +340,7 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <Image style={styles.iconLoader} source={preLoader} />
+          <Text style={styles.headerText}>loading. . .</Text>
         </View>
         // END loading display
       );
