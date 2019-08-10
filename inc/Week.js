@@ -52,7 +52,7 @@ class Week extends React.Component {
               let dailyWeatherDisplay;
 
               // set up colour bg variable
-              let colourBg
+              let colourBg;
 
               // weather else if logic
               if (dailyWeather.icon === 'cloudy') {
@@ -89,7 +89,14 @@ class Week extends React.Component {
               return (
                 // START week display
                 <View key={dailyWeather.time}>
-                  <Collapse style={{backgroundColor: colourBg, marginTop: 2, marginBottom: 2}}>
+                  <Collapse
+                    style={{
+                      backgroundColor: colourBg,
+                      marginTop: 3,
+                      marginBottom: 3,
+                      padding: 10
+                    }}
+                  >
                     <CollapseHeader>
                       <View style={styles.weekIconTempWrap}>
                         {/* day */}

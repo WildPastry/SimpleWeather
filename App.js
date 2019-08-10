@@ -41,6 +41,9 @@ import rainyHot from './assets/bgs/rainy-hot.png';
 import rainyCold from './assets/bgs/rainy-cold.png';
 import rainyNorm from './assets/bgs/rainy-norm.png';
 
+// pre-loader
+import preLoader from './assets/preloader.gif';
+
 // database storage
 // import { AsyncStorage } from "react-native";
 
@@ -338,7 +341,7 @@ export default class App extends React.Component {
       return (
         // START loading display
         <View style={styles.loader}>
-          <Text style={styles.headingLoader}>Loading...</Text>
+          <Image style={styles.iconLoader} source={preLoader} />
         </View>
         // END loading display
       );
@@ -355,41 +358,41 @@ export default class App extends React.Component {
         >
           {/* START main container */}
           <View keyboardShouldPersistTaps="handled" style={styles.container}>
-              <ScrollView
-                loop={false}
-                width={window.width}
+            <ScrollView
+              loop={false}
+              width={window.width}
+              keyboardShouldPersistTaps="handled"
+              showsButtons={false}
+              horizontal={false}
+              showsPagination={false}
+            >
+              {/* header */}
+              <Header />
+              {/* current */}
+              <Current
                 keyboardShouldPersistTaps="handled"
-                showsButtons={false}
-                horizontal={false}
-                showsPagination={false}
-              >
-                {/* header */}
-                <Header />
-                {/* current */}
-                <Current
-                  keyboardShouldPersistTaps="handled"
-                  currentIcon={this.state.currentIcon}
-                  updateSkyData={this.updateSkyData}
-                  errorMessage={this.state.errorMessag}
-                  currentLocation={this.state.currentLocation}
-                  currentCity={this.state.currentCity}
-                  currentLat={this.state.currentLat}
-                  currentLng={this.state.currentLng}
-                  wind={this.state.wind}
-                  humidity={this.state.humidity}
-                  temp={this.state.temp}
-                  high={this.state.high}
-                  low={this.state.low}
-                  desc={this.state.desc}
-                />
-                {/* week */}
-                <Week
-                  weather={this.state.weather.daily.data}
-                  summary={this.state.weather.daily.summary}
-                />
-                {/* footer */}
-                <Footer />
-              </ScrollView>
+                currentIcon={this.state.currentIcon}
+                updateSkyData={this.updateSkyData}
+                errorMessage={this.state.errorMessag}
+                currentLocation={this.state.currentLocation}
+                currentCity={this.state.currentCity}
+                currentLat={this.state.currentLat}
+                currentLng={this.state.currentLng}
+                wind={this.state.wind}
+                humidity={this.state.humidity}
+                temp={this.state.temp}
+                high={this.state.high}
+                low={this.state.low}
+                desc={this.state.desc}
+              />
+              {/* week */}
+              <Week
+                weather={this.state.weather.daily.data}
+                summary={this.state.weather.daily.summary}
+              />
+              {/* footer */}
+              <Footer />
+            </ScrollView>
           </View>
           {/* END main container */}
         </ImageBackground>

@@ -6,15 +6,13 @@ const myStylesheet = StyleSheet.create({
   // loading screen
   loader: {
     alignItems: 'center',
-    backgroundColor: '#303030',
+    backgroundColor: '#0d3866',
     flex: 1,
     justifyContent: 'center'
   },
-  headingLoader: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '500',
-    textAlign: 'center'
+  iconLoader: {
+    height: 80,
+    width: 80
   },
 
   // main container
@@ -37,11 +35,9 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 15,
     fontWeight: '700',
-    padding: 5,
+    padding: 10,
     textAlign: 'center'
   },
-
-
 
   // current component
   currentWrap: {
@@ -62,10 +58,11 @@ const myStylesheet = StyleSheet.create({
   },
   currentTemp: {
     color: '#fff',
-    fontSize: 60,
+    fontSize: 50,
     fontWeight: '700',
-    padding: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingTop: 12,
+    width: 80
   },
   currentDescTempWrap: {
     flexDirection: 'row',
@@ -75,47 +72,44 @@ const myStylesheet = StyleSheet.create({
     color: '#ff6666',
     fontSize: 20,
     fontWeight: '300',
-    padding: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    width: 80
   },
   currentTempLow: {
     color: '#66a9d7',
     fontSize: 20,
     fontWeight: '300',
-    padding: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    width: 80
   },
   currentDesc: {
     color: '#fff',
     fontSize: 20,
     fontWeight: '300',
-    padding: 5,
+    padding: 10,
     textAlign: 'center'
   },
   dateText: {
     color: '#fff',
     fontSize: 20,
     fontWeight: '300',
-    padding: 5,
+    padding: 10,
     textAlign: 'center',
-    marginTop: 60,
+    marginTop: 60
   },
-  
+
   // week component
   weekWrap: {
     alignSelf: 'stretch',
     backgroundColor: '#303030',
     flex: 4,
     justifyContent: 'center',
-    marginTop: 8,
-    padding: 10
+    marginTop: 8
   },
   weekIconTempWrap: {
     alignItems: 'center',
-    // borderTopWidth : 0.5,
-    // borderTopColor: '#66a9d7',
     flexDirection: 'row',
-    height: 70,
+    height: 45,
     justifyContent: 'space-between',
     marginTop: 5
   },
@@ -144,7 +138,7 @@ const myStylesheet = StyleSheet.create({
     fontSize: 20,
     fontWeight: '300',
     marginBottom: 15,
-    padding: 5,
+    padding: 10,
     textAlign: 'center'
   },
   weekText: {
@@ -162,7 +156,7 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: '300',
-    padding: 5,
+    padding: 10,
     textAlign: 'center'
   },
   // footer component
@@ -177,7 +171,7 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 15,
     fontWeight: '700',
-    padding: 5,
+    padding: 10,
     textAlign: 'center'
   },
 
