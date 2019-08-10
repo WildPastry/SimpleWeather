@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 // START stylesheet
 const googleStylesheet = StyleSheet.create({
-  // google
+  // google auto-complete
   container: {
     zIndex: 1,
     position: "absolute",
@@ -11,18 +11,15 @@ const googleStylesheet = StyleSheet.create({
     width: "100%",
     height: "100%",
     overflow: 'visible',
-    // flexGrow: 0,
-    // flexShrink: 0
-    // height: 60
   },
   textInputContainer: {
     alignContent: 'center',
-    backgroundColor: '#1faadb',
+    backgroundColor: '#303030',
     width: '100%'
   },
   textInput: {
     alignItems: 'center',
-    backgroundColor: '#1faadb',
+    backgroundColor: '#303030',
     color: '#fff',
     fontWeight: '700',
     textAlign: 'center',
@@ -35,14 +32,14 @@ const googleStylesheet = StyleSheet.create({
     textAlign: 'center'
   },
   listView: {
-    backgroundColor: '#1faadb',
+    backgroundColor: '#303030',
     color: '#fff',
     position: 'absolute',
     top: 44,
     elevation: 1
   },
   separator: {
-    backgroundColor: '#66a9d7',
+    backgroundColor: '#ffffff48',
     height: 0.5
   }
 });

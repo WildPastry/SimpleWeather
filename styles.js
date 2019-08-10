@@ -42,7 +42,6 @@ const myStylesheet = StyleSheet.create({
   // current component
   currentWrap: {
     alignSelf: 'stretch',
-    backgroundColor: '#303030',
     flex: 1,
     marginTop: 8
   },
@@ -101,7 +100,6 @@ const myStylesheet = StyleSheet.create({
   // week component
   weekWrap: {
     alignSelf: 'stretch',
-    backgroundColor: '#303030',
     flex: 4,
     justifyContent: 'center',
     marginTop: 8
