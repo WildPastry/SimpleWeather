@@ -122,7 +122,6 @@ class Current extends React.Component {
               googleName: details.address_components[0].long_name,
               googleNameLong: details.address_components[1].long_name
             });
-            // console.log(details.address_components)
 
             // update sky data function
             this.updateSkyData();

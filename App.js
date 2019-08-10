@@ -22,17 +22,13 @@ import {
 import { Constants, Location, Permissions } from 'expo';
 
 // font
-import { Font } from 'expo';
-
-// swiper
-import Swiper from '@nart/react-native-swiper';
+// import { Font } from 'expo';
 
 // configuration data
 import configData from './data/config.json';
 
 // components
 import Header from './inc/Header';
-// import UserInput from "./inc/UserInput";
 import Current from './inc/Current';
 import Week from './inc/Week';
 import Footer from './inc/Footer';
@@ -118,7 +114,6 @@ export default class App extends React.Component {
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
-    // this.setPressedState = this.setPressedState.bind(this);
   }
 
   updateSkyData(value) {
@@ -211,7 +206,6 @@ export default class App extends React.Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        // console.log(responseJson.results[3].address_components[3].long_name)
         this.setState({
           currentLocation:
             responseJson.results[3].address_components[2].long_name,
@@ -339,75 +333,6 @@ export default class App extends React.Component {
     // image resize mode
     const resizeMode = 'center';
 
-    // image else if logic
-    // if (this.state.icon === 'clear-day') {
-    //   imageBG = sunnyHot;
-    // } else {
-    //   imageBG = rainyCold;
-    // }
-
-    // switch (value) {
-    //   case 1:
-    //      for (int i = 0; i < something_in_the_array.length; i++)
-    //         if (whatever_value == (something_in_the_array[i])) {
-    //            value = 2;
-    //            break;
-    //         } else if (whatever_value == 2) {
-    //            value = 3;
-    //            break;
-    //         } else if (whatever_value == 3) {
-    //            value = 4;
-    //            break;
-    //         }
-    //      break;
-    //      case 2:
-    //       for (int i = 0; i < something_in_the_array.length; i++)
-    //          if (whatever_value == (something_in_the_array[i])) {
-    //             value = 2;
-    //             break;
-    //          } else if (whatever_value == 2) {
-    //             value = 3;
-    //             break;
-    //          } else if (whatever_value == 3) {
-    //             value = 4;
-    //             break;
-    //          }
-    //         }
-    // switch ($singleField['type']) {
-    //   case 'text':
-    //     echo '<div id="' . $customField . '" ' . $condition . ' >';
-    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
-    //     echo '<input type="text" name="' . $customField . '" class="inputField" value="' . $customValues[$customField][0] . '">';
-    //     echo '</div>';
-    //     break;
-    //   case 'number':
-    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
-    //     echo '<input type="number" name="' . $customField . '" class="inputField" value="' . $customValues[$customField][0] . '">';
-    //     break;
-    //   case 'textarea':
-    //     echo $customValues[$customField][0];
-    //     echo '<br>';
-    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
-    //     echo '<textarea class="inputField" name="' . $customField . '" rows="' . $singleField['rows'] . '"></textarea>';
-    //     break;
-    //   case 'select':
-    //     echo $customValues[$customField][0];
-    //     echo '<br>';
-    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
-    //     echo '<select name="' . $customField . '" class="inputField customSelect">';
-    //     echo '<option class="customSelect"> -- Please Enter a value -- </option>';
-    //     foreach ($singleField['choices'] as $choice) {
-    //       echo '<option class="customSelect" value="' . $choice . '">' . $choice . '</option>';
-    //     }
-    //     echo '</select>';
-    //     break;
-    //   default:
-    //     echo $customValues[$customField][0];
-    //     echo '<br>';
-    //     echo '<label for="' . $customField . '">' . $singleField['title'] . '</label>';
-    //     echo '<input type="text" name="' . $customField . '" class="inputField">';
-    //     break;
-    // }
     // START loading function
     if (!isLoaded) {
       return (
@@ -430,8 +355,6 @@ export default class App extends React.Component {
         >
           {/* START main container */}
           <View keyboardShouldPersistTaps="handled" style={styles.container}>
-            {/* START swiper */}
-            <View keyboardShouldPersistTaps="handled" style={styles.swiperWrap}>
               <ScrollView
                 loop={false}
                 width={window.width}
@@ -442,9 +365,6 @@ export default class App extends React.Component {
               >
                 {/* header */}
                 <Header />
-                {/* START app display */}
-                {/* START slide 1 */}
-                {/* <View keyboardShouldPersistTaps="handled" style={styles.slide1}> */}
                 {/* current */}
                 <Current
                   keyboardShouldPersistTaps="handled"
@@ -462,23 +382,14 @@ export default class App extends React.Component {
                   low={this.state.low}
                   desc={this.state.desc}
                 />
-                {/* </View> */}
-                {/* END slide 1 */}
-                {/* START slide 2 */}
-                {/* <View style={styles.slide2}> */}
                 {/* week */}
                 <Week
                   weather={this.state.weather.daily.data}
                   summary={this.state.weather.daily.summary}
                 />
-                {/* </View> */}
-                {/* END slide 2 */}
-                {/* END app display */}
                 {/* footer */}
                 <Footer />
               </ScrollView>
-            </View>
-            {/* END swiper */}
           </View>
           {/* END main container */}
         </ImageBackground>

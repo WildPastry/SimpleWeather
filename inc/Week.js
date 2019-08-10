@@ -17,8 +17,7 @@ import IconWindy from './../assets/weather/windy.png';
 import {
   Collapse,
   CollapseHeader,
-  CollapseBody,
-  AccordionList
+  CollapseBody
 } from 'accordion-collapse-react-native';
 
 // moment set up
@@ -38,16 +37,6 @@ class Week extends React.Component {
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>7 Day forecast</Text>
           <Text style={styles.weekDesc}>{this.props.summary}</Text>
-          {/* <Collapse>
-            <CollapseHeader>
-              <View>
-                <Text>Click here</Text>
-              </View>
-            </CollapseHeader>
-            <CollapseBody>
-              <Text>Ta daa!</Text>
-            </CollapseBody>
-          </Collapse> */}
           <View>
             {/* START map */}
             {this.props.weather.slice(1).map(dailyWeather => {
@@ -62,32 +51,45 @@ class Week extends React.Component {
               // set up weather display variable
               let dailyWeatherDisplay;
 
+              // set up colour bg variable
+              let colourBg
+
               // weather else if logic
               if (dailyWeather.icon === 'cloudy') {
                 dailyWeatherDisplay = IconCloudy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'partly-cloudy-day') {
                 dailyWeatherDisplay = IconPartlyCloudy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'fog') {
                 dailyWeatherDisplay = IconFoggy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'rain') {
                 dailyWeatherDisplay = IconRainy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'snow') {
                 dailyWeatherDisplay = IconSnowy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'clear-day') {
                 dailyWeatherDisplay = IconSunny;
+                colourBg = '#ff6666';
               } else if (dailyWeather.icon === 'wind') {
                 dailyWeatherDisplay = IconWindy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'sleet') {
                 dailyWeatherDisplay = IconSnowy;
+                colourBg = '#5e7596';
               } else if (dailyWeather.icon === 'clear-night') {
                 dailyWeatherDisplay = IconSunny;
+                colourBg = '#5e7596';
               } else {
                 dailyWeatherDisplay = IconPartlyCloudy;
+                colourBg = '#5e7596';
               }
               return (
                 // START week display
                 <View key={dailyWeather.time}>
-                  <Collapse>
+                  <Collapse style={{backgroundColor: colourBg, marginTop: 2, marginBottom: 2}}>
                     <CollapseHeader>
                       <View style={styles.weekIconTempWrap}>
                         {/* day */}

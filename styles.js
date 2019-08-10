@@ -3,21 +3,6 @@ import { StyleSheet } from 'react-native';
 
 // START stylesheet
 const myStylesheet = StyleSheet.create({
-  // slider
-  swiperWrap: {
-    flex: 1
-  },
-  // slide1: {
-  //   backgroundColor: '#114180',
-  //   flex: 1,
-  //   justifyContent: 'center'
-  // },
-  // slide2: {
-  //   backgroundColor: '#114180',
-  //   flex: 1,
-  //   justifyContent: 'center'
-  // },
-
   // loading screen
   loader: {
     alignItems: 'center',
@@ -35,7 +20,6 @@ const myStylesheet = StyleSheet.create({
   // main container
   container: {
     alignItems: 'center',
-    // backgroundColor: '#114180',
     flex: 1
   },
 
@@ -57,31 +41,7 @@ const myStylesheet = StyleSheet.create({
     textAlign: 'center'
   },
 
-  // user input component
-  locationWrap: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor: '#303030',
-    flex: 1,
-    justifyContent: 'center',
-    marginTop: 8
-  },
-  locationText: {
-    color: '#ff6666',
-    fontSize: 20,
-    fontWeight: '700',
-    padding: 5,
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  },
-  dateText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '300',
-    padding: 5,
-    textAlign: 'center',
-    marginTop: 60,
-  },
+
 
   // current component
   currentWrap: {
@@ -132,7 +92,15 @@ const myStylesheet = StyleSheet.create({
     padding: 5,
     textAlign: 'center'
   },
-
+  dateText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '300',
+    padding: 5,
+    textAlign: 'center',
+    marginTop: 60,
+  },
+  
   // week component
   weekWrap: {
     alignSelf: 'stretch',
@@ -144,8 +112,8 @@ const myStylesheet = StyleSheet.create({
   },
   weekIconTempWrap: {
     alignItems: 'center',
-    borderTopWidth : 0.5,
-    borderTopColor: '#66a9d7',
+    // borderTopWidth : 0.5,
+    // borderTopColor: '#66a9d7',
     flexDirection: 'row',
     height: 70,
     justifyContent: 'space-between',
