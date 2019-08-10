@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Base Weather",
-    "slug": "base-weather",
+    "name": "Simple Weather",
+    "slug": "simple-weather",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
