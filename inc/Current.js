@@ -97,6 +97,10 @@ class Current extends React.Component {
     } else {
       weatherDisplay = IconPartlyCloudy;
     }
+
+    // set up colour bg variable
+    var colourBg = this.props.weekBg;
+
     return (
       // START current display
       <SafeAreaView
@@ -120,7 +124,7 @@ class Current extends React.Component {
               googleLat: details.geometry.location.lat.toFixed(5),
               googleLng: details.geometry.location.lng.toFixed(5),
               googleName: details.address_components[0].long_name,
-              googleNameLong: details.address_components[1].long_name
+              googleNameLong: details.address_components[2].long_name
             });
 
             // update sky data function
@@ -133,7 +137,48 @@ class Current extends React.Component {
             types: '(cities)'
           }}
           // load google styles
-          styles={googleStyles}
+          // styles={googleStyles}
+          styles={{
+            container: {
+              zIndex: 1,
+              position: 'absolute',
+              top: 0,
+              width: '100%',
+              height: '100%',
+              overflow: 'visible'
+            },
+            textInputContainer: {
+              alignContent: 'center',
+              backgroundColor: colourBg,
+              width: '100%'
+            },
+            textInput: {
+              alignItems: 'center',
+              backgroundColor: colourBg,
+              color: '#fff',
+              fontWeight: '700',
+              textAlign: 'center',
+              zIndex: 1
+            },
+            description: {
+              alignItems: 'center',
+              color: '#fff',
+              fontWeight: '700',
+              textAlign: 'center'
+            },
+            listView: {
+              backgroundColor: colourBg,
+              color: '#fff',
+              position: 'absolute',
+              top: 44,
+              elevation: 1
+            },
+            separator: {
+              backgroundColor: '#ffffff48',
+              height: 0.5
+            }
+          }}
+          // other options
           currentLocation={false}
           currentLocationLabel="Current location"
           nearbyPlacesAPI="GooglePlacesSearch"

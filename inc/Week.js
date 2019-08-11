@@ -52,39 +52,39 @@ class Week extends React.Component {
               let dailyWeatherDisplay;
 
               // set up colour bg variable
-              let colourBg;
+              var colourBg = this.props.weekBg;
 
               // weather else if logic
               if (dailyWeather.icon === 'cloudy') {
                 dailyWeatherDisplay = IconCloudy;
-                colourBg = '#5e7596';
+                // colourBg = colours.scatteredClouds;
               } else if (dailyWeather.icon === 'partly-cloudy-day') {
                 dailyWeatherDisplay = IconPartlyCloudy;
-                colourBg = '#5e7596';
+                // colourBg = colours.fewClouds;
               } else if (dailyWeather.icon === 'fog') {
                 dailyWeatherDisplay = IconFoggy;
-                colourBg = '#5e7596';
+                // colourBg = colours.mist;
               } else if (dailyWeather.icon === 'rain') {
                 dailyWeatherDisplay = IconRainy;
-                colourBg = '#5e7596';
+                // colourBg = colours.rain;
               } else if (dailyWeather.icon === 'snow') {
                 dailyWeatherDisplay = IconSnowy;
-                colourBg = '#5e7596';
+                // colourBg = colours.snow;
               } else if (dailyWeather.icon === 'clear-day') {
                 dailyWeatherDisplay = IconSunny;
-                colourBg = '#ff6666';
+                // colourBg = colours.clearSky;
               } else if (dailyWeather.icon === 'wind') {
                 dailyWeatherDisplay = IconWindy;
-                colourBg = '#5e7596';
+                // colourBg = colours.mist;
               } else if (dailyWeather.icon === 'sleet') {
                 dailyWeatherDisplay = IconSnowy;
-                colourBg = '#5e7596';
+                // colourBg = colours.snow;
               } else if (dailyWeather.icon === 'clear-night') {
                 dailyWeatherDisplay = IconSunny;
-                colourBg = '#5e7596';
+                // colourBg = colours.night;
               } else {
                 dailyWeatherDisplay = IconPartlyCloudy;
-                colourBg = '#5e7596';
+                // colourBg = colours.fewClouds;
               }
               return (
                 // START week display

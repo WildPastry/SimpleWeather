@@ -1,5 +1,22 @@
 {
-"clearNight": "#0d3866",
-"clearDay": "#ff9e3e",
-"rainyDay": "#136999"
+  "clearSky": "#ffb23b",
+  "fewClouds": "#ffb23b",
+  "scatteredClouds": "#6e859e",
+  "brokenClouds": "#6e859e",
+  "showerRain": "#2485c7",
+  "rain": "#2485c7",
+  "thunderStorm": "#505050",
+  "snow": "#fffff",
+  "mist": "#c8c8c8",
+  "night": "#0f294a",
+  "clearSkyDark": "#f89e18",
+  "fewCloudsDark": "#eb9d27",
+  "scatteredCloudsDark": "#5d6e80",
+  "brokenCloudsDark": "#546679",
+  "showerRainDark": "#106dac",
+  "rainDark": "#106ba8",
+  "thunderStormDark": "#353535",
+  "snowDark": "#bdbdbd",
+  "mistDark": "#999999",
+  "nightDark": "#062349"
 }

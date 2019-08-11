@@ -76,7 +76,6 @@ let imageBg;
 
 // START default class app
 export default class App extends React.Component {
-  
   // default class app constructor
   constructor(props) {
     super(props);
@@ -105,7 +104,9 @@ export default class App extends React.Component {
       wind: '',
       humidity: '',
       dailyWind: '',
-      dailyHumidity: ''
+      dailyHumidity: '',
+      // colour background
+      weekBg: null
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
@@ -289,11 +290,23 @@ export default class App extends React.Component {
   setBg() {
     // console.log(this.state.icon);
     if (this.state.icon === 'clear-day') {
-      imageBg = colours.clearDay;
+      imageBg = colours.clearSky;
+      this.setState({
+        weekBg: colours.clearSkyDark
+      });
+      // weekBg = colours.clearSkyDark
     } else if (this.state.icon === 'clear-night') {
-      imageBg = colours.clearNight;
+      imageBg = colours.night;
+      this.setState({
+        weekBg: colours.nightDark
+      });
+      // weekBg = colours.nightDark
     } else {
-      imageBg = colours.rainyDay;
+      imageBg = colours.showerRain;
+      this.setState({
+        weekBg: colours.showerRainDark
+      });
+      // weekBg = colours.showerRainDark
     }
   }
 
@@ -344,6 +357,7 @@ export default class App extends React.Component {
             {/* current */}
             <Current
               keyboardShouldPersistTaps="handled"
+              weekBg={this.state.weekBg}
               currentIcon={this.state.currentIcon}
               updateSkyData={this.updateSkyData}
               errorMessage={this.state.errorMessag}
@@ -360,6 +374,7 @@ export default class App extends React.Component {
             />
             {/* week */}
             <Week
+              weekBg={this.state.weekBg}
               weather={this.state.weather.daily.data}
               summary={this.state.weather.daily.summary}
             />
