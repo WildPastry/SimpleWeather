@@ -33,9 +33,8 @@ import Current from './inc/Current';
 import Week from './inc/Week';
 import Footer from './inc/Footer';
 
-// image bgs
-import sunny from './assets/bgs/sunny.png';
-import rainy from './assets/bgs/rainy.png';
+// colours
+import colours from './assets/colours.json';
 
 // pre-loader
 import preLoader from './assets/preloader.gif';
@@ -77,6 +76,7 @@ let imageBg;
 
 // START default class app
 export default class App extends React.Component {
+  
   // default class app constructor
   constructor(props) {
     super(props);
@@ -127,6 +127,7 @@ export default class App extends React.Component {
 
   // START component pre mount
   componentWillMount() {
+    // console.log(colours.dbluv);
     // get user location function
     this._getLocationAsync();
   }
@@ -286,10 +287,13 @@ export default class App extends React.Component {
 
   // image else if logic
   setBg() {
+    // console.log(this.state.icon);
     if (this.state.icon === 'clear-day') {
-      imageBg = '#ff9e3e';
+      imageBg = colours.clearDay;
+    } else if (this.state.icon === 'clear-night') {
+      imageBg = colours.clearNight;
     } else {
-      imageBg = '#136999';
+      imageBg = colours.rainyDay;
     }
   }
 
@@ -299,7 +303,7 @@ export default class App extends React.Component {
     var { isLoaded } = this.state;
 
     // image resize mode
-    const resizeMode = 'cover';
+    // const resizeMode = 'cover';
 
     // START loading function
     if (!isLoaded) {
