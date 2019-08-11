@@ -34,12 +34,8 @@ import Week from './inc/Week';
 import Footer from './inc/Footer';
 
 // image bgs
-import sunnyHot from './assets/bgs/sunny-hot.png';
-import sunnyCold from './assets/bgs/sunny-cold.png';
-import sunnyNorm from './assets/bgs/sunny-norm.png';
-import rainyHot from './assets/bgs/rainy-hot.png';
-import rainyCold from './assets/bgs/rainy-cold.png';
-import rainyNorm from './assets/bgs/rainy-norm.png';
+import sunny from './assets/bgs/sunny.png';
+import rainy from './assets/bgs/rainy.png';
 
 // pre-loader
 import preLoader from './assets/preloader.gif';
@@ -156,7 +152,7 @@ export default class App extends React.Component {
       this.setState({
         errorMessage: 'Please enable location services for this app',
         // fallback
-        currentLocation: 'Wellington',
+        currentLocation: 'Wellington, New Zealand',
         currentLat: -41.2865,
         currentLng: 174.7762
       });
@@ -264,7 +260,7 @@ export default class App extends React.Component {
           },
           () => {
             this.setCurrentIcon();
-            this.bgTemp();
+            this.setBg();
           }
         );
       })
@@ -289,40 +285,11 @@ export default class App extends React.Component {
   }
 
   // image else if logic
-  bgTemp() {
-    if (this.state.temp >= 20) {
-      this.hotBg();
-    } else if (this.state.temp <= 10) {
-      this.coldBg();
-    } else {
-      this.normalBg();
-    }
-  }
-
-  // high temp bg images
-  hotBg() {
+  setBg() {
     if (this.state.icon === 'clear-day') {
-      imageBg = sunnyHot;
+      imageBg = '#ff9e3e';
     } else {
-      imageBg = rainyHot;
-    }
-  }
-
-  // low temp bg images
-  coldBg() {
-    if (this.state.icon === 'clear-day') {
-      imageBg = sunnyCold;
-    } else {
-      imageBg = rainyCold;
-    }
-  }
-
-  // average temp bg images
-  normalBg() {
-    if (this.state.icon === 'clear-day') {
-      imageBg = sunnyNorm;
-    } else {
-      imageBg = rainyNorm;
+      imageBg = '#136999';
     }
   }
 
@@ -332,7 +299,7 @@ export default class App extends React.Component {
     var { isLoaded } = this.state;
 
     // image resize mode
-    const resizeMode = 'center';
+    const resizeMode = 'cover';
 
     // START loading function
     if (!isLoaded) {
@@ -340,7 +307,7 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <Image style={styles.iconLoader} source={preLoader} />
-          <Text style={styles.headerText}>loading. . .</Text>
+          <Text style={styles.headerText}>loading . . .</Text>
         </View>
         // END loading display
       );
@@ -348,53 +315,56 @@ export default class App extends React.Component {
     } else {
       return (
         // START dynamic image bg
-        <ImageBackground
-          style={{
-            flex: 1,
-            resizeMode
-          }}
-          source={imageBg}
+        // <ImageBackground
+        //   style={{
+        //     flex: 1,
+        //     resizeMode
+        //   }}
+        //   source={imageBg}
+        // >
+        // {/* START main container */}
+        <View
+          keyboardShouldPersistTaps="handled"
+          style={{ alignItems: 'center', backgroundColor: imageBg, flex: 1 }}
         >
-          {/* START main container */}
-          <View keyboardShouldPersistTaps="handled" style={styles.container}>
-            <ScrollView
-              loop={false}
-              width={window.width}
+          <ScrollView
+            loop={false}
+            width={window.width}
+            keyboardShouldPersistTaps="handled"
+            showsButtons={false}
+            horizontal={false}
+            showsPagination={false}
+          >
+            {/* header */}
+            <Header />
+            {/* current */}
+            <Current
               keyboardShouldPersistTaps="handled"
-              showsButtons={false}
-              horizontal={false}
-              showsPagination={false}
-            >
-              {/* header */}
-              <Header />
-              {/* current */}
-              <Current
-                keyboardShouldPersistTaps="handled"
-                currentIcon={this.state.currentIcon}
-                updateSkyData={this.updateSkyData}
-                errorMessage={this.state.errorMessag}
-                currentLocation={this.state.currentLocation}
-                currentCity={this.state.currentCity}
-                currentLat={this.state.currentLat}
-                currentLng={this.state.currentLng}
-                wind={this.state.wind}
-                humidity={this.state.humidity}
-                temp={this.state.temp}
-                high={this.state.high}
-                low={this.state.low}
-                desc={this.state.desc}
-              />
-              {/* week */}
-              <Week
-                weather={this.state.weather.daily.data}
-                summary={this.state.weather.daily.summary}
-              />
-              {/* footer */}
-              <Footer />
-            </ScrollView>
-          </View>
-          {/* END main container */}
-        </ImageBackground>
+              currentIcon={this.state.currentIcon}
+              updateSkyData={this.updateSkyData}
+              errorMessage={this.state.errorMessag}
+              currentLocation={this.state.currentLocation}
+              currentCity={this.state.currentCity}
+              currentLat={this.state.currentLat}
+              currentLng={this.state.currentLng}
+              wind={this.state.wind}
+              humidity={this.state.humidity}
+              temp={this.state.temp}
+              high={this.state.high}
+              low={this.state.low}
+              desc={this.state.desc}
+            />
+            {/* week */}
+            <Week
+              weather={this.state.weather.daily.data}
+              summary={this.state.weather.daily.summary}
+            />
+            {/* footer */}
+            <Footer />
+          </ScrollView>
+        </View>
+        // {/* END main container */}
+        // </ImageBackground>
         // END dynamic image bg
       );
     }

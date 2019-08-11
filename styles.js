@@ -27,7 +27,7 @@ const myStylesheet = StyleSheet.create({
     flex: 1
   },
   headerTopBar: {
-    backgroundColor: '#66a9d7',
+    backgroundColor: '#fff',
     height: 22,
     marginBottom: 8
   },
@@ -120,13 +120,13 @@ const myStylesheet = StyleSheet.create({
     width: 30
   },
   weekLowTemp: {
-    color: '#66a9d7',
+    color: '#fff',
     fontSize: 20,
     fontWeight: '300',
     textAlign: 'right'
   },
   weekHighTemp: {
-    color: '#ff6666',
+    color: '#fff',
     fontSize: 20,
     fontWeight: '300',
     textAlign: 'right'
