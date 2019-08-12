@@ -54,6 +54,11 @@ const myStylesheet = StyleSheet.create({
     height: 80,
     width: 80
   },
+  currentIconSmall: {
+    alignSelf: 'center',
+    height: 30,
+    width: 30
+  },
   currentTemp: {
     color: '#fff',
     fontSize: 50,
@@ -97,12 +102,6 @@ const myStylesheet = StyleSheet.create({
   },
 
   // week component
-  weekWrap: {
-    alignSelf: 'stretch',
-    flex: 4,
-    justifyContent: 'center',
-    marginTop: 8
-  },
   weekIconTempWrap: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -158,13 +157,6 @@ const myStylesheet = StyleSheet.create({
   },
 
   // footer component
-  footerWrap: {
-    alignSelf: 'stretch',
-    flex: 1,
-    justifyContent: 'center',
-    marginTop: 8,
-    marginBottom: 8
-  },
   footerText: {
     color: '#fff',
     fontSize: 15,

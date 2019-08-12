@@ -18,6 +18,8 @@ import IconRainy from './../assets/weather/rainy.png';
 import IconSnowy from './../assets/weather/snowy.png';
 import IconSunny from './../assets/weather/sunny.png';
 import IconWindy from './../assets/weather/windy.png';
+import WindSpeed from './../assets/weather/windSpeed.png';
+import Humidity from './../assets/weather/humidity.png';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -96,7 +98,7 @@ class Current extends React.Component {
     }
 
     // set up colour bg variable
-    var colourBg = this.props.weekBg;
+    var colourBg = this.props.currentBg;
 
     return (
       // START current display
@@ -133,7 +135,6 @@ class Current extends React.Component {
             types: '(cities)'
           }}
           // load google styles
-          // styles={googleStyles}
           styles={{
             container: {
               zIndex: 1,
@@ -159,8 +160,8 @@ class Current extends React.Component {
               marginBottom: 0,
               marginLeft: 0,
               marginRight: 0,
-              fontWeight: '700',
-              fontSize: 25,
+              fontWeight: '900',
+              fontSize: 20,
               textAlign: 'center',
               zIndex: 1
             },
@@ -224,15 +225,27 @@ class Current extends React.Component {
         <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
         {/* START wind speed */}
-        <Text style={styles.currentDesc}>
-          Wind Speed: {this.props.wind} km/ph
-        </Text>
-        {/* END wind speed */}
-        {/* START humidity */}
-        <Text style={styles.currentDesc}>
-          Humidity: {percentage.substring(2)}%
-        </Text>
-        {/* END humidity */}
+        <View style={styles.currentDescTempWrap}>
+          <View>
+            <Image
+              style={styles.currentIconSmall}
+              source={WindSpeed}
+              resizeMode="contain"
+            />
+            <Text style={styles.currentDesc}>{this.props.wind} km/h</Text>
+          </View>
+          {/* END wind speed */}
+          {/* START humidity */}
+          <View>
+            <Image
+              style={styles.currentIconSmall}
+              source={Humidity}
+              resizeMode="contain"
+            />
+            <Text style={styles.currentDesc}>{percentage.substring(2)}%</Text>
+          </View>
+          {/* END humidity */}
+        </View>
       </SafeAreaView>
       // END current display
     );

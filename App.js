@@ -105,7 +105,8 @@ export default class App extends React.Component {
       dailyWind: '',
       dailyHumidity: '',
       // colour background
-      weekBg: null
+      weekBg: null,
+      weekBarBg: null
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
@@ -288,19 +289,22 @@ export default class App extends React.Component {
     if (this.state.icon === 'clear-day') {
       imageBg = colours.clearSky;
       this.setState({
-        weekBg: colours.clearSkyDark
+        weekBg: colours.clearSkyDark,
+        weekBarBg: colours.clearSky
       });
       // weekBg = colours.clearSkyDark
     } else if (this.state.icon === 'clear-night') {
       imageBg = colours.night;
       this.setState({
-        weekBg: colours.nightDark
+        weekBg: colours.nightDark,
+        weekBarBg: colours.night
       });
       // weekBg = colours.nightDark
     } else {
       imageBg = colours.showerRain;
       this.setState({
-        weekBg: colours.showerRainDark
+        weekBg: colours.showerRainDark,
+        weekBarBg: colours.showerRain
       });
       // weekBg = colours.showerRainDark
     }
@@ -345,7 +349,7 @@ export default class App extends React.Component {
             {/* current */}
             <Current
               keyboardShouldPersistTaps="handled"
-              weekBg={this.state.weekBg}
+              currentBg={this.state.weekBg}
               currentIcon={this.state.currentIcon}
               updateSkyData={this.updateSkyData}
               errorMessage={this.state.errorMessag}
@@ -362,11 +366,12 @@ export default class App extends React.Component {
             {/* week */}
             <Week
               weekBg={this.state.weekBg}
+              weekBarBg={this.state.weekBarBg}
               weather={this.state.weather.daily.data}
               summary={this.state.weather.daily.summary}
             />
             {/* footer */}
-            <Footer />
+            <Footer footerBg={this.state.weekBg} />
           </ScrollView>
         </View>
         // END main container

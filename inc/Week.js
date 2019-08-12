@@ -30,9 +30,21 @@ var styles = require('../styles.js');
 class Week extends React.Component {
   // START week render
   render() {
+    // set up colour bg variables
+    var colourBg = this.props.weekBg;
+    var colourBarBg = this.props.weekBarBg;
+
     // set current weather icon based on weather
     return (
-      <View style={styles.weekWrap}>
+      <View
+        style={{
+          alignSelf: 'stretch',
+          backgroundColor: colourBg,
+          flex: 4,
+          justifyContent: 'center',
+          marginTop: 8
+        }}
+      >
         <ScrollView>
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>7 Day forecast</Text>
@@ -50,9 +62,6 @@ class Week extends React.Component {
 
               // set up weather display variable
               let dailyWeatherDisplay;
-
-              // set up colour bg variable
-              var colourBg = this.props.weekBg;
 
               // weather else if logic
               if (dailyWeather.icon === 'cloudy') {
@@ -91,7 +100,7 @@ class Week extends React.Component {
                 <View key={dailyWeather.time}>
                   <Collapse
                     style={{
-                      backgroundColor: colourBg,
+                      backgroundColor: colourBarBg,
                       marginTop: 3,
                       marginBottom: 3,
                       padding: 10
