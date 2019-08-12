@@ -29,7 +29,7 @@ const myStylesheet = StyleSheet.create({
   },
   headerWrap: {
     alignSelf: 'stretch',
-    flex: 1,
+    flex: 1
   },
   headerTopBar: {
     height: 22,
@@ -51,14 +51,14 @@ const myStylesheet = StyleSheet.create({
   },
   currentIconWrap: {
     flexDirection: 'row',
-    height: 220,
+    height: 210,
     justifyContent: 'center',
-    marginTop: 70
+    marginTop: 60
   },
   currentIcon: {
     alignSelf: 'center',
-    height: 220,
-    width: 220
+    height: 210,
+    width: 210
   },
   currentIconSmall: {
     alignSelf: 'center',
@@ -69,16 +69,30 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 70,
     fontWeight: '700',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   currentTempWrap: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'baseline'
   },
-  currentTempWrapBorder: {
+  currentWindHumWrap: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+  },
+  currentWindWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  currentHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  currentDetails: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '300',
+    paddingTop: 2
   },
   currentTempHigh: {
     color: '#fff',
@@ -97,7 +111,7 @@ const myStylesheet = StyleSheet.create({
     fontSize: 20,
     fontWeight: '300',
     padding: 10,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   dateText: {
     color: '#fff',
@@ -147,7 +161,7 @@ const myStylesheet = StyleSheet.create({
   weekText: {
     color: '#fff',
     fontSize: 18,
-    textAlign: 'left'
+    textAlign: 'center'
   },
   weekTextBot: {
     color: '#fff',

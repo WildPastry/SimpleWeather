@@ -165,7 +165,7 @@ class Current extends React.Component {
               marginLeft: 0,
               marginRight: 0,
               fontWeight: '900',
-              fontSize: 20,
+              fontSize: 18,
               textAlign: 'center',
               zIndex: 1
             },
@@ -227,7 +227,7 @@ class Current extends React.Component {
             </Text>
           </View>
           {/* current temp */}
-          <Text style={styles.currentTemp}>{' '}{this.props.temp}°</Text>
+          <Text style={styles.currentTemp}> {this.props.temp}°</Text>
           {/* high temp */}
           <View>
             <Text style={styles.currentTempHigh}>
@@ -240,7 +240,6 @@ class Current extends React.Component {
             </Text>
           </View>
         </View>
-
         {/* END temps */}
 
         {/* START date display */}
@@ -253,35 +252,37 @@ class Current extends React.Component {
         <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
 
-        {/* START wind speed */}
-        <View style={styles.currentTempWrap}>
-          <View>
-            <Text style={styles.currentDesc}>
-              <Image
-                style={styles.currentIconSmall}
-                source={WindSpeed}
-                resizeMode="contain"
-              />
+        {/* START wind and humidity */}
+        <View style={styles.currentWindHumWrap}>
+          {/* START wind speed */}
+          <View style={styles.currentWindWrap}>
+            <Image
+              style={styles.currentIconSmall}
+              source={WindSpeed}
+              resizeMode="contain"
+            />
+            <Text style={styles.currentDetails}>
               {'  '}
-              {this.props.wind} km/h
+              {Math.round(this.props.wind)} km/h
             </Text>
           </View>
           {/* END wind speed */}
 
           {/* START humidity */}
-          <View>
-            <Text style={styles.currentDesc}>
-              <Image
-                style={styles.currentIconSmall}
-                source={Humidity}
-                resizeMode="contain"
-              />
+          <View style={styles.currentHumWrap}>
+            <Image
+              style={styles.currentIconSmall}
+              source={Humidity}
+              resizeMode="contain"
+            />
+            <Text style={styles.currentDetails}>
               {'  '}
               {percentage.substring(2)}%
             </Text>
           </View>
           {/* END humidity */}
         </View>
+        {/* END wind and humidity */}
       </SafeAreaView>
       // END current display
     );

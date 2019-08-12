@@ -251,7 +251,6 @@ export default class App extends React.Component {
       .then(data => {
         this.setState(
           {
-            isLoaded: true,
             weather: data,
             icon: data.currently.icon,
             wind: data.currently.windSpeed,
@@ -293,17 +292,59 @@ export default class App extends React.Component {
           .then(openResponseJson => {
             this.setState(
               {
-                openWeather: openResponseJson,
+                isLoaded: true,
+                openWeather: openResponseJson
               },
               () => {
-                console.log(this.state.openWeather.list[0].dt_txt);
-                console.log(this.state.openWeather.list[1].dt_txt);
-                console.log(this.state.openWeather.list[2].dt_txt);
-                console.log(this.state.openWeather.list[3].dt_txt);
-                console.log(this.state.openWeather.list[4].dt_txt);
-                console.log(this.state.openWeather.list[5].dt_txt);
-                console.log(this.state.openWeather.list[6].dt_txt);
-                console.log(this.state.openWeather.list[7].dt_txt);
+                // console.log(this.state.openWeather.list);
+                // console.log(this.state.openWeather.list[0].dt_txt);
+                // console.log(this.state.openWeather.list[1].dt_txt);
+                // console.log(this.state.openWeather.list[2].dt_txt);
+                // console.log(this.state.openWeather.list[3].dt_txt);
+                // console.log(this.state.openWeather.list[6].dt_txt);
+                // console.log(this.state.openWeather.list[6].dt_txt);
+                // console.log(this.state.openWeather.list[0].weather[0].id);
+                // console.log(this.state.openWeather.list[10].dt_txt);
+                // console.log(this.state.openWeather.list[10].weather[0].icon);
+                // console.log(this.state.openWeather.list[15].dt_txt);
+                // console.log(this.state.openWeather.list[15].weather[0].icon);
+                // console.log(this.state.openWeather.list[18].dt_txt);
+                // console.log(this.state.openWeather.list[18].weather[0].icon);
+                // console.log(this.state.openWeather.list[5].dt_txt);
+                // console.log(this.state.openWeather.list[6].dt_txt);
+                // console.log(this.state.openWeather.list[7].dt_txt);
+                // console.log(this.state.openWeather.list[8].dt_txt);
+                // console.log(this.state.openWeather.list[9].dt_txt);
+                // console.log(this.state.openWeather.list[10].dt_txt);
+                // console.log(this.state.openWeather.list[11].dt_txt);
+                // console.log(this.state.openWeather.list[12].dt_txt);
+                // console.log(this.state.openWeather.list[13].dt_txt);
+                // console.log(this.state.openWeather.list[14].dt_txt);
+                // console.log(this.state.openWeather.list[15].dt_txt);
+                // console.log(this.state.openWeather.list[16].dt_txt);
+                // console.log(this.state.openWeather.list[17].dt_txt);
+                // console.log(this.state.openWeather.list[18].dt_txt);
+                // console.log(this.state.openWeather.list[19].dt_txt);
+                // console.log(this.state.openWeather.list[20].dt_txt);
+                // console.log(this.state.openWeather.list[21].dt_txt);
+                // console.log(this.state.openWeather.list[22].dt_txt);
+                // console.log(this.state.openWeather.list[23].dt_txt);
+                // console.log(this.state.openWeather.list[24].dt_txt);
+                // console.log(this.state.openWeather.list[25].dt_txt);
+                // console.log(this.state.openWeather.list[26].dt_txt);
+                // console.log(this.state.openWeather.list[27].dt_txt);
+                // console.log(this.state.openWeather.list[28].dt_txt);
+                // console.log(this.state.openWeather.list[29].dt_txt);
+                // console.log(this.state.openWeather.list[30].dt_txt);
+                // console.log(this.state.openWeather.list[31].dt_txt);
+                // console.log(this.state.openWeather.list[32].dt_txt);
+                // console.log(this.state.openWeather.list[33].dt_txt);
+                // console.log(this.state.openWeather.list[34].dt_txt);
+                // console.log(this.state.openWeather.list[35].dt_txt);
+                // console.log(this.state.openWeather.list[36].dt_txt);
+                // console.log(this.state.openWeather.list[37].dt_txt);
+                // console.log(this.state.openWeather.list[38].dt_txt);
+                // console.log(this.state.openWeather.list[39].dt_txt);
               }
             );
           });

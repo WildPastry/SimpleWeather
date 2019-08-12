@@ -49,7 +49,7 @@ class Week extends React.Component {
       >
         <ScrollView>
           {/* weekly weather heading and description */}
-          <Text style={styles.weekHeading}>7 Day forecast</Text>
+          <Text style={styles.weekHeading}>5 Day forecast</Text>
           <Text style={styles.weekDesc}>{this.props.summary}</Text>
           <View>
             {/* START map */}
@@ -140,26 +140,43 @@ class Week extends React.Component {
 
                     {/* collapse body */}
                     <CollapseBody>
-                      {/* summary */}
-                      <Text style={styles.weekText}>
+                      {/* START description */}
+                      <Text style={styles.currentDesc}>
                         {dailyWeather.summary}
                       </Text>
-                      {/* wind speed */}
-                      <Text style={styles.weekText}>
-                        <Image
-                          style={styles.weekIcon}
-                          source={WindSpeed}
-                          resizeMode="contain"
-                        />{'  '}
-                        {dailyWeather.windSpeed} km/h
-                        {/* humidity */}{'    '}
-                        <Image
-                          style={styles.weekIcon}
-                          source={Humidity}
-                          resizeMode="contain"
-                        />{'  '}
-                        {percentage.substring(2)}%
-                      </Text>
+                      {/* END description */}
+
+                      {/* START wind and humidity */}
+                      <View style={styles.currentWindHumWrap}>
+                        {/* START wind speed */}
+                        <View style={styles.currentWindWrap}>
+                          <Image
+                            style={styles.currentIconSmall}
+                            source={WindSpeed}
+                            resizeMode="contain"
+                          />
+                          <Text style={styles.currentDetails}>
+                            {'  '}
+                            {Math.round(dailyWeather.windSpeed)} km/h
+                          </Text>
+                        </View>
+                        {/* END wind speed */}
+
+                        {/* START humidity */}
+                        <View style={styles.currentHumWrap}>
+                          <Image
+                            style={styles.currentIconSmall}
+                            source={Humidity}
+                            resizeMode="contain"
+                          />
+                          <Text style={styles.currentDetails}>
+                            {'  '}
+                            {percentage.substring(2)}%
+                          </Text>
+                        </View>
+                        {/* END humidity */}
+                      </View>
+                      {/* END wind and humidity */}
                     </CollapseBody>
                   </Collapse>
                 </View>
