@@ -12,6 +12,8 @@ import IconRainy from './../assets/weather/rainy.png';
 import IconSnowy from './../assets/weather/snowy.png';
 import IconSunny from './../assets/weather/sunny.png';
 import IconWindy from './../assets/weather/windy.png';
+import WindSpeed from './../assets/weather/windSpeed.png';
+import Humidity from './../assets/weather/humidity.png';
 
 // accordian
 import {
@@ -106,6 +108,7 @@ class Week extends React.Component {
                       padding: 10
                     }}
                   >
+                    {/* collapse header */}
                     <CollapseHeader>
                       <View style={styles.weekIconTempWrap}>
                         {/* day */}
@@ -135,30 +138,28 @@ class Week extends React.Component {
                       </View>
                     </CollapseHeader>
 
+                    {/* collapse body */}
                     <CollapseBody>
-                      {/* <View style={styles.weekFullWrap}> */}
+                      {/* summary */}
                       <Text style={styles.weekText}>
                         {dailyWeather.summary}
                       </Text>
-                      {/* </View> */}
+                      {/* wind speed */}
                       <Text style={styles.weekText}>
-                        Wind Speed: {dailyWeather.windSpeed} km/ph
+                        <Image
+                          style={styles.weekIconSmall}
+                          source={WindSpeed}
+                          resizeMode="contain"
+                        />{'  '}
+                        {dailyWeather.windSpeed} km/h
+                        {/* humidity */}{'    '}
+                        <Image
+                          style={styles.weekIconSmall}
+                          source={Humidity}
+                          resizeMode="contain"
+                        />{'  '}
+                        {percentage.substring(2)}%
                       </Text>
-                      <Text style={styles.weekTextBot}>
-                        Humidity: {percentage.substring(2)}%
-                      </Text>
-                      {/* <View style={styles.weekIconTempWrap}>
-                    <View style={styles.weekFullWrap}>
-                      <Text style={styles.weekText}>
-                        Wind Speed: {dailyWeather.windSpeed} km/ph
-                      </Text>
-                    </View>
-                    <View style={styles.weekFullWrap}>
-                      <Text style={styles.weekText}>
-                        Humidity: {dailyWeather.humidity}%
-                      </Text>
-                    </View>
-                  </View> */}
                     </CollapseBody>
                   </Collapse>
                 </View>

@@ -21,6 +21,10 @@ import IconWindy from './../assets/weather/windy.png';
 import WindSpeed from './../assets/weather/windSpeed.png';
 import Humidity from './../assets/weather/humidity.png';
 
+// misc icons
+import DownIcon from './../assets/misc/down.png';
+import UpIcon from './../assets/misc/up.png';
+
 // set up auth key for sky data
 const geo = configData.GEO;
 
@@ -134,7 +138,7 @@ class Current extends React.Component {
             language: 'en',
             types: '(cities)'
           }}
-          // load google styles
+          // google styles
           styles={{
             container: {
               zIndex: 1,
@@ -183,7 +187,7 @@ class Current extends React.Component {
               height: 0.5
             }
           }}
-          // other options
+          // google options
           currentLocation={false}
           currentLocationLabel="Current location"
           nearbyPlacesAPI="GooglePlacesSearch"
@@ -197,52 +201,87 @@ class Current extends React.Component {
           debounce={100}
         />
         {/* END autocomplete input */}
-        {/* date display */}
-        <Text style={styles.dateText}>
-          {day} {date}
-        </Text>
+
         {/* START main icon and temp */}
-        <View style={styles.currentIconTempWrap}>
+        <View style={styles.currentIconWrap}>
           {/* main icon */}
           <Image
             style={styles.currentIcon}
             source={weatherDisplay}
             resizeMode="contain"
           />
-          {/* temp */}
-          <Text style={styles.currentTemp}>{this.props.temp}°</Text>
         </View>
         {/* END main icon and temp */}
 
-        {/* START high and low temps */}
-        <View style={styles.currentDescTempWrap}>
-          <Text style={styles.currentTempLow}>low: {this.props.low}°</Text>
-          <Text style={styles.currentTempHigh}>high: {this.props.high}°</Text>
+        {/* START temps */}
+        <View style={styles.currentTempWrap}>
+          {/* low temp */}
+          <View>
+            <Text style={styles.currentTempLow}>
+              <Image
+                style={styles.currentIconSmall}
+                source={DownIcon}
+                resizeMode="contain"
+              />
+              {this.props.low}°
+            </Text>
+          </View>
+          {/* <Text style={styles.currentDesc}>low</Text> */}
+          {/* current temp */}
+          <Text style={styles.currentTemp}>{this.props.temp}°</Text>
+          {/* <Text style={styles.currentDesc}>current</Text> */}
+          {/* high temp */}
+          <View>
+            <Text style={styles.currentTempHigh}>
+              <Image
+                style={styles.currentIconSmall}
+                source={UpIcon}
+                resizeMode="contain"
+              />
+              {this.props.high}°
+            </Text>
+          </View>
+          {/* <Text style={styles.currentDesc}>high</Text> */}
         </View>
-        {/* END high and low temps */}
+
+        {/* END temps */}
+
+        {/* START date display */}
+        <Text style={styles.dateText}>
+          {day} {date}
+        </Text>
+        {/* END date display */}
 
         {/* START description */}
         <Text style={styles.currentDesc}>{this.props.desc}</Text>
         {/* END description */}
+
         {/* START wind speed */}
-        <View style={styles.currentDescTempWrap}>
+        <View style={styles.currentTempWrap}>
           <View>
-            <Image
-              style={styles.currentIconSmall}
-              source={WindSpeed}
-              resizeMode="contain"
-            />
-            <Text style={styles.currentDesc}>{this.props.wind} km/h</Text>
+            <Text style={styles.currentDesc}>
+              <Image
+                style={styles.currentIconSmall}
+                source={WindSpeed}
+                resizeMode="contain"
+              />
+              {'  '}
+              {this.props.wind} km/h
+            </Text>
           </View>
           {/* END wind speed */}
+
           {/* START humidity */}
           <View>
-            <Image
-              style={styles.currentIconSmall}
-              source={Humidity}
-              resizeMode="contain"
-            />
-            <Text style={styles.currentDesc}>{percentage.substring(2)}%</Text>
+            <Text style={styles.currentDesc}>
+              <Image
+                style={styles.currentIconSmall}
+                source={Humidity}
+                resizeMode="contain"
+              />
+              {'  '}
+              {percentage.substring(2)}%
+            </Text>
           </View>
           {/* END humidity */}
         </View>

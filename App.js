@@ -315,9 +315,6 @@ export default class App extends React.Component {
     // declare variable in current state
     var { isLoaded } = this.state;
 
-    // image resize mode
-    // const resizeMode = 'cover';
-
     // START loading function
     if (!isLoaded) {
       return (

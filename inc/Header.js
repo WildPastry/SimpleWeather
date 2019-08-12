@@ -1,11 +1,14 @@
 // imports
-import React from "react";
+import React from 'react';
 
 // default component functions
-import { Text, View } from "react-native";
+import { Image, Text, View } from 'react-native';
+
+// brand
+import Brand from '../assets/misc/brand.png';
 
 // stylesheet
-var styles = require("../styles.js");
+var styles = require('../styles.js');
 
 // START header
 class Header extends React.Component {
@@ -17,7 +20,15 @@ class Header extends React.Component {
         {/* top bar */}
         <View style={styles.headerTopBar} />
         {/* date display */}
-        <Text style={styles.headerText}>simple weather</Text>
+        <Text style={styles.headerText}>
+          {/* {' '}
+          <Image
+            style={styles.brandIconSmall}
+            source={Brand}
+            resizeMode="contain"
+          /> */}
+          {'  '}SIMPLE WEATHER
+        </Text>
       </View>
     );
   }

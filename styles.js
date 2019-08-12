@@ -22,9 +22,14 @@ const myStylesheet = StyleSheet.create({
   },
 
   // header component
+  brandIconSmall: {
+    alignSelf: 'center',
+    height: 30,
+    width: 30
+  },
   headerWrap: {
     alignSelf: 'stretch',
-    flex: 1
+    flex: 1,
   },
   headerTopBar: {
     height: 22,
@@ -44,15 +49,16 @@ const myStylesheet = StyleSheet.create({
     flex: 1,
     marginTop: 8
   },
-  currentIconTempWrap: {
+  currentIconWrap: {
     flexDirection: 'row',
-    height: 80,
-    justifyContent: 'space-around'
+    height: 220,
+    justifyContent: 'center',
+    marginTop: 50
   },
   currentIcon: {
     alignSelf: 'center',
-    height: 80,
-    width: 80
+    height: 220,
+    width: 220
   },
   currentIconSmall: {
     alignSelf: 'center',
@@ -61,44 +67,46 @@ const myStylesheet = StyleSheet.create({
   },
   currentTemp: {
     color: '#fff',
-    fontSize: 50,
+    fontSize: 70,
     fontWeight: '700',
     textAlign: 'center',
-    paddingTop: 12,
-    width: 80
   },
-  currentDescTempWrap: {
+  currentTempWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'baseline'
+  },
+  currentTempWrapBorder: {
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
   currentTempHigh: {
     color: '#fff',
-    fontSize: 20,
-    fontWeight: '300',
-    textAlign: 'center',
-    width: 80
+    fontSize: 30,
+    fontWeight: '500',
+    paddingBottom: 12
   },
   currentTempLow: {
     color: '#fff',
-    fontSize: 20,
-    fontWeight: '300',
-    textAlign: 'center',
-    width: 80
+    fontSize: 30,
+    fontWeight: '500',
+    paddingBottom: 12
   },
   currentDesc: {
     color: '#fff',
     fontSize: 20,
     fontWeight: '300',
     padding: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   dateText: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '300',
+    fontWeight: '700',
     padding: 10,
+    paddingBottom: 0,
     textAlign: 'center',
-    marginTop: 60
+    marginTop: 10
   },
 
   // week component
@@ -132,28 +140,28 @@ const myStylesheet = StyleSheet.create({
   weekHeading: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '300',
-    marginBottom: 15,
+    fontWeight: '700',
     padding: 10,
     textAlign: 'center'
   },
   weekText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'left'
   },
   weekTextBot: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'left',
     marginBottom: 12
   },
   weekDesc: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '300',
     padding: 10,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 8
   },
 
   // footer component
