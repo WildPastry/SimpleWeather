@@ -51,6 +51,9 @@ const sky = configData.SKY;
 // set up auth key for sky data
 const geo = configData.GEO;
 
+// set up auth key for open data
+const open = configData.OPEN;
+
 // get device width
 const window = Dimensions.get('window');
 
@@ -82,8 +85,10 @@ export default class App extends React.Component {
     this.state = {
       // loading screen
       isLoaded: false,
-      // weather data array
+      // sky weather data array
       weather: [],
+      // open weather data array
+      openWeather: [],
       // error message
       errorMessage: null,
       // current weather and location data
@@ -197,6 +202,7 @@ export default class App extends React.Component {
     var myLng = this.state.currentLng;
     // fetch location data
     fetch(
+      // google data
       'https://maps.googleapis.com/maps/api/geocode/json?address=' +
         myLat +
         ',' +
@@ -234,9 +240,9 @@ export default class App extends React.Component {
       // log HTTP response error or success for data call
       .then(res => {
         if (!res.ok) {
-          throw new Error('Failed with HTTP code ' + res.status);
+          throw new Error('DarkSky Failed with HTTP code ' + res.status);
         } else {
-          console.log('Success with HTTP code ' + res.status);
+          console.log('DarkSky Success with HTTP code ' + res.status);
         }
         return res;
       })
@@ -262,6 +268,45 @@ export default class App extends React.Component {
             this.setBg();
           }
         );
+        fetch(
+          // open data
+          'https://api.openweathermap.org/data/2.5/forecast?lat=' +
+            myLat +
+            '&lon=' +
+            myLng +
+            '&units=metric&APPID=' +
+            open
+        )
+          // log HTTP response error or success for data call
+          .then(res => {
+            if (!res.ok) {
+              throw new Error(
+                'Open Weather Failed with HTTP code ' + res.status
+              );
+            } else {
+              console.log('Open Weather Success with HTTP code ' + res.status);
+            }
+            return res;
+          })
+          // convert raw data call into json
+          .then(openResponse => openResponse.json())
+          .then(openResponseJson => {
+            this.setState(
+              {
+                openWeather: openResponseJson,
+              },
+              () => {
+                console.log(this.state.openWeather.list[0].dt_txt);
+                console.log(this.state.openWeather.list[1].dt_txt);
+                console.log(this.state.openWeather.list[2].dt_txt);
+                console.log(this.state.openWeather.list[3].dt_txt);
+                console.log(this.state.openWeather.list[4].dt_txt);
+                console.log(this.state.openWeather.list[5].dt_txt);
+                console.log(this.state.openWeather.list[6].dt_txt);
+                console.log(this.state.openWeather.list[7].dt_txt);
+              }
+            );
+          });
       })
       // catch and log errors
       .catch(error => {
@@ -328,7 +373,7 @@ export default class App extends React.Component {
       // END loading function
     } else {
       return (
-      //  START main container
+        //  START main container
         <View
           keyboardShouldPersistTaps="handled"
           style={{ alignItems: 'center', backgroundColor: imageBg, flex: 1 }}

@@ -53,7 +53,7 @@ const myStylesheet = StyleSheet.create({
     flexDirection: 'row',
     height: 220,
     justifyContent: 'center',
-    marginTop: 50
+    marginTop: 70
   },
   currentIcon: {
     alignSelf: 'center',

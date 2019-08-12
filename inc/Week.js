@@ -147,14 +147,14 @@ class Week extends React.Component {
                       {/* wind speed */}
                       <Text style={styles.weekText}>
                         <Image
-                          style={styles.weekIconSmall}
+                          style={styles.weekIcon}
                           source={WindSpeed}
                           resizeMode="contain"
                         />{'  '}
                         {dailyWeather.windSpeed} km/h
                         {/* humidity */}{'    '}
                         <Image
-                          style={styles.weekIconSmall}
+                          style={styles.weekIcon}
                           source={Humidity}
                           resizeMode="contain"
                         />{'  '}

@@ -226,10 +226,8 @@ class Current extends React.Component {
               {this.props.low}°
             </Text>
           </View>
-          {/* <Text style={styles.currentDesc}>low</Text> */}
           {/* current temp */}
-          <Text style={styles.currentTemp}>{this.props.temp}°</Text>
-          {/* <Text style={styles.currentDesc}>current</Text> */}
+          <Text style={styles.currentTemp}>{' '}{this.props.temp}°</Text>
           {/* high temp */}
           <View>
             <Text style={styles.currentTempHigh}>
@@ -241,7 +239,6 @@ class Current extends React.Component {
               {this.props.high}°
             </Text>
           </View>
-          {/* <Text style={styles.currentDesc}>high</Text> */}
         </View>
 
         {/* END temps */}
