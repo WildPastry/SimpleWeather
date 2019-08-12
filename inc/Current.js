@@ -50,18 +50,15 @@ class Current extends React.Component {
     var options = {
       googleLat: this.state.googleLat,
       googleLng: this.state.googleLng,
-      googleName: this.state.googleName,
-      googleNameLong: this.state.googleNameLong
+      googleName: this.state.googleName
     };
     this.props.updateSkyData(options);
   }
 
   // START render current
   render() {
-    // set up location
-    var currentPlaceholder =
-      this.props.currentLocation + ', ' + this.props.currentCity;
-    // set current weather icon based on weather
+    // set up placeholder text with current location
+    var currentPlaceholder = this.props.currentLocation;
 
     // set up variables
     let weatherDisplay;
@@ -123,8 +120,7 @@ class Current extends React.Component {
               // set state with google details
               googleLat: details.geometry.location.lat.toFixed(5),
               googleLng: details.geometry.location.lng.toFixed(5),
-              googleName: details.address_components[0].long_name,
-              googleNameLong: details.address_components[2].long_name
+              googleName: details.formatted_address
             });
 
             // update sky data function
@@ -150,13 +146,21 @@ class Current extends React.Component {
             textInputContainer: {
               alignContent: 'center',
               backgroundColor: colourBg,
+              height: 50,
               width: '100%'
             },
             textInput: {
               alignItems: 'center',
               backgroundColor: colourBg,
+              borderRadius: 0,
               color: '#fff',
+              height: 50,
+              marginTop: 0,
+              marginBottom: 0,
+              marginLeft: 0,
+              marginRight: 0,
               fontWeight: '700',
+              fontSize: 25,
               textAlign: 'center',
               zIndex: 1
             },
@@ -170,7 +174,7 @@ class Current extends React.Component {
               backgroundColor: colourBg,
               color: '#fff',
               position: 'absolute',
-              top: 44,
+              top: 50,
               elevation: 1
             },
             separator: {

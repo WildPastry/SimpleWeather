@@ -27,7 +27,6 @@ const myStylesheet = StyleSheet.create({
     flex: 1
   },
   headerTopBar: {
-    // backgroundColor: '#fff',
     height: 22,
     marginBottom: 8
   },
@@ -100,7 +99,6 @@ const myStylesheet = StyleSheet.create({
   // week component
   weekWrap: {
     alignSelf: 'stretch',
-    // backgroundColor: '#303030',
     flex: 4,
     justifyContent: 'center',
     marginTop: 8

@@ -90,7 +90,6 @@ export default class App extends React.Component {
       currentLat: null,
       currentLng: null,
       currentLocation: null,
-      currentCity: null,
       currentIcon: null,
       // weather and location data
       location: '',
@@ -120,8 +119,7 @@ export default class App extends React.Component {
     this.setState({
       currentLat: value['googleLat'],
       currentLng: value['googleLng'],
-      currentLocation: value['googleName'],
-      currentCity: value['googleNameLong']
+      currentLocation: value['googleName']
     });
     this.getSkyData();
   }
@@ -208,9 +206,7 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          currentLocation:
-            responseJson.results[3].address_components[2].long_name,
-          currentCity: responseJson.results[3].address_components[3].long_name
+          currentLocation: responseJson.results[8].formatted_address
         });
       });
     this.getSkyData();
@@ -331,15 +327,7 @@ export default class App extends React.Component {
       // END loading function
     } else {
       return (
-        // START dynamic image bg
-        // <ImageBackground
-        //   style={{
-        //     flex: 1,
-        //     resizeMode
-        //   }}
-        //   source={imageBg}
-        // >
-        // {/* START main container */}
+      //  START main container
         <View
           keyboardShouldPersistTaps="handled"
           style={{ alignItems: 'center', backgroundColor: imageBg, flex: 1 }}
@@ -362,7 +350,6 @@ export default class App extends React.Component {
               updateSkyData={this.updateSkyData}
               errorMessage={this.state.errorMessag}
               currentLocation={this.state.currentLocation}
-              currentCity={this.state.currentCity}
               currentLat={this.state.currentLat}
               currentLng={this.state.currentLng}
               wind={this.state.wind}
@@ -382,9 +369,7 @@ export default class App extends React.Component {
             <Footer />
           </ScrollView>
         </View>
-        // {/* END main container */}
-        // </ImageBackground>
-        // END dynamic image bg
+        // END main container
       );
     }
   }
