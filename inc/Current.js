@@ -74,8 +74,6 @@ class Current extends React.Component {
 
     // set up colour bg variable
     var colourBg = this.props.currentBg;
-    console.log(colourBg);
-    console.log(weatherCode);
 
     return (
       // START current display

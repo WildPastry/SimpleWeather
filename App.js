@@ -36,9 +36,6 @@ import Footer from './inc/Footer';
 // colours
 import colours from './assets/colours.json';
 
-// icons
-// import weatherIcons from './assets/icons.json';
-
 // pre-loader
 import preLoader from './assets/preloader.gif';
 
@@ -90,9 +87,9 @@ export default class App extends React.Component {
       isLoaded: false,
       // fonts
       fontLoaded: false,
-      // sky weather data array
+      // open weather daily data array
       weather: [],
-      // open weather data array and id
+      // open weather current data array and id
       openWeather: [],
       openWeatherId: null,
       // error message
@@ -101,23 +98,20 @@ export default class App extends React.Component {
       currentLat: null,
       currentLng: null,
       currentLocation: null,
-      currentIcon: null,
       // weather and location data
       location: '',
-      icon: '',
+      desc: '',
       temp: '',
       high: '',
       low: '',
-      desc: '',
-      wind: '',
       humidity: '',
+      wind: '',
       // colour background
       weekBg: null,
       weekBarBg: null
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
-    this.setCurrentIcon = this.setCurrentIcon.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
@@ -213,8 +207,8 @@ export default class App extends React.Component {
         '&key=' +
         geo
     )
-      .then(response => response.json())
-      .then(responseJson => {
+      .then((response) => response.json())
+      .then((responseJson) => {
         this.setState({
           currentLocation: responseJson.results[8].formatted_address
         });
@@ -230,39 +224,37 @@ export default class App extends React.Component {
     });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-    // fetch sky data
+    // daily weather data
     fetch(
-      'https://api.darksky.net/forecast/' +
-        sky +
-        '/' +
+      'https://api.openweathermap.org/data/2.5/forecast?lat=' +
         myLat +
-        ',' +
+        '&lon=' +
         myLng +
-        '?units=si'
+        '&units=metric&APPID=' +
+        open
     )
       // log HTTP response error or success for data call
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
-          throw new Error('DarkSky Failed with HTTP code ' + res.status);
+          throw new Error(
+            'Open Weather DAILY Failed with HTTP code ' + res.status
+          );
         } else {
-          console.log('DarkSky Success with HTTP code ' + res.status);
+          console.log(
+            'Open Weather DAILY Success with HTTP code ' + res.status
+          );
         }
         return res;
       })
       // convert raw data call into json
-      .then(result => result.json())
-      .then(data => {
-        this.setState(
-          {
-            weather: data
-          },
-          () => {
-            this.setCurrentIcon();
-          }
-        );
+      .then((result) => result.json())
+      .then((data) => {
+        this.setState({
+          weather: data
+        });
+        // current weather data
         fetch(
-          // open data
-          'https://api.openweathermap.org/data/2.5/forecast?lat=' +
+          'https://api.openweathermap.org/data/2.5/weather?lat=' +
             myLat +
             '&lon=' +
             myLng +
@@ -270,33 +262,36 @@ export default class App extends React.Component {
             open
         )
           // log HTTP response error or success for data call
-          .then(res => {
+          .then((res) => {
             if (!res.ok) {
               throw new Error(
-                'Open Weather Failed with HTTP code ' + res.status
+                'Open Weather CURRENT Failed with HTTP code ' + res.status
               );
             } else {
-              console.log('Open Weather Success with HTTP code ' + res.status);
+              console.log(
+                'Open Weather CURRENT Success with HTTP code ' + res.status
+              );
             }
             return res;
           })
           // convert raw data call into json
-          .then(openResponse => openResponse.json())
-          .then(openResponseJson => {
+          .then((openResponse) => openResponse.json())
+          .then((openResponseJson) => {
             this.setState(
               {
+                // loading screen
                 isLoaded: true,
                 // weather wrapper
                 openWeather: openResponseJson,
                 // icon id
-                openWeatherId: openResponseJson.list[0].weather[0].id,
+                openWeatherId: openResponseJson.weather[0].id,
                 // weather and location data
-                desc: openResponseJson.list[0].weather[0].description,
-                temp: Math.round(openResponseJson.list[0].main.temp),
-                high: Math.round(openResponseJson.list[0].main.temp_max),
-                low: Math.round(openResponseJson.list[0].main.temp_min),
-                wind: openResponseJson.list[0].wind.speed,
-                humidity: openResponseJson.list[0].main.humidity
+                desc: openResponseJson.weather[0].description,
+                temp: Math.round(openResponseJson.main.temp),
+                high: Math.round(openResponseJson.main.temp_max),
+                low: Math.round(openResponseJson.main.temp_min),
+                humidity: openResponseJson.main.humidity,
+                wind: openResponseJson.wind.speed
               },
               () => {
                 this.setBg();
@@ -305,7 +300,7 @@ export default class App extends React.Component {
           });
       })
       // catch and log errors
-      .catch(error => {
+      .catch((error) => {
         if (error.res) {
         } else if (error.request) {
           console.log(error.request);
@@ -317,20 +312,10 @@ export default class App extends React.Component {
   }
   // END sky data fucntion
 
-  // set current weather icon
-  setCurrentIcon() {
-    this.setState({
-      currentIcon: this.state.icon
-    });
-  }
-
-  // colour else if logic
+  // colour bg logic
   setBg() {
     // group 2xx: thunderstorm
-    if (
-       (this.state.openWeatherId >= 200) && 
-       (this.state.openWeatherId <= 232)
-    ) {
+    if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
       imageBg = colours.thunderStorm;
       this.setState({
         weekBg: colours.thunderStormDark,
@@ -338,8 +323,8 @@ export default class App extends React.Component {
       });
       // group 3xx: drizzle
     } else if (
-      (this.state.openWeatherId >= 300) &&
-      (this.state.openWeatherId <= 321)
+      (this.state.openWeatherId) >= 300 &&
+      (this.state.openWeatherId) <= 321
     ) {
       imageBg = colours.showerRain;
       this.setState({
@@ -348,8 +333,8 @@ export default class App extends React.Component {
       });
       // group 5xx: rain
     } else if (
-      (this.state.openWeatherId >= 500) &&
-      (this.state.openWeatherId <= 531)
+      (this.state.openWeatherId) >= 500 &&
+      (this.state.openWeatherId) <= 531
     ) {
       imageBg = colours.rain;
       this.setState({
@@ -358,8 +343,8 @@ export default class App extends React.Component {
       });
       // group 6xx: snow
     } else if (
-      (this.state.openWeatherId >= 600) &&
-      (this.state.openWeatherId <= 622)
+      (this.state.openWeatherId) >= 600 &&
+      (this.state.openWeatherId) <= 622
     ) {
       imageBg = colours.snow;
       this.setState({
@@ -368,8 +353,8 @@ export default class App extends React.Component {
       });
       // group 7xx: atmosphere
     } else if (
-      (this.state.openWeatherId >= 600) &&
-      (this.state.openWeatherId <= 622)
+      (this.state.openWeatherId) >= 600 &&
+      (this.state.openWeatherId) <= 622
     ) {
       imageBg = colours.thunderStorm;
       this.setState({
@@ -378,8 +363,8 @@ export default class App extends React.Component {
       });
       // group 80x: scattered clouds
     } else if (
-      (this.state.openWeatherId >= 801) &&
-      (this.state.openWeatherId <= 802)
+      (this.state.openWeatherId) >= 801 &&
+      (this.state.openWeatherId) <= 802
     ) {
       imageBg = colours.scatteredClouds;
       this.setState({
@@ -388,8 +373,8 @@ export default class App extends React.Component {
       });
       // group 80x: broken clouds
     } else if (
-      (this.state.openWeatherId >= 803) &&
-      (this.state.openWeatherId <= 804)
+      (this.state.openWeatherId) >= 803 &&
+      (this.state.openWeatherId) <= 804
     ) {
       imageBg = colours.brokenClouds;
       this.setState({
@@ -408,18 +393,6 @@ export default class App extends React.Component {
 
   // START render app
   render() {
-    // var weatherCode = this.state.openWeatherId;
-    console.log(this.state.openWeatherId);
-    console.log(this.state.weekBg);
-    console.log(this.state.weekBarBg);
-    // console.log(this.state.openWeather.list[0].weather[0].description);
-    // console.log(this.state.openWeather.list[0].weather[0].icon);
-    // console.log(weatherIcons[200].code);
-    // console.log(weatherIcons[200].label);
-    // console.log(weatherIcons[200].icon);
-    // console.log(this.state.openWeather.list[0].weather[0].description);
-    // console.log(this.state.openWeather.list[0].weather[0].icon);
-
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -438,22 +411,20 @@ export default class App extends React.Component {
       return (
         //  START main container
         <View
-          keyboardShouldPersistTaps="handled"
-          style={{ alignItems: 'center', backgroundColor: imageBg, flex: 1 }}
-        >
+          keyboardShouldPersistTaps='handled'
+          style={{ alignItems: 'center', backgroundColor: imageBg, flex: 1 }}>
           <ScrollView
             loop={false}
             width={window.width}
-            keyboardShouldPersistTaps="handled"
+            keyboardShouldPersistTaps='handled'
             showsButtons={false}
             horizontal={false}
-            showsPagination={false}
-          >
+            showsPagination={false}>
             {/* header */}
             <Header />
             {/* current */}
             <Current
-              keyboardShouldPersistTaps="handled"
+              keyboardShouldPersistTaps='handled'
               weatherCode={this.state.openWeatherId}
               currentBg={this.state.weekBg}
               currentIcon={this.state.currentIcon}
@@ -473,8 +444,7 @@ export default class App extends React.Component {
             <Week
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
-              weather={this.state.weather.daily.data}
-              summary={this.state.weather.daily.summary}
+              weather={this.state.weather.list}
             />
             {/* footer */}
             <Footer footerBg={this.state.weekBg} />
