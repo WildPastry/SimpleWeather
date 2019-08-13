@@ -27,102 +27,21 @@ var moment = require('moment');
 // stylesheet
 var styles = require('../styles.js');
 
-// updateSearch(event) {
-//   this.setState({ search: event.target.value });
-// }
-
-// var projectDetails = this.props.projectsData;
-// var projects = projectDetails.map(x => x.projects);
-// projects = [].concat.apply([], projects);
-
-// if (this.state.search) {
-//   projects = projects.filter(x => {
-//     if (x.name.toLowerCase().indexOf(this.state.search) !== -1) {
-//       return true;
-//     }
-
-//     var lowerCaseFields = x.fields.map(y => y.toLowerCase());
-//     if (lowerCaseFields.indexOf(this.state.search) !== -1) {
-//       return true;
-//     }
-
-//     return false;
-//   });
-// }
-
-// var pilots = [
-//   {
-//     id: 2,
-//     name: "Wedge Antilles",
-//     faction: "Rebels",
-//   },
-//   {
-//     id: 8,
-//     name: "Ciena Ree",
-//     faction: "Empire",
-//   },
-//   {
-//     id: 40,
-//     name: "Iden Versio",
-//     faction: "Empire",
-//   },
-//   {
-//     id: 66,
-//     name: "Thane Kyrell",
-//     faction: "Rebels",
-//   }
-// ];
-
-// const rebels = pilots.filter(pilot => pilot.faction === "Rebels");
-
-// console.log(rebels);
-// var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-// console.log(arr);
-
-// for( var i = 0; i < arr.length; i++){
-//    if ( arr[i] === 5) {
-//      arr.splice(i, 1);
-//      i--;
-//    }
-// }
-// arr.splice(5, 1);
-// console.log(arr);
-// arr.splice(4, 1);
-// console.log(arr);
-
-// console.log(this.props.weather[2]);
-// console.log(this.props.weather[10]);
-// console.log(this.props.weather[18]);
-// console.log(this.props.weather[26]);
-// console.log(this.props.weather[34]);
-
-// const nums = [1, 2, 3, 4, 5, 6];
-// const remove = [1, 2, 4, 6];
-
-// function removeFromArray(original, remove) {
-//   return original.filter(value => !remove.includes(value));
-// }
-
-// console.log(removeFromArray(nums, remove));
-
-// checkTime(age); {
-//   return age >= 18;
-// }
-
-// myFunction(); {
-//   this.props.weather.filter(checkTime);
-// }
-
 // START week
 class Week extends React.Component {
   // START week render
   render() {
-    // console.log(this.props.weather[0].dt_txt);
-    // console.log(this.props.weather[9].dt_txt);
-    // console.log(this.props.weather[17].dt_txt);
-    // console.log(this.props.weather[25].dt_txt);
-    // console.log(this.props.weather[33].dt_txt);
-    // console.log(this.props.weather[39].dt_txt);
+    // new array for filtering
+    var filteredWeather = [];
+
+    // filter function
+    for (var i = 0; i < this.props.weather.length; i++) {
+      var checkArray = this.props.weather[i].dt_txt.includes('12:00:00');
+      if (checkArray === true) {
+        filteredWeather.push(this.props.weather[i]);
+      } else {
+      }
+    }
 
     // set up colour bg variables
     var colourBg = this.props.weekBg;
@@ -143,7 +62,7 @@ class Week extends React.Component {
           <Text style={styles.weekHeading}>5 Day forecast</Text>
           <View>
             {/* START map */}
-            {this.props.weather.slice(1).map((dailyWeather) => {
+            {filteredWeather.map((dailyWeather) => {
               // set up date VARIABLES
               var today = moment.unix(dailyWeather.dt);
               var day = moment(today).format('ddd');

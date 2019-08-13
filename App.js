@@ -315,28 +315,17 @@ export default class App extends React.Component {
 
   // check night or day function
   nightOrDay() {
-    // console.log(this.state.icon);
-
     var isNightOrDay = this.state.icon.includes('n');
-    // console.log(test);
-  //   if (strpos(this.state.icon, 'n') !== false) {
-  //     console.log('MUST BE NIGHT');
-  // } else {
-  //   console.log('MUST BE DAY');
-  // }
 
     if (isNightOrDay === true) {
-      console.log('MUST BE NIGHT');
       this.setBgNight();
     } else {
-      console.log('MUST BE DAY');
       this.setBgDay();
     }
   }
 
   // night colour bg logic
   setBgNight() {
-    console.log('night function');
     imageBg = colours.night;
     this.setState({
       weekBg: colours.nightDark,
@@ -346,7 +335,6 @@ export default class App extends React.Component {
 
   // day colour bg logic
   setBgDay() {
-    console.log('day function');
     // group 2xx: thunderstorm
     if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
       imageBg = colours.thunderStorm;
