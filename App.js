@@ -37,7 +37,7 @@ import Footer from './inc/Footer';
 import colours from './assets/colours.json';
 
 // icons
-import weatherIcons from './assets/icons.json';
+// import weatherIcons from './assets/icons.json';
 
 // pre-loader
 import preLoader from './assets/preloader.gif';
@@ -92,13 +92,12 @@ export default class App extends React.Component {
       fontLoaded: false,
       // sky weather data array
       weather: [],
-      // open weather data array
+      // open weather data array and id
       openWeather: [],
+      openWeatherId: null,
       // error message
       errorMessage: null,
       // current weather and location data
-      openWeatherDesc: null,
-      openWeatherId: null,
       currentLat: null,
       currentLng: null,
       currentLocation: null,
@@ -110,12 +109,8 @@ export default class App extends React.Component {
       high: '',
       low: '',
       desc: '',
-      time: '',
-      sunsetTime: '',
       wind: '',
       humidity: '',
-      dailyWind: '',
-      dailyHumidity: '',
       // colour background
       weekBg: null,
       weekBarBg: null
@@ -259,20 +254,10 @@ export default class App extends React.Component {
       .then(data => {
         this.setState(
           {
-            weather: data,
-            icon: data.currently.icon,
-            wind: data.currently.windSpeed,
-            humidity: data.currently.humidity.toFixed(2),
-            sunsetTime: data.currently.sunsetTime,
-            temp: Math.round(data.currently.temperature),
-            high: Math.round(data.daily.data[0].temperatureHigh),
-            low: Math.round(data.daily.data[0].temperatureLow),
-            desc: data.daily.data[0].summary,
-            time: data.daily.data[0].time
+            weather: data
           },
           () => {
             this.setCurrentIcon();
-            this.setBg();
           }
         );
         fetch(
@@ -301,63 +286,20 @@ export default class App extends React.Component {
             this.setState(
               {
                 isLoaded: true,
+                // weather wrapper
                 openWeather: openResponseJson,
-                openWeatherDesc:
-                  openResponseJson.list[0].weather[0].description,
-                openWeatherId: openResponseJson.list[0].weather[0].id
+                // icon id
+                openWeatherId: openResponseJson.list[0].weather[0].id,
+                // weather and location data
+                desc: openResponseJson.list[0].weather[0].description,
+                temp: Math.round(openResponseJson.list[0].main.temp),
+                high: Math.round(openResponseJson.list[0].main.temp_max),
+                low: Math.round(openResponseJson.list[0].main.temp_min),
+                wind: openResponseJson.list[0].wind.speed,
+                humidity: openResponseJson.list[0].main.humidity
               },
               () => {
-                // console.log(this.state.openWeather.list);
-                // console.log(this.state.openWeather.list[0].weather[0].description);
-                // console.log(this.state.openWeather.list[0].weather[0].id);
-                // console.log(this.state.openWeather.list[0].dt_txt);
-                // console.log(this.state.openWeather.list[1].dt_txt);
-                // console.log(this.state.openWeather.list[2].dt_txt);
-                // console.log(this.state.openWeather.list[3].dt_txt);
-                // console.log(this.state.openWeather.list[6].dt_txt);
-                // console.log(this.state.openWeather.list[6].dt_txt);
-                // console.log(this.state.openWeather.list[0].weather[0].id);
-                // console.log(this.state.openWeather.list[10].dt_txt);
-                // console.log(this.state.openWeather.list[10].weather[0].icon);
-                // console.log(this.state.openWeather.list[15].dt_txt);
-                // console.log(this.state.openWeather.list[15].weather[0].icon);
-                // console.log(this.state.openWeather.list[18].dt_txt);
-                // console.log(this.state.openWeather.list[18].weather[0].icon);
-                // console.log(this.state.openWeather.list[5].dt_txt);
-                // console.log(this.state.openWeather.list[6].dt_txt);
-                // console.log(this.state.openWeather.list[7].dt_txt);
-                // console.log(this.state.openWeather.list[8].dt_txt);
-                // console.log(this.state.openWeather.list[9].dt_txt);
-                // console.log(this.state.openWeather.list[10].dt_txt);
-                // console.log(this.state.openWeather.list[11].dt_txt);
-                // console.log(this.state.openWeather.list[12].dt_txt);
-                // console.log(this.state.openWeather.list[13].dt_txt);
-                // console.log(this.state.openWeather.list[14].dt_txt);
-                // console.log(this.state.openWeather.list[15].dt_txt);
-                // console.log(this.state.openWeather.list[16].dt_txt);
-                // console.log(this.state.openWeather.list[17].dt_txt);
-                // console.log(this.state.openWeather.list[18].dt_txt);
-                // console.log(this.state.openWeather.list[19].dt_txt);
-                // console.log(this.state.openWeather.list[20].dt_txt);
-                // console.log(this.state.openWeather.list[21].dt_txt);
-                // console.log(this.state.openWeather.list[22].dt_txt);
-                // console.log(this.state.openWeather.list[23].dt_txt);
-                // console.log(this.state.openWeather.list[24].dt_txt);
-                // console.log(this.state.openWeather.list[25].dt_txt);
-                // console.log(this.state.openWeather.list[26].dt_txt);
-                // console.log(this.state.openWeather.list[27].dt_txt);
-                // console.log(this.state.openWeather.list[28].dt_txt);
-                // console.log(this.state.openWeather.list[29].dt_txt);
-                // console.log(this.state.openWeather.list[30].dt_txt);
-                // console.log(this.state.openWeather.list[31].dt_txt);
-                // console.log(this.state.openWeather.list[32].dt_txt);
-                // console.log(this.state.openWeather.list[33].dt_txt);
-                // console.log(this.state.openWeather.list[34].dt_txt);
-                // console.log(this.state.openWeather.list[35].dt_txt);
-                // console.log(this.state.openWeather.list[36].dt_txt);
-                // console.log(this.state.openWeather.list[37].dt_txt);
-                // console.log(this.state.openWeather.list[38].dt_txt);
-                // console.log(this.state.openWeather.list[39].dt_txt);
+                this.setBg();
               }
             );
           });
@@ -382,38 +324,94 @@ export default class App extends React.Component {
     });
   }
 
-  // image else if logic
+  // colour else if logic
   setBg() {
-    // console.log(this.state.icon);
-    if (this.state.icon === 'clear-day') {
-      imageBg = colours.clearSky;
+    // group 2xx: thunderstorm
+    if (
+       (this.state.openWeatherId >= 200) && 
+       (this.state.openWeatherId <= 232)
+    ) {
+      imageBg = colours.thunderStorm;
       this.setState({
-        weekBg: colours.clearSkyDark,
-        weekBarBg: colours.clearSky
+        weekBg: colours.thunderStormDark,
+        weekBarBg: colours.thunderStorm
       });
-      // weekBg = colours.clearSkyDark
-    } else if (this.state.icon === 'clear-night') {
-      imageBg = colours.night;
-      this.setState({
-        weekBg: colours.nightDark,
-        weekBarBg: colours.night
-      });
-      // weekBg = colours.nightDark
-    } else {
+      // group 3xx: drizzle
+    } else if (
+      (this.state.openWeatherId >= 300) &&
+      (this.state.openWeatherId <= 321)
+    ) {
       imageBg = colours.showerRain;
       this.setState({
         weekBg: colours.showerRainDark,
         weekBarBg: colours.showerRain
       });
-      // weekBg = colours.showerRainDark
+      // group 5xx: rain
+    } else if (
+      (this.state.openWeatherId >= 500) &&
+      (this.state.openWeatherId <= 531)
+    ) {
+      imageBg = colours.rain;
+      this.setState({
+        weekBg: colours.rainDark,
+        weekBarBg: colours.rain
+      });
+      // group 6xx: snow
+    } else if (
+      (this.state.openWeatherId >= 600) &&
+      (this.state.openWeatherId <= 622)
+    ) {
+      imageBg = colours.snow;
+      this.setState({
+        weekBg: colours.snowDark,
+        weekBarBg: colours.snow
+      });
+      // group 7xx: atmosphere
+    } else if (
+      (this.state.openWeatherId >= 600) &&
+      (this.state.openWeatherId <= 622)
+    ) {
+      imageBg = colours.thunderStorm;
+      this.setState({
+        weekBg: colours.thunderStormDark,
+        weekBarBg: colours.thunderStorm
+      });
+      // group 80x: scattered clouds
+    } else if (
+      (this.state.openWeatherId >= 801) &&
+      (this.state.openWeatherId <= 802)
+    ) {
+      imageBg = colours.scatteredClouds;
+      this.setState({
+        weekBg: colours.scatteredCloudsDark,
+        weekBarBg: colours.scatteredClouds
+      });
+      // group 80x: broken clouds
+    } else if (
+      (this.state.openWeatherId >= 803) &&
+      (this.state.openWeatherId <= 804)
+    ) {
+      imageBg = colours.brokenClouds;
+      this.setState({
+        weekBg: colours.brokenCloudsDark,
+        weekBarBg: colours.brokenClouds
+      });
+      // group 800: clear
+    } else {
+      imageBg = colours.clearSky;
+      this.setState({
+        weekBg: colours.clearSkyDark,
+        weekBarBg: colours.clearSky
+      });
     }
   }
 
   // START render app
   render() {
     // var weatherCode = this.state.openWeatherId;
-    // console.log(this.state.openWeatherDesc);
-
+    console.log(this.state.openWeatherId);
+    console.log(this.state.weekBg);
+    console.log(this.state.weekBarBg);
     // console.log(this.state.openWeather.list[0].weather[0].description);
     // console.log(this.state.openWeather.list[0].weather[0].icon);
     // console.log(weatherIcons[200].code);
@@ -453,19 +451,10 @@ export default class App extends React.Component {
           >
             {/* header */}
             <Header />
-            {/* <Text
-              style={{
-                fontFamily: 'weatherFont',
-                fontSize: 80,
-                textAlign: 'center',
-                color: colours.snow
-              }}
-            >
-              {weatherIcons[weatherCode].code}
-            </Text> */}
             {/* current */}
             <Current
               keyboardShouldPersistTaps="handled"
+              weatherCode={this.state.openWeatherId}
               currentBg={this.state.weekBg}
               currentIcon={this.state.currentIcon}
               updateSkyData={this.updateSkyData}

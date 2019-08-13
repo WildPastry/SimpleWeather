@@ -11,13 +11,6 @@ import { Image, Text, SafeAreaView, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 // weather icons
-import IconCloudy from './../assets/weather/cloudy.png';
-import IconPartlyCloudy from './../assets/weather/partlycloudy.png';
-import IconFoggy from './../assets/weather/foggy.png';
-import IconRainy from './../assets/weather/rainy.png';
-import IconSnowy from './../assets/weather/snowy.png';
-import IconSunny from './../assets/weather/sunny.png';
-import IconWindy from './../assets/weather/windy.png';
 import WindSpeed from './../assets/weather/windSpeed.png';
 import Humidity from './../assets/weather/humidity.png';
 
@@ -25,12 +18,17 @@ import Humidity from './../assets/weather/humidity.png';
 import DownIcon from './../assets/misc/down.png';
 import UpIcon from './../assets/misc/up.png';
 
+// colours
+import colours from './../assets/colours.json';
+
+// icons
+import weatherIcons from './../assets/icons.json';
+
 // set up auth key for sky data
 const geo = configData.GEO;
 
 // stylesheet
 var styles = require('../styles.js');
-var googleStyles = require('../google.js');
 
 // moment set up
 var moment = require('moment');
@@ -63,46 +61,21 @@ class Current extends React.Component {
 
   // START render current
   render() {
+    // set up weather code
+    var weatherCode = this.props.weatherCode;
+
     // set up placeholder text with current location
     var currentPlaceholder = this.props.currentLocation;
-
-    // set up variables
-    let weatherDisplay;
-    var currentIcon = this.props.currentIcon;
 
     // set up date constants
     const today = this.state.currentDate;
     const day = moment(today).format('dddd,');
     const date = moment(today).format('MMMM D');
 
-    // set up humidity percentage
-    var percentage = this.props.humidity.toString();
-
-    // weather else if logic
-    if (currentIcon === 'cloudy') {
-      weatherDisplay = IconCloudy;
-    } else if (currentIcon === 'partly-cloudy-day') {
-      weatherDisplay = IconPartlyCloudy;
-    } else if (currentIcon === 'fog') {
-      weatherDisplay = IconFoggy;
-    } else if (currentIcon === 'rain') {
-      weatherDisplay = IconRainy;
-    } else if (currentIcon === 'snow') {
-      weatherDisplay = IconSnowy;
-    } else if (currentIcon === 'clear-day') {
-      weatherDisplay = IconSunny;
-    } else if (currentIcon === 'wind') {
-      weatherDisplay = IconWindy;
-    } else if (currentIcon === 'sleet') {
-      weatherDisplay = IconSnowy;
-    } else if (currentIcon === 'clear-night') {
-      weatherDisplay = IconSunny;
-    } else {
-      weatherDisplay = IconPartlyCloudy;
-    }
-
     // set up colour bg variable
     var colourBg = this.props.currentBg;
+    console.log(colourBg);
+    console.log(weatherCode);
 
     return (
       // START current display
@@ -205,11 +178,16 @@ class Current extends React.Component {
         {/* START main icon and temp */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}
-          <Image
-            style={styles.currentIcon}
-            source={weatherDisplay}
-            resizeMode="contain"
-          />
+          <Text
+              style={{
+                fontFamily: 'weatherFont',
+                fontSize: 140,
+                textAlign: 'center',
+                color: colours.snow
+              }}
+            >
+              {weatherIcons[weatherCode].code}
+            </Text>
         </View>
         {/* END main icon and temp */}
 
@@ -277,7 +255,7 @@ class Current extends React.Component {
             />
             <Text style={styles.currentDetails}>
               {'  '}
-              {percentage.substring(2)}%
+              {this.props.humidity}%
             </Text>
           </View>
           {/* END humidity */}

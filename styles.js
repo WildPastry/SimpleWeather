@@ -51,7 +51,6 @@ const myStylesheet = StyleSheet.create({
   },
   currentIconWrap: {
     flexDirection: 'row',
-    height: 210,
     justifyContent: 'center',
     marginTop: 60
   },
