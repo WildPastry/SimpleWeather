@@ -23,6 +23,7 @@ import colours from './../assets/colours.json';
 
 // icons
 import weatherIcons from './../assets/icons.json';
+import nightWeatherIcons from './../assets/nightIcons.json';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -64,6 +65,15 @@ class Current extends React.Component {
     // set up weather code
     var weatherCode = this.props.weatherCode;
 
+    // set up icon display
+    let displayWeatherIcon;
+
+    if (this.props.icon === '01n' || '02n' || '10n') {
+      displayWeatherIcon = nightWeatherIcons;
+    } else {
+      displayWeatherIcon = weatherIcons;
+    }
+
     // set up placeholder text with current location
     var currentPlaceholder = this.props.currentLocation;
 
@@ -78,20 +88,19 @@ class Current extends React.Component {
     return (
       // START current display
       <SafeAreaView
-        keyboardShouldPersistTaps="handled"
-        style={styles.currentWrap}
-      >
+        keyboardShouldPersistTaps='handled'
+        style={styles.currentWrap}>
         {/* START autocomplete input */}
         <GooglePlacesAutocomplete
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps='handled'
           placeholder={currentPlaceholder}
-          placeholderTextColor="#fff"
+          placeholderTextColor='#fff'
           minLength={2}
           autoFocus={false}
           returnKeyType={'default'}
           listViewDisplayed={true}
           fetchDetails={true}
-          renderDescription={row => row.description}
+          renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
             this.setState({
               // set state with google details
@@ -160,8 +169,8 @@ class Current extends React.Component {
           }}
           // google options
           currentLocation={false}
-          currentLocationLabel="Current location"
-          nearbyPlacesAPI="GooglePlacesSearch"
+          currentLocationLabel='Current location'
+          nearbyPlacesAPI='GooglePlacesSearch'
           GooglePlacesDetailsQuery={{
             fields: 'formatted_address'
           }}
@@ -177,15 +186,14 @@ class Current extends React.Component {
         <View style={styles.currentIconWrap}>
           {/* main icon */}
           <Text
-              style={{
-                fontFamily: 'weatherFont',
-                fontSize: 140,
-                textAlign: 'center',
-                color: colours.snow
-              }}
-            >
-              {weatherIcons[weatherCode].code}
-            </Text>
+            style={{
+              fontFamily: 'weatherFont',
+              fontSize: 140,
+              textAlign: 'center',
+              color: colours.snow
+            }}>
+            {displayWeatherIcon[weatherCode].code}
+          </Text>
         </View>
         {/* END main icon and temp */}
 
@@ -197,7 +205,7 @@ class Current extends React.Component {
               <Image
                 style={styles.currentIconSmall}
                 source={DownIcon}
-                resizeMode="contain"
+                resizeMode='contain'
               />
               {this.props.low}°
             </Text>
@@ -210,7 +218,7 @@ class Current extends React.Component {
               <Image
                 style={styles.currentIconSmall}
                 source={UpIcon}
-                resizeMode="contain"
+                resizeMode='contain'
               />
               {this.props.high}°
             </Text>
@@ -225,7 +233,10 @@ class Current extends React.Component {
         {/* END date display */}
 
         {/* START description */}
-        <Text style={styles.currentDesc}>{this.props.desc}</Text>
+        <Text style={styles.currentDesc}>
+          current{'  '}/{'  '}
+          {this.props.desc}
+        </Text>
         {/* END description */}
 
         {/* START wind and humidity */}
@@ -235,7 +246,7 @@ class Current extends React.Component {
             <Image
               style={styles.currentIconSmall}
               source={WindSpeed}
-              resizeMode="contain"
+              resizeMode='contain'
             />
             <Text style={styles.currentDetails}>
               {'  '}
@@ -249,7 +260,7 @@ class Current extends React.Component {
             <Image
               style={styles.currentIconSmall}
               source={Humidity}
-              resizeMode="contain"
+              resizeMode='contain'
             />
             <Text style={styles.currentDetails}>
               {'  '}

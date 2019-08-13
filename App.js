@@ -45,13 +45,10 @@ import preLoader from './assets/preloader.gif';
 // stylesheet
 var styles = require('./styles.js');
 
-// set up auth key for sky data
-const sky = configData.SKY;
-
-// set up auth key for sky data
+// set up auth key for geo-coding data
 const geo = configData.GEO;
 
-// set up auth key for open data
+// set up auth key for open weather data
 const open = configData.OPEN;
 
 // get device width
@@ -106,6 +103,7 @@ export default class App extends React.Component {
       low: '',
       humidity: '',
       wind: '',
+      icon: '',
       // colour background
       weekBg: null,
       weekBarBg: null
@@ -291,7 +289,8 @@ export default class App extends React.Component {
                 high: Math.round(openResponseJson.main.temp_max),
                 low: Math.round(openResponseJson.main.temp_min),
                 humidity: openResponseJson.main.humidity,
-                wind: openResponseJson.wind.speed
+                wind: openResponseJson.wind.speed,
+                icon: openResponseJson.weather[0].icon
               },
               () => {
                 this.setBg();
@@ -439,6 +438,7 @@ export default class App extends React.Component {
               high={this.state.high}
               low={this.state.low}
               desc={this.state.desc}
+              pod={this.state.pod}
             />
             {/* week */}
             <Week

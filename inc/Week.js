@@ -27,10 +27,80 @@ var moment = require('moment');
 // stylesheet
 var styles = require('../styles.js');
 
+// var pilots = [
+//   {
+//     id: 2,
+//     name: "Wedge Antilles",
+//     faction: "Rebels",
+//   },
+//   {
+//     id: 8,
+//     name: "Ciena Ree",
+//     faction: "Empire",
+//   },
+//   {
+//     id: 40,
+//     name: "Iden Versio",
+//     faction: "Empire",
+//   },
+//   {
+//     id: 66,
+//     name: "Thane Kyrell",
+//     faction: "Rebels",
+//   }
+// ];
+
+// const rebels = pilots.filter(pilot => pilot.faction === "Rebels");
+
+// console.log(rebels);
+// var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// console.log(arr);
+
+// for( var i = 0; i < arr.length; i++){
+//    if ( arr[i] === 5) {
+//      arr.splice(i, 1);
+//      i--;
+//    }
+// }
+// arr.splice(5, 1);
+// console.log(arr);
+// arr.splice(4, 1);
+// console.log(arr);
+
+// console.log(this.props.weather[2]);
+// console.log(this.props.weather[10]);
+// console.log(this.props.weather[18]);
+// console.log(this.props.weather[26]);
+// console.log(this.props.weather[34]);
+
+// const nums = [1, 2, 3, 4, 5, 6];
+// const remove = [1, 2, 4, 6];
+
+// function removeFromArray(original, remove) {
+//   return original.filter(value => !remove.includes(value));
+// }
+
+// console.log(removeFromArray(nums, remove));
+
+// checkTime(age); {
+//   return age >= 18;
+// }
+
+// myFunction(); {
+//   this.props.weather.filter(checkTime);
+// }
+
 // START week
 class Week extends React.Component {
   // START week render
   render() {
+    // console.log(this.props.weather[0].dt_txt);
+    console.log(this.props.weather[9].dt_txt);
+    console.log(this.props.weather[17].dt_txt);
+    console.log(this.props.weather[25].dt_txt);
+    console.log(this.props.weather[33].dt_txt);
+    console.log(this.props.weather[39].dt_txt);
+
     // set up colour bg variables
     var colourBg = this.props.weekBg;
     var colourBarBg = this.props.weekBarBg;
@@ -103,6 +173,8 @@ class Week extends React.Component {
                     <CollapseBody>
                       {/* START description */}
                       <Text style={styles.currentDesc}>
+                        {dailyWeather.dt_txt.substring(11, 16)}
+                        {'  '}/{'  '}
                         {dailyWeather.weather[0].description}
                       </Text>
                       {/* END description */}

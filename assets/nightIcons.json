@@ -296,7 +296,7 @@
   "800": {
     "label": "clear sky",
     "icon": "sunny",
-    "code": ""
+    "code": ""
   },
 
   "801": {
@@ -435,26 +435,5 @@
     "label": "hurricane",
     "icon": "cloudy-gusts",
     "code": ""
-  },
-
-  "up": {
-    "code": ""
-  },
-
-  "down": {
-    "code": ""
-  },
-
-  "humidity": {
-    "code": ""
-  },
-
-  "windSpeed": {
-    "code": ""
-  },
-
-  "thermal": {
-    "code": ""
   }
-
 }
