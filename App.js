@@ -22,7 +22,7 @@ import {
 import { Constants, Location, Permissions } from 'expo';
 
 // font
-// import { Font } from 'expo';
+import { Font } from 'expo';
 
 // configuration data
 import configData from './data/config.json';
@@ -35,6 +35,9 @@ import Footer from './inc/Footer';
 
 // colours
 import colours from './assets/colours.json';
+
+// icons
+import weatherIcons from './assets/icons.json';
 
 // pre-loader
 import preLoader from './assets/preloader.gif';
@@ -85,6 +88,8 @@ export default class App extends React.Component {
     this.state = {
       // loading screen
       isLoaded: false,
+      // fonts
+      fontLoaded: false,
       // sky weather data array
       weather: [],
       // open weather data array
@@ -92,6 +97,8 @@ export default class App extends React.Component {
       // error message
       errorMessage: null,
       // current weather and location data
+      openWeatherDesc: null,
+      openWeatherId: null,
       currentLat: null,
       currentLng: null,
       currentLocation: null,
@@ -132,21 +139,22 @@ export default class App extends React.Component {
 
   // START component pre mount
   componentWillMount() {
-    // console.log(colours.dbluv);
     // get user location function
     this._getLocationAsync();
   }
   // END component pre mount
 
   // START component mounted
-  // componentDidMount() {
-  // load custom fonts
-  //   Font.loadAsync({
-  //     "poppins-light": require("./assets/fonts/Poppins-Light.otf"),
-  //     "poppins-med": require("./assets/fonts/Poppins-Medium.otf"),
-  //     "poppins-bold": require("./assets/fonts/Poppins-Bold.otf")
-  //   });
-  // }
+  async componentDidMount() {
+    // load custom fonts
+    await Font.loadAsync({
+      poppinsLight: require('./assets/fonts/Poppins-Light.otf'),
+      poppinsMed: require('./assets/fonts/Poppins-Medium.otf'),
+      poppinsBold: require('./assets/fonts/Poppins-Bold.otf'),
+      weatherFont: require('./assets/fonts/weathericons-regular-webfont.ttf')
+    });
+    this.setState({ fontLoaded: true });
+  }
   // END component mounted
 
   // START get location function
@@ -293,10 +301,15 @@ export default class App extends React.Component {
             this.setState(
               {
                 isLoaded: true,
-                openWeather: openResponseJson
+                openWeather: openResponseJson,
+                openWeatherDesc:
+                  openResponseJson.list[0].weather[0].description,
+                openWeatherId: openResponseJson.list[0].weather[0].id
               },
               () => {
                 // console.log(this.state.openWeather.list);
+                // console.log(this.state.openWeather.list[0].weather[0].description);
+                // console.log(this.state.openWeather.list[0].weather[0].id);
                 // console.log(this.state.openWeather.list[0].dt_txt);
                 // console.log(this.state.openWeather.list[1].dt_txt);
                 // console.log(this.state.openWeather.list[2].dt_txt);
@@ -398,6 +411,17 @@ export default class App extends React.Component {
 
   // START render app
   render() {
+    // var weatherCode = this.state.openWeatherId;
+    // console.log(this.state.openWeatherDesc);
+
+    // console.log(this.state.openWeather.list[0].weather[0].description);
+    // console.log(this.state.openWeather.list[0].weather[0].icon);
+    // console.log(weatherIcons[200].code);
+    // console.log(weatherIcons[200].label);
+    // console.log(weatherIcons[200].icon);
+    // console.log(this.state.openWeather.list[0].weather[0].description);
+    // console.log(this.state.openWeather.list[0].weather[0].icon);
+
     // declare variable in current state
     var { isLoaded } = this.state;
 
@@ -429,6 +453,16 @@ export default class App extends React.Component {
           >
             {/* header */}
             <Header />
+            {/* <Text
+              style={{
+                fontFamily: 'weatherFont',
+                fontSize: 80,
+                textAlign: 'center',
+                color: colours.snow
+              }}
+            >
+              {weatherIcons[weatherCode].code}
+            </Text> */}
             {/* current */}
             <Current
               keyboardShouldPersistTaps="handled"
