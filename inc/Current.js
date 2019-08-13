@@ -70,11 +70,21 @@ class Current extends React.Component {
     let displayWeatherIcon;
 
     // check night or day statement
-    if (this.props.icon === '01n' || '02n' || '10n') {
+    var isNightOrDay = this.props.icon.includes('n');
+
+    if (isNightOrDay === true) {
+      console.log('MUST BE NIGHT');
       displayWeatherIcon = nightWeatherIcons;
     } else {
+      console.log('MUST BE DAY');
       displayWeatherIcon = weatherIcons;
     }
+
+    // if ((this.props.icon === '01n') || (this.props.icon === '02n')  || (this.props.icon === '10n')) {
+    //   displayWeatherIcon = nightWeatherIcons;
+    // } else {
+    //   displayWeatherIcon = weatherIcons;
+    // }
 
     // set up placeholder text with current location
     var currentPlaceholder = this.props.currentLocation;
