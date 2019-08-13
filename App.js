@@ -39,6 +39,9 @@ import colours from './assets/colours.json';
 // pre-loader
 import preLoader from './assets/preloader.gif';
 
+// global icons
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+
 // database storage
 // import { AsyncStorage } from "react-native";
 
@@ -113,8 +116,12 @@ export default class App extends React.Component {
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
+    this.nightOrDay = this.nightOrDay.bind(this);
+    this.setBgDay = this.setBgDay.bind(this);
+    this.setBgNight = this.setBgNight.bind(this);
   }
 
+// update sky data function
   updateSkyData(value) {
     this.setState({
       currentLat: value['googleLat'],
@@ -124,21 +131,16 @@ export default class App extends React.Component {
     this.getSkyData();
   }
 
-  // START component pre mount
-  componentWillMount() {
-    // get user location function
-    this._getLocationAsync();
-  }
-  // END component pre mount
-
   // START component mounted
   async componentDidMount() {
+      // get user location function
+    this._getLocationAsync();
     // load custom fonts
     await Font.loadAsync({
       poppinsLight: require('./assets/fonts/Poppins-Light.otf'),
       poppinsMed: require('./assets/fonts/Poppins-Medium.otf'),
       poppinsBold: require('./assets/fonts/Poppins-Bold.otf'),
-      weatherFont: require('./assets/fonts/weathericons-regular-webfont.ttf')
+      weatherFont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
     });
     this.setState({ fontLoaded: true });
   }
@@ -293,7 +295,7 @@ export default class App extends React.Component {
                 icon: openResponseJson.weather[0].icon
               },
               () => {
-                this.setBg();
+                this.nightOrDay();
               }
             );
           });
@@ -311,8 +313,27 @@ export default class App extends React.Component {
   }
   // END sky data fucntion
 
-  // colour bg logic
-  setBg() {
+  // check night or day function
+  nightOrDay() {
+    console.log(this.state.icon);
+    if (this.state.icon === '01n' || '02n' || '10n') {
+      this.setBgNight();
+    } else {
+      this.setBgDay();
+    }
+  }
+
+  // night colour bg logic
+  setBgNight() {
+    imageBg = colours.night;
+    this.setState({
+      weekBg: colours.nightDark,
+      weekBarBg: colours.night
+    });
+  }
+
+  // day colour bg logic
+  setBgDay() {
     // group 2xx: thunderstorm
     if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
       imageBg = colours.thunderStorm;
@@ -352,8 +373,8 @@ export default class App extends React.Component {
       });
       // group 7xx: atmosphere
     } else if (
-      (this.state.openWeatherId) >= 600 &&
-      (this.state.openWeatherId) <= 622
+      (this.state.openWeatherId) >= 701 &&
+      (this.state.openWeatherId) <= 781
     ) {
       imageBg = colours.thunderStorm;
       this.setState({
@@ -392,7 +413,7 @@ export default class App extends React.Component {
 
   // START render app
   render() {
-    // declare variable in current state
+    // declare loading variables in current state
     var { isLoaded } = this.state;
 
     // START loading function

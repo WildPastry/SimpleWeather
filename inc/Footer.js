@@ -26,7 +26,7 @@ class Footer extends React.Component {
           paddingBottom: 8
         }}
       >
-        <Text style={styles.footerText}>powered by DarkSky</Text>
+        <Text style={styles.footerText}>powered by OpenWeather</Text>
       </View>
       // END footer display
     );

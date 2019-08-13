@@ -27,6 +27,29 @@ var moment = require('moment');
 // stylesheet
 var styles = require('../styles.js');
 
+// updateSearch(event) {
+//   this.setState({ search: event.target.value });
+// }
+
+// var projectDetails = this.props.projectsData;
+// var projects = projectDetails.map(x => x.projects);
+// projects = [].concat.apply([], projects);
+
+// if (this.state.search) {
+//   projects = projects.filter(x => {
+//     if (x.name.toLowerCase().indexOf(this.state.search) !== -1) {
+//       return true;
+//     }
+
+//     var lowerCaseFields = x.fields.map(y => y.toLowerCase());
+//     if (lowerCaseFields.indexOf(this.state.search) !== -1) {
+//       return true;
+//     }
+
+//     return false;
+//   });
+// }
+
 // var pilots = [
 //   {
 //     id: 2,
@@ -95,11 +118,11 @@ class Week extends React.Component {
   // START week render
   render() {
     // console.log(this.props.weather[0].dt_txt);
-    console.log(this.props.weather[9].dt_txt);
-    console.log(this.props.weather[17].dt_txt);
-    console.log(this.props.weather[25].dt_txt);
-    console.log(this.props.weather[33].dt_txt);
-    console.log(this.props.weather[39].dt_txt);
+    // console.log(this.props.weather[9].dt_txt);
+    // console.log(this.props.weather[17].dt_txt);
+    // console.log(this.props.weather[25].dt_txt);
+    // console.log(this.props.weather[33].dt_txt);
+    // console.log(this.props.weather[39].dt_txt);
 
     // set up colour bg variables
     var colourBg = this.props.weekBg;

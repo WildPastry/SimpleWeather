@@ -24,6 +24,7 @@ import colours from './../assets/colours.json';
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -68,6 +69,7 @@ class Current extends React.Component {
     // set up icon display
     let displayWeatherIcon;
 
+    // check night or day statement
     if (this.props.icon === '01n' || '02n' || '10n') {
       displayWeatherIcon = nightWeatherIcons;
     } else {
@@ -228,6 +230,7 @@ class Current extends React.Component {
 
         {/* START date display */}
         <Text style={styles.dateText}>
+          {/* <MaterialCommunityIcons name='chevron-down' size={35} color={colours.snow} /> {' '}  */}
           {day} {date}
         </Text>
         {/* END date display */}
