@@ -121,7 +121,7 @@ export default class App extends React.Component {
     this.setBgNight = this.setBgNight.bind(this);
   }
 
-// update sky data function
+  // update sky data function
   updateSkyData(value) {
     this.setState({
       currentLat: value['googleLat'],
@@ -133,14 +133,14 @@ export default class App extends React.Component {
 
   // START component mounted
   async componentDidMount() {
-      // get user location function
+    // get user location function
     this._getLocationAsync();
     // load custom fonts
     await Font.loadAsync({
       poppinsLight: require('./assets/fonts/Poppins-Light.otf'),
       poppinsMed: require('./assets/fonts/Poppins-Medium.otf'),
       poppinsBold: require('./assets/fonts/Poppins-Bold.otf'),
-      weatherFont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
+      weatherFont: require('./assets/fonts/weathericons-regular-webfont.ttf')
     });
     this.setState({ fontLoaded: true });
   }
@@ -315,17 +315,21 @@ export default class App extends React.Component {
 
   // check night or day function
   nightOrDay() {
-    var isNightOrDay = this.state.icon.includes('n');
-
+    console.log(this.state.icon);
+    var isNightOrDay = this.state.icon.includes('01n');
+    console.log(isNightOrDay + ' from main');
     if (isNightOrDay === true) {
       this.setBgNight();
+      console.log('Must be night...');
     } else {
+      console.log('Must be day...');
       this.setBgDay();
     }
   }
 
   // night colour bg logic
   setBgNight() {
+    console.log('Night function running...');
     imageBg = colours.night;
     this.setState({
       weekBg: colours.nightDark,
@@ -335,6 +339,7 @@ export default class App extends React.Component {
 
   // day colour bg logic
   setBgDay() {
+    console.log('Day function running...');
     // group 2xx: thunderstorm
     if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
       imageBg = colours.thunderStorm;

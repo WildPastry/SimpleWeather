@@ -81,8 +81,9 @@ class Current extends React.Component {
     var colourBg = this.props.currentBg;
 
     // check night or day
-    var isNightOrDay = this.props.icon.includes('n');
+    var isNightOrDay = this.props.icon.includes('01n');
 
+    console.log(isNightOrDay + ' from current');
     if (isNightOrDay === true) {
       displayWeatherIcon = nightWeatherIcons;
     } else {
