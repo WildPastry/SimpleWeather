@@ -45,11 +45,10 @@ import preLoader from './assets/preloader.gif';
 // stylesheet
 var styles = require('./styles.js');
 
-// set up auth key for geo-coding data
+// set up auth keys
 const geo = configData.GEO;
-
-// set up auth key for open weather data
 const open = configData.OPEN;
+const sky = configData.SKY;
 
 // get device width
 const window = Dimensions.get('window');
@@ -84,6 +83,8 @@ export default class App extends React.Component {
       isLoaded: false,
       // fonts
       fontLoaded: false,
+      // sky weather
+      skyWeather: [],
       // open weather daily data array
       weather: [],
       // open weather current data array and id
@@ -226,6 +227,36 @@ export default class App extends React.Component {
     });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
+        // fetch sky data
+        fetch(
+          'https://api.darksky.net/forecast/' +
+            sky +
+            '/' +
+            myLat +
+            ',' +
+            myLng +
+            '?units=si'
+        )
+          // log HTTP response error or success for data call
+          .then(res => {
+            if (!res.ok) {
+              throw new Error('DarkSky Failed with HTTP code ' + res.status);
+            } else {
+              console.log('DarkSky Success with HTTP code ' + res.status);
+            }
+            return res;
+          })
+          // convert raw data call into json
+          .then(result => result.json())
+          .then(skyData => {
+            this.setState(
+              {
+                skyWeather: skyData,
+                temp: Math.round(skyData.currently.temperature),
+                high: Math.round(skyData.daily.data[0].temperatureMax),
+                low: Math.round(skyData.daily.data[0].temperatureMin)
+              });
+            });
     // daily weather data
     fetch(
       'https://api.openweathermap.org/data/2.5/forecast?lat=' +
@@ -252,7 +283,7 @@ export default class App extends React.Component {
       .then((result) => result.json())
       .then((data) => {
         this.setState({
-          weather: data
+          weather: data,
         });
         // current weather data
         fetch(
@@ -289,9 +320,6 @@ export default class App extends React.Component {
                 openWeatherId: openResponseJson.weather[0].id,
                 // weather and location data
                 desc: openResponseJson.weather[0].description,
-                temp: Math.round(openResponseJson.main.temp),
-                high: Math.round(openResponseJson.main.temp_max),
-                low: Math.round(openResponseJson.main.temp_min),
                 humidity: openResponseJson.main.humidity,
                 wind: openResponseJson.wind.speed,
                 icon: openResponseJson.weather[0].icon
