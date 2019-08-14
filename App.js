@@ -137,7 +137,8 @@ export default class App extends React.Component {
       poppinsmed: require('./assets/fonts/Poppins-Medium.otf'),
       poppinsbold: require('./assets/fonts/Poppins-Bold.otf'),
       weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
-      ionicons: require('./node_modules/@expo/vector-icons/fonts/Ionicons.ttf')
+      ionicons: require('./node_modules/@expo/vector-icons/fonts/Ionicons.ttf'),
+      entypo: require('./node_modules/@expo/vector-icons/fonts/Entypo.ttf')
     });
     this.setState({ fontLoaded: true }, () => {
       console.log('Are the fonts loaded? ' + this.state.fontLoaded);

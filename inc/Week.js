@@ -20,6 +20,7 @@ import colours from './../assets/colours.json';
 
 // icons
 import weatherIcons from './../assets/icons.json';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 
 // moment set up
 var moment = require('moment');
@@ -82,7 +83,9 @@ class Week extends React.Component {
                       <View style={styles.weekIconTempWrap}>
                         {/* day */}
                         <View style={styles.weekColWrap}>
-                          <Text style={styles.weekText}>{day}</Text>
+                          <Text style={styles.weekText}>
+                            {day}
+                          </Text>
                         </View>
                         {/* daily icon */}
                         <View style={styles.weekColWrap}>
@@ -99,12 +102,22 @@ class Week extends React.Component {
                         {/* daily low temp */}
                         <View style={styles.weekColWrap}>
                           <Text style={styles.weekLowTemp}>
+                            <Ionicons
+                              name='ios-arrow-round-down'
+                              size={25}
+                              color={colours.snow}
+                            />{' '}
                             {Math.round(dailyWeather.main.temp_min)}°
                           </Text>
                         </View>
                         {/* daily high temp */}
                         <View style={styles.weekColWrap}>
                           <Text style={styles.weekHighTemp}>
+                            <Ionicons
+                              name='ios-arrow-round-up'
+                              size={25}
+                              color={colours.snow}
+                            />{' '}
                             {Math.round(dailyWeather.main.temp_max)}°
                           </Text>
                         </View>

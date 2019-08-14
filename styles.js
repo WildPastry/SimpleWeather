@@ -137,13 +137,11 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: '300',
-    textAlign: 'right'
   },
   weekHighTemp: {
     color: '#fff',
     fontSize: 20,
     fontWeight: '300',
-    textAlign: 'right'
   },
   weekHeading: {
     color: '#fff',
@@ -154,12 +152,12 @@ const myStylesheet = StyleSheet.create({
   },
   weekText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center'
   },
   weekTextBot: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'left',
     marginBottom: 12
   },

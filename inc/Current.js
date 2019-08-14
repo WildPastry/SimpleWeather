@@ -14,17 +14,13 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import WindSpeed from './../assets/weather/windSpeed.png';
 import Humidity from './../assets/weather/humidity.png';
 
-// misc icons
-import DownIcon from './../assets/misc/down.png';
-import UpIcon from './../assets/misc/up.png';
-
 // colours
 import colours from './../assets/colours.json';
 
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -209,7 +205,7 @@ class Current extends React.Component {
             <Text style={styles.currentTempLow}>
               <Ionicons
                 name='ios-arrow-round-down'
-                size={35}
+                size={40}
                 color={colours.snow}
               />{' '}
               {this.props.low}°
@@ -220,9 +216,9 @@ class Current extends React.Component {
           {/* high temp */}
           <View>
             <Text style={styles.currentTempHigh}>
-            <Ionicons
+              <Ionicons
                 name='ios-arrow-round-up'
-                size={35}
+                size={40}
                 color={colours.snow}
               />{' '}
               {this.props.high}°
@@ -233,7 +229,6 @@ class Current extends React.Component {
 
         {/* START date display */}
         <Text style={styles.dateText}>
-          {/* <MaterialCommunityIcons name='chevron-down' size={35} color={colours.snow} /> {' '}  */}
           {day} {date}
         </Text>
         {/* END date display */}
