@@ -88,7 +88,7 @@ class Week extends React.Component {
                         <View style={styles.weekColWrap}>
                           <Text
                             style={{
-                              fontFamily: 'weatherFont',
+                              fontFamily: 'weatherfont',
                               fontSize: 30,
                               textAlign: 'center',
                               color: colours.snow

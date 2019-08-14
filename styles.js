@@ -35,13 +35,6 @@ const myStylesheet = StyleSheet.create({
     height: 22,
     marginBottom: 8
   },
-  headerText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '700',
-    padding: 10,
-    textAlign: 'center'
-  },
 
   // current component
   currentWrap: {
@@ -52,7 +45,8 @@ const myStylesheet = StyleSheet.create({
   currentIconWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 60
+    marginTop: 55,
+    marginBottom: 5
   },
   currentIcon: {
     alignSelf: 'center',

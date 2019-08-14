@@ -24,7 +24,7 @@ import colours from './../assets/colours.json';
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -83,7 +83,7 @@ class Current extends React.Component {
     // check night or day
     var isNightOrDay = this.props.icon.includes('01n');
 
-    console.log(isNightOrDay + ' from current');
+    console.log(isNightOrDay + ' from Current.js');
     if (isNightOrDay === true) {
       displayWeatherIcon = nightWeatherIcons;
     } else {
@@ -192,7 +192,7 @@ class Current extends React.Component {
           {/* main icon */}
           <Text
             style={{
-              fontFamily: 'weatherFont',
+              fontFamily: 'weatherfont',
               fontSize: 140,
               textAlign: 'center',
               color: colours.snow
@@ -207,11 +207,11 @@ class Current extends React.Component {
           {/* low temp */}
           <View>
             <Text style={styles.currentTempLow}>
-              <Image
-                style={styles.currentIconSmall}
-                source={DownIcon}
-                resizeMode='contain'
-              />
+              <Ionicons
+                name='ios-arrow-round-down'
+                size={35}
+                color={colours.snow}
+              />{' '}
               {this.props.low}°
             </Text>
           </View>
@@ -220,11 +220,11 @@ class Current extends React.Component {
           {/* high temp */}
           <View>
             <Text style={styles.currentTempHigh}>
-              <Image
-                style={styles.currentIconSmall}
-                source={UpIcon}
-                resizeMode='contain'
-              />
+            <Ionicons
+                name='ios-arrow-round-up'
+                size={35}
+                color={colours.snow}
+              />{' '}
               {this.props.high}°
             </Text>
           </View>

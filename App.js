@@ -39,9 +39,6 @@ import colours from './assets/colours.json';
 // pre-loader
 import preLoader from './assets/preloader.gif';
 
-// global icons
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-
 // database storage
 // import { AsyncStorage } from "react-native";
 
@@ -128,21 +125,25 @@ export default class App extends React.Component {
       currentLng: value['googleLng'],
       currentLocation: value['googleName']
     });
+    // call sky data function with new values
     this.getSkyData();
   }
 
   // START component mounted
   async componentDidMount() {
-    // get user location function
-    this._getLocationAsync();
     // load custom fonts
     await Font.loadAsync({
-      poppinsLight: require('./assets/fonts/Poppins-Light.otf'),
-      poppinsMed: require('./assets/fonts/Poppins-Medium.otf'),
-      poppinsBold: require('./assets/fonts/Poppins-Bold.otf'),
-      weatherFont: require('./assets/fonts/weathericons-regular-webfont.ttf')
+      poppinslight: require('./assets/fonts/Poppins-Light.otf'),
+      poppinsmed: require('./assets/fonts/Poppins-Medium.otf'),
+      poppinsbold: require('./assets/fonts/Poppins-Bold.otf'),
+      weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
+      ionicons: require('./node_modules/@expo/vector-icons/fonts/Ionicons.ttf')
     });
-    this.setState({ fontLoaded: true });
+    this.setState({ fontLoaded: true }, () => {
+      console.log('Are the fonts loaded? ' + this.state.fontLoaded);
+      // get user location function
+      this._getLocationAsync();
+    });
   }
   // END component mounted
 
@@ -317,7 +318,7 @@ export default class App extends React.Component {
   nightOrDay() {
     console.log(this.state.icon);
     var isNightOrDay = this.state.icon.includes('01n');
-    console.log(isNightOrDay + ' from main');
+    console.log(isNightOrDay + ' from App.js');
     if (isNightOrDay === true) {
       this.setBgNight();
       console.log('Must be night...');
@@ -428,7 +429,14 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <Image style={styles.iconLoader} source={preLoader} />
-          <Text style={styles.headerText}>loading . . .</Text>
+          <Text style={{
+            color: '#fff',
+            fontSize: 15,
+            fontWeight: '700',
+            // fontFamily: 'poppinslight',
+            padding: 10,
+            textAlign: 'center'
+          }}>loading . . .</Text>
         </View>
         // END loading display
       );
