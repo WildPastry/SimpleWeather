@@ -35,13 +35,18 @@ class Week extends React.Component {
     // new array for filtering
     var filteredWeather = [];
 
-    // filter function
+    // first filter function
     for (var i = 0; i < this.props.weather.length; i++) {
       var checkArray = this.props.weather[i].dt_txt.includes('12:00:00');
       if (checkArray === true) {
         filteredWeather.push(this.props.weather[i]);
-      } else {
       }
+    }
+
+    // add new data to filtered array
+    for (i = 0; i < 5; i++) {
+      Array.prototype.push.apply(filteredWeather[i].main, [this.props.skyWeather[i].temperatureMin]);
+      Array.prototype.push.apply(filteredWeather[i].main, [this.props.skyWeather[i].temperatureMax]);
     }
 
     // set up colour bg variables
@@ -61,6 +66,7 @@ class Week extends React.Component {
         <ScrollView>
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>5 Day forecast</Text>
+          <Text style={styles.weekText}>{this.props.skyWeather.summary}</Text>
           <View>
             {/* START map */}
             {filteredWeather.map((dailyWeather) => {
@@ -83,9 +89,7 @@ class Week extends React.Component {
                       <View style={styles.weekIconTempWrap}>
                         {/* day */}
                         <View style={styles.weekColWrap}>
-                          <Text style={styles.weekText}>
-                            {day}
-                          </Text>
+                          <Text style={styles.weekText}>{day}</Text>
                         </View>
                         {/* daily icon */}
                         <View style={styles.weekColWrap}>
@@ -107,7 +111,7 @@ class Week extends React.Component {
                               size={25}
                               color={colours.snow}
                             />{' '}
-                            {Math.round(dailyWeather.main.temp_min)}°
+                            {Math.round(dailyWeather.main[0])}°
                           </Text>
                         </View>
                         {/* daily high temp */}
@@ -118,7 +122,7 @@ class Week extends React.Component {
                               size={25}
                               color={colours.snow}
                             />{' '}
-                            {Math.round(dailyWeather.main.temp_max)}°
+                            {Math.round(dailyWeather.main[1])}°
                           </Text>
                         </View>
                       </View>

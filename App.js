@@ -56,6 +56,9 @@ const window = Dimensions.get('window');
 // set up image display variable
 let imageBg;
 
+// new array for filtering
+var filterDailyWeather = [];
+
 // saved data fucntion
 // let savedLocation_object = {
 //   savedLat: "",
@@ -227,36 +230,35 @@ export default class App extends React.Component {
     });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-        // fetch sky data
-        fetch(
-          'https://api.darksky.net/forecast/' +
-            sky +
-            '/' +
-            myLat +
-            ',' +
-            myLng +
-            '?units=si'
-        )
-          // log HTTP response error or success for data call
-          .then(res => {
-            if (!res.ok) {
-              throw new Error('DarkSky Failed with HTTP code ' + res.status);
-            } else {
-              console.log('DarkSky Success with HTTP code ' + res.status);
-            }
-            return res;
-          })
-          // convert raw data call into json
-          .then(result => result.json())
-          .then(skyData => {
-            this.setState(
-              {
-                skyWeather: skyData,
-                temp: Math.round(skyData.currently.temperature),
-                high: Math.round(skyData.daily.data[0].temperatureMax),
-                low: Math.round(skyData.daily.data[0].temperatureMin)
-              });
-            });
+    // fetch sky data
+    fetch(
+      'https://api.darksky.net/forecast/' +
+        sky +
+        '/' +
+        myLat +
+        ',' +
+        myLng +
+        '?units=si'
+    )
+      // log HTTP response error or success for data call
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('DarkSky Failed with HTTP code ' + res.status);
+        } else {
+          console.log('DarkSky Success with HTTP code ' + res.status);
+        }
+        return res;
+      })
+      // convert raw data call into json
+      .then((result) => result.json())
+      .then((skyData) => {
+        this.setState({
+          skyWeather: skyData,
+          temp: Math.round(skyData.currently.temperature),
+          high: Math.round(skyData.daily.data[0].temperatureMax),
+          low: Math.round(skyData.daily.data[0].temperatureMin)
+        });
+      });
     // daily weather data
     fetch(
       'https://api.openweathermap.org/data/2.5/forecast?lat=' +
@@ -283,7 +285,7 @@ export default class App extends React.Component {
       .then((result) => result.json())
       .then((data) => {
         this.setState({
-          weather: data,
+          weather: data
         });
         // current weather data
         fetch(
@@ -458,14 +460,17 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <Image style={styles.iconLoader} source={preLoader} />
-          <Text style={{
-            color: '#fff',
-            fontSize: 15,
-            fontWeight: '700',
-            // fontFamily: 'poppinslight',
-            padding: 10,
-            textAlign: 'center'
-          }}>loading . . .</Text>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 15,
+              fontWeight: '700',
+              // fontFamily: 'poppinslight',
+              padding: 10,
+              textAlign: 'center'
+            }}>
+            loading . . .
+          </Text>
         </View>
         // END loading display
       );
@@ -509,6 +514,7 @@ export default class App extends React.Component {
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
               weather={this.state.weather.list}
+              skyWeather={this.state.skyWeather.daily.data}
             />
             {/* footer */}
             <Footer footerBg={this.state.weekBg} />
