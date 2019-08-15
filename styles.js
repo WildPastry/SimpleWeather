@@ -74,11 +74,7 @@ const myStylesheet = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: 8
   },
-  currentWindWrap: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  currentHumWrap: {
+  currentDetailsWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
   },

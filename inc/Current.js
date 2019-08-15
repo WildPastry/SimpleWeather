@@ -20,7 +20,7 @@ import colours from './../assets/colours.json';
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
-import { Ionicons, Entypo } from '@expo/vector-icons';
+import { Ionicons, Entypo, Feather } from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -79,12 +79,17 @@ class Current extends React.Component {
     // check night or day
     var isNightOrDay = this.props.icon.includes('01n');
 
+    // night or day function
     console.log(isNightOrDay + ' from Current.js');
     if (isNightOrDay === true) {
       displayWeatherIcon = nightWeatherIcons;
     } else {
       displayWeatherIcon = weatherIcons;
     }
+
+    // set up date VARIABLES
+    var todaySun = moment.unix(this.props.sunset);
+    var dateSun = moment(todaySun).format('HH:MM');
 
     return (
       // START current display
@@ -234,16 +239,23 @@ class Current extends React.Component {
         {/* END date display */}
 
         {/* START description */}
-        <Text style={styles.currentDesc}>
-          current{'  '}/{'  '}
-          {this.props.desc}
-        </Text>
+        {/* <Text
+          style={{
+            borderBottomColor: colourBg,
+            borderBottomWidth: 1,
+            borderTopColor: colourBg,
+            borderTopWidth: 1
+          }}> */}
+          <Text style={styles.currentDesc}>
+            weather summary / {this.props.desc}
+          </Text>
+        {/* </Text> */}
         {/* END description */}
 
         {/* START wind and humidity */}
         <View style={styles.currentWindHumWrap}>
           {/* START wind speed */}
-          <View style={styles.currentWindWrap}>
+          <View style={styles.currentDetailsWrap}>
             <Image
               style={styles.currentIconSmall}
               source={WindSpeed}
@@ -257,7 +269,7 @@ class Current extends React.Component {
           {/* END wind speed */}
 
           {/* START humidity */}
-          <View style={styles.currentHumWrap}>
+          <View style={styles.currentDetailsWrap}>
             <Image
               style={styles.currentIconSmall}
               source={Humidity}
@@ -269,6 +281,16 @@ class Current extends React.Component {
             </Text>
           </View>
           {/* END humidity */}
+
+          {/* START sunset */}
+          <View style={styles.currentDetailsWrap}>
+            <Feather name='sunset' size={30} color={colours.snow} />
+            <Text style={styles.currentDetails}>
+              {'  '}
+              {dateSun}
+            </Text>
+          </View>
+          {/* END sunset */}
         </View>
         {/* END wind and humidity */}
       </SafeAreaView>

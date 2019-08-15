@@ -66,7 +66,7 @@ class Week extends React.Component {
         <ScrollView>
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>5 Day forecast</Text>
-          <Text style={styles.weekText}>{this.props.skyWeather.summary}</Text>
+          {/* <Text style={styles.weekText}>{this.props.summary}</Text> */}
           <View>
             {/* START map */}
             {filteredWeather.map((dailyWeather) => {
@@ -132,7 +132,8 @@ class Week extends React.Component {
                     <CollapseBody>
                       {/* START description */}
                       <Text style={styles.currentDesc}>
-                        {dailyWeather.dt_txt.substring(11, 16)}
+                        {/* {dailyWeather.dt_txt.substring(11, 16)} */}
+                        summary
                         {'  '}/{'  '}
                         {dailyWeather.weather[0].description}
                       </Text>

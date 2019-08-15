@@ -108,6 +108,7 @@ export default class App extends React.Component {
       humidity: '',
       wind: '',
       icon: '',
+      sunset: '',
       // colour background
       weekBg: null,
       weekBarBg: null
@@ -142,6 +143,7 @@ export default class App extends React.Component {
       poppinsbold: require('./assets/fonts/Poppins-Bold.otf'),
       weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
       ionicons: require('./node_modules/@expo/vector-icons/fonts/Ionicons.ttf'),
+      feather: require('./node_modules/@expo/vector-icons/fonts/Feather.ttf'),
       entypo: require('./node_modules/@expo/vector-icons/fonts/Entypo.ttf')
     });
     this.setState({ fontLoaded: true }, () => {
@@ -324,7 +326,8 @@ export default class App extends React.Component {
                 desc: openResponseJson.weather[0].description,
                 humidity: openResponseJson.main.humidity,
                 wind: openResponseJson.wind.speed,
-                icon: openResponseJson.weather[0].icon
+                icon: openResponseJson.weather[0].icon,
+                sunset: openResponseJson.sys.sunset
               },
               () => {
                 this.nightOrDay();
@@ -508,12 +511,14 @@ export default class App extends React.Component {
               low={this.state.low}
               desc={this.state.desc}
               icon={this.state.icon}
+              sunset={this.state.sunset}
             />
             {/* week */}
             <Week
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
               weather={this.state.weather.list}
+              summary={this.state.skyWeather.daily.summary}
               skyWeather={this.state.skyWeather.daily.data}
             />
             {/* footer */}
