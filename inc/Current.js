@@ -5,7 +5,7 @@ import React from 'react';
 import configData from './../data/config.json';
 
 // default component functions
-import { Image, Text, SafeAreaView, View } from 'react-native';
+import { Image, Text, Keyboard, SafeAreaView, View } from 'react-native';
 
 // autocomplete
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -25,6 +25,8 @@ import { Ionicons, Entypo, Feather } from '@expo/vector-icons';
 // set up auth key for sky data
 const geo = configData.GEO;
 
+// let currentPlaceholder
+
 // stylesheet
 var styles = require('../styles.js');
 
@@ -42,9 +44,35 @@ class Current extends React.Component {
       googleLng: '',
       googleName: '',
       // get current date
-      currentDate: new Date()
+      currentDate: new Date(),
+      // placeholder clear
+      placeholder: this.props.currentLocation
     };
     this.updateSkyData = this.updateSkyData.bind(this);
+    this._keyboardDidShow = this._keyboardDidShow.bind(this);
+    this._keyboardDidHide = this._keyboardDidHide.bind(this);
+  }
+
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow () {
+    this.setState({
+      placeholder: 'Enter location . . .'
+    });
+  }
+
+  _keyboardDidHide () {
+    this.setState({
+      placeholder: this.props.currentLocation
+    });
   }
 
   // update sky data function
@@ -57,6 +85,10 @@ class Current extends React.Component {
     this.props.updateSkyData(options);
   }
 
+  // tempText(){
+  //   console.log('Pressed . . . ');
+  // }
+
   // START render current
   render() {
     // set up weather code
@@ -66,7 +98,7 @@ class Current extends React.Component {
     let displayWeatherIcon;
 
     // set up placeholder text with current location
-    var currentPlaceholder = this.props.currentLocation;
+    // currentPlaceholder = this.props.currentLocation;
 
     // set up date constants
     const today = this.state.currentDate;
@@ -99,14 +131,15 @@ class Current extends React.Component {
         {/* START autocomplete input */}
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps='handled'
-          placeholder={currentPlaceholder}
-          placeholderTextColor='#fff'
+          placeholder={this.state.placeholder}
+          placeholderTextColor={colours.snow}
           minLength={2}
           autoFocus={false}
           returnKeyType={'default'}
           listViewDisplayed={true}
           fetchDetails={true}
           renderDescription={(row) => row.description}
+          // onFocus={() => {this.tempText();}}
           onPress={(data, details = null) => {
             this.setState({
               // set state with google details
@@ -144,7 +177,7 @@ class Current extends React.Component {
               alignItems: 'center',
               backgroundColor: colourBg,
               borderRadius: 0,
-              color: '#fff',
+              color: colours.snow,
               height: 50,
               marginTop: 0,
               marginBottom: 0,
@@ -157,13 +190,13 @@ class Current extends React.Component {
             },
             description: {
               alignItems: 'center',
-              color: '#fff',
+              color: colours.snow,
               fontWeight: '700',
               textAlign: 'center'
             },
             listView: {
               backgroundColor: colourBg,
-              color: '#fff',
+              color: colours.snow,
               position: 'absolute',
               top: 50,
               elevation: 1

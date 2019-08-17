@@ -133,7 +133,7 @@ class Week extends React.Component {
                       {/* START description */}
                       <Text style={styles.currentDesc}>
                         {/* {dailyWeather.dt_txt.substring(11, 16)} */}
-                        summary
+                        weather summary
                         {'  '}/{'  '}
                         {dailyWeather.weather[0].description}
                       </Text>
