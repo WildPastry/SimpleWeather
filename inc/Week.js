@@ -109,16 +109,6 @@ class Week extends React.Component {
                     {/* collapse header */}
                     <CollapseHeader>
                       <View style={styles.weekIconTempWrap}>
-                        {/* chevron icon */}
-                        {/* <View style={styles.weekColWrap}>
-                          <Text style={styles.weekText}>
-                            <Entypo
-                              name='chevron-down'
-                              size={50}
-                              color={colourBg}
-                            />
-                          </Text>
-                        </View> */}
                         {/* day */}
                         <View style={styles.weekColWrapLeft}>
                           <Text
@@ -127,9 +117,10 @@ class Week extends React.Component {
                               fontSize: 20,
                               color: colours.snow
                             }}>
+                            {/* chevron icon */}
                             <Entypo
                               name='chevron-down'
-                              size={30}
+                              size={20}
                               color={colours.snow}
                             />{' '}
                             {day}
@@ -140,7 +131,7 @@ class Week extends React.Component {
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
-                              fontSize: 30,
+                              fontSize: 20,
                               textAlign: 'center',
                               color: colours.snow
                             }}>
@@ -152,7 +143,7 @@ class Week extends React.Component {
                           <Text style={styles.weekLowTemp}>
                             <Ionicons
                               name='ios-arrow-round-down'
-                              size={25}
+                              size={20}
                               color={colours.snow}
                             />{' '}
                             {Math.round(dailyWeather.main[0])}°
@@ -163,7 +154,7 @@ class Week extends React.Component {
                           <Text style={styles.weekHighTemp}>
                             <Ionicons
                               name='ios-arrow-round-up'
-                              size={25}
+                              size={20}
                               color={colours.snow}
                             />{' '}
                             {Math.round(dailyWeather.main[1])}°

@@ -118,14 +118,17 @@ const myStylesheet = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     height: 45,
-    justifyContent: 'space-between',
-    marginTop: 5
+    justifyContent: 'space-between'
   },
   weekColWrap: {
-    width: 50
+    width: 50,
+    height: 45,
+    justifyContent: 'center'
   },
   weekColWrapLeft: {
-    width: 75
+    width: 75,
+    height: 45,
+    justifyContent: 'center'
   },
   weekIcon: {
     alignSelf: 'flex-start',

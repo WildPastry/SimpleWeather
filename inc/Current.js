@@ -248,7 +248,7 @@ class Current extends React.Component {
             <Text style={styles.currentTempLow}>
               <Ionicons
                 name='ios-arrow-round-down'
-                size={40}
+                size={30}
                 color={colours.snow}
               />{' '}
               {this.props.low}°
@@ -261,7 +261,7 @@ class Current extends React.Component {
             <Text style={styles.currentTempHigh}>
               <Ionicons
                 name='ios-arrow-round-up'
-                size={40}
+                size={30}
                 color={colours.snow}
               />{' '}
               {this.props.high}°
