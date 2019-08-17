@@ -124,6 +124,9 @@ const myStylesheet = StyleSheet.create({
   weekColWrap: {
     width: 50
   },
+  weekColWrapLeft: {
+    width: 75
+  },
   weekIcon: {
     alignSelf: 'flex-start',
     height: 30,

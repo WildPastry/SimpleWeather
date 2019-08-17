@@ -83,16 +83,17 @@ class Week extends React.Component {
               var day = moment(today).format('ddd');
 
               // set up daily summary conversion
-              let dailySummaryRaw
+              let dailySummaryRaw;
 
               dailySummaryRaw = dailyWeather.weather[0].description;
 
               // function to render daily summary while the component is still loading
               if (dailySummaryRaw === undefined) {
-                console.log('waiting . . .');
+                console.log('Not loaded yet . . .');
               } else {
-                var dailySummary = dailySummaryRaw.replace(/^\w/, c => c.toUpperCase());
-                console.log(dailySummary);
+                var dailySummary = dailySummaryRaw.replace(/^\w/, (c) =>
+                  c.toUpperCase()
+                );
               }
 
               return (
@@ -108,9 +109,31 @@ class Week extends React.Component {
                     {/* collapse header */}
                     <CollapseHeader>
                       <View style={styles.weekIconTempWrap}>
+                        {/* chevron icon */}
+                        {/* <View style={styles.weekColWrap}>
+                          <Text style={styles.weekText}>
+                            <Entypo
+                              name='chevron-down'
+                              size={50}
+                              color={colourBg}
+                            />
+                          </Text>
+                        </View> */}
                         {/* day */}
-                        <View style={styles.weekColWrap}>
-                          <Text style={styles.weekText}>{day}</Text>
+                        <View style={styles.weekColWrapLeft}>
+                          <Text
+                            style={{
+                              justifyContent: 'center',
+                              fontSize: 20,
+                              color: colours.snow
+                            }}>
+                            <Entypo
+                              name='chevron-down'
+                              size={30}
+                              color={colours.snow}
+                            />{' '}
+                            {day}
+                          </Text>
                         </View>
                         {/* daily icon */}
                         <View style={styles.weekColWrap}>
@@ -155,15 +178,7 @@ class Week extends React.Component {
                       <Text style={styles.currentDesc}>
                         {dailySummary} with a high of{' '}
                         {Math.round(dailyWeather.main[1])}°
-                        {/* mid-day snap: {dailyWeather.dt_txt.substring(11, 16)}.
-                        At mid-day it will be{' '}
-                        {Math.round(dailyWeather.main.temp)}° with{' '}
-                        {dailyWeather.weather[0].description}, the daily summary
-                        is {dailySummary} */}
                       </Text>
-                      {/* <Text style={styles.currentDesc}>
-                        Daily summary: {dailyWeather.sys[1]}
-                      </Text> */}
                       {/* END description */}
 
                       {/* START wind and humidity */}
