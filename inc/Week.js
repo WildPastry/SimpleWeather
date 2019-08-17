@@ -45,8 +45,15 @@ class Week extends React.Component {
 
     // add new data to filtered array
     for (i = 0; i < 5; i++) {
-      Array.prototype.push.apply(filteredWeather[i].main, [this.props.skyWeather[i].temperatureMin]);
-      Array.prototype.push.apply(filteredWeather[i].main, [this.props.skyWeather[i].temperatureMax]);
+      Array.prototype.push.apply(filteredWeather[i].main, [
+        this.props.skyWeather[i].temperatureMin
+      ]);
+      Array.prototype.push.apply(filteredWeather[i].main, [
+        this.props.skyWeather[i].temperatureMax
+      ]);
+      Array.prototype.push.apply(filteredWeather[i].sys, [
+        this.props.skyWeather[i].summary
+      ]);
     }
 
     // set up colour bg variables
@@ -67,12 +74,26 @@ class Week extends React.Component {
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>5 Day forecast</Text>
           {/* <Text style={styles.weekText}>{this.props.summary}</Text> */}
+
+          {/* START map */}
           <View>
-            {/* START map */}
             {filteredWeather.map((dailyWeather) => {
-              // set up date VARIABLES
+              // set up date variables
               var today = moment.unix(dailyWeather.dt);
               var day = moment(today).format('ddd');
+
+              // set up daily summary conversion
+              let dailySummaryRaw
+
+              dailySummaryRaw = dailyWeather.weather[0].description;
+
+              // function to render daily summary while the component is still loading
+              if (dailySummaryRaw === undefined) {
+                console.log('waiting . . .');
+              } else {
+                var dailySummary = dailySummaryRaw.replace(/^\w/, c => c.toUpperCase());
+                console.log(dailySummary);
+              }
 
               return (
                 // START week display
@@ -132,11 +153,17 @@ class Week extends React.Component {
                     <CollapseBody>
                       {/* START description */}
                       <Text style={styles.currentDesc}>
-                        {/* {dailyWeather.dt_txt.substring(11, 16)} */}
-                        weather summary
-                        {'  '}/{'  '}
-                        {dailyWeather.weather[0].description}
+                        {dailySummary} with a high of{' '}
+                        {Math.round(dailyWeather.main[1])}°
+                        {/* mid-day snap: {dailyWeather.dt_txt.substring(11, 16)}.
+                        At mid-day it will be{' '}
+                        {Math.round(dailyWeather.main.temp)}° with{' '}
+                        {dailyWeather.weather[0].description}, the daily summary
+                        is {dailySummary} */}
                       </Text>
+                      {/* <Text style={styles.currentDesc}>
+                        Daily summary: {dailyWeather.sys[1]}
+                      </Text> */}
                       {/* END description */}
 
                       {/* START wind and humidity */}

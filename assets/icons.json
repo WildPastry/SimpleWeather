@@ -109,14 +109,14 @@
 
   "321": {
     "label": "shower drizzle",
-    "icon": "sprinkle",
-    "code": ""
+    "icon": "showers",
+    "code": ""
   },
 
   "500": {
     "label": "light rain",
-    "icon": "rain",
-    "code": ""
+    "icon": "showers",
+    "code": ""
   },
 
   "501": {

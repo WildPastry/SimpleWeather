@@ -48,27 +48,32 @@ class Current extends React.Component {
       // placeholder clear
       placeholder: this.props.currentLocation
     };
+    // bind functions to state
     this.updateSkyData = this.updateSkyData.bind(this);
     this._keyboardDidShow = this._keyboardDidShow.bind(this);
     this._keyboardDidHide = this._keyboardDidHide.bind(this);
   }
 
+  // keyboard will mount function
   componentWillMount () {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
   }
 
+  // keyboard will un-mount function
   componentWillUnmount () {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
 
+    // keyboard shown
   _keyboardDidShow () {
     this.setState({
       placeholder: 'Enter location . . .'
     });
   }
 
+    // keyboard hidden
   _keyboardDidHide () {
     this.setState({
       placeholder: this.props.currentLocation
@@ -221,7 +226,7 @@ class Current extends React.Component {
         />
         {/* END autocomplete input */}
 
-        {/* START main icon and temp */}
+        {/* START main icon */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}
           <Text
@@ -234,7 +239,7 @@ class Current extends React.Component {
             {displayWeatherIcon[weatherCode].code}
           </Text>
         </View>
-        {/* END main icon and temp */}
+        {/* END main icon */}
 
         {/* START temps */}
         <View style={styles.currentTempWrap}>
@@ -280,7 +285,7 @@ class Current extends React.Component {
             borderTopWidth: 1
           }}> */}
           <Text style={styles.currentDesc}>
-            weather summary / {this.props.desc}
+            Right now it's {this.props.temp}° with {this.props.desc}
           </Text>
         {/* </Text> */}
         {/* END description */}
@@ -316,13 +321,13 @@ class Current extends React.Component {
           {/* END humidity */}
 
           {/* START sunset */}
-          <View style={styles.currentDetailsWrap}>
+          {/* <View style={styles.currentDetailsWrap}>
             <Feather name='sunset' size={30} color={colours.snow} />
             <Text style={styles.currentDetails}>
               {'  '}
               {dateSun}
             </Text>
-          </View>
+          </View> */}
           {/* END sunset */}
         </View>
         {/* END wind and humidity */}
