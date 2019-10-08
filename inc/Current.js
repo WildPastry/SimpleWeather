@@ -20,7 +20,7 @@ import colours from './../assets/colours.json';
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
-import { Ionicons, Entypo, Feather } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -55,26 +55,32 @@ class Current extends React.Component {
   }
 
   // keyboard will mount function
-  componentWillMount () {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide
+    );
   }
 
   // keyboard will un-mount function
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
 
-    // keyboard shown
-  _keyboardDidShow () {
+  // keyboard shown
+  _keyboardDidShow() {
     this.setState({
       placeholder: 'Enter location . . .'
     });
   }
 
-    // keyboard hidden
-  _keyboardDidHide () {
+  // keyboard hidden
+  _keyboardDidHide() {
     this.setState({
       placeholder: this.props.currentLocation
     });
@@ -232,7 +238,7 @@ class Current extends React.Component {
           <Text
             style={{
               fontFamily: 'weatherfont',
-              fontSize: 140,
+              fontSize: 130,
               textAlign: 'center',
               color: colours.snow
             }}>
@@ -277,16 +283,9 @@ class Current extends React.Component {
         {/* END date display */}
 
         {/* START description */}
-        {/* <Text
-          style={{
-            borderBottomColor: colourBg,
-            borderBottomWidth: 1,
-            borderTopColor: colourBg,
-            borderTopWidth: 1
-          }}> */}
-          <Text style={styles.currentDesc}>
-            Right now it's {this.props.temp}° with {this.props.desc}
-          </Text>
+        <Text style={styles.currentDesc}>
+          Right now it's {this.props.temp}° with {this.props.desc}
+        </Text>
         {/* </Text> */}
         {/* END description */}
 
@@ -319,16 +318,6 @@ class Current extends React.Component {
             </Text>
           </View>
           {/* END humidity */}
-
-          {/* START sunset */}
-          {/* <View style={styles.currentDetailsWrap}>
-            <Feather name='sunset' size={30} color={colours.snow} />
-            <Text style={styles.currentDetails}>
-              {'  '}
-              {dateSun}
-            </Text>
-          </View> */}
-          {/* END sunset */}
         </View>
         {/* END wind and humidity */}
       </SafeAreaView>
