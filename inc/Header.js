@@ -2,13 +2,7 @@
 import React from 'react';
 
 // default component functions
-import { Image, Text, View } from 'react-native';
-
-// brand
-import Brand from '../assets/misc/brand.png';
-
-// font
-import { Font } from 'expo';
+import { Text, View } from 'react-native';
 
 // stylesheet
 var styles = require('../styles.js');
@@ -28,16 +22,9 @@ class Header extends React.Component {
             color: '#fff',
             fontSize: 15,
             fontWeight: '700',
-            // fontFamily: 'poppinsbold',
             padding: 10,
             textAlign: 'center'
           }}>
-          {/* {' '}
-          <Image
-            style={styles.brandIconSmall}
-            source={Brand}
-            resizeMode="contain"
-          /> */}
           {'  '}SIMPLE WEATHER
         </Text>
       </View>

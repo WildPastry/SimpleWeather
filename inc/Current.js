@@ -20,12 +20,10 @@ import colours from './../assets/colours.json';
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
-import { Ionicons } from '@expo/vector-icons';
+import * as Ionicons from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
-
-// let currentPlaceholder
 
 // stylesheet
 var styles = require('../styles.js');
@@ -96,10 +94,6 @@ class Current extends React.Component {
     this.props.updateSkyData(options);
   }
 
-  // tempText(){
-  //   console.log('Pressed . . . ');
-  // }
-
   // START render current
   render() {
     // set up weather code
@@ -107,9 +101,6 @@ class Current extends React.Component {
 
     // set up icon display
     let displayWeatherIcon;
-
-    // set up placeholder text with current location
-    // currentPlaceholder = this.props.currentLocation;
 
     // set up date constants
     const today = this.state.currentDate;
@@ -150,7 +141,6 @@ class Current extends React.Component {
           listViewDisplayed={true}
           fetchDetails={true}
           renderDescription={(row) => row.description}
-          // onFocus={() => {this.tempText();}}
           onPress={(data, details = null) => {
             this.setState({
               // set state with google details

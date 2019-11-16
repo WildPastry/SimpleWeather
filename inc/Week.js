@@ -2,7 +2,7 @@
 import React from 'react';
 
 // default component functions
-import { Image, Text, SafeAreaView, ScrollView, View } from 'react-native';
+import { Image, Text, ScrollView, View } from 'react-native';
 
 // weather icons
 import WindSpeed from './../assets/weather/windSpeed.png';
@@ -20,7 +20,7 @@ import colours from './../assets/colours.json';
 
 // icons
 import weatherIcons from './../assets/icons.json';
-import { Ionicons, Entypo } from '@expo/vector-icons';
+import * as Ionicons from '@expo/vector-icons';
 
 // moment set up
 var moment = require('moment');
@@ -73,7 +73,6 @@ class Week extends React.Component {
         <ScrollView>
           {/* weekly weather heading and description */}
           <Text style={styles.weekHeading}>5 Day forecast</Text>
-          {/* <Text style={styles.weekText}>{this.props.summary}</Text> */}
 
           {/* START map */}
           <View>
@@ -130,7 +129,7 @@ class Week extends React.Component {
                         <View style={styles.weekColWrap}>
                           <Text
                             style={{
-                              fontFamily: 'weatherfont',
+                              // fontFamily: 'weatherfont',
                               fontSize: 20,
                               textAlign: 'center',
                               color: colours.snow

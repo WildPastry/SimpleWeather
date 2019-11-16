@@ -19,10 +19,11 @@ import {
 } from 'react-native';
 
 // permissions API
-import { Constants, Location, Permissions } from 'expo';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 // font
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 
 // configuration data
 import configData from './data/config.json';
@@ -38,9 +39,6 @@ import colours from './assets/colours.json';
 
 // pre-loader
 import preLoader from './assets/preloader.gif';
-
-// database storage
-// import { AsyncStorage } from "react-native";
 
 // stylesheet
 var styles = require('./styles.js');
@@ -58,23 +56,6 @@ let imageBg;
 
 // new array for filtering
 var filterDailyWeather = [];
-
-// saved data fucntion
-// let savedLocation_object = {
-//   savedLat: "",
-//   savedLng: "",
-//   savedName: ""
-// };
-
-// AsyncStorage.setItem(
-//   "savedLocation",
-//   JSON.stringify(savedLocation_object),
-//   () => {
-//     AsyncStorage.getItem("savedLocation", (err, result) => {
-//       console.log(result);
-//     });
-//   }
-// );
 
 // START default class app
 export default class App extends React.Component {
@@ -142,9 +123,9 @@ export default class App extends React.Component {
       poppinsmed: require('./assets/fonts/Poppins-Medium.otf'),
       poppinsbold: require('./assets/fonts/Poppins-Bold.otf'),
       weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
-      ionicons: require('./node_modules/@expo/vector-icons/fonts/Ionicons.ttf'),
-      feather: require('./node_modules/@expo/vector-icons/fonts/Feather.ttf'),
-      entypo: require('./node_modules/@expo/vector-icons/fonts/Entypo.ttf')
+      ionicons: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
+      feather: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Feather.ttf'),
+      entypo: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Entypo.ttf')
     });
     this.setState({ fontLoaded: true }, () => {
       console.log('Are the fonts loaded? ' + this.state.fontLoaded);
