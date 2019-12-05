@@ -117,11 +117,11 @@ class Week extends React.Component {
                               color: colours.snow
                             }}>
                             {/* chevron icon */}
-                            <Entypo
+                            {/* <Entypo
                               name='chevron-down'
                               size={20}
                               color={colours.snow}
-                            />{' '}
+                            />{' '} */}
                             {day}
                           </Text>
                         </View>
@@ -140,22 +140,22 @@ class Week extends React.Component {
                         {/* daily low temp */}
                         <View style={styles.weekColWrap}>
                           <Text style={styles.weekLowTemp}>
-                            <Ionicons
+                            {/* <Ionicons
                               name='ios-arrow-round-down'
                               size={20}
                               color={colours.snow}
-                            />{' '}
+                            />{' '} */}
                             {Math.round(dailyWeather.main[0])}°
                           </Text>
                         </View>
                         {/* daily high temp */}
                         <View style={styles.weekColWrap}>
                           <Text style={styles.weekHighTemp}>
-                            <Ionicons
+                            {/* <Ionicons
                               name='ios-arrow-round-up'
                               size={20}
                               color={colours.snow}
-                            />{' '}
+                            />{' '} */}
                             {Math.round(dailyWeather.main[1])}°
                           </Text>
                         </View>

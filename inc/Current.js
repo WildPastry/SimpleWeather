@@ -242,11 +242,11 @@ class Current extends React.Component {
           {/* low temp */}
           <View>
             <Text style={styles.currentTempLow}>
-              <Ionicons
+              {/* <Ionicons
                 name='ios-arrow-round-down'
                 size={30}
                 color={colours.snow}
-              />{' '}
+              />{' '} */}
               {this.props.low}°
             </Text>
           </View>
@@ -255,11 +255,11 @@ class Current extends React.Component {
           {/* high temp */}
           <View>
             <Text style={styles.currentTempHigh}>
-              <Ionicons
+              {/* <Ionicons
                 name='ios-arrow-round-up'
                 size={30}
                 color={colours.snow}
-              />{' '}
+              />{' '} */}
               {this.props.high}°
             </Text>
           </View>
@@ -276,7 +276,6 @@ class Current extends React.Component {
         <Text style={styles.currentDesc}>
           Right now it's {this.props.temp}° with {this.props.desc}
         </Text>
-        {/* </Text> */}
         {/* END description */}
 
         {/* START wind and humidity */}

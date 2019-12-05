@@ -59,6 +59,8 @@ var filterDailyWeather = [];
 
 // START default class app
 export default class App extends React.Component {
+  // control requests
+  _isMounted = false;
   // default class app constructor
   constructor(props) {
     super(props);
@@ -117,6 +119,7 @@ export default class App extends React.Component {
 
   // START component mounted
   async componentDidMount() {
+    this._isMounted = true;
     // load custom fonts
     await Font.loadAsync({
       poppinslight: require('./assets/fonts/Poppins-Light.otf'),
@@ -128,7 +131,7 @@ export default class App extends React.Component {
       entypo: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Entypo.ttf')
     });
     this.setState({ fontLoaded: true }, () => {
-      console.log('Are the fonts loaded? ' + this.state.fontLoaded);
+      console.log('FROM componentDidMount (134) ' + this.state.fontLoaded);
       // get user location function
       this._getLocationAsync();
     });
@@ -139,6 +142,8 @@ export default class App extends React.Component {
   _getLocationAsync = async () => {
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync();
+    console.log('FROM getLocationAsync (145)');
+    console.log(providerStatus);
     // services disabled error
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
@@ -156,6 +161,7 @@ export default class App extends React.Component {
 
     // check permissions
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    console.log('FROM getLocationAsync (163) ' + status);
     // permission denied error
     if (status !== 'granted') {
       this.setState({
@@ -173,11 +179,15 @@ export default class App extends React.Component {
 
     // success function
     let location = await Location.getCurrentPositionAsync({});
+    console.log('FROM getLocationAsync (181)');
+    console.log(location);
     this.setState({
       location: location,
       currentLat: location.coords.latitude.toFixed(5),
       currentLng: location.coords.longitude.toFixed(5)
     });
+    console.log('FROM getLocationAsync (189) ' + this.state.currentLat);
+    console.log('FROM getLocationAsync (190) ' + this.state.currentLng);
     this.reverseGeo();
   };
   // END get location function
@@ -186,15 +196,17 @@ export default class App extends React.Component {
   reverseGeo() {
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
+    console.log('FROM reverseGeo (197) ' + myLat)
+    console.log('FROM reverseGeo (197) ' + myLng)
     // fetch location data
     fetch(
       // google data
       'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-        myLat +
-        ',' +
-        myLng +
-        '&key=' +
-        geo
+      myLat +
+      ',' +
+      myLng +
+      '&key=' +
+      geo
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -208,20 +220,24 @@ export default class App extends React.Component {
 
   // START sky data function
   getSkyData() {
+    console.log('FROM getSkyData (225) ' + this.state.currentLat);
+    console.log('FROM getSkyData (226) ' + this.state.currentLng);
     this.setState({
       isLoaded: false
     });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
+    console.log('FROM getSkyData (230) ' + myLat);
+    console.log('FROM getSkyData (231) ' + myLng);
     // fetch sky data
     fetch(
       'https://api.darksky.net/forecast/' +
-        sky +
-        '/' +
-        myLat +
-        ',' +
-        myLng +
-        '?units=si'
+      sky +
+      '/' +
+      myLat +
+      ',' +
+      myLng +
+      '?units=si'
     )
       // log HTTP response error or success for data call
       .then((res) => {
@@ -235,21 +251,26 @@ export default class App extends React.Component {
       // convert raw data call into json
       .then((result) => result.json())
       .then((skyData) => {
-        this.setState({
-          skyWeather: skyData,
-          temp: Math.round(skyData.currently.temperature),
-          high: Math.round(skyData.daily.data[0].temperatureMax),
-          low: Math.round(skyData.daily.data[0].temperatureMin)
-        });
+        console.log('FROM getSkyData (254)');
+        console.log(skyData);
+        if (this._isMounted) {
+          this.setState({
+            skyWeather: skyData,
+            temp: Math.round(skyData.currently.temperature),
+            high: Math.round(skyData.daily.data[0].temperatureMax),
+            low: Math.round(skyData.daily.data[0].temperatureMin)
+          });
+        }
+        console.log('FROM getSkyData (226) ' + this.state.skyWeather);
       });
     // daily weather data
     fetch(
       'https://api.openweathermap.org/data/2.5/forecast?lat=' +
-        myLat +
-        '&lon=' +
-        myLng +
-        '&units=metric&APPID=' +
-        open
+      myLat +
+      '&lon=' +
+      myLng +
+      '&units=metric&APPID=' +
+      open
     )
       // log HTTP response error or success for data call
       .then((res) => {
@@ -267,17 +288,19 @@ export default class App extends React.Component {
       // convert raw data call into json
       .then((result) => result.json())
       .then((data) => {
-        this.setState({
-          weather: data
-        });
+        if (this._isMounted) {
+          this.setState({
+            weather: data
+          });
+        }
         // current weather data
         fetch(
           'https://api.openweathermap.org/data/2.5/weather?lat=' +
-            myLat +
-            '&lon=' +
-            myLng +
-            '&units=metric&APPID=' +
-            open
+          myLat +
+          '&lon=' +
+          myLng +
+          '&units=metric&APPID=' +
+          open
         )
           // log HTTP response error or success for data call
           .then((res) => {
@@ -295,25 +318,27 @@ export default class App extends React.Component {
           // convert raw data call into json
           .then((openResponse) => openResponse.json())
           .then((openResponseJson) => {
-            this.setState(
-              {
-                // loading screen
-                isLoaded: true,
-                // weather wrapper
-                openWeather: openResponseJson,
-                // icon id
-                openWeatherId: openResponseJson.weather[0].id,
-                // weather and location data
-                desc: openResponseJson.weather[0].description,
-                humidity: openResponseJson.main.humidity,
-                wind: openResponseJson.wind.speed,
-                icon: openResponseJson.weather[0].icon,
-                sunset: openResponseJson.sys.sunset
-              },
-              () => {
-                this.nightOrDay();
-              }
-            );
+            if (this._isMounted) {
+              this.setState(
+                {
+                  // loading screen
+                  isLoaded: true,
+                  // weather wrapper
+                  openWeather: openResponseJson,
+                  // icon id
+                  openWeatherId: openResponseJson.weather[0].id,
+                  // weather and location data
+                  desc: openResponseJson.weather[0].description,
+                  humidity: openResponseJson.main.humidity,
+                  wind: openResponseJson.wind.speed,
+                  icon: openResponseJson.weather[0].icon,
+                  sunset: openResponseJson.sys.sunset
+                },
+                () => {
+                  this.nightOrDay();
+                }
+              );
+            }
           });
       })
       // catch and log errors
@@ -433,6 +458,10 @@ export default class App extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   // START render app
   render() {
     // declare loading variables in current state
@@ -493,13 +522,21 @@ export default class App extends React.Component {
               desc={this.state.desc}
               icon={this.state.icon}
               sunset={this.state.sunset}
+
             />
+            {/* <AppNavigator
+              screenProps={{
+                currentFriends: this.state.currentFriends,
+                possibleFriends: this.state.possibleFriends,
+                addFriend: this.addFriend,
+              }}
+            /> */}
             {/* week */}
             <Week
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
               weather={this.state.weather.list}
-              summary={this.state.skyWeather.daily.summary}
+              // summary={this.state.skyWeather.daily.summary}
               skyWeather={this.state.skyWeather.daily.data}
             />
             {/* footer */}
