@@ -20,6 +20,7 @@ import colours from './../assets/colours.json';
 
 // icons
 import weatherIcons from './../assets/icons.json';
+import { Ionicons } from '@expo/vector-icons';
 
 // moment set up
 var moment = require('moment');
@@ -116,11 +117,11 @@ class Week extends React.Component {
                               color: colours.white
                             }}>
                             {/* chevron icon */}
-                            {/* <Entypo
-                              name='chevron-down'
+                            <Ionicons
+                              name='ios-arrow-down'
                               size={20}
                               color={colours.white}
-                            />{' '} */}
+                            />{' '}{' '}
                             {day}
                           </Text>
                         </View>
@@ -139,22 +140,22 @@ class Week extends React.Component {
                         {/* daily low temp */}
                         <View style={styles.weekColWrap}>
                           <Text style={styles.weekLowTemp}>
-                            {/* <Ionicons
+                            <Ionicons
                               name='ios-arrow-round-down'
                               size={20}
                               color={colours.white}
-                            />{' '} */}
+                            />{' '}
                             {Math.round(dailyWeather.main[0])}°
                           </Text>
                         </View>
                         {/* daily high temp */}
                         <View style={styles.weekColWrap}>
                           <Text style={styles.weekHighTemp}>
-                            {/* <Ionicons
+                            <Ionicons
                               name='ios-arrow-round-up'
                               size={20}
                               color={colours.white}
-                            />{' '} */}
+                            />{' '}
                             {Math.round(dailyWeather.main[1])}°
                           </Text>
                         </View>

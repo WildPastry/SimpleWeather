@@ -17,7 +17,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 // font
-import * as Font from 'expo-font'; 
+import * as Font from 'expo-font';
 
 // configuration data
 import configData from './data/config.json';
@@ -457,7 +457,6 @@ export default class App extends React.Component {
               color: '#fff',
               fontSize: 15,
               fontWeight: '700',
-              // fontFamily: 'poppinslight',
               padding: 10,
               textAlign: 'center'
             }}>
@@ -481,7 +480,10 @@ export default class App extends React.Component {
             horizontal={false}
             showsPagination={false}>
             {/* header */}
-            <Header />
+            <Header
+              headerBg={this.state.weekBg}
+              headerBarBg={this.state.weekBarBg}
+            />
             {/* current */}
             <Current
               keyboardShouldPersistTaps='handled'
@@ -503,19 +505,11 @@ export default class App extends React.Component {
               sunset={this.state.sunset}
 
             />
-            {/* <AppNavigator
-              screenProps={{
-                currentFriends: this.state.currentFriends,
-                possibleFriends: this.state.possibleFriends,
-                addFriend: this.addFriend,
-              }}
-            /> */}
             {/* week */}
             <Week
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
               weather={this.state.weather.list}
-              // summary={this.state.skyWeather.daily.summary}
               skyWeather={this.state.skyWeather.daily.data}
             />
             {/* footer */}

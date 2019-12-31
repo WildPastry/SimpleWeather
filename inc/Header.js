@@ -11,6 +11,11 @@ var styles = require('../styles.js');
 class Header extends React.Component {
   // START render header
   render() {
+
+    // set up colour bg variables
+    var colourBg = this.props.headerBg;
+    var colourBarBg = this.props.headerBarBg;
+
     return (
       // header wrap
       <View style={styles.headerWrap}>

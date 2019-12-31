@@ -243,7 +243,7 @@ class Current extends React.Component {
           <View>
             <Text style={styles.currentTempLow}>
               {/* up arrow */}
-              <Ionicons name="ios-arrow-round-up" size={30}
+              <Ionicons name="ios-arrow-round-down" size={30}
                 color={colours.white} />{' '}
               {this.props.low}°
             </Text>
@@ -254,7 +254,7 @@ class Current extends React.Component {
           <View>
             <Text style={styles.currentTempHigh}>
               {/* up arrow */}
-              <Ionicons name="ios-arrow-round-down" size={30}
+              <Ionicons name="ios-arrow-round-up" size={30}
                 color={colours.white} />{' '}
               {this.props.high}°
             </Text>
