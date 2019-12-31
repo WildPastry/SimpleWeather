@@ -6,7 +6,7 @@
   "showerRain": "#2485c7",
   "rain": "#2485c7",
   "thunderStorm": "#505050",
-  "snow": "#ffffff",
+  "snow": "#212121",
   "mist": "#c8c8c8",
   "night": "#0f294a",
   "clearSkyDark": "#f89e18",
@@ -18,5 +18,6 @@
   "thunderStormDark": "#353535",
   "snowDark": "#bdbdbd",
   "mistDark": "#999999",
-  "nightDark": "#01142c"
+  "nightDark": "#01142c",
+  "white" : "#fff"
 }

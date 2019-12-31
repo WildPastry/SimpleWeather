@@ -5,16 +5,10 @@ import React from 'react';
 import {
   Alert,
   AppRegistry,
-  Button,
   Dimensions,
   Image,
-  ImageBackground,
-  Keyboard,
-  Platform,
   ScrollView,
   Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
   View
 } from 'react-native';
 
@@ -23,7 +17,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 // font
-import * as Font from 'expo-font';
+import * as Font from 'expo-font'; 
 
 // configuration data
 import configData from './data/config.json';
@@ -53,9 +47,6 @@ const window = Dimensions.get('window');
 
 // set up image display variable
 let imageBg;
-
-// new array for filtering
-var filterDailyWeather = [];
 
 // START default class app
 export default class App extends React.Component {
@@ -125,13 +116,10 @@ export default class App extends React.Component {
       poppinslight: require('./assets/fonts/Poppins-Light.otf'),
       poppinsmed: require('./assets/fonts/Poppins-Medium.otf'),
       poppinsbold: require('./assets/fonts/Poppins-Bold.otf'),
-      weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf'),
-      ionicons: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
-      feather: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Feather.ttf'),
-      entypo: require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Entypo.ttf')
+      weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf')
     });
     this.setState({ fontLoaded: true }, () => {
-      console.log('FROM componentDidMount (134) ' + this.state.fontLoaded);
+      console.log('FROM componentDidMount: Fonts loaded = ' + this.state.fontLoaded);
       // get user location function
       this._getLocationAsync();
     });
@@ -142,8 +130,8 @@ export default class App extends React.Component {
   _getLocationAsync = async () => {
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync();
-    console.log('FROM getLocationAsync (145)');
-    console.log(providerStatus);
+    // console.log('FROM getLocationAsync ');
+    // console.log(providerStatus);
     // services disabled error
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
@@ -161,7 +149,7 @@ export default class App extends React.Component {
 
     // check permissions
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    console.log('FROM getLocationAsync (163) ' + status);
+    // console.log('FROM getLocationAsync (151) ' + status);
     // permission denied error
     if (status !== 'granted') {
       this.setState({
@@ -179,15 +167,13 @@ export default class App extends React.Component {
 
     // success function
     let location = await Location.getCurrentPositionAsync({});
-    console.log('FROM getLocationAsync (181)');
-    console.log(location);
+    // console.log('FROM getLocationAsync ');
+    // console.log(location);
     this.setState({
       location: location,
       currentLat: location.coords.latitude.toFixed(5),
       currentLng: location.coords.longitude.toFixed(5)
     });
-    console.log('FROM getLocationAsync (189) ' + this.state.currentLat);
-    console.log('FROM getLocationAsync (190) ' + this.state.currentLng);
     this.reverseGeo();
   };
   // END get location function
@@ -196,8 +182,6 @@ export default class App extends React.Component {
   reverseGeo() {
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-    console.log('FROM reverseGeo (197) ' + myLat)
-    console.log('FROM reverseGeo (197) ' + myLng)
     // fetch location data
     fetch(
       // google data
@@ -220,15 +204,13 @@ export default class App extends React.Component {
 
   // START sky data function
   getSkyData() {
-    console.log('FROM getSkyData (225) ' + this.state.currentLat);
-    console.log('FROM getSkyData (226) ' + this.state.currentLng);
     this.setState({
       isLoaded: false
     });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-    console.log('FROM getSkyData (230) ' + myLat);
-    console.log('FROM getSkyData (231) ' + myLng);
+    console.log('FROM getSkyData ' + myLat);
+    console.log('FROM getSkyData ' + myLng);
     // fetch sky data
     fetch(
       'https://api.darksky.net/forecast/' +
@@ -251,8 +233,6 @@ export default class App extends React.Component {
       // convert raw data call into json
       .then((result) => result.json())
       .then((skyData) => {
-        console.log('FROM getSkyData (254)');
-        console.log(skyData);
         if (this._isMounted) {
           this.setState({
             skyWeather: skyData,
@@ -261,7 +241,6 @@ export default class App extends React.Component {
             low: Math.round(skyData.daily.data[0].temperatureMin)
           });
         }
-        console.log('FROM getSkyData (226) ' + this.state.skyWeather);
       });
     // daily weather data
     fetch(
@@ -356,9 +335,9 @@ export default class App extends React.Component {
 
   // check night or day function
   nightOrDay() {
-    console.log(this.state.icon);
+    console.log('Icon = ' + this.state.icon + ' from App.js');
     var isNightOrDay = this.state.icon.includes('01n');
-    console.log(isNightOrDay + ' from App.js');
+    console.log('Night = ' + isNightOrDay + ' from App.js');
     if (isNightOrDay === true) {
       this.setBgNight();
       console.log('Must be night...');

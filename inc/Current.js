@@ -20,7 +20,7 @@ import colours from './../assets/colours.json';
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
-import * as Ionicons from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -114,7 +114,7 @@ class Current extends React.Component {
     var isNightOrDay = this.props.icon.includes('01n');
 
     // night or day function
-    console.log(isNightOrDay + ' from Current.js');
+    console.log('Night = ' + isNightOrDay + ' from Current.js');
     if (isNightOrDay === true) {
       displayWeatherIcon = nightWeatherIcons;
     } else {
@@ -134,7 +134,7 @@ class Current extends React.Component {
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps='handled'
           placeholder={this.state.placeholder}
-          placeholderTextColor={colours.snow}
+          placeholderTextColor={colours.white}
           minLength={2}
           autoFocus={false}
           returnKeyType={'default'}
@@ -178,7 +178,7 @@ class Current extends React.Component {
               alignItems: 'center',
               backgroundColor: colourBg,
               borderRadius: 0,
-              color: colours.snow,
+              color: colours.white,
               height: 50,
               marginTop: 0,
               marginBottom: 0,
@@ -191,13 +191,13 @@ class Current extends React.Component {
             },
             description: {
               alignItems: 'center',
-              color: colours.snow,
+              color: colours.white,
               fontWeight: '700',
               textAlign: 'center'
             },
             listView: {
               backgroundColor: colourBg,
-              color: colours.snow,
+              color: colours.white,
               position: 'absolute',
               top: 50,
               elevation: 1
@@ -230,7 +230,7 @@ class Current extends React.Component {
               fontFamily: 'weatherfont',
               fontSize: 130,
               textAlign: 'center',
-              color: colours.snow
+              color: colours.white
             }}>
             {displayWeatherIcon[weatherCode].code}
           </Text>
@@ -242,11 +242,9 @@ class Current extends React.Component {
           {/* low temp */}
           <View>
             <Text style={styles.currentTempLow}>
-              {/* <Ionicons
-                name='ios-arrow-round-down'
-                size={30}
-                color={colours.snow}
-              />{' '} */}
+              {/* up arrow */}
+              <Ionicons name="ios-arrow-round-up" size={30}
+                color={colours.white} />{' '}
               {this.props.low}°
             </Text>
           </View>
@@ -255,11 +253,9 @@ class Current extends React.Component {
           {/* high temp */}
           <View>
             <Text style={styles.currentTempHigh}>
-              {/* <Ionicons
-                name='ios-arrow-round-up'
-                size={30}
-                color={colours.snow}
-              />{' '} */}
+              {/* up arrow */}
+              <Ionicons name="ios-arrow-round-down" size={30}
+                color={colours.white} />{' '}
               {this.props.high}°
             </Text>
           </View>

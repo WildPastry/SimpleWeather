@@ -20,7 +20,6 @@ import colours from './../assets/colours.json';
 
 // icons
 import weatherIcons from './../assets/icons.json';
-import * as Ionicons from '@expo/vector-icons';
 
 // moment set up
 var moment = require('moment');
@@ -114,13 +113,13 @@ class Week extends React.Component {
                             style={{
                               justifyContent: 'center',
                               fontSize: 20,
-                              color: colours.snow
+                              color: colours.white
                             }}>
                             {/* chevron icon */}
                             {/* <Entypo
                               name='chevron-down'
                               size={20}
-                              color={colours.snow}
+                              color={colours.white}
                             />{' '} */}
                             {day}
                           </Text>
@@ -129,10 +128,10 @@ class Week extends React.Component {
                         <View style={styles.weekColWrap}>
                           <Text
                             style={{
-                              // fontFamily: 'weatherfont',
+                              fontFamily: 'weatherfont',
                               fontSize: 20,
                               textAlign: 'center',
-                              color: colours.snow
+                              color: colours.white
                             }}>
                             {weatherIcons[dailyWeather.weather[0].id].code}
                           </Text>
@@ -143,7 +142,7 @@ class Week extends React.Component {
                             {/* <Ionicons
                               name='ios-arrow-round-down'
                               size={20}
-                              color={colours.snow}
+                              color={colours.white}
                             />{' '} */}
                             {Math.round(dailyWeather.main[0])}°
                           </Text>
@@ -154,7 +153,7 @@ class Week extends React.Component {
                             {/* <Ionicons
                               name='ios-arrow-round-up'
                               size={20}
-                              color={colours.snow}
+                              color={colours.white}
                             />{' '} */}
                             {Math.round(dailyWeather.main[1])}°
                           </Text>
