@@ -4,6 +4,9 @@ import React from 'react';
 // default component functions
 import { Text, View } from 'react-native';
 
+// colours
+import colours from './../assets/colours.json';
+
 // stylesheet
 var styles = require('../styles.js');
 
@@ -11,15 +14,13 @@ var styles = require('../styles.js');
 class Footer extends React.Component {
   // START render footer
   render() {
-    // set up colour bg variable
-    // var colourBg = this.props.footerBg;
 
     return (
       // START footer display
       <View
         style={{
           alignSelf: 'stretch',
-          backgroundColor: '#303030',
+          backgroundColor: colours.simpleWeather,
           flex: 1,
           justifyContent: 'center',
           paddingTop: 8,

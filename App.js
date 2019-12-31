@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  StatusBar,
   Text,
   View
 } from 'react-native';
@@ -133,8 +134,6 @@ export default class App extends React.Component {
     let providerStatus = await Location.getProviderStatusAsync(
       { enableHighAccuracy: true }
     );
-    // console.log('FROM getLocationAsync ');
-    // console.log(providerStatus);
     // services disabled error
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
@@ -152,7 +151,6 @@ export default class App extends React.Component {
 
     // check permissions
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    // console.log('FROM getLocationAsync (151) ' + status);
     // permission denied error
     if (status !== 'granted') {
       this.setState({
@@ -170,8 +168,6 @@ export default class App extends React.Component {
 
     // success function
     let location = await Location.getCurrentPositionAsync({});
-    // console.log('FROM getLocationAsync ');
-    // console.log(location);
     this.setState({
       location: location,
       currentLat: location.coords.latitude.toFixed(5),
@@ -303,8 +299,6 @@ export default class App extends React.Component {
             if (this._isMounted) {
               this.setState(
                 {
-                  // loading screen
-                  isLoaded: true,
                   // weather wrapper
                   openWeather: openResponseJson,
                   // icon id
@@ -355,6 +349,9 @@ export default class App extends React.Component {
     console.log('Night function running...');
     imageBg = colours.night;
     this.setState({
+      // loading screen
+      isLoaded: true,
+
       weekBg: colours.nightDark,
       weekBarBg: colours.night
     });
@@ -438,6 +435,10 @@ export default class App extends React.Component {
         weekBarBg: colours.clearSky
       });
     }
+    this.setState({
+      // loading screen
+      isLoaded: true,
+    })
   }
 
   componentWillUnmount() {
@@ -446,6 +447,9 @@ export default class App extends React.Component {
 
   // START render app
   render() {
+    // set status bar text colour
+    StatusBar.setBarStyle('light-content', true);
+
     // declare loading variables in current state
     var { isLoaded } = this.state;
 
@@ -460,7 +464,7 @@ export default class App extends React.Component {
             this.state.fontLoaded ? (
               <Text
                 style={{
-                  color: '#fff',
+                  color: colours.white,
                   fontSize: 17,
                   fontFamily: 'allerLt',
                   padding: 10,
@@ -476,10 +480,12 @@ export default class App extends React.Component {
       // END loading function
     } else {
       return (
-        //  START main container
+        // START main container
         <View
           keyboardShouldPersistTaps='handled'
-          style={{ alignItems: 'center', backgroundColor: '#303030', flex: 1 }}>
+          style={{ alignItems: 'center', backgroundColor: colours.simpleWeather, flex: 1 }}>
+          {/* top bar */}
+          <View style={styles.headerTopBar} />
           <ScrollView
             loop={false}
             width={window.width}
@@ -520,7 +526,7 @@ export default class App extends React.Component {
               skyWeather={this.state.skyWeather.daily.data}
             />
             {/* footer */}
-            <Footer footerBg={this.state.weekBg} />
+            <Footer />
           </ScrollView>
         </View>
         // END main container

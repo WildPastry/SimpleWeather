@@ -2,7 +2,13 @@
 import React from 'react';
 
 // default component functions
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
+
+// brand icon
+import BrandIcon from './../assets/brand.png';
+
+// colours
+import colours from './../assets/colours.json';
 
 // stylesheet
 var styles = require('../styles.js');
@@ -15,19 +21,34 @@ class Header extends React.Component {
     return (
       // header wrap
       <View style={styles.headerWrap}>
-        {/* top bar (might be unnecessary) */}
-        {/* <View style={styles.headerTopBar} /> */}
-        {/* title display */}
-        <Text
-          style={{
-            color: '#fff',
-            fontSize: 20,
-            fontFamily: 'allerDisplay',
-            padding: 15,
-            textAlign: 'center',
+        {/* title display wrapper */}
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          padding: 12
+        }}>
+          {/* logo */}
+          <Image
+            style={styles.brandIconSmall}
+            source={BrandIcon}
+            resizeMode='contain'
+          />
+          {/* text */}
+          <View style={{
+            height: 35,
+            justifyContent: 'center'
           }}>
-          {'  '}SIMPLE WEATHER
-        </Text>
+            <Text
+              style={{
+                color: colours.white,
+                fontSize: 20,
+                fontFamily: 'allerDisplay',
+                textAlign: 'center',
+              }}>
+              SIMPLE WEATHER
+             </Text>
+          </View>
+        </View>
       </View>
     );
   }

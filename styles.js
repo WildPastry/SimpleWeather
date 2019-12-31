@@ -24,8 +24,8 @@ const myStylesheet = StyleSheet.create({
   // header component
   brandIconSmall: {
     alignSelf: 'center',
-    height: 30,
-    width: 30
+    height: 35,
+    width: 35
   },
   headerWrap: {
     alignSelf: 'stretch',
@@ -33,9 +33,7 @@ const myStylesheet = StyleSheet.create({
     backgroundColor: '#303030'
   },
   headerTopBar: {
-    height: 22,
-    marginBottom: 8,
-    backgroundColor: '#fff'
+    height: 22
   },
 
   // current component

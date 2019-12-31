@@ -187,7 +187,7 @@ class Current extends React.Component {
               marginLeft: 0,
               marginRight: 0,
               fontFamily: 'allerLt',
-              fontSize: 18,
+              fontSize: 17,
               textAlign: 'center',
               zIndex: 1
             },
@@ -201,6 +201,7 @@ class Current extends React.Component {
               backgroundColor: colourBg,
               color: colours.white,
               fontFamily: 'allerLt',
+              fontSize: 17,
               position: 'absolute',
               top: 50,
               elevation: 1

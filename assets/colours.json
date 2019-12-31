@@ -19,5 +19,6 @@
   "snowDark": "#383838",
   "mistDark": "#999999",
   "nightDark": "#01142c",
-  "white" : "#fff"
+  "white" : "#fff",
+  "simpleWeather": "#303030"
 }
