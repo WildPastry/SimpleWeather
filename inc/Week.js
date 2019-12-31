@@ -67,8 +67,7 @@ class Week extends React.Component {
           alignSelf: 'stretch',
           backgroundColor: colourBg,
           flex: 4,
-          justifyContent: 'center',
-          marginTop: 8
+          justifyContent: 'center'
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
@@ -114,6 +113,7 @@ class Week extends React.Component {
                             style={{
                               justifyContent: 'center',
                               fontSize: 20,
+                              fontFamily: 'allerRg',
                               color: colours.white
                             }}>
                             {/* chevron icon */}

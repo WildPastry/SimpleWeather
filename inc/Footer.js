@@ -12,21 +12,38 @@ class Footer extends React.Component {
   // START render footer
   render() {
     // set up colour bg variable
-    var colourBg = this.props.footerBg;
+    // var colourBg = this.props.footerBg;
 
     return (
       // START footer display
       <View
         style={{
           alignSelf: 'stretch',
-          backgroundColor: colourBg,
+          backgroundColor: '#303030',
           flex: 1,
           justifyContent: 'center',
           paddingTop: 8,
           paddingBottom: 8
         }}
       >
-        <Text style={styles.footerText}>powered by OpenWeather + DarkSky</Text>
+        <Text style={styles.footerText}>
+          <Text style={{
+            fontFamily: 'allerLt',
+          }}>data by{' '}
+        </Text>
+          <Text style={{
+            fontFamily: 'allerBd',
+          }}>DarkSky{' '}
+        </Text>
+        <Text style={{
+            fontFamily: 'allerLt',
+          }}>and{' '}
+        </Text>
+        <Text style={{
+            fontFamily: 'allerBd',
+          }}>OpenWeather
+        </Text>
+        </Text>
       </View>
       // END footer display
     );

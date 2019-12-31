@@ -12,23 +12,19 @@ class Header extends React.Component {
   // START render header
   render() {
 
-    // set up colour bg variables
-    var colourBg = this.props.headerBg;
-    var colourBarBg = this.props.headerBarBg;
-
     return (
       // header wrap
       <View style={styles.headerWrap}>
-        {/* top bar */}
-        <View style={styles.headerTopBar} />
+        {/* top bar (might be unnecessary) */}
+        {/* <View style={styles.headerTopBar} /> */}
         {/* title display */}
         <Text
           style={{
             color: '#fff',
-            fontSize: 15,
-            fontWeight: '700',
-            padding: 10,
-            textAlign: 'center'
+            fontSize: 20,
+            fontFamily: 'allerDisplay',
+            padding: 15,
+            textAlign: 'center',
           }}>
           {'  '}SIMPLE WEATHER
         </Text>

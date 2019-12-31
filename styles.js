@@ -29,18 +29,19 @@ const myStylesheet = StyleSheet.create({
   },
   headerWrap: {
     alignSelf: 'stretch',
-    flex: 1
+    flex: 1,
+    backgroundColor: '#303030'
   },
   headerTopBar: {
     height: 22,
-    marginBottom: 8
+    marginBottom: 8,
+    backgroundColor: '#fff'
   },
 
   // current component
   currentWrap: {
     alignSelf: 'stretch',
-    flex: 1,
-    marginTop: 8
+    flex: 1
   },
   currentIconWrap: {
     flexDirection: 'row',
@@ -55,7 +56,7 @@ const myStylesheet = StyleSheet.create({
   currentTemp: {
     color: '#fff',
     fontSize: 70,
-    fontWeight: '700',
+    fontFamily: 'allerDisplay',
     textAlign: 'center'
   },
   currentTempWrap: {
@@ -70,37 +71,38 @@ const myStylesheet = StyleSheet.create({
   },
   currentDetailsWrap: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 8
   },
   currentDetails: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '300',
+    fontFamily: 'allerLt',
     paddingTop: 2
   },
   currentTempHigh: {
     color: '#fff',
     fontSize: 30,
-    fontWeight: '500',
+    fontFamily: 'allerLt',
     paddingBottom: 12
   },
   currentTempLow: {
     color: '#fff',
     fontSize: 30,
-    fontWeight: '500',
+    fontFamily: 'allerLt',
     paddingBottom: 12
   },
   currentDesc: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '300',
+    fontFamily: 'allerLt',
     padding: 10,
     textAlign: 'center'
   },
   dateText: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '700',
+    fontFamily: 'allerBd',
     padding: 10,
     paddingBottom: 0,
     textAlign: 'center',
@@ -132,17 +134,17 @@ const myStylesheet = StyleSheet.create({
   weekLowTemp: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '300'
+    fontFamily: 'allerLt',
   },
   weekHighTemp: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '300'
+    fontFamily: 'allerLt',
   },
   weekHeading: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: '700',
+    fontFamily: 'allerBd',
     padding: 10,
     textAlign: 'center'
   },
@@ -160,7 +162,7 @@ const myStylesheet = StyleSheet.create({
   weekDesc: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: '300',
+    fontFamily: 'allerLt',
     padding: 10,
     textAlign: 'center',
     marginBottom: 8
@@ -169,8 +171,7 @@ const myStylesheet = StyleSheet.create({
   // footer component
   footerText: {
     color: '#fff',
-    fontSize: 15,
-    fontWeight: '700',
+    fontSize: 16,
     padding: 10,
     textAlign: 'center'
   },

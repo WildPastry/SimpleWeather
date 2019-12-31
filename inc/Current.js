@@ -178,13 +178,15 @@ class Current extends React.Component {
               alignItems: 'center',
               backgroundColor: colourBg,
               borderRadius: 0,
+              borderTopColor: colours.simpleWeather,
+              borderTopWidth: 0,
               color: colours.white,
               height: 50,
               marginTop: 0,
               marginBottom: 0,
               marginLeft: 0,
               marginRight: 0,
-              fontWeight: '900',
+              fontFamily: 'allerLt',
               fontSize: 18,
               textAlign: 'center',
               zIndex: 1
@@ -192,12 +194,13 @@ class Current extends React.Component {
             description: {
               alignItems: 'center',
               color: colours.white,
-              fontWeight: '700',
+              fontFamily: 'allerLt',
               textAlign: 'center'
             },
             listView: {
               backgroundColor: colourBg,
               color: colours.white,
+              fontFamily: 'allerLt',
               position: 'absolute',
               top: 50,
               elevation: 1

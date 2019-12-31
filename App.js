@@ -113,9 +113,10 @@ export default class App extends React.Component {
     this._isMounted = true;
     // load custom fonts
     await Font.loadAsync({
-      poppinslight: require('./assets/fonts/Poppins-Light.otf'),
-      poppinsmed: require('./assets/fonts/Poppins-Medium.otf'),
-      poppinsbold: require('./assets/fonts/Poppins-Bold.otf'),
+      allerLt: require('./assets/fonts/Aller_Lt.ttf'),
+      allerRg: require('./assets/fonts/Aller_Rg.ttf'),
+      allerBd: require('./assets/fonts/Aller_Bd.ttf'),
+      allerDisplay: require('./assets/fonts/AllerDisplay.ttf'),
       weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf')
     });
     this.setState({ fontLoaded: true }, () => {
@@ -129,7 +130,9 @@ export default class App extends React.Component {
   // START get location function
   _getLocationAsync = async () => {
     // check provider and if location services are enabled
-    let providerStatus = await Location.getProviderStatusAsync();
+    let providerStatus = await Location.getProviderStatusAsync(
+      { enableHighAccuracy: true }
+    );
     // console.log('FROM getLocationAsync ');
     // console.log(providerStatus);
     // services disabled error
@@ -452,16 +455,21 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <Image style={styles.iconLoader} source={preLoader} />
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 15,
-              fontWeight: '700',
-              padding: 10,
-              textAlign: 'center'
-            }}>
-            loading . . .
-          </Text>
+          {
+            // check font state
+            this.state.fontLoaded ? (
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 17,
+                  fontFamily: 'allerLt',
+                  padding: 10,
+                  textAlign: 'center'
+                }}>
+                loading . . .
+              </Text>
+            ) : null
+          }
         </View>
         // END loading display
       );
@@ -471,7 +479,7 @@ export default class App extends React.Component {
         //  START main container
         <View
           keyboardShouldPersistTaps='handled'
-          style={{ alignItems: 'center', backgroundColor: imageBg, flex: 1 }}>
+          style={{ alignItems: 'center', backgroundColor: '#303030', flex: 1 }}>
           <ScrollView
             loop={false}
             width={window.width}
@@ -480,33 +488,32 @@ export default class App extends React.Component {
             horizontal={false}
             showsPagination={false}>
             {/* header */}
-            <Header
-              headerBg={this.state.weekBg}
-              headerBarBg={this.state.weekBarBg}
-            />
+            <Header />
             {/* current */}
-            <Current
-              keyboardShouldPersistTaps='handled'
-              weatherCode={this.state.openWeatherId}
-              currentBg={this.state.weekBg}
-              currentIcon={this.state.currentIcon}
-              updateSkyData={this.updateSkyData}
-              errorMessage={this.state.errorMessag}
-              currentLocation={this.state.currentLocation}
-              currentLat={this.state.currentLat}
-              currentLng={this.state.currentLng}
-              wind={this.state.wind}
-              humidity={this.state.humidity}
-              temp={this.state.temp}
-              high={this.state.high}
-              low={this.state.low}
-              desc={this.state.desc}
-              icon={this.state.icon}
-              sunset={this.state.sunset}
-
-            />
+            <View style={{ backgroundColor: imageBg }}>
+              <Current
+                keyboardShouldPersistTaps='handled'
+                weatherCode={this.state.openWeatherId}
+                currentBg={this.state.weekBg}
+                currentIcon={this.state.currentIcon}
+                updateSkyData={this.updateSkyData}
+                errorMessage={this.state.errorMessag}
+                currentLocation={this.state.currentLocation}
+                currentLat={this.state.currentLat}
+                currentLng={this.state.currentLng}
+                wind={this.state.wind}
+                humidity={this.state.humidity}
+                temp={this.state.temp}
+                high={this.state.high}
+                low={this.state.low}
+                desc={this.state.desc}
+                icon={this.state.icon}
+                sunset={this.state.sunset}
+              />
+            </View>
             {/* week */}
             <Week
+              style={{ backgroundColor: imageBg }}
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
               weather={this.state.weather.list}
