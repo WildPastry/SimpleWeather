@@ -35,6 +35,9 @@ import colours from './assets/colours.json';
 // pre-loader
 import preLoader from './assets/preloader.gif';
 
+// android permissions
+import { PermissionsAndroid } from 'react-native';
+
 // stylesheet
 var styles = require('./styles.js');
 
@@ -90,6 +93,7 @@ export default class App extends React.Component {
     };
     // bind functions to state
     this._getLocationAsync = this._getLocationAsync.bind(this);
+    this.requestLocationPermission = this.requestLocationPermission.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
     this.reverseGeo = this.reverseGeo.bind(this);
@@ -123,26 +127,64 @@ export default class App extends React.Component {
     this.setState({ fontLoaded: true }, () => {
       console.log('FROM componentDidMount: Fonts loaded = ' + this.state.fontLoaded);
       // get user location function
-      this._getLocationAsync();
+      // this._getLocationAsync();
+      this.requestLocationPermission();
     });
   }
   // END component mounted
 
-  // START get location function
-  _getLocationAsync = async () => {
-    // check provider and if location services are enabled
-    let providerStatus = await Location.getProviderStatusAsync(
-      { enableHighAccuracy: true }
-    );
-    // services disabled error
-    if (!providerStatus.locationServicesEnabled) {
+  // START android permissions function
+  requestLocationPermission = async () => {
+    // check for location access
+    const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    if (granted) {
+      console.log("You can use the ACCESS_FINE_LOCATION")
+      // get user location function
+      // this._getLocationAsync();
       this.setState({
-        errorMessage: 'Please enable location services for this app',
         // fallback
         currentLocation: 'Wellington, New Zealand',
         currentLat: -41.2865,
         currentLng: 174.7762
       });
+      // run data function using fallback details
+      this.getSkyData();
+    }
+    else {
+      console.log("ACCESS_FINE_LOCATION permission denied")
+      this.setState({
+        // fallback
+        currentLocation: 'Wellington, New Zealand',
+        currentLat: -41.2865,
+        currentLng: 174.7762
+      });
+      // run data function using fallback details
+      this.getSkyData();
+    }
+  };
+  // END android permissions function
+
+  // START get location function
+  _getLocationAsync = async () => {
+    console.log('_getLocationAsync function running...');
+    // check provider and if location services are enabled
+    let providerStatus = await Location.getProviderStatusAsync({
+        enableHighAccuracy: false,
+        timeout: 2000,
+        maximumAge: 1000,
+      });
+    console.log('providerStatus =');
+    console.log(providerStatus);
+    // services disabled error
+    if (!providerStatus.locationServicesEnabled) {
+      this.setState({
+        errorMessage: 'Please enable location services',
+        // fallback
+        currentLocation: 'Wellington, New Zealand',
+        currentLat: -41.2865,
+        currentLng: 174.7762
+      });
+      console.log('error message 177...');
       Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
       this.getSkyData();
@@ -154,12 +196,13 @@ export default class App extends React.Component {
     // permission denied error
     if (status !== 'granted') {
       this.setState({
-        errorMessage: 'Permission to access location was denied',
+        errorMessage: 'Location permission was denied',
         // fallback
         currentLocation: 'Wellington',
         currentLat: -41.2865,
         currentLng: 174.7762
       });
+      console.log('error message 194...');
       Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
       this.getSkyData();
@@ -167,7 +210,12 @@ export default class App extends React.Component {
     }
 
     // success function
-    let location = await Location.getCurrentPositionAsync({});
+    console.log('success function 201...');
+    await Location.getCurrentPositionAsync({
+      enableHighAccuracy: false,
+      timeout: 2000,
+      maximumAge: 1000,
+    });
     this.setState({
       location: location,
       currentLat: location.coords.latitude.toFixed(5),

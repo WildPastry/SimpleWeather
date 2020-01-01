@@ -16,7 +16,7 @@
   "showerRainDark": "#106dac",
   "rainDark": "#0b5a8f",
   "thunderStormDark": "#353535",
-  "snowDark": "#383838",
+  "snowDark": "#000000",
   "mistDark": "#999999",
   "nightDark": "#01142c",
   "white" : "#fff",
