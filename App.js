@@ -39,6 +39,9 @@ import preLoader from './assets/preloader.gif';
 // android permissions
 import { PermissionsAndroid } from 'react-native';
 
+// geolocation
+// import Geolocation from 'react-native-geolocation-service';
+
 // stylesheet
 var styles = require('./styles.js');
 
@@ -147,6 +150,18 @@ export default class App extends React.Component {
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     if (granted) {
       console.log("You can use the ACCESS_FINE_LOCATION")
+
+      // Geolocation.getCurrentPosition(
+      //   (position) => {
+      //     console.log(position);
+      //   },
+      //   (error) => {
+      //     // See error code charts below.
+      //     console.log(error.code, error.message);
+      //   },
+      //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      // );
+
       // get user location function
       // this._getLocationAsync();
       this.setState({
@@ -177,9 +192,7 @@ export default class App extends React.Component {
     console.log('_getLocationAsync function running...');
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync({
-      enableHighAccuracy: false,
-      timeout: 2000,
-      maximumAge: 1000,
+      enableHighAccuracy: true, timeout: 15000, maximumAge: 10000
     });
     console.log('providerStatus =');
     console.log(providerStatus);
@@ -220,9 +233,7 @@ export default class App extends React.Component {
     // success function
     console.log('success function...');
     let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: false,
-      timeout: 2000,
-      maximumAge: 1000,
+      enableHighAccuracy: true, timeout: 15000, maximumAge: 10000
     });
     this.setState({
       location: location,

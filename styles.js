@@ -44,7 +44,7 @@ const myStylesheet = StyleSheet.create({
   currentIconWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 55
+    marginTop: 65
   },
   currentIconSmall: {
     alignSelf: 'center',
@@ -64,7 +64,8 @@ const myStylesheet = StyleSheet.create({
   },
   currentWindHumWrap: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    marginBottom: 4
   },
   currentWindWrap: {
     flexDirection: 'row',
@@ -155,9 +156,10 @@ const myStylesheet = StyleSheet.create({
   weekHeading: {
     color: '#fff',
     fontSize: 19,
-    fontFamily: 'allerBd',
+    fontFamily: 'allerLt',
     padding: 10,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 2
   },
   weekText: {
     color: '#fff',

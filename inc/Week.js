@@ -67,7 +67,7 @@ class Week extends React.Component {
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
-          <Text style={styles.weekHeading}>5 Day forecast</Text>
+          <Text style={styles.weekHeading}>Next 5 Days forecast</Text>
 
           {/* START map */}
           <View>
