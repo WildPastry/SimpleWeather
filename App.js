@@ -7,6 +7,7 @@ import {
   AppRegistry,
   Dimensions,
   Image,
+  Platform,
   ScrollView,
   StatusBar,
   Text,
@@ -126,9 +127,16 @@ export default class App extends React.Component {
     });
     this.setState({ fontLoaded: true }, () => {
       console.log('FROM componentDidMount: Fonts loaded = ' + this.state.fontLoaded);
-      // get user location function
-      // this._getLocationAsync();
-      this.requestLocationPermission();
+
+      // platform check
+      if (Platform.OS === 'ios') {
+        // get user location function
+        this._getLocationAsync();
+      }
+      else {
+        // check android permissions
+        this.requestLocationPermission();
+      }
     });
   }
   // END component mounted
@@ -169,10 +177,10 @@ export default class App extends React.Component {
     console.log('_getLocationAsync function running...');
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync({
-        enableHighAccuracy: false,
-        timeout: 2000,
-        maximumAge: 1000,
-      });
+      enableHighAccuracy: false,
+      timeout: 2000,
+      maximumAge: 1000,
+    });
     console.log('providerStatus =');
     console.log(providerStatus);
     // services disabled error
@@ -184,7 +192,7 @@ export default class App extends React.Component {
         currentLat: -41.2865,
         currentLng: 174.7762
       });
-      console.log('error message 177...');
+      console.log('error message 195...');
       Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
       this.getSkyData();
@@ -202,7 +210,7 @@ export default class App extends React.Component {
         currentLat: -41.2865,
         currentLng: 174.7762
       });
-      console.log('error message 194...');
+      console.log('error message 213...');
       Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
       this.getSkyData();
@@ -210,8 +218,8 @@ export default class App extends React.Component {
     }
 
     // success function
-    console.log('success function 201...');
-    await Location.getCurrentPositionAsync({
+    console.log('success function...');
+    let location = await Location.getCurrentPositionAsync({
       enableHighAccuracy: false,
       timeout: 2000,
       maximumAge: 1000,
