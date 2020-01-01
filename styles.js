@@ -64,8 +64,15 @@ const myStylesheet = StyleSheet.create({
   },
   currentWindHumWrap: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 8
+    justifyContent: 'space-around'
+  },
+  currentWindWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  currentHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   currentDetailsWrap: {
     flexDirection: 'row',
@@ -74,9 +81,15 @@ const myStylesheet = StyleSheet.create({
   },
   currentDetails: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'allerLt',
-    paddingTop: 2
+    paddingTop: 4
+  },
+  currentWindHumDetails: {
+    color: '#fff',
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    paddingTop: 4
   },
   currentTempHigh: {
     color: '#fff',
@@ -92,14 +105,14 @@ const myStylesheet = StyleSheet.create({
   },
   currentDesc: {
     color: '#fff',
-    fontSize: 20,
-    fontFamily: 'allerLt',
+    fontSize: 19,
+    fontFamily: 'allerRg',
     padding: 10,
     textAlign: 'center'
   },
   dateText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: 'allerBd',
     padding: 10,
     paddingBottom: 0,
@@ -131,39 +144,38 @@ const myStylesheet = StyleSheet.create({
   },
   weekLowTemp: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'allerLt',
   },
   weekHighTemp: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'allerLt',
   },
   weekHeading: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'allerBd',
     padding: 10,
     textAlign: 'center'
   },
   weekText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
     textAlign: 'center'
   },
   weekTextBot: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 19,
     textAlign: 'left',
     marginBottom: 12
   },
   weekDesc: {
     color: '#fff',
-    fontSize: 18,
-    fontFamily: 'allerLt',
+    fontSize: 19,
+    fontFamily: 'allerRg',
     padding: 10,
-    textAlign: 'center',
-    marginBottom: 8
+    textAlign: 'center'
   },
 
   // footer component

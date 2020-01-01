@@ -25,22 +25,21 @@ class Footer extends React.Component {
           justifyContent: 'center',
           paddingTop: 8,
           paddingBottom: 8
-        }}
-      >
+        }}>
         <Text style={styles.footerText}>
           <Text style={{
             fontFamily: 'allerLt',
           }}>data by{' '}
-        </Text>
+          </Text>
           <Text style={{
             fontFamily: 'allerBd',
           }}>DarkSky{' '}
-        </Text>
-        <Text style={{
+          </Text>
+          <Text style={{
             fontFamily: 'allerLt',
           }}>and{' '}
-        </Text>
-        <Text style={{
+          </Text>
+          <Text style={{
             fontFamily: 'allerBd',
           }}>OpenWeather
         </Text>

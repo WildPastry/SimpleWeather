@@ -2,11 +2,7 @@
 import React from 'react';
 
 // default component functions
-import { Image, Text, ScrollView, View } from 'react-native';
-
-// weather icons
-import WindSpeed from './../assets/weather/windSpeed.png';
-import Humidity from './../assets/weather/humidity.png';
+import { Text, ScrollView, View } from 'react-native';
 
 // accordian
 import {
@@ -112,14 +108,14 @@ class Week extends React.Component {
                           <Text
                             style={{
                               justifyContent: 'center',
-                              fontSize: 20,
+                              fontSize: 19,
                               fontFamily: 'allerRg',
                               color: colours.white
                             }}>
                             {/* chevron icon */}
                             <Ionicons
                               name='ios-arrow-down'
-                              size={20}
+                              size={19}
                               color={colours.white}
                             />{' '}{' '}
                             {day}
@@ -130,7 +126,7 @@ class Week extends React.Component {
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
-                              fontSize: 20,
+                              fontSize: 24,
                               textAlign: 'center',
                               color: colours.white
                             }}>
@@ -142,7 +138,7 @@ class Week extends React.Component {
                           <Text style={styles.weekLowTemp}>
                             <Ionicons
                               name='ios-arrow-round-down'
-                              size={20}
+                              size={19}
                               color={colours.white}
                             />{' '}
                             {Math.round(dailyWeather.main[0])}°
@@ -153,7 +149,7 @@ class Week extends React.Component {
                           <Text style={styles.weekHighTemp}>
                             <Ionicons
                               name='ios-arrow-round-up'
-                              size={20}
+                              size={19}
                               color={colours.white}
                             />{' '}
                             {Math.round(dailyWeather.main[1])}°
@@ -165,7 +161,7 @@ class Week extends React.Component {
                     {/* collapse body */}
                     <CollapseBody>
                       {/* START description */}
-                      <Text style={styles.currentDesc}>
+                      <Text style={styles.weekDesc}>
                         {dailySummary} with a high of{' '}
                         {Math.round(dailyWeather.main[1])}°
                       </Text>
@@ -175,12 +171,16 @@ class Week extends React.Component {
                       <View style={styles.currentWindHumWrap}>
                         {/* START wind speed */}
                         <View style={styles.currentWindWrap}>
-                          <Image
-                            style={styles.currentIconSmall}
-                            source={WindSpeed}
-                            resizeMode='contain'
-                          />
-                          <Text style={styles.currentDetails}>
+                          <Text
+                            style={{
+                              fontFamily: 'weatherfont',
+                              fontSize: 24,
+                              textAlign: 'center',
+                              color: colours.white
+                            }}>
+                            {weatherIcons.windSpeed.code}
+                          </Text>
+                          <Text style={styles.currentWindHumDetails}>
                             {'  '}
                             {Math.round(dailyWeather.wind.speed)} km/h
                           </Text>
@@ -189,14 +189,18 @@ class Week extends React.Component {
 
                         {/* START humidity */}
                         <View style={styles.currentHumWrap}>
-                          <Image
-                            style={styles.currentIconSmall}
-                            source={Humidity}
-                            resizeMode='contain'
-                          />
-                          <Text style={styles.currentDetails}>
+                          <Text
+                            style={{
+                              fontFamily: 'weatherfont',
+                              fontSize: 24,
+                              textAlign: 'center',
+                              color: colours.white
+                            }}>
+                            {weatherIcons.humidity.code}
+                          </Text>
+                          <Text style={styles.currentWindHumDetails}>
                             {'  '}
-                            {dailyWeather.main.humidity}%
+                            {dailyWeather.main.humidity}
                           </Text>
                         </View>
                         {/* END humidity */}

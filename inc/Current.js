@@ -5,14 +5,10 @@ import React from 'react';
 import configData from './../data/config.json';
 
 // default component functions
-import { Image, Text, Keyboard, SafeAreaView, View } from 'react-native';
+import { Text, Keyboard, SafeAreaView, View } from 'react-native';
 
 // autocomplete
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
-// weather icons
-import WindSpeed from './../assets/weather/windSpeed.png';
-import Humidity from './../assets/weather/humidity.png';
 
 // colours
 import colours from './../assets/colours.json';
@@ -187,7 +183,7 @@ class Current extends React.Component {
               marginLeft: 0,
               marginRight: 0,
               fontFamily: 'allerLt',
-              fontSize: 17,
+              fontSize: 19,
               textAlign: 'center',
               zIndex: 1
             },
@@ -201,7 +197,7 @@ class Current extends React.Component {
               backgroundColor: colourBg,
               color: colours.white,
               fontFamily: 'allerLt',
-              fontSize: 17,
+              fontSize: 19,
               position: 'absolute',
               top: 50,
               elevation: 1
@@ -282,11 +278,15 @@ class Current extends React.Component {
         <View style={styles.currentWindHumWrap}>
           {/* START wind speed */}
           <View style={styles.currentDetailsWrap}>
-            <Image
-              style={styles.currentIconSmall}
-              source={WindSpeed}
-              resizeMode='contain'
-            />
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 24,
+                textAlign: 'center',
+                color: colours.white
+              }}>
+              {weatherIcons.windSpeed.code}
+            </Text>
             <Text style={styles.currentDetails}>
               {'  '}
               {Math.round(this.props.wind)} km/h
@@ -296,14 +296,18 @@ class Current extends React.Component {
 
           {/* START humidity */}
           <View style={styles.currentDetailsWrap}>
-            <Image
-              style={styles.currentIconSmall}
-              source={Humidity}
-              resizeMode='contain'
-            />
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 24,
+                textAlign: 'center',
+                color: colours.white
+              }}>
+              {weatherIcons.humidity.code}
+            </Text>
             <Text style={styles.currentDetails}>
               {'  '}
-              {this.props.humidity}%
+              {this.props.humidity}
             </Text>
           </View>
           {/* END humidity */}
