@@ -18,10 +18,12 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mp.simpleweather"
     },
     "android": {
-      "permissions": ["ACCESS_FINE_LOCATION"]
+      "permissions": ["ACCESS_FINE_LOCATION"],
+      "package": "com.mp.simpleweather"
     },
     "description": "Simplistic and functional weather app designed for iOS and Android",
     "githubUrl": "https://github.com/WildPastry/simple-weather"

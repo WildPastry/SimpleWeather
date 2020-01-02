@@ -104,6 +104,7 @@ export default class App extends React.Component {
     this.nightOrDay = this.nightOrDay.bind(this);
     this.setBgDay = this.setBgDay.bind(this);
     this.setBgNight = this.setBgNight.bind(this);
+    this.fallback = this.fallback.bind(this);
   }
 
   // update sky data function
@@ -114,6 +115,18 @@ export default class App extends React.Component {
       currentLocation: value['googleName']
     });
     // call sky data function with new values
+    this.getSkyData();
+  }
+
+  // fallback function
+  fallback() {
+    this.setState({
+      // fallback
+      currentLocation: 'Wellington, New Zealand',
+      currentLat: -41.2865,
+      currentLng: 174.7762
+    });
+    // run data function using fallback details
     this.getSkyData();
   }
 
@@ -130,7 +143,6 @@ export default class App extends React.Component {
     });
     this.setState({ fontLoaded: true }, () => {
       console.log('FROM componentDidMount: Fonts loaded = ' + this.state.fontLoaded);
-
       // platform check
       if (Platform.OS === 'ios') {
         // get user location function
@@ -159,30 +171,19 @@ export default class App extends React.Component {
       //     // See error code charts below.
       //     console.log(error.code, error.message);
       //   },
-      //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      //   { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 }
       // );
 
       // get user location function
       // this._getLocationAsync();
-      this.setState({
-        // fallback
-        currentLocation: 'Wellington, New Zealand',
-        currentLat: -41.2865,
-        currentLng: 174.7762
-      });
-      // run data function using fallback details
-      this.getSkyData();
+
+      // run fallback function
+      this.fallback();
     }
     else {
       console.log("ACCESS_FINE_LOCATION permission denied")
-      this.setState({
-        // fallback
-        currentLocation: 'Wellington, New Zealand',
-        currentLat: -41.2865,
-        currentLng: 174.7762
-      });
-      // run data function using fallback details
-      this.getSkyData();
+      // run fallback function
+      this.fallback();
     }
   };
   // END android permissions function
@@ -192,24 +193,20 @@ export default class App extends React.Component {
     console.log('_getLocationAsync function running...');
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync({
-      enableHighAccuracy: true, timeout: 15000, maximumAge: 10000
+      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
     });
     console.log('providerStatus =');
     console.log(providerStatus);
     // services disabled error
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
-        errorMessage: 'Please enable location services',
-        // fallback
-        currentLocation: 'Wellington, New Zealand',
-        currentLat: -41.2865,
-        currentLng: 174.7762
+        errorMessage: 'Please enable location services in your device settings',
       });
-      console.log('error message 195...');
+      console.log('getProviderStatusAsync error message...');
       Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
-      this.getSkyData();
-      return;
+      // run fallback function
+      this.fallback();
     }
 
     // check permissions
@@ -217,23 +214,19 @@ export default class App extends React.Component {
     // permission denied error
     if (status !== 'granted') {
       this.setState({
-        errorMessage: 'Location permission was denied',
-        // fallback
-        currentLocation: 'Wellington',
-        currentLat: -41.2865,
-        currentLng: 174.7762
+        errorMessage: 'Location permission was denied, please check your device settings',
       });
-      console.log('error message 213...');
+      console.log('askAsync error message...');
       Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
-      this.getSkyData();
-      return;
+      // run fallback function
+      this.fallback();
     }
 
     // success function
     console.log('success function...');
     let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: true, timeout: 15000, maximumAge: 10000
+      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
     });
     this.setState({
       location: location,
