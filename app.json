@@ -3,8 +3,11 @@
     "name": "Simple Weather",
     "slug": "simple-weather",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,13 +19,17 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mp.simpleweather"
     },
     "android": {
-      "permissions": ["ACCESS_FINE_LOCATION"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
+      ],
       "package": "com.mp.simpleweather"
     },
     "description": "Simplistic and functional weather app designed for iOS and Android",
