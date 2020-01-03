@@ -41,7 +41,7 @@ class Header extends React.Component {
             <Text
               style={{
                 color: colours.white,
-                fontSize: 20,
+                fontSize: 23,
                 fontFamily: 'allerDisplay',
                 textAlign: 'center',
               }}>

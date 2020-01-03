@@ -6,7 +6,6 @@ import {
   Alert,
   AppRegistry,
   Dimensions,
-  Image,
   Platform,
   ScrollView,
   StatusBar,
@@ -32,9 +31,6 @@ import Footer from './inc/Footer';
 
 // colours
 import colours from './assets/colours.json';
-
-// pre-loader
-import preLoader from './assets/preloader.gif';
 
 // android permissions
 import { PermissionsAndroid } from 'react-native';
@@ -160,8 +156,11 @@ export default class App extends React.Component {
   requestLocationPermission = async () => {
     // check for location access
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    await PermissionsAndroid.check
+    (PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     if (granted) {
       console.log("You can use the ACCESS_FINE_LOCATION")
+      console.log("You can use the ACCESS_COARSE_LOCATION")
 
       // Geolocation.getCurrentPosition(
       //   (position) => {
@@ -182,6 +181,7 @@ export default class App extends React.Component {
     }
     else {
       console.log("ACCESS_FINE_LOCATION permission denied")
+      console.log("ACCESS_COARSE_LOCATION permission denied")
       // run fallback function
       this.fallback();
     }
@@ -200,7 +200,7 @@ export default class App extends React.Component {
     // services disabled error
     if (!providerStatus.locationServicesEnabled) {
       this.setState({
-        errorMessage: 'Please enable location services in your device settings',
+        errorMessage: 'Please enable location services for SIMPLEWEATHER in your device settings',
       });
       console.log('getProviderStatusAsync error message...');
       Alert.alert(this.state.errorMessage);
@@ -214,7 +214,7 @@ export default class App extends React.Component {
     // permission denied error
     if (status !== 'granted') {
       this.setState({
-        errorMessage: 'Location permission was denied, please check your device settings',
+        errorMessage: 'Location permission was denied, falling back to default location',
       });
       console.log('askAsync error message...');
       Alert.alert(this.state.errorMessage);
@@ -517,14 +517,26 @@ export default class App extends React.Component {
       return (
         // START loading display
         <View style={styles.loader}>
-          <Image style={styles.iconLoader} source={preLoader} />
-          {/* {
-            // check font state
+          {
+            // check font states
             this.state.fontLoaded ? (
               <Text
                 style={{
                   color: colours.white,
-                  fontSize: 17,
+                  fontSize: 23,
+                  fontFamily: 'allerDisplay',
+                  textAlign: 'center',
+                }}>
+                SIMPLE WEATHER
+             </Text>
+            ) : null
+          }
+          {
+            this.state.fontLoaded ? (
+              <Text
+                style={{
+                  color: colours.white,
+                  fontSize: 19,
                   fontFamily: 'allerLt',
                   padding: 10,
                   textAlign: 'center'
@@ -532,7 +544,7 @@ export default class App extends React.Component {
                 loading . . .
               </Text>
             ) : null
-          } */}
+          }
         </View>
         // END loading display
       );
