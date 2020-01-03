@@ -49,7 +49,7 @@ class Current extends React.Component {
   }
 
   // keyboard will mount function
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       this._keyboardDidShow
@@ -144,7 +144,6 @@ class Current extends React.Component {
               googleLng: details.geometry.location.lng.toFixed(5),
               googleName: details.formatted_address
             });
-
             // update sky data function
             this.updateSkyData();
           }}

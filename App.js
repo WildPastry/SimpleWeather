@@ -411,7 +411,6 @@ export default class App extends React.Component {
     this.setState({
       // loading screen
       isLoaded: true,
-
       weekBg: colours.nightDark,
       weekBarBg: colours.night
     });
@@ -519,7 +518,7 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <Image style={styles.iconLoader} source={preLoader} />
-          {
+          {/* {
             // check font state
             this.state.fontLoaded ? (
               <Text
@@ -533,7 +532,7 @@ export default class App extends React.Component {
                 loading . . .
               </Text>
             ) : null
-          }
+          } */}
         </View>
         // END loading display
       );
