@@ -576,6 +576,10 @@ export default class App extends React.Component {
         // START loading display
         <View style={styles.loader}>
           <LottieView
+            style={{
+              height: 200,
+              width: 200,
+            }}
             ref={animation => {
               this.animation = animation;
             }}

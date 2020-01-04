@@ -28,8 +28,9 @@ const myStylesheet = StyleSheet.create({
     width: 35
   },
   headerWrap: {
-    alignSelf: 'stretch',
-    flex: 1,
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: '#303030'
   },
   headerTopBar: {

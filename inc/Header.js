@@ -2,7 +2,7 @@
 import React from 'react';
 
 // default component functions
-import { Animated, Button, Easing, Image, Text, View } from 'react-native';
+import { Animated, Easing, Image, Text, TouchableOpacity, View } from 'react-native';
 
 // brand icon
 import BrandIcon from './../assets/brand.png';
@@ -16,34 +16,35 @@ import LottieView from 'lottie-react-native';
 // stylesheet
 var styles = require('../styles.js');
 
+// create animated view
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
 // START header
 class Header extends React.Component {
   // default class header constructor
   constructor(props) {
     super(props);
     this.state = {
-      progress: new Animated.Value(0),
+      progress: false,
     };
     // bind functions to state
     this.handleAnimate = this.handleAnimate.bind(this);
   }
 
-  // START component mounted
+  // handle animation
   handleAnimate = () => {
-    console.log('Animating...');
-}
-
-  // handleAnimate() {
-  //   console.log('Animating...');
-  //   // play animation
-  //   // this.animation.play();
-  //   // Animated.timing(this.state.progress, {
-  //   //   toValue: 1,
-  //   //   duration: 5000,
-  //   //   easing: Easing.linear,
-  //   // }).start();
-  // }
-  // END component mounted
+    console.log('Animating from 20...');
+    if (this.state.progress === false) {
+      this.setState({
+        progress: true
+      }, () => { this.animation.play(20, 80); });
+    } else {
+      console.log('Animating from 110...');
+      this.setState({
+        progress: false
+      }, () => { this.animation.play(110, 150); });
+    }
+  }
 
   // START render header
   render() {
@@ -51,56 +52,45 @@ class Header extends React.Component {
     return (
       // header wrap
       <View style={styles.headerWrap}>
-        {/* title display wrapper */}
-        {/* <View style={{
-          flexDirection: 'row',
-          padding: 12
-        }}> */}
-        <Button
- onPress={this.handleAnimate}
- title="Click ME"
- color="blue"
-/>
-        <LottieView
-          style={{
-            alignSelf: "flex-start",
-            height: 30,
-            width: 30,
-            padding: 10
-          }}
-          ref={animation => {
-            this.animation = animation;
-          }}
-          source={require('./../assets/animations/hamburger.json')}
-          progress={this.state.progress}
-          
-        />
-
-        {/* <View style={{ alignSelf: "center" }}> */}
-          {/* logo */}
-          {/* <Image
+        {/* hamburger */}
+        <AnimatedTouchable onPress={this.handleAnimate} style={{
+          height: 35,
+          width: 35,
+        }}>
+          <LottieView
+            ref={animation => {
+              this.animation = animation;
+            }}
+            source={require('./../assets/animations/hamburger.json')}
+            loop={false}
+          />
+        </AnimatedTouchable>
+        {/* brand wrap */}
+        <View style={{ flexDirection: 'row' }}>
+          {/* brand text */}
+          <Text
+            style={{
+              color: colours.white,
+              fontSize: 23,
+              fontFamily: 'allerDisplay',
+              textAlign: 'center',
+              paddingTop: 4
+            }}>
+            SIMPLE WEATHER
+             </Text>
+          {/* brand logo */}
+          <Image
             style={styles.brandIconSmall}
             source={BrandIcon}
             resizeMode='contain'
-          /> */}
-          {/* text */}
-          <View style={{
-            // height: 35,
-            // justifyContent: 'center'
-          }}>
-            <Text
-              style={{
-                color: colours.white,
-                fontSize: 23,
-                fontFamily: 'allerDisplay',
-                textAlign: 'center',
-              }}>
-              SIMPLE WEATHER
-             </Text>
-          </View>
-        {/* </View> */}
-
-        {/* </View> */}
+          />
+        </View>
+        {/* right icon for balance */}
+        <View style={{
+          backgroundColor: '#303030',
+          height: 35,
+          width: 35
+        }} />
       </View>
     );
   }
