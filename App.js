@@ -6,6 +6,7 @@ import {
   Alert,
   AppRegistry,
   Dimensions,
+  InteractionManager,
   Platform,
   ScrollView,
   StatusBar,
