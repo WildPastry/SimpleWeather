@@ -6,7 +6,6 @@ import {
   Alert,
   AppRegistry,
   Dimensions,
-  InteractionManager,
   Platform,
   ScrollView,
   StatusBar,
@@ -46,9 +45,12 @@ import timeout from './data/timeout.js';
 import * as firebase from "firebase/app";
 // import "firebase/auth";
 // import "firebase/firestore";
+import "firebase/database";
+
+import LottieView from 'lottie-react-native';
 
 // run timeout function
-{timeout}
+{ timeout }
 
 // Firebase project configuration
 const FIREBASECONFIG = {
@@ -61,82 +63,34 @@ const FIREBASECONFIG = {
   appId: configData.APPID
 };
 
-// Initialize Firebase
+// // Initialize Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASECONFIG);
 }
 
-// firebase database
+// // firebase database
 const SIMPLEWEATHER_DATABASE = firebase.database();
 
-SIMPLEWEATHER_DATABASE.ref('users/' + 1).set({
-  username: "name",
-  email: "email",
-  profile_picture : "imageUrl"
-}, function(error) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Data saved to database');
-  }
-});
+// console.log(SIMPLEWEATHER_DATABASE);
+// SIMPLEWEATHER_DATABASE.ref('users/' + 1).set({
+//   username: "name",
+//   email: "email",
+//   profile_picture : "imageUrl"
+// }, function(error) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Data saved to database');
+//   }
+// });
 
-// console.log(SIMPLEWEATHER_DATABASE[0]);
-// var userId = firebase.auth().currentUser.uid;
-// return SIMPLEWEATHER_DATABASE.ref('/users/' + 1).once('value').then(function(snapshot) {
-//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-// });
-// return SIMPLEWEATHER_DATABASE.ref('/users/' + 1).once('value').then(function(snapshot) {
-//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-// });
 var ref = SIMPLEWEATHER_DATABASE.ref('users/' + 1);
 
-ref.on("value", function(snapshot) {
+ref.on("value", function (snapshot) {
   console.log(snapshot.val());
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
 });
-
-// console.log(firebase);
-// console.log(database);
-// var starCountRef = SIMPLEWEATHER_DATABASE.ref('users/' + 1);
-// starCountRef.on('value', function(snapshot) {
-//   updateStarCount(postElement, snapshot.val());
-// });
-
-// return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-// });
-
-// var usersRef = ref.child("users");
-// usersRef.set({
-//   alanisawesome: {
-//     date_of_birth: "June 23, 1912",
-//     full_name: "Alan Turing"
-//   },
-//   gracehop: {
-//     date_of_birth: "December 9, 1906",
-//     full_name: "Grace Hopper"
-//   }
-// });
-
-// function writeUserData(userId, name, email, imageUrl) {
-//   firebase.database().ref('users/' + userId).set({
-//     username: name,
-//     email: email,
-//     profile_picture : imageUrl
-//   });
-// }
-
-// const dbh = firebase.firestore();
-
-// dbh.collection("characters").doc("mario").set({
-//   employment: "plumber",
-//   outfitColor: "red",
-//   specialAttack: "fireball"
-// });
-
-// console.log(dbh.mario);
 
 // stylesheet
 var styles = require('./styles.js');
@@ -228,6 +182,9 @@ export default class App extends React.Component {
 
   // START component mounted
   async componentDidMount() {
+    // play animation
+    this.animation.play();
+
     this._isMounted = true;
     // load custom fonts
     await Font.loadAsync({
@@ -257,7 +214,7 @@ export default class App extends React.Component {
     // check for location access
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     await PermissionsAndroid.check
-    (PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+      (PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     if (granted) {
       console.log("You can use the ACCESS_FINE_LOCATION");
       console.log("You can use the ACCESS_COARSE_LOCATION");
@@ -617,8 +574,7 @@ export default class App extends React.Component {
       return (
         // START loading display
         <View style={styles.loader}>
-          {
-            // check font states
+          {/* {
             this.state.fontLoaded ? (
               <Text
                 style={{
@@ -630,21 +586,23 @@ export default class App extends React.Component {
                 SIMPLE WEATHER
              </Text>
             ) : null
-          }
-          {
-            this.state.fontLoaded ? (
-              <Text
-                style={{
-                  color: colours.white,
-                  fontSize: 19,
-                  fontFamily: 'allerLt',
-                  padding: 10,
-                  textAlign: 'center'
-                }}>
-                loading . . .
-              </Text>
-            ) : null
-          }
+          } */}
+          <LottieView
+            ref={animation => {
+              this.animation = animation;
+            }}
+            source={require('./assets/animations/loading-sun.json')}
+          />
+          {/* <Text
+            style={{
+              color: colours.white,
+              fontSize: 19,
+              fontFamily: 'allerLt',
+              padding: 10,
+              textAlign: 'center'
+            }}>
+            loading . . .
+              </Text> */}
         </View>
         // END loading display
       );

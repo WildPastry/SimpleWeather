@@ -13,6 +13,7 @@
     "expo-font": "^8.0.0",
     "expo-location": "^8.0.0",
     "firebase": "^7.6.1",
+    "lottie-react-native": "^3.3.2",
     "moment": "^2.24.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",

@@ -40,7 +40,9 @@ class Current extends React.Component {
       // get current date
       currentDate: new Date(),
       // placeholder clear
-      placeholder: this.props.currentLocation
+      placeholder: this.props.currentLocation,
+      // google places listview
+      listViewDisplayed: true
     };
     // bind functions to state
     this.updateSkyData = this.updateSkyData.bind(this);
@@ -69,14 +71,16 @@ class Current extends React.Component {
   // keyboard shown
   _keyboardDidShow() {
     this.setState({
-      placeholder: 'Enter location . . .'
+      placeholder: 'Enter location . . .',
+      listViewDisplayed: true
     });
   }
 
   // keyboard hidden
   _keyboardDidHide() {
     this.setState({
-      placeholder: this.props.currentLocation
+      placeholder: this.props.currentLocation,
+      listViewDisplayed: false
     });
   }
 
@@ -134,7 +138,7 @@ class Current extends React.Component {
           minLength={2}
           autoFocus={false}
           returnKeyType={'default'}
-          listViewDisplayed={true}
+          listViewDisplayed={this.state.listViewDisplayed}
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
