@@ -47,6 +47,7 @@ import * as firebase from "firebase/app";
 // import "firebase/firestore";
 import "firebase/database";
 
+// import lottie
 import LottieView from 'lottie-react-native';
 
 // run timeout function
@@ -184,7 +185,7 @@ export default class App extends React.Component {
   async componentDidMount() {
     // play animation
     this.animation.play();
-
+    // set component mounted
     this._isMounted = true;
     // load custom fonts
     await Font.loadAsync({
@@ -574,35 +575,12 @@ export default class App extends React.Component {
       return (
         // START loading display
         <View style={styles.loader}>
-          {/* {
-            this.state.fontLoaded ? (
-              <Text
-                style={{
-                  color: colours.white,
-                  fontSize: 23,
-                  fontFamily: 'allerDisplay',
-                  textAlign: 'center',
-                }}>
-                SIMPLE WEATHER
-             </Text>
-            ) : null
-          } */}
           <LottieView
             ref={animation => {
               this.animation = animation;
             }}
             source={require('./assets/animations/loading-sun.json')}
           />
-          {/* <Text
-            style={{
-              color: colours.white,
-              fontSize: 19,
-              fontFamily: 'allerLt',
-              padding: 10,
-              textAlign: 'center'
-            }}>
-            loading . . .
-              </Text> */}
         </View>
         // END loading display
       );
