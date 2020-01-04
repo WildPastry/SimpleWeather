@@ -35,8 +35,107 @@ import colours from './assets/colours.json';
 // android permissions
 import { PermissionsAndroid } from 'react-native';
 
+// timeout
+import timeout from './data/timeout.js';
+
 // geolocation
 // import Geolocation from 'react-native-geolocation-service';
+
+// import firebase
+import * as firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+
+// run timeout function
+{timeout}
+
+// Firebase project configuration
+const FIREBASECONFIG = {
+  apiKey: configData.GEO,
+  authDomain: configData.AUTHDOMAIN,
+  databaseURL: configData.DATABASEURL,
+  projectId: configData.PROJECTID,
+  storageBucket: configData.STORAGEBUCKET,
+  messagingSenderId: configData.MESSAGINGSENDERID,
+  appId: configData.APPID
+};
+
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(FIREBASECONFIG);
+}
+
+// firebase database
+const SIMPLEWEATHER_DATABASE = firebase.database();
+
+SIMPLEWEATHER_DATABASE.ref('users/' + 1).set({
+  username: "name",
+  email: "email",
+  profile_picture : "imageUrl"
+}, function(error) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Data saved to database');
+  }
+});
+
+// console.log(SIMPLEWEATHER_DATABASE[0]);
+// var userId = firebase.auth().currentUser.uid;
+// return SIMPLEWEATHER_DATABASE.ref('/users/' + 1).once('value').then(function(snapshot) {
+//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+// });
+// return SIMPLEWEATHER_DATABASE.ref('/users/' + 1).once('value').then(function(snapshot) {
+//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+// });
+var ref = SIMPLEWEATHER_DATABASE.ref('users/' + 1);
+
+ref.on("value", function(snapshot) {
+  console.log(snapshot.val());
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+
+// console.log(firebase);
+// console.log(database);
+// var starCountRef = SIMPLEWEATHER_DATABASE.ref('users/' + 1);
+// starCountRef.on('value', function(snapshot) {
+//   updateStarCount(postElement, snapshot.val());
+// });
+
+// return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+//   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+// });
+
+// var usersRef = ref.child("users");
+// usersRef.set({
+//   alanisawesome: {
+//     date_of_birth: "June 23, 1912",
+//     full_name: "Alan Turing"
+//   },
+//   gracehop: {
+//     date_of_birth: "December 9, 1906",
+//     full_name: "Grace Hopper"
+//   }
+// });
+
+// function writeUserData(userId, name, email, imageUrl) {
+//   firebase.database().ref('users/' + userId).set({
+//     username: name,
+//     email: email,
+//     profile_picture : imageUrl
+//   });
+// }
+
+// const dbh = firebase.firestore();
+
+// dbh.collection("characters").doc("mario").set({
+//   employment: "plumber",
+//   outfitColor: "red",
+//   specialAttack: "fireball"
+// });
+
+// console.log(dbh.mario);
 
 // stylesheet
 var styles = require('./styles.js');
@@ -159,8 +258,8 @@ export default class App extends React.Component {
     await PermissionsAndroid.check
     (PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     if (granted) {
-      console.log("You can use the ACCESS_FINE_LOCATION")
-      console.log("You can use the ACCESS_COARSE_LOCATION")
+      console.log("You can use the ACCESS_FINE_LOCATION");
+      console.log("You can use the ACCESS_COARSE_LOCATION");
 
       // Geolocation.getCurrentPosition(
       //   (position) => {
@@ -180,8 +279,8 @@ export default class App extends React.Component {
       this.fallback();
     }
     else {
-      console.log("ACCESS_FINE_LOCATION permission denied")
-      console.log("ACCESS_COARSE_LOCATION permission denied")
+      console.log("ACCESS_FINE_LOCATION permission denied");
+      console.log("ACCESS_COARSE_LOCATION permission denied");
       // run fallback function
       this.fallback();
     }
