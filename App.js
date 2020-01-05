@@ -1,5 +1,5 @@
 // imports
-import React from 'react';
+import React, { useState } from 'react';
 
 // default component functions
 import {
@@ -108,6 +108,7 @@ export default class App extends React.Component {
   // update sky data function
   updateSkyData(value) {
     this.setState({
+      isLoaded: false,
       currentLat: value['googleLat'],
       currentLng: value['googleLng'],
       currentLocation: value['googleName']
@@ -130,8 +131,6 @@ export default class App extends React.Component {
 
   // START component mounted
   async componentDidMount() {
-    // play animation
-    this.animation.play();
     // set component mounted
     this._isMounted = true;
     // load custom fonts
@@ -268,9 +267,6 @@ export default class App extends React.Component {
 
   // START sky data function
   getSkyData() {
-    this.setState({
-      isLoaded: false
-    });
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
     console.log('FROM getSkyData ' + myLat);
@@ -531,6 +527,7 @@ export default class App extends React.Component {
               this.animation = animation;
             }}
             source={require('./assets/animations/loading-sun.json')}
+            autoPlay={true}
           />
         </View>
         // END loading display
@@ -552,7 +549,11 @@ export default class App extends React.Component {
             horizontal={false}
             showsPagination={false}>
             {/* header */}
-            <Header />
+            <Header
+              currentLocation={this.state.currentLocation}
+              currentLat={this.state.currentLat}
+              currentLng={this.state.currentLng}
+            />
             {/* current */}
             <View style={{ backgroundColor: imageBg }}>
               <Current
