@@ -37,6 +37,18 @@ const myStylesheet = StyleSheet.create({
     height: 22
   },
 
+  // menu
+  menuWrap: {
+    backgroundColor: '#fff',
+    padding: 8
+  },
+  menuText: {
+    color: '#303030',
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    textAlign: 'center'
+  },
+
   // current component
   currentWrap: {
     alignSelf: 'stretch',

@@ -6,9 +6,7 @@ import { Text, ScrollView, View } from 'react-native';
 
 // accordian
 import {
-  Collapse,
-  CollapseHeader,
-  CollapseBody
+  Collapse, CollapseHeader, CollapseBody
 } from 'accordion-collapse-react-native';
 
 // colours
