@@ -8,7 +8,7 @@ import { Animated, Button, Image, Text, TouchableOpacity, View } from 'react-nat
 import configData from './../data/config.json';
 
 // brand icon
-import BrandIcon from './../assets/brand.png';
+// import BrandIcon from './../assets/brand.png';
 
 // colours
 import colours from './../assets/colours.json';
@@ -52,6 +52,9 @@ var newLocationRef = locationRef.push();
 
 // get the unique key generated
 var newLocationId = newLocationRef.key;
+
+// snapshot ref
+var snapShotRef = locationRef.child(newLocationId);
 
 // var ref = SIMPLEWEATHER_DATABASE.ref('savedLocation/' + 1);
 // console.log(locationsRef)
@@ -127,9 +130,35 @@ class Header extends React.Component {
         console.log(error);
       } else {
         console.log('Location details saved with key: ' + newLocationId);
+        // ref.on("child_added", function (snapshot) {
+        //   var newPost = snapshot.val();
+        //   console.log('ID: ' + newPost.newLocationId);
+        //   console.log('Lat: ' + newPost.lat);
+        //   console.log('Lng: ' + newPost.lng);
+        //   console.log('Location: ' + newPost.location);
+        //   console.log(newPost);
+        // });
+        
+        snapShotRef.on('value', function (snapshot) {
+          console.log(snapshot.val());
+        });
+
       }
     });
+    // view latest db entry
+    // this.viewLatestEntry();
   }
+
+  // view entry
+  // viewLatestEntry = () => {
+  //   // Retrieve new posts as they are added to our database
+  //   ref.on("child_added", function (snapshot, prevChildKey) {
+  //     var newPost = snapshot.val();
+  //     console.log("Author: " + newPost.author);
+  //     console.log("Title: " + newPost.title);
+  //     console.log("Previous Post ID: " + prevChildKey);
+  //   });
+  // }
 
   // START render header
   render() {
@@ -157,7 +186,7 @@ class Header extends React.Component {
             <Text
               style={{
                 color: colours.white,
-                fontSize: 23,
+                fontSize: 22,
                 fontFamily: 'allerDisplay',
                 textAlign: 'center',
                 paddingTop: 4
@@ -165,11 +194,11 @@ class Header extends React.Component {
               SIMPLE WEATHER
              </Text>
             {/* brand logo */}
-            <Image
+            {/* <Image
               style={styles.brandIconSmall}
               source={BrandIcon}
               resizeMode='contain'
-            />
+            /> */}
           </View>
           {/* right icon for balance */}
           <View style={{

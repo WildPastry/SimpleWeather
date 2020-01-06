@@ -20,5 +20,6 @@
   "mistDark": "#999999",
   "nightDark": "#01142c",
   "white" : "#fff",
-  "simpleWeather": "#303030"
+  "simpleWeather": "#303030",
+  "peach": "#ff6666"
 }
