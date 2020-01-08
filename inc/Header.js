@@ -92,11 +92,68 @@ class Header extends React.Component {
     super(props);
     this.state = {
       progress: false,
-      showMenu: false
+      showMenu: false,
+      savedLocations: []
     };
     // bind functions to state
+    this.getData = this.getData.bind(this);
     this.handleAnimate = this.handleAnimate.bind(this);
     this.handleLocation = this.handleLocation.bind(this);
+  }
+
+  componentDidMount() {
+
+    locationRef.on("value", snapshot => {
+
+      let savedLocations = snapshot.val();
+
+      console.log(savedLocations);
+
+      let newState = [];
+
+      for(let movie in savedLocations){
+        newState.push({
+          id: savedLocations[movie].id,
+          title: savedLocations[movie].title,
+          rating: savedLocations[movie].rating,
+          poster: savedLocations[movie].poster
+        });
+      }
+
+      this.setState({
+        savedLocations: newState
+      });
+
+    });
+  }
+
+  // get data
+  getData() {
+    // const { currentUser } = firebase.auth();
+    // snapShotRef
+      // .on('child_added', snap => {
+      //   var savedLocations = this.state.savedLocations;
+      //   savedLocations.push({ lat: snap.val().lat, lng: snap.val().lng,
+      //     location: snap.val().location });
+      //   this.setState({ savedLocations: savedLocations });
+      // })
+    console.log('Inside data function');
+    console.log(this.state);
+    console.log(this.state.savedLocations);
+    console.log(SIMPLEWEATHER_DATABASE.ref("weather/locations/"));
+    console.log(snapShotRef);
+    // // save location to state
+    // let savedLocations = [...this.state.savedLocations];
+    // //adding new data
+    // savedLocations.push({
+    //   savedLat: newPost.lat,
+    //   savedLng: newPost.lng,
+    //   savedLocation: newPost.location
+    // });
+    // //updating the state value
+    // this.setState({ savedLocations }), () => {
+    //   console.log('Are we there yet?');
+    // }
   }
 
   // handle animation
@@ -121,6 +178,7 @@ class Header extends React.Component {
   // handle location
   handleLocation = () => {
     console.log('Handle location pressed...');
+    // save location details to database
     newLocationRef.set({
       lat: this.props.currentLat,
       lng: this.props.currentLng,
@@ -130,6 +188,7 @@ class Header extends React.Component {
         console.log(error);
       } else {
         console.log('Location details saved with key: ' + newLocationId);
+        // var savedLat = snapShotRef.lat
         // ref.on("child_added", function (snapshot) {
         //   var newPost = snapshot.val();
         //   console.log('ID: ' + newPost.newLocationId);
@@ -138,13 +197,29 @@ class Header extends React.Component {
         //   console.log('Location: ' + newPost.location);
         //   console.log(newPost);
         // });
-        
-        snapShotRef.on('value', function (snapshot) {
-          console.log(snapshot.val());
-        });
-
+        // check latest entry added
+        // snapShotRef.on('value', function (snapshot) {
+        //   console.log(snapshot.val());
+        //   this.setState({ savedLocations: snapshot.val() });
+        // });
       }
     });
+
+    snapShotRef
+      .on('value', function (snapshot) {
+        console.log(snapshot.val());
+      });
+
+    // snapShotRef
+    //   .on('child_added', snap => {
+    //     var savedLocations = this.state.savedLocations;
+    //     savedLocations.push({ location: snap.val() });
+    //     this.setState({ savedLocations: savedLocations });
+    //   })
+    // console.log('Inside data function');
+    // console.log(this.state);
+    // console.log(this.state.savedLocations);
+    // this.getData();
     // view latest db entry
     // this.viewLatestEntry();
   }
@@ -162,6 +237,7 @@ class Header extends React.Component {
 
   // START render header
   render() {
+
     return (
       // master wrap
       <View>
