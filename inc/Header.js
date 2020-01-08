@@ -111,49 +111,32 @@ class Header extends React.Component {
 
       let newState = [];
 
-      for(let movie in savedLocations){
+      for (let data in savedLocations) {
         newState.push({
-          id: savedLocations[movie].id,
-          title: savedLocations[movie].title,
-          rating: savedLocations[movie].rating,
-          poster: savedLocations[movie].poster
+          savedLat: savedLocations[data].lat,
+          savedLng: savedLocations[data].lng,
+          savedLocation: savedLocations[data].location,
         });
       }
 
       this.setState({
         savedLocations: newState
-      });
-
+      }),
+        () => {
+          console.log(savedLocations);
+        };
     });
+
+    this.getData();
   }
 
   // get data
   getData() {
-    // const { currentUser } = firebase.auth();
-    // snapShotRef
-      // .on('child_added', snap => {
-      //   var savedLocations = this.state.savedLocations;
-      //   savedLocations.push({ lat: snap.val().lat, lng: snap.val().lng,
-      //     location: snap.val().location });
-      //   this.setState({ savedLocations: savedLocations });
-      // })
     console.log('Inside data function');
     console.log(this.state);
     console.log(this.state.savedLocations);
     console.log(SIMPLEWEATHER_DATABASE.ref("weather/locations/"));
     console.log(snapShotRef);
-    // // save location to state
-    // let savedLocations = [...this.state.savedLocations];
-    // //adding new data
-    // savedLocations.push({
-    //   savedLat: newPost.lat,
-    //   savedLng: newPost.lng,
-    //   savedLocation: newPost.location
-    // });
-    // //updating the state value
-    // this.setState({ savedLocations }), () => {
-    //   console.log('Are we there yet?');
-    // }
   }
 
   // handle animation
