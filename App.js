@@ -1,5 +1,5 @@
 // imports
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 
 // default component functions
 import {

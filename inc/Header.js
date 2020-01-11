@@ -1,20 +1,17 @@
 // imports
-import React, { Component } from 'react';
+import React, { Component, useRef, useEffect } from 'react';
 
 // default component functions
-import { Alert, Animated, Button, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Animated, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // configuration data
 import configData from './../data/config.json';
 
-// components
+// component
 import SavedLocations from '../inc/SavedLocations';
 
-// brand icon
-// import BrandIcon from './../assets/brand.png';
-
-// prop types
-import PropTypes from 'prop-types';
+// icons
+import { Ionicons } from '@expo/vector-icons';
 
 // colours
 import colours from './../assets/colours.json';
@@ -65,6 +62,10 @@ var styles = require('../styles.js');
 // create animated view
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
+// function useIsMountedRef() { const isMountedRef = useRef(null); useEffect(() => { isMountedRef.current = true; return () => isMountedRef.current = false; }); return isMountedRef; }
+
+// const isMountedRef = useIsMountedRef();
+
 // START header
 class Header extends Component {
   // default class header constructor
@@ -84,18 +85,18 @@ class Header extends Component {
     // get data on load
     firebase.database().ref('weather/locations/').on('value', snapshot => {
       let data = snapshot.val()
-      let locations = Object.values(data);
-      this.setState({ savedLocations: locations }, function () {
-        console.log(this.state.savedLocations);
-      })
+        let locations = Object.values(data);
+        this.setState({ savedLocations: locations }, function () {
+          console.log(this.state.savedLocations);
+        })
     })
   }
 
   // handle animation
   handleAnimate = () => {
     let mounted = true;
-    console.log('Animating from 20...');
     if (mounted) {
+      console.log('Animating from 20...');
       if (this.state.progress === false) {
         this.animation.play(20, 80);
         this.setState({
@@ -116,29 +117,38 @@ class Header extends Component {
 
   // handle location
   handleLocation = () => {
-    console.log('Handle location pressed...');
-    // save location details to database
-    newLocationRef.set({
-      key: newLocationId,
-      lat: this.props.currentLat,
-      lng: this.props.currentLng,
-      location: this.props.currentLocation
-    }, function (error) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Location details saved with key: ' + newLocationId);
-        Alert.alert(this.props.currentLocation + ' has been saved');
-      }
-    });
+    let mounted = true;
+    if (mounted) {
+      console.log('Handle location pressed...');
+      // save location details to database
+      newLocationRef.set({
+        key: newLocationId,
+        lat: this.props.currentLat,
+        lng: this.props.currentLng,
+        location: this.props.currentLocation
+      }, function (error) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Location details saved with key: ' + newLocationId);
+        }
+      });
+    }
+    return () => mounted = false;
+  }
+
+  // handle delete
+  handleDelete(val) {
+    let mounted = true;
+    if (mounted) {
+      console.log(val);
+      firebase.database().ref(`weather/locations/${val}`).remove();
+    }
+    return () => mounted = false;
   }
 
   // START render header
   render() {
-
-    // set up colour bg variables
-    var colourBg = this.props.currentBg;
-
     return (
       // master wrap
       <View>
@@ -170,12 +180,6 @@ class Header extends Component {
               }}>
               SIMPLE WEATHER
              </Text>
-            {/* brand logo */}
-            {/* <Image
-              style={styles.brandIconSmall}
-              source={BrandIcon}
-              resizeMode='contain'
-            /> */}
           </View>
           {/* right icon for balance */}
           <View style={{
@@ -186,19 +190,25 @@ class Header extends Component {
         </View>
         {/* menu */}
         {this.state.showMenu &&
-          <View style={styles.menuWrap}>
+          <View style={headerStyles.menuWrap}>
             {/* save current location */}
-            <View style={{backgroundColor: colours.peach}}>
+            <View style={headerStyles.saveLocationButton}>
               <TouchableOpacity onPress={this.handleLocation}>
-                <Text style={styles.menuText}>Save current location</Text>
+                <Text style={headerStyles.menuText}>
+                  Save current location
+                  </Text>
               </TouchableOpacity>
             </View>
             {/* saved locations list */}
             <View>
               {this.state.savedLocations.length > 0 ? (
-                <SavedLocations savedLocations={this.state.savedLocations} />
+                <SavedLocations
+                  savedLocations={this.state.savedLocations}
+                  handleDelete={this.handleDelete} />
               ) : (
-                  <Text>No Saved Locations...</Text>
+                  <Text style={headerStyles.menuText}>
+                    No saved locations yet...
+                  </Text>
                 )}
             </View>
           </View>
@@ -211,3 +221,21 @@ class Header extends Component {
 // END header
 
 export default Header;
+
+// style
+const headerStyles = StyleSheet.create({
+  menuWrap: {
+    padding: 8
+  },
+  menuText: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    textAlign: 'center'
+  },
+  saveLocationButton: {
+    backgroundColor: colours.peach,
+    padding: 8,
+    marginBottom: 8
+  }
+});

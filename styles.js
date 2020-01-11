@@ -11,8 +11,7 @@ const myStylesheet = StyleSheet.create({
     justifyContent: 'center'
   },
   iconLoader: {
-    height: 80,
-    width: 80
+    width: 100
   },
 
   // main container
@@ -35,17 +34,6 @@ const myStylesheet = StyleSheet.create({
   },
   headerTopBar: {
     height: 22
-  },
-
-  // menu
-  menuWrap: {
-    padding: 8
-  },
-  menuText: {
-    color: '#303030',
-    fontSize: 19,
-    fontFamily: 'allerLt',
-    textAlign: 'center'
   },
 
   // current component
