@@ -1,5 +1,5 @@
 // imports
-import React from 'react';
+import React, { Component } from 'react';
 
 // configuration data
 import configData from './../data/config.json';
@@ -28,7 +28,7 @@ var styles = require('../styles.js');
 var moment = require('moment');
 
 // START current
-class Current extends React.Component {
+class Current extends Component {
   // default class current constructor
   constructor(props) {
     super(props);

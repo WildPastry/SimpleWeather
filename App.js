@@ -1,5 +1,5 @@
 // imports
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 
 // default component functions
 import {
@@ -55,7 +55,7 @@ const window = Dimensions.get('window');
 let imageBg;
 
 // START default class app
-export default class App extends React.Component {
+export default class App extends Component {
   // control requests
   _isMounted = false;
   // default class app constructor
@@ -553,6 +553,7 @@ export default class App extends React.Component {
               currentLocation={this.state.currentLocation}
               currentLat={this.state.currentLat}
               currentLng={this.state.currentLng}
+              currentBg={this.state.weekBg}
             />
             {/* current */}
             <View style={{ backgroundColor: imageBg }}>

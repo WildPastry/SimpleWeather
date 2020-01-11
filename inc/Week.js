@@ -1,5 +1,5 @@
 // imports
-import React from 'react';
+import React, { Component } from 'react';
 
 // default component functions
 import { Text, ScrollView, View } from 'react-native';
@@ -23,7 +23,7 @@ var moment = require('moment');
 var styles = require('../styles.js');
 
 // START week
-class Week extends React.Component {
+class Week extends Component {
   // START week render
   render() {
     // new array for filtering

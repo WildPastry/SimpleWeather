@@ -1,5 +1,5 @@
 // imports
-import React from 'react';
+import React, { Component } from 'react';
 
 // default component functions
 import { Text, View } from 'react-native';
@@ -11,7 +11,7 @@ import colours from './../assets/colours.json';
 var styles = require('../styles.js');
 
 // START footer
-class Footer extends React.Component {
+class Footer extends Component {
   // START render footer
   render() {
 

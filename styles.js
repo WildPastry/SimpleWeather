@@ -39,7 +39,6 @@ const myStylesheet = StyleSheet.create({
 
   // menu
   menuWrap: {
-    backgroundColor: '#fff',
     padding: 8
   },
   menuText: {

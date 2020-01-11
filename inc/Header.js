@@ -1,14 +1,20 @@
 // imports
-import React from 'react';
+import React, { Component } from 'react';
 
 // default component functions
-import { Animated, Button, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Animated, Button, Image, Text, TouchableOpacity, View } from 'react-native';
 
 // configuration data
 import configData from './../data/config.json';
 
+// components
+import SavedLocations from '../inc/SavedLocations';
+
 // brand icon
 // import BrandIcon from './../assets/brand.png';
+
+// prop types
+import PropTypes from 'prop-types';
 
 // colours
 import colours from './../assets/colours.json';
@@ -60,7 +66,7 @@ var styles = require('../styles.js');
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 // START header
-class Header extends React.Component {
+class Header extends Component {
   // default class header constructor
   constructor(props) {
     super(props);
@@ -77,7 +83,9 @@ class Header extends React.Component {
   componentDidMount() {
     // get data on load
     firebase.database().ref('weather/locations/').on('value', snapshot => {
-      this.setState({ savedLocations: snapshot.val() }, function () {
+      let data = snapshot.val()
+      let locations = Object.values(data);
+      this.setState({ savedLocations: locations }, function () {
         console.log(this.state.savedLocations);
       })
     })
@@ -111,6 +119,7 @@ class Header extends React.Component {
     console.log('Handle location pressed...');
     // save location details to database
     newLocationRef.set({
+      key: newLocationId,
       lat: this.props.currentLat,
       lng: this.props.currentLng,
       location: this.props.currentLocation
@@ -119,12 +128,16 @@ class Header extends React.Component {
         console.log(error);
       } else {
         console.log('Location details saved with key: ' + newLocationId);
+        Alert.alert(this.props.currentLocation + ' has been saved');
       }
     });
   }
 
   // START render header
   render() {
+
+    // set up colour bg variables
+    var colourBg = this.props.currentBg;
 
     return (
       // master wrap
@@ -174,9 +187,20 @@ class Header extends React.Component {
         {/* menu */}
         {this.state.showMenu &&
           <View style={styles.menuWrap}>
-            <TouchableOpacity onPress={this.handleLocation}>
-              <Text style={styles.menuText}>Save this location</Text>
-            </TouchableOpacity>
+            {/* save current location */}
+            <View style={{backgroundColor: colours.peach}}>
+              <TouchableOpacity onPress={this.handleLocation}>
+                <Text style={styles.menuText}>Save current location</Text>
+              </TouchableOpacity>
+            </View>
+            {/* saved locations list */}
+            <View>
+              {this.state.savedLocations.length > 0 ? (
+                <SavedLocations savedLocations={this.state.savedLocations} />
+              ) : (
+                  <Text>No Saved Locations...</Text>
+                )}
+            </View>
           </View>
         }
       </View>
