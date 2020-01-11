@@ -224,7 +224,7 @@ class Current extends Component {
           debounce={100}
         />
         {/* END autocomplete input */}
-
+        
         {/* START main icon */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}

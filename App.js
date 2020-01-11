@@ -522,6 +522,7 @@ export default class App extends Component {
             style={{
               height: 300,
               width: 300,
+              marginLeft: 5
             }}
             ref={animation => {
               this.animation = animation;

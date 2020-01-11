@@ -10,9 +10,6 @@ const myStylesheet = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
-  iconLoader: {
-    width: 100
-  },
 
   // main container
   container: {

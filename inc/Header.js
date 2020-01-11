@@ -2,16 +2,13 @@
 import React, { Component, useRef, useEffect } from 'react';
 
 // default component functions
-import { Alert, Animated, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // configuration data
 import configData from './../data/config.json';
 
 // component
 import SavedLocations from '../inc/SavedLocations';
-
-// icons
-import { Ionicons } from '@expo/vector-icons';
 
 // colours
 import colours from './../assets/colours.json';
@@ -82,14 +79,24 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    // get data on load
-    firebase.database().ref('weather/locations/').on('value', snapshot => {
-      let data = snapshot.val()
-        let locations = Object.values(data);
-        this.setState({ savedLocations: locations }, function () {
-          console.log(this.state.savedLocations);
-        })
-    })
+    let mounted = true;
+    if (mounted) {
+      // get data on load
+      firebase.database().ref('weather/locations/').on('value', snapshot => {
+        if (snapshot.exists()) {
+          let data = snapshot.val()
+          let locations = Object.values(data);
+          this.setState({ savedLocations: locations }, function () {
+            console.log(this.state.savedLocations);
+          })
+        } else {
+          this.setState({
+            savedLocations: ''
+          });
+        }
+      })
+    }
+    return () => mounted = false;
   }
 
   // handle animation
@@ -131,6 +138,8 @@ class Header extends Component {
           console.log(error);
         } else {
           console.log('Location details saved with key: ' + newLocationId);
+          newLocationId = ''
+          console.log('Reset the key: ' + newLocationId);
         }
       });
     }
