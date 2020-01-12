@@ -45,7 +45,7 @@ class SavedLocations extends Component {
                 style={{ marginRight: 3 }}
                 onPress={this.handleDelete.bind(this, location.key)}
                 name='ios-close-circle'
-                size={25}
+                size={30}
                 color={colours.white}
               />
             </View>

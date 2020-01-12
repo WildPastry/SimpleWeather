@@ -79,7 +79,7 @@ class GlobalModal extends Component {
           }}>
           <Ionicons
             name='ios-add-circle'
-            size={25}
+            size={30}
             color={colours.white}
           />
         </TouchableHighlight>

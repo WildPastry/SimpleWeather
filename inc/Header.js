@@ -45,11 +45,8 @@ const SIMPLEWEATHER_DATABASE = firebase.database();
 const ref = SIMPLEWEATHER_DATABASE.ref("weather/");
 const locationRef = ref.child("locations");
 
-// generate a reference to a new location and add some data
-var newLocationRef = locationRef.push();
-
 // get the unique key generated
-var newLocationId = newLocationRef.key;
+// var newLocationId = newLocationRef.key;
 
 // stylesheet
 var styles = require('../styles.js');
@@ -69,6 +66,7 @@ class Header extends Component {
     this.state = {
       progress: false,
       showMenu: false,
+      currentKey: '',
       savedLocations: []
     };
     // bind functions to state
@@ -79,13 +77,51 @@ class Header extends Component {
   componentDidMount() {
     let mounted = true;
     if (mounted) {
+
+      //   locationRef.on('child_added', s => {
+      //     if (s.exists()) {
+      //         console.log(s.val()) // It will return the new updated object
+      //         console.log(s.key) // It will return the timestamp key
+      //         this.setState({
+      //             currentKey: s.key
+      //         })
+      //     }
+      // })
+
+      // function snapshotToArray(snapshot) {
+      //   var returnArr = [];
+
+      //   snapshot.forEach(function (childSnapshot) {
+      //     var item = childSnapshot.val();
+      //     item.key = childSnapshot.key;
+
+      //     returnArr.push(item);
+
+      //   });
+
+      //   return returnArr;
+
+      // };
+
+      // firebase.database().ref('/weather/locations/').on('value', function (snapshot) {
+      //   if (snapshot.exists()) {
+      //     console.log(snapshotToArray(snapshot));
+      //   } else {
+      //     this.setState({
+      //       savedLocations: ''
+      //     });
+      //   }
+      // });
       // get data on load
-      firebase.database().ref('weather/locations/').on('value', snapshot => {
+      locationRef.on('value', snapshot => {
         if (snapshot.exists()) {
-          let data = snapshot.val()
+          let data = snapshot.val();
           let locations = Object.values(data);
+          // let key = snapshot.key;
+          // let arr = Object.entries(snapshot).map(e => Object.assign(e[1], { key: e[0] }));
           this.setState({ savedLocations: locations }, function () {
             console.log(this.state.savedLocations);
+            // console.log(arr);
           })
         } else {
           this.setState({
@@ -120,13 +156,29 @@ class Header extends Component {
     return () => mounted = false;
   }
 
+  //   function snapshotToArray(snapshot) {
+  //     var returnArr = [];
+
+  //     snapshot.forEach(function(childSnapshot) {
+  //         var item = childSnapshot.val();
+  //         item.key = childSnapshot.key;
+
+  //         returnArr.push(item);
+  //     });
+
+  //     return returnArr;
+  // };
+
   // handle location
-  handleLocation = () => {
+  handleLocation() {
     let mounted = true;
     if (mounted) {
       console.log('Handle location pressed...');
+      // get the unique key generated
+      var newLocationId = locationRef.push().key;
+
       // save location details to database
-      newLocationRef.set({
+      locationRef.push({
         key: newLocationId,
         lat: this.props.currentLat,
         lng: this.props.currentLng,
@@ -135,9 +187,7 @@ class Header extends Component {
         if (error) {
           console.log(error);
         } else {
-          console.log('Location details saved with key: ' + newLocationId);
-          newLocationId = ''
-          console.log('Reset the key: ' + newLocationId);
+          console.log('Location details saved...');
         }
       });
     }

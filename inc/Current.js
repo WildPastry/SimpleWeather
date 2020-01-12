@@ -14,6 +14,9 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 // colours
 import colours from './../assets/colours.json';
 
+// lottie
+import LottieView from 'lottie-react-native';
+
 // icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
@@ -164,7 +167,7 @@ class Current extends Component {
               zIndex: 1,
               position: 'absolute',
               top: 0,
-              width: '90%',
+              width: '100%',
               height: '100%',
               overflow: 'visible'
             },
@@ -227,6 +230,7 @@ class Current extends Component {
         {/* END autocomplete input */}
         {/* add location button */}
         <View style={{
+          zIndex: 2,
           position: 'absolute',
           top: 0,
           right: 0,
@@ -242,7 +246,18 @@ class Current extends Component {
         {/* START main icon */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}
-          <Text
+          <LottieView
+            style={{
+              height: 300,
+              width: 300
+            }}
+            ref={animation => {
+              this.animation = animation;
+            }}
+            source={require('./../assets/animations/weather/4800-weather-partly-cloudy.json')}
+            autoPlay={true}
+          />
+          {/* <Text
             style={{
               fontFamily: 'weatherfont',
               fontSize: 130,
@@ -250,7 +265,7 @@ class Current extends Component {
               color: colours.white
             }}>
             {displayWeatherIcon[weatherCode].code}
-          </Text>
+          </Text> */}
         </View>
         {/* END main icon */}
 
