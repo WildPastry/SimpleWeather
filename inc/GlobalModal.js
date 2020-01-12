@@ -102,7 +102,7 @@ const globalModalStyles = StyleSheet.create({
   },
   buttonsWrapper: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   text: {
     color: colours.white,

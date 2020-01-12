@@ -146,11 +146,13 @@ class Current extends Component {
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
+            // fix google names with numbers in front
+            var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
               // set state with google details
               googleLat: details.geometry.location.lat.toFixed(5),
               googleLng: details.geometry.location.lng.toFixed(5),
-              googleName: details.formatted_address
+              googleName: updatedAddress
             });
             // update sky data function
             this.updateSkyData();
@@ -228,7 +230,7 @@ class Current extends Component {
           debounce={100}
         />
         {/* END autocomplete input */}
-        {/* add location button */}
+        {/* START add location button */}
         <View style={{
           zIndex: 2,
           position: 'absolute',
@@ -243,18 +245,19 @@ class Current extends Component {
         }}>
           <GlobalModal />
         </View>
+        {/* END add location button */}
         {/* START main icon */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}
           <LottieView
             style={{
-              height: 300,
-              width: 300
+              height: 280,
+              width: 280
             }}
             ref={animation => {
               this.animation = animation;
             }}
-            source={require('./../assets/animations/weather/4800-weather-partly-cloudy.json')}
+            source={require('./../assets/animations/weather/4804-weather-sunny.json')}
             autoPlay={true}
           />
           {/* <Text

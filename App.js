@@ -520,8 +520,8 @@ export default class App extends Component {
         <View style={styles.loader}>
           <LottieView
             style={{
-              height: 300,
-              width: 300,
+              height: 500,
+              width: 500,
               marginLeft: 5
             }}
             ref={animation => {

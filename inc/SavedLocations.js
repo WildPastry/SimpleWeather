@@ -42,7 +42,6 @@ class SavedLocations extends Component {
             <View style={savedLocationStyles.locationListWrapper} key={index}>
               <Text style={savedLocationStyles.locationListText}>{location.location}</Text>
               <Ionicons
-                style={{ marginRight: 3 }}
                 onPress={this.handleDelete.bind(this, location.key)}
                 name='ios-close-circle'
                 size={30}
@@ -72,7 +71,6 @@ const savedLocationStyles = StyleSheet.create({
     fontFamily: 'allerLt',
     color: colours.white,
     padding: 9,
-    marginBottom: 3,
-    marginLeft: 3
+    marginBottom: 3
   }
 });
