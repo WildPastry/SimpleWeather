@@ -8,7 +8,7 @@
   "thunderStorm": "#505050",
   "snow": "#212121",
   "mist": "#c8c8c8",
-  "night": "#0f294a",
+  "night": "#174683",
   "clearSkyDark": "#f89e18",
   "fewCloudsDark": "#eb9d27",
   "scatteredCloudsDark": "#5d6e80",
@@ -18,7 +18,7 @@
   "thunderStormDark": "#353535",
   "snowDark": "#000000",
   "mistDark": "#999999",
-  "nightDark": "#01142c",
+  "nightDark": "#002f69",
   "white" : "#fff",
   "simpleWeather": "#303030",
   "peach": "#ff6666"

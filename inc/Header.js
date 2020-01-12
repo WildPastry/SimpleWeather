@@ -1,8 +1,6 @@
 // imports
-import React, { Component, useRef, useEffect } from 'react';
-
-// default component functions
-import { Animated, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { Component } from 'react';
+import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // configuration data
 import configData from './../data/config.json';
@@ -37,12 +35,12 @@ const FIREBASECONFIG = {
   appId: configData.APPID
 };
 
-// // Initialize Firebase
+// Initialize Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASECONFIG);
 }
 
-// // firebase database
+// firebase database
 const SIMPLEWEATHER_DATABASE = firebase.database();
 const ref = SIMPLEWEATHER_DATABASE.ref("weather/");
 const locationRef = ref.child("locations");

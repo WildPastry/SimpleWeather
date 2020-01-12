@@ -1,11 +1,12 @@
 // imports
 import React, { Component } from 'react';
+import { Text, Keyboard, SafeAreaView, View } from 'react-native';
 
 // configuration data
 import configData from './../data/config.json';
 
-// default component functions
-import { Text, Keyboard, SafeAreaView, View } from 'react-native';
+// component
+import GlobalModal from '../inc/GlobalModal';
 
 // autocomplete
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -163,7 +164,7 @@ class Current extends Component {
               zIndex: 1,
               position: 'absolute',
               top: 0,
-              width: '100%',
+              width: '90%',
               height: '100%',
               overflow: 'visible'
             },
@@ -224,7 +225,20 @@ class Current extends Component {
           debounce={100}
         />
         {/* END autocomplete input */}
-        
+        {/* add location button */}
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '10%',
+          height: 50,
+          overflow: 'visible',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: colourBg
+        }}>
+          <GlobalModal />
+        </View>
         {/* START main icon */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}

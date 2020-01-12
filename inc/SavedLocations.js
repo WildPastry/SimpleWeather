@@ -15,23 +15,23 @@ import colours from './../assets/colours.json';
 class SavedLocations extends Component {
   // default class savedlocations constructor
   constructor(props) {
-		super(props);
-		this.handleDelete = this.handleDelete.bind(this);
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
   }
-  
+
   // static proptypes
   static propTypes = {
     savedLocations: PropTypes.array.isRequired
   };
 
-    // handle delete
-    handleDelete = (val) => {
-      let mounted = true;
-      if (mounted) {
-        this.props.handleDelete(val);
-      }
-      return () => mounted = false;
+  // handle delete
+  handleDelete = (val) => {
+    let mounted = true;
+    if (mounted) {
+      this.props.handleDelete(val);
     }
+    return () => mounted = false;
+  }
 
   // START render saved locations list
   render() {
@@ -42,6 +42,7 @@ class SavedLocations extends Component {
             <View style={savedLocationStyles.locationListWrapper} key={index}>
               <Text style={savedLocationStyles.locationListText}>{location.location}</Text>
               <Ionicons
+                style={{ marginRight: 3 }}
                 onPress={this.handleDelete.bind(this, location.key)}
                 name='ios-close-circle'
                 size={25}
@@ -70,7 +71,8 @@ const savedLocationStyles = StyleSheet.create({
     fontSize: 19,
     fontFamily: 'allerLt',
     color: colours.white,
-    padding: 8,
-    marginBottom: 2
+    padding: 9,
+    marginBottom: 3,
+    marginLeft: 3
   }
 });
