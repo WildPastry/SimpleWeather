@@ -54,6 +54,22 @@ const window = Dimensions.get('window');
 // set up image display variable
 let imageBg;
 
+const cloudyNightWeather = require('./assets/animations/weather/weather-cloudy-night.json');
+const foggyWeather = require('./assets/animations/weather/weather-foggy.json');
+const mistWeather = require('./assets/animations/weather/weather-mist.json');
+const nightWeather = require('./assets/animations/weather/weather-night.json');
+const partlyCloudyWeather = require('./assets/animations/weather/weather-partly-cloudy.json');
+const partlyShowerWeather = require('./assets/animations/weather/weather-partly-shower.json');
+const rainyNightWeather = require('./assets/animations/weather/weather-rainy-night.json');
+const snowNightWeather = require('./assets/animations/weather/weather-snow-night.json');
+const snowSunnyWeather = require('./assets/animations/weather/weather-snow-sunny.json');
+const snowWeather = require('./assets/animations/weather/weather-snow.json');
+const stormShowersDayWeather = require('./assets/animations/weather/weather-storm-showers-day.json');
+const stormWeather = require('./assets/animations/weather/weather-storm.json');
+const sunnyWeather = require('./assets/animations/weather/weather-sunny.json');
+const thunderWeather = require('./assets/animations/weather/weather-thunder.json');
+const windyWeather = require('./assets/animations/weather/weather-windy.json');
+
 // START default class app
 export default class App extends Component {
   // control requests
@@ -76,6 +92,7 @@ export default class App extends Component {
       // error message
       errorMessage: null,
       // current weather and location data
+      currentIcon: '',
       currentLat: null,
       currentLng: null,
       currentLocation: null,
@@ -412,6 +429,7 @@ export default class App extends Component {
     this.setState({
       // loading screen
       isLoaded: true,
+      currentIcon: nightWeather,
       weekBg: colours.nightDark,
       weekBarBg: colours.night
     });
@@ -424,6 +442,7 @@ export default class App extends Component {
     if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
       imageBg = colours.thunderStorm;
       this.setState({
+        currentIcon: thunderWeather,
         weekBg: colours.thunderStormDark,
         weekBarBg: colours.thunderStorm
       });
@@ -434,6 +453,7 @@ export default class App extends Component {
     ) {
       imageBg = colours.showerRain;
       this.setState({
+        currentIcon: partlyShowerWeather,
         weekBg: colours.showerRainDark,
         weekBarBg: colours.showerRain
       });
@@ -444,6 +464,7 @@ export default class App extends Component {
     ) {
       imageBg = colours.rain;
       this.setState({
+        currentIcon: stormWeather,
         weekBg: colours.rainDark,
         weekBarBg: colours.rain
       });
@@ -454,6 +475,7 @@ export default class App extends Component {
     ) {
       imageBg = colours.snow;
       this.setState({
+        currentIcon: snowWeather,
         weekBg: colours.snowDark,
         weekBarBg: colours.snow
       });
@@ -464,6 +486,7 @@ export default class App extends Component {
     ) {
       imageBg = colours.thunderStorm;
       this.setState({
+        currentIcon: thunderWeather,
         weekBg: colours.thunderStormDark,
         weekBarBg: colours.thunderStorm
       });
@@ -474,6 +497,7 @@ export default class App extends Component {
     ) {
       imageBg = colours.scatteredClouds;
       this.setState({
+        currentIcon: partlyCloudyWeather,
         weekBg: colours.scatteredCloudsDark,
         weekBarBg: colours.scatteredClouds
       });
@@ -484,6 +508,7 @@ export default class App extends Component {
     ) {
       imageBg = colours.brokenClouds;
       this.setState({
+        currentIcon: partlyCloudyWeather,
         weekBg: colours.brokenCloudsDark,
         weekBarBg: colours.brokenClouds
       });
@@ -491,6 +516,7 @@ export default class App extends Component {
     } else {
       imageBg = colours.clearSky;
       this.setState({
+        currentIcon: sunnyWeather,
         weekBg: colours.clearSkyDark,
         weekBarBg: colours.clearSky
       });

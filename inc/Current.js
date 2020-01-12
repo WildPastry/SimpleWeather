@@ -102,6 +102,8 @@ class Current extends Component {
   render() {
     // set up weather code
     var weatherCode = this.props.weatherCode;
+    console.log(weatherCode);
+    // console.log(this.props.currentIcon);
 
     // set up icon display
     let displayWeatherIcon;
@@ -257,7 +259,7 @@ class Current extends Component {
             ref={animation => {
               this.animation = animation;
             }}
-            source={require('./../assets/animations/weather/4804-weather-sunny.json')}
+            source={this.props.currentIcon}
             autoPlay={true}
           />
           {/* <Text
