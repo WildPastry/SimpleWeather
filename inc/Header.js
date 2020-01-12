@@ -155,7 +155,7 @@ class Header extends Component {
       // master wrap
       <View>
         {/* header wrap */}
-        <View style={styles.headerWrap}>
+        <View style={headerStyles.headerWrap}>
           {/* hamburger */}
           <AnimatedTouchable onPress={this.handleAnimate} style={{
             height: 35,
@@ -239,5 +239,18 @@ const headerStyles = StyleSheet.create({
     backgroundColor: colours.peach,
     padding: 8,
     marginBottom: 8
-  }
+  },
+  brandIconSmall: {
+    alignSelf: 'center',
+    height: 35,
+    width: 35
+  },
+  headerWrap: {
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#303030',
+    borderBottomColor: colours.white,
+    borderBottomWidth: 0.5
+  },
 });

@@ -16,23 +16,9 @@ const myStylesheet = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-
-  // header component
-  brandIconSmall: {
-    alignSelf: 'center',
-    height: 35,
-    width: 35
-  },
-  headerWrap: {
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#303030'
-  },
   headerTopBar: {
     height: 22
   },
-
   // current component
   currentWrap: {
     alignSelf: 'stretch',
@@ -173,14 +159,6 @@ const myStylesheet = StyleSheet.create({
     color: '#fff',
     fontSize: 19,
     fontFamily: 'allerRg',
-    padding: 10,
-    textAlign: 'center'
-  },
-
-  // footer component
-  footerText: {
-    color: '#fff',
-    fontSize: 16,
     padding: 10,
     textAlign: 'center'
   },

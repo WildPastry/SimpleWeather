@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 // default component functions
-import { Text, View } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 
 // colours
 import colours from './../assets/colours.json';
@@ -24,9 +24,11 @@ class Footer extends Component {
           flex: 1,
           justifyContent: 'center',
           paddingTop: 8,
-          paddingBottom: 8
+          paddingBottom: 8,
+          borderTopColor: colours.white,
+          borderTopWidth: 0.5
         }}>
-        <Text style={styles.footerText}>
+        <Text style={footerStyles.footerText}>
           <Text style={{
             fontFamily: 'allerLt',
           }}>data by{' '}
@@ -53,3 +55,13 @@ class Footer extends Component {
 // END footer
 
 export default Footer;
+
+// style
+const footerStyles = StyleSheet.create({
+  footerText: {
+    color: '#fff',
+    fontSize: 16,
+    padding: 10,
+    textAlign: 'center'
+  }
+});
