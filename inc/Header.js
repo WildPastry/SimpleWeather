@@ -230,13 +230,14 @@ const headerStyles = StyleSheet.create({
     padding: 8
   },
   menuText: {
-    color: colours.white,
+    color: colours.simpleWeather,
     fontSize: 19,
-    fontFamily: 'allerLt',
+    fontFamily: 'allerBd',
     textAlign: 'center'
   },
   saveLocationButton: {
-    backgroundColor: colours.peach,
+    backgroundColor: colours.spotYellow,
+    borderRadius: 15,
     padding: 8,
     marginBottom: 8
   },

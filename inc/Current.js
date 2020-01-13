@@ -253,8 +253,8 @@ class Current extends Component {
           {/* main icon */}
           <LottieView
             style={{
-              height: 280,
-              width: 280
+              height: 300,
+              width: 300
             }}
             ref={animation => {
               this.animation = animation;
