@@ -40,6 +40,13 @@ import { PermissionsAndroid } from 'react-native';
 // lottie
 import LottieView from 'lottie-react-native';
 
+// firebase
+// import * as firebase from "firebase/app";
+// var firebase = require('firebase');
+// var firebaseui = require('firebaseui');
+// var ui = new firebaseui.auth.AuthUI(firebase.auth());
+// console.log(ui);
+
 // stylesheet
 var styles = require('./styles.js');
 
@@ -533,9 +540,6 @@ export default class App extends Component {
 
   // START render app
   render() {
-    // set status bar text colour
-    StatusBar.setBarStyle('light-content', true);
-
     // declare loading variables in current state
     var { isLoaded } = this.state;
 
