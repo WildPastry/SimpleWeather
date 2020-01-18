@@ -40,12 +40,17 @@ import { PermissionsAndroid } from 'react-native';
 // lottie
 import LottieView from 'lottie-react-native';
 
-// firebase
-// import * as firebase from "firebase/app";
-// var firebase = require('firebase');
+
+// firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+//   // Handle Errors here.
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   // ...
+// });
 // var firebaseui = require('firebaseui');
 // var ui = new firebaseui.auth.AuthUI(firebase.auth());
 // console.log(ui);
+// var simpleAuth = firebase.auth();
 
 // stylesheet
 var styles = require('./styles.js');

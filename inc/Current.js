@@ -102,7 +102,7 @@ class Current extends Component {
   render() {
     // set up weather code
     var weatherCode = this.props.weatherCode;
-    console.log(weatherCode);
+    // console.log(weatherCode);
     // console.log(this.props.currentIcon);
 
     // set up icon display

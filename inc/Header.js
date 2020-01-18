@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// configuration data
-import configData from './../data/config.json';
-
 // component
 import SavedLocations from '../inc/SavedLocations';
+
+// configuration data
+import configData from './../data/config.json';
 
 // colours
 import colours from './../assets/colours.json';
@@ -20,9 +20,6 @@ import timeout from './../data/timeout.js';
 // firebase
 import * as firebase from "firebase/app";
 import "firebase/database";
-
-// run timeout function
-{ timeout }
 
 // Firebase project configuration
 const FIREBASECONFIG = {
@@ -39,21 +36,16 @@ const FIREBASECONFIG = {
 if (!firebase.apps.length) {
   firebase.initializeApp(FIREBASECONFIG);
 }
+// run timeout function
+{ timeout }
 
 // firebase database
 const swDB = firebase.database();
 const ref = swDB.ref("weather/");
 const locationRef = ref.child("locations");
 
-// stylesheet
-var styles = require('../styles.js');
-
 // create animated view
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-
-// function useIsMountedRef() { const isMountedRef = useRef(null); useEffect(() => { isMountedRef.current = true; return () => isMountedRef.current = false; }); return isMountedRef; }
-
-// const isMountedRef = useIsMountedRef();
 
 // START header
 class Header extends Component {
