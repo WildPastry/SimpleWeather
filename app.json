@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./Index.js",
     "name": "Simple Weather",
     "slug": "simple-weather",
     "privacy": "public",

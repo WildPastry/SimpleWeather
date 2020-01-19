@@ -8,16 +8,12 @@ import {
   Dimensions,
   Platform,
   ScrollView,
-  StatusBar,
   View
 } from 'react-native';
 
 // permissions API
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-
-// font
-import * as Font from 'expo-font';
 
 // configuration data
 import configData from './data/config.json';
@@ -39,7 +35,6 @@ import { PermissionsAndroid } from 'react-native';
 
 // lottie
 import LottieView from 'lottie-react-native';
-
 
 // firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
 //   // Handle Errors here.
@@ -163,15 +158,15 @@ export default class App extends Component {
     // set component mounted
     this._isMounted = true;
     // load custom fonts
-    await Font.loadAsync({
-      allerLt: require('./assets/fonts/Aller_Lt.ttf'),
-      allerRg: require('./assets/fonts/Aller_Rg.ttf'),
-      allerBd: require('./assets/fonts/Aller_Bd.ttf'),
-      allerDisplay: require('./assets/fonts/AllerDisplay.ttf'),
-      weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf')
-    });
+    // await Font.loadAsync({
+    //   allerLt: require('./assets/fonts/Aller_Lt.ttf'),
+    //   allerRg: require('./assets/fonts/Aller_Rg.ttf'),
+    //   allerBd: require('./assets/fonts/Aller_Bd.ttf'),
+    //   allerDisplay: require('./assets/fonts/AllerDisplay.ttf'),
+    //   weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf')
+    // });
     this.setState({ fontLoaded: true }, () => {
-      console.log('FROM componentDidMount: Fonts loaded = ' + this.state.fontLoaded);
+      console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
       // platform check
       if (Platform.OS === 'ios') {
         // get user location function
