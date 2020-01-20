@@ -515,10 +515,8 @@ componentDidMount() {
         <View style={styles.loader}>
           <LottieView
             style={{
-              height: 475,
-              width: 475,
-              marginLeft: 6,
-              marginTop: 28
+              height: 250,
+              width: 250,
             }}
             ref={animation => {
               this.animation = animation;
