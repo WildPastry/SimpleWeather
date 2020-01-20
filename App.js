@@ -36,17 +36,6 @@ import { PermissionsAndroid } from 'react-native';
 // lottie
 import LottieView from 'lottie-react-native';
 
-// firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-//   // Handle Errors here.
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   // ...
-// });
-// var firebaseui = require('firebaseui');
-// var ui = new firebaseui.auth.AuthUI(firebase.auth());
-// console.log(ui);
-// var simpleAuth = firebase.auth();
-
 // stylesheet
 var styles = require('./styles.js');
 
@@ -154,18 +143,9 @@ export default class App extends Component {
   }
 
   // START component mounted
-  async componentDidMount() {
+componentDidMount() {
     // set component mounted
     this._isMounted = true;
-    // load custom fonts
-    // await Font.loadAsync({
-    //   allerLt: require('./assets/fonts/Aller_Lt.ttf'),
-    //   allerRg: require('./assets/fonts/Aller_Rg.ttf'),
-    //   allerBd: require('./assets/fonts/Aller_Bd.ttf'),
-    //   allerDisplay: require('./assets/fonts/AllerDisplay.ttf'),
-    //   weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf')
-    // });
-    this.setState({ fontLoaded: true }, () => {
       console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
       // platform check
       if (Platform.OS === 'ios') {
@@ -176,34 +156,18 @@ export default class App extends Component {
         // check android permissions
         this.requestLocationPermission();
       }
-    });
   }
   // END component mounted
 
   // START android permissions function
   requestLocationPermission = async () => {
     // check for location access
-    const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-    await PermissionsAndroid.check
-      (PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+    const granted = 
+    await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     if (granted) {
       console.log("You can use the ACCESS_FINE_LOCATION");
       console.log("You can use the ACCESS_COARSE_LOCATION");
-
-      // Geolocation.getCurrentPosition(
-      //   (position) => {
-      //     console.log(position);
-      //   },
-      //   (error) => {
-      //     // See error code charts below.
-      //     console.log(error.code, error.message);
-      //   },
-      //   { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 }
-      // );
-
-      // get user location function
-      // this._getLocationAsync();
-
       // run fallback function
       this.fallback();
     }
@@ -242,7 +206,7 @@ export default class App extends Component {
     // permission denied error
     if (status !== 'granted') {
       this.setState({
-        errorMessage: 'Location permission was denied, falling back to default location',
+        errorMessage: 'Location permission was denied, please enable location services for SIMPLEWEATHER in your device settings',
       });
       console.log('askAsync error message...');
       Alert.alert(this.state.errorMessage);
@@ -252,7 +216,7 @@ export default class App extends Component {
     }
 
     // success function
-    console.log('success function...');
+    console.log('success function for getCurrentPositionAsync from App.js');
     let location = await Location.getCurrentPositionAsync({
       enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
     });
@@ -261,6 +225,7 @@ export default class App extends Component {
       currentLat: location.coords.latitude.toFixed(5),
       currentLng: location.coords.longitude.toFixed(5)
     });
+    // reverse geo function
     this.reverseGeo();
   };
   // END get location function

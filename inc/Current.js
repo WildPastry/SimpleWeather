@@ -21,6 +21,7 @@ import LottieView from 'lottie-react-native';
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
 import { Ionicons } from '@expo/vector-icons';
+import weather from './../assets/animations/weather.json';
 
 // set up auth key for sky data
 const geo = configData.GEO;
@@ -102,11 +103,13 @@ class Current extends Component {
   render() {
     // set up weather code
     var weatherCode = this.props.weatherCode;
-    // console.log(weatherCode);
-    // console.log(this.props.currentIcon);
+
+    console.log(weatherCode);
 
     // set up icon display
     let displayWeatherIcon;
+    let currentWeatherIcon;
+    currentWeatherIcon = weather.weatherFoggy;
 
     // set up date constants
     const today = this.state.currentDate;
@@ -248,18 +251,19 @@ class Current extends Component {
           <GlobalModal />
         </View>
         {/* END add location button */}
+
         {/* START main icon */}
         <View style={styles.currentIconWrap}>
           {/* main icon */}
           <LottieView
             style={{
-              height: 300,
-              width: 300
+              height: 230,
+              width: 230
             }}
             ref={animation => {
               this.animation = animation;
             }}
-            source={this.props.currentIcon}
+            source={currentWeatherIcon}
             autoPlay={true}
           />
           {/* <Text

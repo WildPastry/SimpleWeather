@@ -165,15 +165,9 @@ class Header extends Component {
           <View style={{ flexDirection: 'row' }}>
             {/* brand text */}
             <Text
-              style={{
-                color: colours.white,
-                fontSize: 22,
-                fontFamily: 'allerDisplay',
-                textAlign: 'center',
-                paddingTop: 4
-              }}>
+              style={headerStyles.simpleWeather}>
               SIMPLE WEATHER
-             </Text>
+            </Text>
           </View>
           {/* right icon for balance */}
           <View style={{
@@ -226,6 +220,13 @@ const headerStyles = StyleSheet.create({
     fontSize: 19,
     fontFamily: 'allerBd',
     textAlign: 'center'
+  },
+  simpleWeather: {
+    color: colours.white,
+    fontSize: 22,
+    fontFamily: 'allerDisplay',
+    textAlign: 'center',
+    paddingTop: 4
   },
   saveLocationButton: {
     backgroundColor: colours.spotYellow,

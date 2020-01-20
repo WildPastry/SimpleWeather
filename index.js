@@ -1,8 +1,8 @@
 // imports
 import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
 import { registerRootComponent } from 'expo';
-import React, { Component, useEffect, useRef, useState } from 'react';
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
 
 // default component functions
 import { StatusBar, StyleSheet, View, Text } from 'react-native';
@@ -18,50 +18,12 @@ import colours from './assets/colours.json';
 import App from './App';
 // import AppNavigator from './navigation/AppNavigator';
 
-// export const Alert = ({ visible, children }) => {
-//   const [isVisible, setVisibility] = useState(null);
-
-//   useEffect(() => {
-//     setVisibility(visible); // update the state
-//   }, [visible]); // hook is only triggered when value changes
-
-//   if (!isVisible) return null;
-
-//   return <View><Text style={indexStyles.text}>ffefe{children}</Text></View>;
-// };
-
-// Alert.propTypes = {
-//   visible: PropTypes.bool.isRequired,
-//   children: PropTypes.node.isRequired
-// };
-
 const Index = (props) => {
 
-  // loading states
+  // hook loading states
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [state, setState] = useState(false);
-  console.log(state);
-
-  // const [visible, setAlertVisibility] = useState(false);
-  // const isMountedRef = useRef(null);
-  // console.log('Index connected...');
-  // {
-  //   showDisplay && <View style={indexStyles.wrapper}>
-  //     <Text style={indexStyles.text}>
-  //       Run the App
-  // </Text>
-  //   </View>
-  // }
-  // useEffect(() => {
-  //   console.log('Inside useEffect function...');
-  //   isMountedRef.current = true;
-  //   if (isMountedRef.current) {
-  //     console.log(isMountedRef.current);
-  //   } else {
-  //     console.log(isMountedRef.current);
-  //   }
-  //   return () => isMountedRef.current = false;
-  // });
+  console.log('hook state from Index.js = ' + state);
 
   // set up app display
   let appDisplay;
@@ -69,15 +31,20 @@ const Index = (props) => {
   // set status bar text colour
   StatusBar.setBarStyle('light-content', true);
 
+  // state check to run app
   if (state) {
-    console.log(state);
+    console.log('hook state from Index.js = ' + state);
     appDisplay = (
       <App />
     );
   } else {
-    console.log(state);
+    console.log('hook state from Index.js = ' + state);
     appDisplay = (
       <View style={indexStyles.wrapper}>
+        <Text
+          style={indexStyles.simpleWeather}>
+          SIMPLE WEATHER
+        </Text>
         <Text onPress={() => setState(true)} style={indexStyles.text}>
           Run the App
         </Text>
@@ -85,13 +52,14 @@ const Index = (props) => {
     );
   }
 
+  // app loading check
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
+        style={indexStyles.loader}
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
-      />
+        onFinish={() => handleFinishLoading(setLoadingComplete)} />
     );
   } else {
     return (
@@ -104,6 +72,9 @@ const Index = (props) => {
 async function loadResourcesAsync() {
   console.log('Inside loadResourcesAsync from Index');
   await Promise.all([
+    Asset.loadAsync([
+      require('./assets/brand.png')
+    ]),
     Font.loadAsync({
       ...Ionicons.font,
       allerLt: require('./assets/fonts/Aller_Lt.ttf'),
@@ -111,13 +82,13 @@ async function loadResourcesAsync() {
       allerBd: require('./assets/fonts/Aller_Bd.ttf'),
       allerDisplay: require('./assets/fonts/AllerDisplay.ttf'),
       weatherfont: require('./assets/fonts/weathericons-regular-webfont.ttf')
-    }),
+    })
   ]);
 }
 
 // errors
 function handleLoadingError(error) {
-  console.warn(error);
+  console.log(error);
 }
 
 // finish loading
@@ -137,10 +108,23 @@ const indexStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
+  loader: {
+    alignItems: 'center',
+    backgroundColor: colours.simpleWeather,
+    flex: 1,
+    justifyContent: 'center'
+  },
   text: {
     color: colours.white,
     fontSize: 19,
     fontFamily: 'allerLt',
     textAlign: 'center'
+  },
+  simpleWeather: {
+    color: colours.white,
+    fontSize: 22,
+    fontFamily: 'allerDisplay',
+    textAlign: 'center',
+    paddingTop: 4
   }
 });
