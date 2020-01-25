@@ -23,7 +23,8 @@ import Header from './inc/Header';
 import Current from './inc/Current';
 import Week from './inc/Week';
 import Footer from './inc/Footer';
-
+import UseGlobalHook from './inc/UseGlobalHook';
+console.log(UseGlobalHook);
 // colours
 import colours from './assets/colours.json';
 
@@ -68,6 +69,7 @@ const windyWeather = require('./assets/animations/weather/weather-windy.json');
 
 // START default class app
 export default class App extends Component {
+  
   // control requests
   _isMounted = false;
   // default class app constructor

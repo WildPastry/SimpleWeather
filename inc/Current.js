@@ -55,8 +55,8 @@ class Current extends Component {
     this._keyboardDidHide = this._keyboardDidHide.bind(this);
   }
 
-  // keyboard will mount function
-  UNSAFE_componentWillMount() {
+  // keyboard did mount function
+  componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       this._keyboardDidShow
