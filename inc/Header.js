@@ -6,7 +6,7 @@ import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import SavedLocations from '../inc/SavedLocations';
 
 // configuration data
-import configData from './../data/config.json';
+// import configData from './../data/config.json';
 
 // colours
 import colours from './../assets/colours.json';
@@ -14,35 +14,35 @@ import colours from './../assets/colours.json';
 // lottie
 import LottieView from 'lottie-react-native';
 
-// timeout
-import timeout from './../data/timeout.js';
+// // timeout
+// import timeout from './../data/timeout.js';
 
-// firebase
-import * as firebase from "firebase/app";
-import "firebase/database";
+// // firebase
+// import * as firebase from "firebase/app";
+// import "firebase/database";
 
-// Firebase project configuration
-const FIREBASECONFIG = {
-  apiKey: configData.GEO,
-  authDomain: configData.AUTHDOMAIN,
-  databaseURL: configData.DATABASEURL,
-  projectId: configData.PROJECTID,
-  storageBucket: configData.STORAGEBUCKET,
-  messagingSenderId: configData.MESSAGINGSENDERID,
-  appId: configData.APPID
-};
+// // Firebase project configuration
+// const FIREBASECONFIG = {
+//   apiKey: configData.GEO,
+//   authDomain: configData.AUTHDOMAIN,
+//   databaseURL: configData.DATABASEURL,
+//   projectId: configData.PROJECTID,
+//   storageBucket: configData.STORAGEBUCKET,
+//   messagingSenderId: configData.MESSAGINGSENDERID,
+//   appId: configData.APPID
+// };
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(FIREBASECONFIG);
-}
-// run timeout function
-{ timeout }
+// // Initialize Firebase
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(FIREBASECONFIG);
+// }
+// // run timeout function
+// { timeout }
 
-// firebase database
-const swDB = firebase.database();
-const ref = swDB.ref("weather/");
-const locationRef = ref.child("locations");
+// // firebase database
+// const swDB = firebase.database();
+// const ref = swDB.ref("weather/");
+// const locationRef = ref.child("locations");
 
 // create animated view
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
@@ -60,29 +60,29 @@ class Header extends Component {
     };
     // bind functions to state
     this.handleAnimate = this.handleAnimate.bind(this);
-    this.handleLocation = this.handleLocation.bind(this);
+    // this.handleLocation = this.handleLocation.bind(this);
   }
 
-  componentDidMount() {
-    let mounted = true;
-    if (mounted) {
-      // get data on load
-      locationRef.on('value', snapshot => {
-        if (snapshot.exists()) {
-          let data = snapshot.val();
-          let locations = Object.values(data);
-          this.setState({ savedLocations: locations }, function () {
-            console.log(this.state.savedLocations);
-          })
-        } else {
-          this.setState({
-            savedLocations: ''
-          });
-        }
-      })
-    }
-    return () => mounted = false;
-  }
+  // componentDidMount() {
+  //   let mounted = true;
+  //   if (mounted) {
+  //     // get data on load
+  //     locationRef.on('value', snapshot => {
+  //       if (snapshot.exists()) {
+  //         let data = snapshot.val();
+  //         let locations = Object.values(data);
+  //         this.setState({ savedLocations: locations }, function () {
+  //           console.log(this.state.savedLocations);
+  //         })
+  //       } else {
+  //         this.setState({
+  //           savedLocations: ''
+  //         });
+  //       }
+  //     })
+  //   }
+  //   return () => mounted = false;
+  // }
 
   // handle animation
   handleAnimate = () => {
@@ -108,38 +108,38 @@ class Header extends Component {
   }
 
   // handle location
-  handleLocation() {
-    let mounted = true;
-    if (mounted) {
-      console.log('Handle location pressed...');
-      // get the unique key generated
-      var newLocationId = locationRef.push({}).key;
-      // save location details to database
-      swDB.ref('weather/locations/' + newLocationId).set({
-        key: newLocationId,
-        lat: this.props.currentLat,
-        lng: this.props.currentLng,
-        location: this.props.currentLocation
-      }, function (error) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Location details saved...');
-        }
-      });
-    }
-    return () => mounted = false;
-  }
+  // handleLocation() {
+  //   let mounted = true;
+  //   if (mounted) {
+  //     console.log('Handle location pressed...');
+  //     // get the unique key generated
+  //     var newLocationId = locationRef.push({}).key;
+  //     // save location details to database
+  //     swDB.ref('weather/locations/' + newLocationId).set({
+  //       key: newLocationId,
+  //       lat: this.props.currentLat,
+  //       lng: this.props.currentLng,
+  //       location: this.props.currentLocation
+  //     }, function (error) {
+  //       if (error) {
+  //         console.log(error);
+  //       } else {
+  //         console.log('Location details saved...');
+  //       }
+  //     });
+  //   }
+  //   return () => mounted = false;
+  // }
 
   // handle delete
-  handleDelete(val) {
-    let mounted = true;
-    if (mounted) {
-      console.log(val);
-      swDB.ref('weather/locations/' + val).remove();
-    }
-    return () => mounted = false;
-  }
+  // handleDelete(val) {
+  //   let mounted = true;
+  //   if (mounted) {
+  //     console.log(val);
+  //     swDB.ref('weather/locations/' + val).remove();
+  //   }
+  //   return () => mounted = false;
+  // }
 
   // START render header
   render() {

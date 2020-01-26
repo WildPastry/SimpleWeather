@@ -23,8 +23,7 @@ import Header from './inc/Header';
 import Current from './inc/Current';
 import Week from './inc/Week';
 import Footer from './inc/Footer';
-import UseGlobalHook from './inc/UseGlobalHook';
-console.log(UseGlobalHook);
+
 // colours
 import colours from './assets/colours.json';
 
@@ -523,7 +522,7 @@ componentDidMount() {
             ref={animation => {
               this.animation = animation;
             }}
-            source={require('./assets/animations/loading-sun.json')}
+            source={require('./assets/animations/398-snap-loader-white.json')}
             autoPlay={true}
           />
         </View>

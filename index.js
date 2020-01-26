@@ -16,9 +16,12 @@ import colours from './assets/colours.json';
 
 // components
 import App from './App';
-// import AppNavigator from './navigation/AppNavigator';
+import Firebase, { FirebaseProvider } from './config/Firebase'
 
 const Index = (props) => {
+
+  console.log('Firebase Component ' + Firebase)
+  console.log('FirebaseProvider Component ' + FirebaseProvider)
 
   // hook loading states
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -35,7 +38,9 @@ const Index = (props) => {
   if (state) {
     console.log('hook state from Index.js = ' + state);
     appDisplay = (
-      <App />
+      <FirebaseProvider value={Firebase}>
+        <App />
+      </FirebaseProvider>
     );
   } else {
     console.log('hook state from Index.js = ' + state);
