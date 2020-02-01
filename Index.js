@@ -3,6 +3,8 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import { registerRootComponent } from 'expo';
 import React, { useState } from 'react';
+import AppContainer from './navigation'
+import Firebase, { FirebaseProvider } from './config/Firebase'
 
 // default component functions
 import { StatusBar, StyleSheet, View, Text } from 'react-native';
@@ -16,7 +18,6 @@ import colours from './assets/colours.json';
 
 // components
 import App from './App';
-import Firebase, { FirebaseProvider } from './config/Firebase'
 
 const Index = (props) => {
 
@@ -39,7 +40,7 @@ const Index = (props) => {
     console.log('hook state from Index.js = ' + state);
     appDisplay = (
       <FirebaseProvider value={Firebase}>
-        <App />
+        <AppContainer />
       </FirebaseProvider>
     );
   } else {
