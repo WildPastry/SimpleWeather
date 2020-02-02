@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements'
 import { withFirebaseHOC } from '../config/Firebase'
+import Firebase, { FirebaseProvider } from '../config/Firebase'
 
 // component
 import SavedLocations from '../inc/SavedLocations';
@@ -16,8 +17,13 @@ import colours from './../assets/colours.json';
 // lottie
 import LottieView from 'lottie-react-native';
 
+import * as firebase from 'firebase'
+import 'firebase/firestore'
+import 'firebase/auth'
+// import firebaseConfig from './firebaseConfig'
+
 // // timeout
-// import timeout from './../data/timeout.js';
+import timeout from './../data/timeout.js';
 
 // // firebase
 // import * as firebase from "firebase/app";
@@ -39,15 +45,58 @@ import LottieView from 'lottie-react-native';
 //   firebase.initializeApp(FIREBASECONFIG);
 // }
 // // run timeout function
-// { timeout }
+{ timeout }
 
 // // firebase database
 // const swDB = firebase.database();
 // const ref = swDB.ref("weather/");
 // const locationRef = ref.child("locations");
 
+// const admin = require('firebase-admin');
+// const functions = require('firebase-functions');
+
+// admin.initializeApp(functions.config().firebase);
+
+// let db = firebase.firestore().collection('users').doc(`${userData.uid}`);
+
+// console.log(db);
+// console.log(withFirebaseHOC);
+// console.log(FirebaseProvider);
+// console.log(Firebase);
+
+// const readData = this.props.firebase.createNewUser(userData);
+// console.log(db);
+// async _getUserDataFromFirestore() {
+//   try {
+//     const ref = firebase
+//       .firestore()
+//       .collection('user')
+//       .doc(this.props.user.uid);
+//     await ref.get().then(userData => {
+//      console.log('User details of userID - ' + this.props.user.uid , userData.data());
+//     });  
+//   } catch (err) {
+//     console.log('Error while getting user data from firestore : ', err);
+//   }
+// }
+// db.collection('users').get()
+//   .then((snapshot) => {
+//     snapshot.forEach((doc) => {
+//       console.log(doc.id, '=>', doc.data());
+//     });
+//   })
+//   .catch((err) => {
+//     console.log('Error getting documents', err);
+//   });
+
 // create animated view
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
+var user = firebase.auth().currentUser
+console.log(user);
+// db.collection("userProfiles").where('unique', '==', user.uid).get()
+//   .then(querySnapshot => {
+//     querySnapshot.forEach(doc => {console.log(doc) }
 
 // START header
 class Header extends Component {
@@ -64,6 +113,31 @@ class Header extends Component {
     this.handleAnimate = this.handleAnimate.bind(this);
     // this.handleLocation = this.handleLocation.bind(this);
   }
+
+  componentDidMount = async () => {
+    const snapshot = await firebase.firestore().collection('users').get()
+    console.log(snapshot);
+    // try {
+    //   await this.props.firebase.createNewUser(userData => {
+    //     console.log('user');
+    //     console.log(userData);
+    //   })
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  }
+
+  // componentDidMount() {
+    //   db.collection('users').get()
+    // .then((snapshot) => {
+    //   snapshot.forEach((doc) => {
+    //     console.log(doc.id, '=>', doc.data());
+    //   });
+    // })
+    // .catch((err) => {
+    //   console.log('Error getting documents', err);
+    // });
+  // }
 
   // Handle signout
   handleSignout = async () => {

@@ -16,13 +16,10 @@ import { Ionicons } from '@expo/vector-icons';
 // colours
 import colours from './assets/colours.json';
 
-// components
-import App from './App';
-
 const Index = (props) => {
 
-  console.log('Firebase Component ' + Firebase)
-  console.log('FirebaseProvider Component ' + FirebaseProvider)
+  console.log('Firebase Component ' + Firebase);
+  console.log('FirebaseProvider Component ' + FirebaseProvider);
 
   // hook loading states
   const [isLoadingComplete, setLoadingComplete] = useState(false);

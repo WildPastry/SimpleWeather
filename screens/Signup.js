@@ -62,7 +62,6 @@ class Signup extends Component {
         email,
         password
       )
-
       if (response.user.uid) {
         const { uid } = response.user
         const userData = { email, name, uid }
@@ -70,7 +69,7 @@ class Signup extends Component {
         this.props.navigation.navigate('App')
       }
     } catch (error) {
-      // console.error(error)
+      console.error(error)
       actions.setFieldError('general', error.message)
     } finally {
       actions.setSubmitting(false)

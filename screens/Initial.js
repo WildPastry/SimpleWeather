@@ -12,25 +12,25 @@ class Initial extends Component {
       await this.props.firebase.checkUserAuth(user => {
         if (user) {
           // if the user has previously logged in
-          this.props.navigation.navigate('App')
+          this.props.navigation.navigate('App');
         } else {
           // if the user has previously signed out from the app
-          this.props.navigation.navigate('Auth')
+          this.props.navigation.navigate('Auth');
         }
       })
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   handleLoadingError = error => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
-    console.warn(error)
+    console.warn(error);
   }
 
   handleFinishLoading = () => {
-    this.setState({ isAssetsLoadingComplete: true })
+    this.setState({ isAssetsLoadingComplete: true });
   }
 
   render() {
@@ -40,7 +40,7 @@ class Initial extends Component {
         onFinish={this.handleFinishLoading}
         onError={this.handleLoadingError}
       />
-    )
+    );
   }
 }
 
