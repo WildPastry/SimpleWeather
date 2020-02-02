@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Fragment } from 'react-native'
 import { Button } from 'react-native-elements'
 import { withFirebaseHOC } from '../config/Firebase'
+import App from './../App'
 
 class Home extends Component {
   handleSignout = async () => {
@@ -14,17 +15,16 @@ class Home extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Home</Text>
+      <App>
         <Button
           title='Signout'
           onPress={this.handleSignout}
           titleStyle={{
-            color: '#F57C00'
+            color: '#303030'
           }}
           type='clear'
         />
-      </View>
+      </App>
     )
   }
 }
@@ -32,7 +32,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ff6666',
     alignItems: 'center',
     justifyContent: 'center'
   }

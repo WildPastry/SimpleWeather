@@ -40,7 +40,7 @@ const Index = (props) => {
     console.log('hook state from Index.js = ' + state);
     appDisplay = (
       <FirebaseProvider value={Firebase}>
-        <AppContainer />
+          <AppContainer />
       </FirebaseProvider>
     );
   } else {
@@ -79,7 +79,8 @@ async function loadResourcesAsync() {
   console.log('Inside loadResourcesAsync from Index');
   await Promise.all([
     Asset.loadAsync([
-      require('./assets/brand.png')
+      require('./assets/brand.png'),
+      require('./assets/icon.png')
     ]),
     Font.loadAsync({
       ...Ionicons.font,

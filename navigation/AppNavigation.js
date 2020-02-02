@@ -3,7 +3,12 @@ import Home from '../screens/Home'
 
 const AppNavigation = createStackNavigator(
   {
-    Home: { screen: Home }
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        header: null
+      }
+    }
   },
   {
     initialRouteName: 'Home'

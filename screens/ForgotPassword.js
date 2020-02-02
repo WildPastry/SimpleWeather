@@ -55,7 +55,7 @@ class ForgotPassword extends Component {
                 placeholder='Enter email'
                 autoCapitalize='none'
                 iconName='ios-mail'
-                iconColor='#2C384A'
+                iconColor='#fff'
                 onBlur={handleBlur('email')}
               />
               <ErrorMessage errorValue={touched.email && errors.email} />
@@ -80,11 +80,11 @@ class ForgotPassword extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 150
+    backgroundColor: '#303030',
+    justifyContent: 'center'
   },
   text: {
-    color: '#333',
+    color: '#fff',
     fontSize: 24,
     marginLeft: 25
   },
