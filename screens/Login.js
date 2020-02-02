@@ -28,46 +28,47 @@ class Login extends Component {
     rightIcon: 'ios-eye'
   }
 
-  goToSignup = () => this.props.navigation.navigate('Signup')
-  goToForgotPassword = () => this.props.navigation.navigate('ForgotPassword')
+  goToSignup = () => this.props.navigation.navigate('Signup');
+  goToForgotPassword = () => this.props.navigation.navigate('ForgotPassword');
+  goToApp = () => this.props.navigation.navigate('App');
 
   handlePasswordVisibility = () => {
     this.setState(prevState => ({
       rightIcon: prevState.rightIcon === 'ios-eye' ? 'ios-eye-off' : 'ios-eye',
       passwordVisibility: !prevState.passwordVisibility
-    }))
+    }));
   }
 
   handleOnLogin = async (values, actions) => {
     const { email, password } = values
     try {
-      const response = await this.props.firebase.loginWithEmail(email, password)
+      const response = await this.props.firebase.loginWithEmail(email, password);
 
       if (response.user) {
-        this.props.navigation.navigate('App')
+        this.props.navigation.navigate('App');
       }
     } catch (error) {
-      actions.setFieldError('general', error.message)
+      actions.setFieldError('general', error.message);
     } finally {
-      actions.setSubmitting(false)
+      actions.setSubmitting(false);
     }
   }
 
   render() {
     const { passwordVisibility, rightIcon } = this.state
     return (
-      <SafeAreaView style={styles.container}>
-        <HideWithKeyboard style={styles.logoContainer}>
+      <SafeAreaView style={loginStyles.container}>
+        <HideWithKeyboard style={loginStyles.logoContainer}>
           <AppLogo />
           <Text
-            style={styles.simpleWeather}>
+            style={loginStyles.simpleWeather}>
             SIMPLE WEATHER
         </Text>
         </HideWithKeyboard>
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values, actions) => {
-            this.handleOnLogin(values, actions)
+            this.handleOnLogin(values, actions);
           }}
           validationSchema={validationSchema}>
           {({
@@ -108,7 +109,7 @@ class Login extends Component {
                   }
                 />
                 <ErrorMessage errorValue={touched.password && errors.password} />
-                <View style={styles.buttonContainer}>
+                <View style={loginStyles.buttonContainer}>
                   <FormButton
                     buttonType='outline'
                     onPress={handleSubmit}
@@ -123,27 +124,32 @@ class Login extends Component {
             )}
         </Formik>
         <Button
+          title="Skip this step"
+          onPress={this.goToApp}
+          titleStyle={{
+            color: '#fff'
+          }}
+          type='clear' />
+        <Button
           title="Don't have an account? Sign Up"
           onPress={this.goToSignup}
           titleStyle={{
             color: '#F57C00'
           }}
-          type='clear'
-        />
+          type='clear' />
         <Button
           title='Forgot Password?'
           onPress={this.goToForgotPassword}
           titleStyle={{
             color: '#039BE5'
           }}
-          type='clear'
-        />
+          type='clear' />
       </SafeAreaView>
     )
   }
 }
 
-const styles = StyleSheet.create({
+const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#303030',
@@ -154,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-    margin: 25
+    margin: 20
   },
   simpleWeather: {
     color: '#fff',

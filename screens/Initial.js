@@ -3,9 +3,6 @@ import { AppLoading } from 'expo'
 import { withFirebaseHOC } from '../config/Firebase'
 
 class Initial extends Component {
-  state = {
-    isAssetsLoadingComplete: false
-  }
 
   componentDidMount = async () => {
     try {
@@ -23,23 +20,9 @@ class Initial extends Component {
     }
   }
 
-  handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.warn(error);
-  }
-
-  handleFinishLoading = () => {
-    this.setState({ isAssetsLoadingComplete: true });
-  }
-
   render() {
     return (
-      <AppLoading
-        startAsync={this.loadLocalAsync}
-        onFinish={this.handleFinishLoading}
-        onError={this.handleLoadingError}
-      />
+      <AppLoading/>
     );
   }
 }

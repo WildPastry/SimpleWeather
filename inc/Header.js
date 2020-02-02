@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements'
 import { withFirebaseHOC } from '../config/Firebase'
-import Firebase, { FirebaseProvider } from '../config/Firebase'
+// import Firebase, { FirebaseProvider } from '../config/Firebase'
 
 // component
 import SavedLocations from '../inc/SavedLocations';
@@ -40,10 +40,12 @@ import timeout from './../data/timeout.js';
 //   appId: configData.APPID
 // };
 
-// // Initialize Firebase
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(FIREBASECONFIG);
-// }
+// create animated view
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
+var user = firebase.auth().currentUser
+let db = firebase.firestore();
+
 // // run timeout function
 { timeout }
 
@@ -56,8 +58,6 @@ import timeout from './../data/timeout.js';
 // const functions = require('firebase-functions');
 
 // admin.initializeApp(functions.config().firebase);
-
-// let db = firebase.firestore().collection('users').doc(`${userData.uid}`);
 
 // console.log(db);
 // console.log(withFirebaseHOC);
@@ -89,11 +89,29 @@ import timeout from './../data/timeout.js';
 //     console.log('Error getting documents', err);
 //   });
 
-// create animated view
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+// state check for menu display
+let buttonTitle;
 
-var user = firebase.auth().currentUser
-console.log(user);
+if (user) {
+  var docRef = db.collection("users").doc(user.uid);
+  buttonTitle = 'Signout';
+  docRef.get().then(function (doc) {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }).catch(function (error) {
+    console.log("Error getting document:", error);
+  });
+} else {
+  buttonTitle = 'Login or create account';
+  console.log('No user is logged in...');
+}
+
+// var user = firebase.auth().currentUser
+// console.log('User: ' + user);
 // db.collection("userProfiles").where('unique', '==', user.uid).get()
 //   .then(querySnapshot => {
 //     querySnapshot.forEach(doc => {console.log(doc) }
@@ -114,29 +132,38 @@ class Header extends Component {
     // this.handleLocation = this.handleLocation.bind(this);
   }
 
-  componentDidMount = async () => {
-    const snapshot = await firebase.firestore().collection('users').get()
-    console.log(snapshot);
-    // try {
-    //   await this.props.firebase.createNewUser(userData => {
-    //     console.log('user');
-    //     console.log(userData);
-    //   })
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  }
+  // componentDidMount = async () => {
+  //   // console.log(user.uid);
+
+  //   //   db.collection("users").where('unique', '==', user.uid).get()
+  //   // .then(querySnapshot => {
+  //   //   querySnapshot.forEach(doc => {
+  //   //     console.log(doc);
+  //   //    }
+  //   //   )}
+  //   // );
+  //   // const snapshot = await firebase.firestore().collection('users').get()
+  //   // console.log(snapshot);
+  //   // try {
+  //   //   await this.props.firebase.createNewUser(userData => {
+  //   //     console.log('user');
+  //   //     console.log(userData);
+  //   //   })
+  //   // } catch (error) {
+  //   //   console.log(error);
+  //   // }
+  // }
 
   // componentDidMount() {
-    //   db.collection('users').get()
-    // .then((snapshot) => {
-    //   snapshot.forEach((doc) => {
-    //     console.log(doc.id, '=>', doc.data());
-    //   });
-    // })
-    // .catch((err) => {
-    //   console.log('Error getting documents', err);
-    // });
+  //   db.collection('users').get()
+  // .then((snapshot) => {
+  //   snapshot.forEach((doc) => {
+  //     console.log(doc.id, '=>', doc.data());
+  //   });
+  // })
+  // .catch((err) => {
+  //   console.log('Error getting documents', err);
+  // });
   // }
 
   // Handle signout
@@ -148,6 +175,15 @@ class Header extends Component {
       console.log(error)
     }
   }
+
+  // Handle login
+  // handleLogin = async () => {
+  //   try {
+  //     this.props.navigation.navigate('Signup');
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   // componentDidMount() {
   //   let mounted = true;
   //   if (mounted) {
@@ -265,22 +301,18 @@ class Header extends Component {
         {this.state.showMenu &&
           <View style={headerStyles.menuWrap}>
             {/* save current location */}
-            <View style={headerStyles.saveLocationButton}>
+            <View>
               <Button
-                title='Signout'
+                title={buttonTitle}
                 onPress={this.handleSignout}
-                titleStyle={{
-                  color: '#303030'
-                }}
+                titleStyle={headerStyles.menuText}
                 type='clear' />
-              <TouchableOpacity onPress={this.handleLocation}>
+              {/* <TouchableOpacity onPress={this.handleLocation}>
                 <Text style={headerStyles.menuText}>
                   Save current location
                   </Text>
-              </TouchableOpacity>
-            </View>
-            {/* saved locations list */}
-            <View>
+              </TouchableOpacity> */}
+              {/* saved locations list */}
               {this.state.savedLocations.length > 0 ? (
                 <SavedLocations
                   savedLocations={this.state.savedLocations}
@@ -308,10 +340,11 @@ const headerStyles = StyleSheet.create({
     padding: 8
   },
   menuText: {
-    color: colours.simpleWeather,
+    color: colours.spotYellow,
     fontSize: 19,
     fontFamily: 'allerBd',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 8
   },
   simpleWeather: {
     color: colours.white,
@@ -321,8 +354,6 @@ const headerStyles = StyleSheet.create({
     paddingTop: 4
   },
   saveLocationButton: {
-    backgroundColor: colours.spotYellow,
-    borderRadius: 15,
     padding: 8,
     marginBottom: 8
   },

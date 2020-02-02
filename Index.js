@@ -18,13 +18,9 @@ import colours from './assets/colours.json';
 
 const Index = (props) => {
 
-  console.log('Firebase Component ' + Firebase);
-  console.log('FirebaseProvider Component ' + FirebaseProvider);
-
   // hook loading states
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [state, setState] = useState(false);
-  console.log('hook state from Index.js = ' + state);
 
   // set up app display
   let appDisplay;
@@ -34,14 +30,12 @@ const Index = (props) => {
 
   // state check to run app
   if (state) {
-    console.log('hook state from Index.js = ' + state);
     appDisplay = (
       <FirebaseProvider value={Firebase}>
           <AppContainer />
       </FirebaseProvider>
     );
   } else {
-    console.log('hook state from Index.js = ' + state);
     appDisplay = (
       <View style={indexStyles.wrapper}>
         <Text
