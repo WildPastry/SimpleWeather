@@ -44,4 +44,4 @@ class Initial extends Component {
   }
 }
 
-export default withFirebaseHOC(Initial)
+export default withFirebaseHOC(Initial);

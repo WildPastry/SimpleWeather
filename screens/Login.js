@@ -165,4 +165,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withFirebaseHOC(Login)
+export default withFirebaseHOC(Login);

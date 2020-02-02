@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withFirebaseHOC(ForgotPassword)
+export default withFirebaseHOC(ForgotPassword);

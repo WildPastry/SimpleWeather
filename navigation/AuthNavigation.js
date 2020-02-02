@@ -29,4 +29,4 @@ const AuthNavigation = createStackNavigator(
   }
 )
 
-export default AuthNavigation
+export default AuthNavigation;

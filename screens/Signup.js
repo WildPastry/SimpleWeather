@@ -233,4 +233,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default withFirebaseHOC(Signup)
+export default withFirebaseHOC(Signup);

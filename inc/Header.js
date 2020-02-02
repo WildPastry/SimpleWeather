@@ -1,6 +1,8 @@
 // imports
 import React, { Component } from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button } from 'react-native-elements'
+import { withFirebaseHOC } from '../config/Firebase'
 
 // component
 import SavedLocations from '../inc/SavedLocations';
@@ -63,6 +65,15 @@ class Header extends Component {
     // this.handleLocation = this.handleLocation.bind(this);
   }
 
+  // Handle signout
+  handleSignout = async () => {
+    try {
+      await this.props.firebase.signOut()
+      this.props.navigation.navigate('Auth')
+    } catch (error) {
+      console.log(error)
+    }
+  }
   // componentDidMount() {
   //   let mounted = true;
   //   if (mounted) {
@@ -181,6 +192,13 @@ class Header extends Component {
           <View style={headerStyles.menuWrap}>
             {/* save current location */}
             <View style={headerStyles.saveLocationButton}>
+              <Button
+                title='Signout'
+                onPress={this.handleSignout}
+                titleStyle={{
+                  color: '#303030'
+                }}
+                type='clear' />
               <TouchableOpacity onPress={this.handleLocation}>
                 <Text style={headerStyles.menuText}>
                   Save current location
@@ -208,7 +226,7 @@ class Header extends Component {
 }
 // END header
 
-export default Header;
+export default withFirebaseHOC(Header);
 
 // style
 const headerStyles = StyleSheet.create({

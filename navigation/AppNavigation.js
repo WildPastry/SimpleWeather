@@ -15,4 +15,4 @@ const AppNavigation = createStackNavigator(
   }
 )
 
-export default AppNavigation
+export default AppNavigation;
