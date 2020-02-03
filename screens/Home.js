@@ -7,10 +7,10 @@ import App from './../App';
 // START Home
 class Home extends Component {
   componentDidMount = async () => {
-    console.log('Inside component async from Home...');
   }
 // START render Home
   render() {
+    console.log('Inside render from Home...');
     return (
       <FirebaseProvider value={Firebase}>
         <App navigation={ this.props.navigation } />

@@ -31,6 +31,7 @@ class ForgotPassword extends Component {
 
   // START render ForgotPassword
   render() {
+    console.log('Inside render from ForgotPassword...');
     return (
       <SafeAreaView style={forgotPasswordStyles.container}>
         <Text style={forgotPasswordStyles.text}>Forgot Password?</Text>

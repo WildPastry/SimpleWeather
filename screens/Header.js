@@ -173,6 +173,7 @@ class Header extends Component {
 
   // START render Header
   render() {
+    console.log('Inside render from Header...');
     return (
       // master wrap
       <View>

@@ -16,6 +16,7 @@ var styles = require('../styles.js');
 class Week extends Component {
   // START Week render
   render() {
+    console.log('Inside render from Week...');
     // new array for filtering
     var filteredWeather = [];
 

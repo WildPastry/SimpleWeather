@@ -28,6 +28,7 @@ class SavedLocations extends Component {
 
   // START render SavedLocations
   render() {
+    console.log('Inside render from SavedLocations...');
     return (
       <View>
         {this.props.savedLocations.map((location, index) => {

@@ -5,11 +5,11 @@ import { registerRootComponent } from 'expo';
 import React, { useState } from 'react';
 import AppContainer from './navigation';
 import Firebase, { FirebaseProvider } from './config/Firebase';
-import { StatusBar, StyleSheet } from 'react-native';
+import { StatusBar } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import colours from './assets/colours.json';
 
+// START Index
 const Index = (props) => {
 
   // hook loading states
@@ -20,9 +20,9 @@ const Index = (props) => {
 
   // app loading check
   if (!isLoadingComplete && !props.skipLoadingScreen) {
+    console.log('Inside loading check from Index...');
     return (
       <AppLoading
-        style={indexStyles.loader}
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => handleFinishLoading(setLoadingComplete)} />
@@ -35,6 +35,7 @@ const Index = (props) => {
     );
   }
 }
+// END Index
 
 // load resources
 async function loadResourcesAsync() {
@@ -68,33 +69,3 @@ function handleFinishLoading(setLoadingComplete) {
 
 // register
 export default registerRootComponent(Index);
-
-// style
-const indexStyles = StyleSheet.create({
-  wrapper: {
-    alignItems: 'center',
-    backgroundColor: colours.simpleWeather,
-    flex: 1,
-    justifyContent: 'center'
-  },
-  loader: {
-    alignItems: 'center',
-    backgroundColor: colours.simpleWeather,
-    flex: 1,
-    justifyContent: 'center'
-  },
-  text: {
-    color: colours.white,
-    fontSize: 19,
-    fontFamily: 'allerLt',
-    textAlign: 'center'
-  },
-  simpleWeather: {
-    color: colours.white,
-    fontSize: 22,
-    fontFamily: 'allerDisplay',
-    textAlign: 'center',
-    paddingTop: 4,
-    marginBottom: 4
-  }
-});

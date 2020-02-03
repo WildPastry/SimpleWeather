@@ -79,6 +79,7 @@ class Signup extends Component {
 
 // START render Signup
   render() {
+    console.log('Inside render from Signup...');
     const {
       passwordVisibility,
       confirmPasswordVisibility,

@@ -25,6 +25,7 @@ class GlobalModal extends Component {
 
   // START render GlobalModal
   render() {
+    console.log('Inside render from GlobalModal...');
     return (
       <View>
 

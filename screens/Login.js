@@ -63,7 +63,7 @@ class Login extends Component {
     return (
       <SafeAreaView style={loginStyles.container}>
         <HideWithKeyboard style={loginStyles.logoContainer}>
-          <AppLogo />
+          {/* <AppLogo /> */}
           <Text
             style={loginStyles.simpleWeather}>
             SIMPLE WEATHER
