@@ -132,8 +132,6 @@ class App extends Component {
 
   // START component mounted
   componentDidMount() {
-    console.log('From App...');
-    console.log(this.props.navigation);
     // set component mounted
     this._isMounted = true;
     console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);

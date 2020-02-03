@@ -59,8 +59,6 @@ class Header extends Component {
   }
 
   componentDidMount = async () => {
-    console.log('From Header...');
-    console.log(this.props.navigation);
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
     // Check for logged in users on load

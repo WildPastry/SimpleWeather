@@ -181,7 +181,7 @@ class Current extends Component {
           listViewDisplayed={this.state.listViewDisplayed}
           fetchDetails={true}
           renderDescription={(row) => row.description}
-          onPress={(details = null) => {
+          onPress={(data, details = null) => {
             // fix google names with numbers in front
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
