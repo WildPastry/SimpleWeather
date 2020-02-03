@@ -63,11 +63,11 @@ class Login extends Component {
     return (
       <SafeAreaView style={loginStyles.container}>
         <HideWithKeyboard style={loginStyles.logoContainer}>
-          {/* <AppLogo /> */}
-          <Text
+          <AppLogo />
+          {/* <Text
             style={loginStyles.simpleWeather}>
             SIMPLE WEATHER
-        </Text>
+        </Text> */}
         </HideWithKeyboard>
         <Formik
           initialValues={{ email: '', password: '' }}
