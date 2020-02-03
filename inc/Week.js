@@ -1,18 +1,8 @@
 // imports
 import React, { Component } from 'react';
-
-// default component functions
 import { Text, ScrollView, View } from 'react-native';
-
-// accordian
-import {
-  Collapse, CollapseHeader, CollapseBody
-} from 'accordion-collapse-react-native';
-
-// colours
+import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import colours from './../assets/colours.json';
-
-// icons
 import weatherIcons from './../assets/icons.json';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -22,9 +12,9 @@ var moment = require('moment');
 // stylesheet
 var styles = require('../styles.js');
 
-// START week
+// START Week
 class Week extends Component {
-  // START week render
+  // START Week render
   render() {
     // new array for filtering
     var filteredWeather = [];
@@ -216,8 +206,8 @@ class Week extends Component {
       </View>
     );
   }
-  // END week render
+  // END Week render
 }
-// END week
+// END Week
 
 export default Week;

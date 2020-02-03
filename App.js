@@ -1,7 +1,5 @@
 // imports
 import React, { Component } from 'react';
-
-// default component functions
 import {
   Alert,
   AppRegistry,
@@ -10,31 +8,21 @@ import {
   ScrollView,
   View
 } from 'react-native';
-
-// permissions API
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-
-// configuration data
 import configData from './data/config.json';
-
-// components
-import Header from './inc/Header';
+import Header from './screens/Header';
 import Current from './inc/Current';
 import Week from './inc/Week';
 import Footer from './inc/Footer';
-
-// colours
 import colours from './assets/colours.json';
-
-// android permissions
 import { PermissionsAndroid } from 'react-native';
-
-// geolocation
 // import Geolocation from 'react-native-geolocation-service';
-
-// lottie
 import LottieView from 'lottie-react-native';
+
+// firebase
+import { withFirebaseHOC } from './config/Firebase';
+import Firebase, { FirebaseProvider } from './config/Firebase';
 
 // stylesheet
 var styles = require('./styles.js');
@@ -66,12 +54,11 @@ const sunnyWeather = require('./assets/animations/weather/weather-sunny.json');
 const thunderWeather = require('./assets/animations/weather/weather-thunder.json');
 const windyWeather = require('./assets/animations/weather/weather-windy.json');
 
-// START default class app
-export default class App extends Component {
-  
+// START App
+class App extends Component {
+
   // control requests
   _isMounted = false;
-  // default class app constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -144,27 +131,29 @@ export default class App extends Component {
   }
 
   // START component mounted
-componentDidMount() {
+  componentDidMount() {
+    console.log('From App...');
+    console.log(this.props.navigation);
     // set component mounted
     this._isMounted = true;
-      console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
-      // platform check
-      if (Platform.OS === 'ios') {
-        // get user location function
-        this._getLocationAsync();
-      }
-      else {
-        // check android permissions
-        this.requestLocationPermission();
-      }
+    console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
+    // platform check
+    if (Platform.OS === 'ios') {
+      // get user location function
+      this._getLocationAsync();
+    }
+    else {
+      // check android permissions
+      this.requestLocationPermission();
+    }
   }
   // END component mounted
 
   // START android permissions function
   requestLocationPermission = async () => {
     // check for location access
-    const granted = 
-    await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    const granted =
+      await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
     if (granted) {
       console.log("You can use the ACCESS_FINE_LOCATION");
@@ -504,7 +493,7 @@ componentDidMount() {
     this._isMounted = false;
   }
 
-  // START render app
+  // START render App
   render() {
     // declare loading variables in current state
     var { isLoaded } = this.state;
@@ -545,12 +534,15 @@ componentDidMount() {
             horizontal={false}
             showsPagination={false}>
             {/* header */}
-            <Header
-              currentLocation={this.state.currentLocation}
-              currentLat={this.state.currentLat}
-              currentLng={this.state.currentLng}
-              currentBg={this.state.weekBg}
-            />
+            <FirebaseProvider value={Firebase}>
+              <Header
+                navigation={this.props.navigation}
+                currentLocation={this.state.currentLocation}
+                currentLat={this.state.currentLat}
+                currentLng={this.state.currentLng}
+                currentBg={this.state.weekBg}
+              />
+            </FirebaseProvider>
             {/* current */}
             <View style={{ backgroundColor: imageBg }}>
               <Current
@@ -589,9 +581,11 @@ componentDidMount() {
       );
     }
   }
-  // END render app
+  // END render App
 }
-// END default class app
+// END App
+
+export default withFirebaseHOC(App);
 
 // register button functionality
 AppRegistry.registerComponent('basic-weather', () => ButtonBasics);

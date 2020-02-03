@@ -1,15 +1,16 @@
-import React, { Component, Fragment } from 'react'
-import { StyleSheet, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
-import { Button } from 'react-native-elements'
-import { Ionicons } from '@expo/vector-icons'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
-import { HideWithKeyboard } from 'react-native-hide-with-keyboard'
-import FormInput from '../components/FormInput'
-import FormButton from '../components/FormButton'
-import ErrorMessage from '../components/ErrorMessage'
-import AppLogo from '../components/AppLogo'
-import { withFirebaseHOC } from '../config/Firebase'
+// imports
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { HideWithKeyboard } from 'react-native-hide-with-keyboard';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import ErrorMessage from '../components/ErrorMessage';
+import AppLogo from '../components/AppLogo';
+import { withFirebaseHOC } from '../config/Firebase';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,6 +23,7 @@ const validationSchema = Yup.object().shape({
     .min(6, 'Password must have at least 6 characters ')
 })
 
+// START Login
 class Login extends Component {
   state = {
     passwordVisibility: true,
@@ -54,7 +56,9 @@ class Login extends Component {
     }
   }
 
+  // START render Login
   render() {
+    console.log('Inside render from Login...');
     const { passwordVisibility, rightIcon } = this.state
     return (
       <SafeAreaView style={loginStyles.container}>
@@ -147,8 +151,11 @@ class Login extends Component {
       </SafeAreaView>
     )
   }
+  // END render Login
 }
+// END Login
 
+// style
 const loginStyles = StyleSheet.create({
   container: {
     flex: 1,

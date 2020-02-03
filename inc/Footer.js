@@ -1,22 +1,14 @@
 // imports
 import React, { Component } from 'react';
-
-// default component functions
 import { Text, StyleSheet, View } from 'react-native';
-
-// colours
 import colours from './../assets/colours.json';
 
-// stylesheet
-var styles = require('../styles.js');
-
-// START footer
+// START Footer
 class Footer extends Component {
-  // START render footer
+  // START render Footer
   render() {
 
     return (
-      // START footer display
       <View
         style={{
           alignSelf: 'stretch',
@@ -47,12 +39,11 @@ class Footer extends Component {
         </Text>
         </Text>
       </View>
-      // END footer display
     );
   }
-  // END render footer
+  // END render Footer
 }
-// END footer
+// END Footer
 
 export default Footer;
 

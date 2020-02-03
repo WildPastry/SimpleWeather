@@ -2,123 +2,26 @@
 import React, { Component } from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements'
-import { withFirebaseHOC } from '../config/Firebase'
-// import Firebase, { FirebaseProvider } from '../config/Firebase'
-
-// component
 import SavedLocations from '../inc/SavedLocations';
-
-// configuration data
+import colours from './../assets/colours.json';
+import LottieView from 'lottie-react-native';
+import timeout from './../data/timeout.js';
 // import configData from './../data/config.json';
 
-// colours
-import colours from './../assets/colours.json';
-
-// lottie
-import LottieView from 'lottie-react-native';
-
-import * as firebase from 'firebase'
-import 'firebase/firestore'
-import 'firebase/auth'
-// import firebaseConfig from './firebaseConfig'
-
-// // timeout
-import timeout from './../data/timeout.js';
-
-// // firebase
-// import * as firebase from "firebase/app";
-// import "firebase/database";
-
-// // Firebase project configuration
-// const FIREBASECONFIG = {
-//   apiKey: configData.GEO,
-//   authDomain: configData.AUTHDOMAIN,
-//   databaseURL: configData.DATABASEURL,
-//   projectId: configData.PROJECTID,
-//   storageBucket: configData.STORAGEBUCKET,
-//   messagingSenderId: configData.MESSAGINGSENDERID,
-//   appId: configData.APPID
-// };
+// firebase
+import * as firebase from 'firebase';
+import { withFirebaseHOC } from '../config/Firebase';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 // create animated view
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
-var user = firebase.auth().currentUser
-let db = firebase.firestore();
-
-// // run timeout function
+// run timeout function
 { timeout }
 
-// // firebase database
-// const swDB = firebase.database();
-// const ref = swDB.ref("weather/");
-// const locationRef = ref.child("locations");
-
-// const admin = require('firebase-admin');
-// const functions = require('firebase-functions');
-
-// admin.initializeApp(functions.config().firebase);
-
-// console.log(db);
-// console.log(withFirebaseHOC);
-// console.log(FirebaseProvider);
-// console.log(Firebase);
-
-// const readData = this.props.firebase.createNewUser(userData);
-// console.log(db);
-// async _getUserDataFromFirestore() {
-//   try {
-//     const ref = firebase
-//       .firestore()
-//       .collection('user')
-//       .doc(this.props.user.uid);
-//     await ref.get().then(userData => {
-//      console.log('User details of userID - ' + this.props.user.uid , userData.data());
-//     });  
-//   } catch (err) {
-//     console.log('Error while getting user data from firestore : ', err);
-//   }
-// }
-// db.collection('users').get()
-//   .then((snapshot) => {
-//     snapshot.forEach((doc) => {
-//       console.log(doc.id, '=>', doc.data());
-//     });
-//   })
-//   .catch((err) => {
-//     console.log('Error getting documents', err);
-//   });
-
-// state check for menu display
-let buttonTitle;
-
-if (user) {
-  var docRef = db.collection("users").doc(user.uid);
-  buttonTitle = 'Signout';
-  docRef.get().then(function (doc) {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-    } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  }).catch(function (error) {
-    console.log("Error getting document:", error);
-  });
-} else {
-  buttonTitle = 'Login or create account';
-  console.log('No user is logged in...');
-}
-
-// var user = firebase.auth().currentUser
-// console.log('User: ' + user);
-// db.collection("userProfiles").where('unique', '==', user.uid).get()
-//   .then(querySnapshot => {
-//     querySnapshot.forEach(doc => {console.log(doc) }
-
-// START header
+// START Header
 class Header extends Component {
-  // default class header constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -127,63 +30,69 @@ class Header extends Component {
       currentKey: '',
       savedLocations: []
     };
-    // bind functions to state
     this.handleAnimate = this.handleAnimate.bind(this);
     // this.handleLocation = this.handleLocation.bind(this);
   }
 
-  // componentDidMount = async () => {
-  //   // console.log(user.uid);
+  renderMenuOption() {
+    const user = firebase.auth().currentUser;
+    // Change menu based on user status
+    let menuDisplay;
+    if (user) {
+      menuDisplay = (
+        <Button
+          title='Signout'
+          onPress={this.handleSignout}
+          titleStyle={headerStyles.menuText}
+          type='clear' />
+      );
+    } else {
+      menuDisplay = (
+        <Button
+          title='Login or create account'
+          onPress={this.handleLogin}
+          titleStyle={headerStyles.menuText}
+          type='clear' />
+      );
+    }
+    return menuDisplay;
+  }
 
-  //   //   db.collection("users").where('unique', '==', user.uid).get()
-  //   // .then(querySnapshot => {
-  //   //   querySnapshot.forEach(doc => {
-  //   //     console.log(doc);
-  //   //    }
-  //   //   )}
-  //   // );
-  //   // const snapshot = await firebase.firestore().collection('users').get()
-  //   // console.log(snapshot);
-  //   // try {
-  //   //   await this.props.firebase.createNewUser(userData => {
-  //   //     console.log('user');
-  //   //     console.log(userData);
-  //   //   })
-  //   // } catch (error) {
-  //   //   console.log(error);
-  //   // }
-  // }
-
-  // componentDidMount() {
-  //   db.collection('users').get()
-  // .then((snapshot) => {
-  //   snapshot.forEach((doc) => {
-  //     console.log(doc.id, '=>', doc.data());
-  //   });
-  // })
-  // .catch((err) => {
-  //   console.log('Error getting documents', err);
-  // });
-  // }
+  componentDidMount = async () => {
+    console.log('From Header...');
+    console.log(this.props.navigation);
+    const user = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    // Check for logged in users on load
+    if (user) {
+      var docRef = db.collection("users").doc(user.uid);
+      docRef.get().then(function (doc) {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+        } else {
+          console.log("No docs exist...");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+    } else {
+      console.log('No user is currently logged in...');
+    }
+  }
 
   // Handle signout
   handleSignout = async () => {
     try {
       await this.props.firebase.signOut()
-      this.props.navigation.navigate('Auth')
+      this.props.navigation.navigate('Auth');
     } catch (error) {
       console.log(error)
     }
   }
 
   // Handle login
-  // handleLogin = async () => {
-  //   try {
-  //     this.props.navigation.navigate('Signup');
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  handleLogin = () => this.props.navigation.navigate('Login');
+
   // componentDidMount() {
   //   let mounted = true;
   //   if (mounted) {
@@ -262,7 +171,7 @@ class Header extends Component {
   //   return () => mounted = false;
   // }
 
-  // START render header
+  // START render Header
   render() {
     return (
       // master wrap
@@ -302,11 +211,7 @@ class Header extends Component {
           <View style={headerStyles.menuWrap}>
             {/* save current location */}
             <View>
-              <Button
-                title={buttonTitle}
-                onPress={this.handleSignout}
-                titleStyle={headerStyles.menuText}
-                type='clear' />
+              {this.renderMenuOption()}
               {/* <TouchableOpacity onPress={this.handleLocation}>
                 <Text style={headerStyles.menuText}>
                   Save current location
@@ -328,9 +233,9 @@ class Header extends Component {
       </View>
     );
   }
-  // END render header
+  // END render Header
 }
-// END header
+// END Header
 
 export default withFirebaseHOC(Header);
 

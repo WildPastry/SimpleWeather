@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react'
-import { StyleSheet, SafeAreaView, View, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native'
-import { Button, CheckBox } from 'react-native-elements'
-import { Ionicons } from '@expo/vector-icons'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
-import FormInput from '../components/FormInput'
-import FormButton from '../components/FormButton'
-import ErrorMessage from '../components/ErrorMessage'
-import { withFirebaseHOC } from '../config/Firebase'
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Button, CheckBox } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import ErrorMessage from '../components/ErrorMessage';
+import { withFirebaseHOC } from '../config/Firebase';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -28,6 +28,7 @@ const validationSchema = Yup.object().shape({
   check: Yup.boolean().oneOf([true], 'Please check the agreement')
 })
 
+// START Signup
 class Signup extends Component {
   state = {
     passwordVisibility: true,
@@ -76,6 +77,7 @@ class Signup extends Component {
     }
   }
 
+// START render Signup
   render() {
     const {
       passwordVisibility,
@@ -84,7 +86,7 @@ class Signup extends Component {
       confirmPasswordIcon
     } = this.state
     return (
-      <View style={styles.container}>
+      <View style={signupStyles.container}>
         <KeyboardAvoidingView
           enabled
           behavior='padding'>
@@ -174,7 +176,7 @@ class Signup extends Component {
                       errorValue={touched.confirmPassword && errors.confirmPassword}
                     />
                     <CheckBox
-                      containerStyle={styles.checkBoxContainer}
+                      containerStyle={signupStyles.checkBoxContainer}
                       checkedIcon='check-box'
                       iconType='material'
                       uncheckedIcon='check-box-outline-blank'
@@ -183,7 +185,7 @@ class Signup extends Component {
                       checked={values.check}
                       onPress={() => setFieldValue('check', !values.check)}
                     />
-                    <View style={styles.buttonContainer}>
+                    <View style={signupStyles.buttonContainer}>
                       <FormButton
                         buttonType='outline'
                         onPress={handleSubmit}
@@ -211,9 +213,12 @@ class Signup extends Component {
       </View>
     )
   }
+  // END render Signup
 }
+// END Signup
 
-const styles = StyleSheet.create({
+// style
+const signupStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#303030',

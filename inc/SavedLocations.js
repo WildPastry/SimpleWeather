@@ -1,24 +1,17 @@
 // imports
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-// prop types
 import PropTypes from 'prop-types';
-
-// icons
 import { Ionicons } from '@expo/vector-icons';
-
-// colours
 import colours from './../assets/colours.json';
 
-// START saved locations list
+// START SavedLocations
 class SavedLocations extends Component {
-  // default class savedlocations constructor
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
   }
-
+  
   // static proptypes
   static propTypes = {
     savedLocations: PropTypes.array.isRequired
@@ -33,7 +26,7 @@ class SavedLocations extends Component {
     return () => mounted = false;
   }
 
-  // START render saved locations list
+  // START render SavedLocations
   render() {
     return (
       <View>
@@ -53,9 +46,9 @@ class SavedLocations extends Component {
       </View>
     );
   }
-  // END render saved locations list
+  // END render SavedLocations
 }
-// END saved locations list
+// END SavedLocations
 
 export default SavedLocations;
 

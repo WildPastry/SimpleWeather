@@ -1,3 +1,4 @@
+// imports
 import React, { Component, Fragment } from 'react'
 import { Text, SafeAreaView, View, StyleSheet } from 'react-native'
 import { Formik } from 'formik'
@@ -14,6 +15,7 @@ const validationSchema = Yup.object().shape({
     .required('Please enter a registered email')
 })
 
+// START ForgotPassword
 class ForgotPassword extends Component {
   handlePasswordReset = async (values, actions) => {
     const { email } = values
@@ -27,10 +29,11 @@ class ForgotPassword extends Component {
     }
   }
 
+  // START render ForgotPassword
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.text}>Forgot Password?</Text>
+      <SafeAreaView style={forgotPasswordStyles.container}>
+        <Text style={forgotPasswordStyles.text}>Forgot Password?</Text>
         <Formik
           initialValues={{ email: '' }}
           onSubmit={(values, actions) => {
@@ -47,37 +50,40 @@ class ForgotPassword extends Component {
             handleBlur,
             isSubmitting
           }) => (
-            <Fragment>
-              <FormInput
-                name='email'
-                value={values.email}
-                onChangeText={handleChange('email')}
-                placeholder='Enter email'
-                autoCapitalize='none'
-                iconName='ios-mail'
-                iconColor='#fff'
-                onBlur={handleBlur('email')}
-              />
-              <ErrorMessage errorValue={touched.email && errors.email} />
-              <View style={styles.buttonContainer}>
-                <FormButton
-                  buttonType='outline'
-                  onPress={handleSubmit}
-                  title='Send Email'
-                  buttonColor='#039BE5'
-                  disabled={!isValid || isSubmitting}
+              <Fragment>
+                <FormInput
+                  name='email'
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  placeholder='Enter email'
+                  autoCapitalize='none'
+                  iconName='ios-mail'
+                  iconColor='#fff'
+                  onBlur={handleBlur('email')}
                 />
-              </View>
-              <ErrorMessage errorValue={errors.general} />
-            </Fragment>
-          )}
+                <ErrorMessage errorValue={touched.email && errors.email} />
+                <View style={forgotPasswordStyles.buttonContainer}>
+                  <FormButton
+                    buttonType='outline'
+                    onPress={handleSubmit}
+                    title='Send Email'
+                    buttonColor='#039BE5'
+                    disabled={!isValid || isSubmitting}
+                  />
+                </View>
+                <ErrorMessage errorValue={errors.general} />
+              </Fragment>
+            )}
         </Formik>
       </SafeAreaView>
     )
   }
+  // END render ForgotPassword
 }
+// END ForgotPassword
 
-const styles = StyleSheet.create({
+// style
+const forgotPasswordStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#303030',

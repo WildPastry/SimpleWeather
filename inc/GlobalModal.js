@@ -1,14 +1,10 @@
 // imports
 import React, { Component } from 'react';
 import { Modal, Text, StyleSheet, TouchableHighlight, View, Alert } from 'react-native';
-
-// icons
 import { Ionicons } from '@expo/vector-icons';
-
-// colours
 import colours from './../assets/colours.json';
 
-// START globalmodal
+// START GlobalModal
 class GlobalModal extends Component {
   state = {
     modalVisible: false,
@@ -27,10 +23,11 @@ class GlobalModal extends Component {
     return () => mounted = false;
   }
 
-  // START render globalmodal
+  // START render GlobalModal
   render() {
     return (
       <View>
+
         {/* START modal */}
         <Modal
           animationType="fade"
@@ -72,6 +69,7 @@ class GlobalModal extends Component {
           </View>
         </Modal>
         {/* END modal */}
+        
         {/* show modal button */}
         <TouchableHighlight
           onPress={() => {
@@ -86,9 +84,9 @@ class GlobalModal extends Component {
       </View>
     );
   }
-  // END render globalmodal
+  // END render GlobalModal
 }
-// END globalmodal
+// END GlobalModal
 
 export default GlobalModal;
 

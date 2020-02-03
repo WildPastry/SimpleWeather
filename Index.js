@@ -3,51 +3,20 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import { registerRootComponent } from 'expo';
 import React, { useState } from 'react';
-import AppContainer from './navigation'
-import Firebase, { FirebaseProvider } from './config/Firebase'
-
-// default component functions
-import { StatusBar, StyleSheet, View, Text } from 'react-native';
-
-// font and icons
+import AppContainer from './navigation';
+import Firebase, { FirebaseProvider } from './config/Firebase';
+import { StatusBar, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-
-// colours
 import colours from './assets/colours.json';
 
 const Index = (props) => {
 
   // hook loading states
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  const [state, setState] = useState(false);
-
-  // set up app display
-  let appDisplay;
 
   // set status bar text colour
   StatusBar.setBarStyle('light-content', true);
-
-  // state check to run app
-  if (state) {
-    appDisplay = (
-      <FirebaseProvider value={Firebase}>
-          <AppContainer />
-      </FirebaseProvider>
-    );
-  } else {
-    appDisplay = (
-      <View style={indexStyles.wrapper}>
-        <Text
-          style={indexStyles.simpleWeather}>
-          SIMPLE WEATHER
-        </Text>
-        <Text onPress={() => setState(true)} style={indexStyles.text}>
-          Run the App
-        </Text>
-      </View>
-    );
-  }
 
   // app loading check
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -60,7 +29,9 @@ const Index = (props) => {
     );
   } else {
     return (
-      appDisplay
+      <FirebaseProvider value={Firebase}>
+        <AppContainer />
+      </FirebaseProvider>
     );
   }
 }
@@ -123,6 +94,7 @@ const indexStyles = StyleSheet.create({
     fontSize: 22,
     fontFamily: 'allerDisplay',
     textAlign: 'center',
-    paddingTop: 4
+    paddingTop: 4,
+    marginBottom: 4
   }
 });

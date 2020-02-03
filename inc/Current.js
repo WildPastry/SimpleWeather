@@ -1,23 +1,11 @@
 // imports
 import React, { Component } from 'react';
 import { Text, Keyboard, SafeAreaView, View } from 'react-native';
-
-// configuration data
 import configData from './../data/config.json';
-
-// component
 import GlobalModal from '../inc/GlobalModal';
-
-// autocomplete
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
-// colours
 import colours from './../assets/colours.json';
-
-// lottie
 import LottieView from 'lottie-react-native';
-
-// icons
 import weatherIcons from './../assets/icons.json';
 import nightWeatherIcons from './../assets/nightIcons.json';
 import { Ionicons } from '@expo/vector-icons';
@@ -32,9 +20,8 @@ var styles = require('../styles.js');
 // moment set up
 var moment = require('moment');
 
-// START current
+// START Current
 class Current extends Component {
-  // default class current constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +36,6 @@ class Current extends Component {
       // google places listview
       listViewDisplayed: true
     };
-    // bind functions to state
     this.updateSkyData = this.updateSkyData.bind(this);
     this._keyboardDidShow = this._keyboardDidShow.bind(this);
     this._keyboardDidHide = this._keyboardDidHide.bind(this);
@@ -99,7 +85,7 @@ class Current extends Component {
     this.props.updateSkyData(options);
   }
 
-  // START render current
+  // START render Current
   render() {
     // set up weather code
     var weatherCode = this.props.weatherCode;
@@ -179,10 +165,10 @@ class Current extends Component {
     var dateSun = moment(todaySun).format('HH:MM');
 
     return (
-      // START current display
       <SafeAreaView
         keyboardShouldPersistTaps='handled'
         style={styles.currentWrap}>
+
         {/* START autocomplete input */}
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps='handled'
@@ -194,7 +180,7 @@ class Current extends Component {
           listViewDisplayed={this.state.listViewDisplayed}
           fetchDetails={true}
           renderDescription={(row) => row.description}
-          onPress={(data, details = null) => {
+          onPress={(details = null) => {
             // fix google names with numbers in front
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
@@ -279,6 +265,7 @@ class Current extends Component {
           debounce={100}
         />
         {/* END autocomplete input */}
+
         {/* START add location button */}
         <View style={{
           zIndex: 2,
@@ -310,15 +297,6 @@ class Current extends Component {
             source={currentWeatherIcon}
             autoPlay={true}
           />
-          {/* <Text
-            style={{
-              fontFamily: 'weatherfont',
-              fontSize: 130,
-              textAlign: 'center',
-              color: colours.white
-            }}>
-            {displayWeatherIcon[weatherCode].code}
-          </Text> */}
         </View>
         {/* END main icon */}
 
@@ -361,7 +339,6 @@ class Current extends Component {
 
         {/* START wind and humidity */}
         <View style={styles.currentWindHumWrap}>
-          {/* START wind speed */}
           <View style={styles.currentDetailsWrap}>
             <Text
               style={{
@@ -377,9 +354,6 @@ class Current extends Component {
               {Math.round(this.props.wind)} km/h
             </Text>
           </View>
-          {/* END wind speed */}
-
-          {/* START humidity */}
           <View style={styles.currentDetailsWrap}>
             <Text
               style={{
@@ -395,15 +369,14 @@ class Current extends Component {
               {this.props.humidity}
             </Text>
           </View>
-          {/* END humidity */}
         </View>
         {/* END wind and humidity */}
+
       </SafeAreaView>
-      // END current display
     );
   }
-  // END render current
+  // END render Current
 }
-// END current
+// END Current
 
 export default Current;
