@@ -91,56 +91,56 @@ class Current extends Component {
     // set up weather code
     var weatherCode = this.props.weatherCode;
 
-    console.log(weatherCode);
-
-    // weather icon logic
-      // group 2xx: thunderstorm
-      if (weatherCode >= 200 && weatherCode <= 232) {
-        currentWeatherIcon = weather.weatherStorm;
-        // group 3xx: drizzle
-      } else if (
-        (weatherCode) >= 300 &&
-        (weatherCode) <= 321
-      ) {
-        currentWeatherIcon = weather.weatherRainyNight;
-        // group 5xx: rain
-      } else if (
-        (weatherCode) >= 500 &&
-        (weatherCode) <= 531
-      ) {
-        currentWeatherIcon = weather.weatherRainyNight;
-        // group 6xx: snow
-      } else if (
-        (weatherCode) >= 600 &&
-        (weatherCode) <= 622
-      ) {
-        currentWeatherIcon = weather.weatherSnow;
-        // group 7xx: atmosphere
-      } else if (
-        (weatherCode) >= 701 &&
-        (weatherCode) <= 781
-      ) {
-        currentWeatherIcon = weather.weatherFoggy;
-        // group 80x: scattered clouds
-      } else if (
-        (weatherCode) >= 801 &&
-        (weatherCode) <= 802
-      ) {
-        currentWeatherIcon = weather.weatherPartlyCloudy;
-        // group 80x: broken clouds
-      } else if (
-        (weatherCode) >= 803 &&
-        (weatherCode) <= 804
-      ) {
-        currentWeatherIcon = weather.weatherPartlyCloudy;
-        // group 800: clear
-      } else {
-        currentWeatherIcon = weather.weatherSunny;
-      }
+    console.log('weatherCode from Current ' + weatherCode);
 
     // set up icon display
     let displayWeatherIcon;
     let currentWeatherIcon;
+
+    // weather icon logic
+    // group 2xx: thunderstorm
+    if (weatherCode >= 200 && weatherCode <= 232) {
+      currentWeatherIcon = weather.weatherStorm;
+      // group 3xx: drizzle
+    } else if (
+      (weatherCode) >= 300 &&
+      (weatherCode) <= 321
+    ) {
+      currentWeatherIcon = weather.weatherRainyNight;
+      // group 5xx: rain
+    } else if (
+      (weatherCode) >= 500 &&
+      (weatherCode) <= 531
+    ) {
+      currentWeatherIcon = weather.weatherRainyNight;
+      // group 6xx: snow
+    } else if (
+      (weatherCode) >= 600 &&
+      (weatherCode) <= 622
+    ) {
+      currentWeatherIcon = weather.weatherSnow;
+      // group 7xx: atmosphere
+    } else if (
+      (weatherCode) >= 701 &&
+      (weatherCode) <= 781
+    ) {
+      currentWeatherIcon = weather.weatherFoggy;
+      // group 80x: scattered clouds
+    } else if (
+      (weatherCode) >= 801 &&
+      (weatherCode) <= 802
+    ) {
+      currentWeatherIcon = weather.weatherPartlyCloudy;
+      // group 80x: broken clouds
+    } else if (
+      (weatherCode) >= 803 &&
+      (weatherCode) <= 804
+    ) {
+      currentWeatherIcon = weather.weatherPartlyCloudy;
+      // group 800: clear
+    } else {
+      currentWeatherIcon = weather.weatherSunny;
+    }
 
     // set up date constants
     const today = this.state.currentDate;

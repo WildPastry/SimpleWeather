@@ -5,6 +5,8 @@ import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react
 import colours from './../assets/colours.json';
 import weatherIcons from './../assets/icons.json';
 import { Ionicons } from '@expo/vector-icons';
+import weather from './../assets/animations/weather.json';
+import LottieView from 'lottie-react-native';
 
 // moment set up
 var moment = require('moment');
@@ -19,6 +21,59 @@ class Week extends Component {
     console.log('Inside render from Week...');
     // new array for filtering
     var filteredWeather = [];
+
+    // set up weather code
+    var weatherCode = this.props.weatherCode;
+
+    // set up icon display
+    let currentWeatherIcon;
+
+    console.log('weatherCode from Week ' + weatherCode);
+
+    // weather icon logic
+    // group 2xx: thunderstorm
+    if (weatherCode >= 200 && weatherCode <= 232) {
+      currentWeatherIcon = weather.weatherStorm;
+      // group 3xx: drizzle
+    } else if (
+      (weatherCode) >= 300 &&
+      (weatherCode) <= 321
+    ) {
+      currentWeatherIcon = weather.weatherRainyNight;
+      // group 5xx: rain
+    } else if (
+      (weatherCode) >= 500 &&
+      (weatherCode) <= 531
+    ) {
+      currentWeatherIcon = weather.weatherRainyNight;
+      // group 6xx: snow
+    } else if (
+      (weatherCode) >= 600 &&
+      (weatherCode) <= 622
+    ) {
+      currentWeatherIcon = weather.weatherSnow;
+      // group 7xx: atmosphere
+    } else if (
+      (weatherCode) >= 701 &&
+      (weatherCode) <= 781
+    ) {
+      currentWeatherIcon = weather.weatherFoggy;
+      // group 80x: scattered clouds
+    } else if (
+      (weatherCode) >= 801 &&
+      (weatherCode) <= 802
+    ) {
+      currentWeatherIcon = weather.weatherPartlyCloudy;
+      // group 80x: broken clouds
+    } else if (
+      (weatherCode) >= 803 &&
+      (weatherCode) <= 804
+    ) {
+      currentWeatherIcon = weather.weatherPartlyCloudy;
+      // group 800: clear
+    } else {
+      currentWeatherIcon = weather.weatherSunny;
+    }
 
     // first filter function
     for (var i = 0; i < this.props.weather.length; i++) {
@@ -121,6 +176,17 @@ class Week extends Component {
                             }}>
                             {weatherIcons[dailyWeather.weather[0].id].code}
                           </Text>
+                          {/* <LottieView
+                            style={{
+                              height: 30,
+                              width: 30
+                            }}
+                            ref={animation => {
+                              this.animation = animation;
+                            }}
+                            source={currentWeatherIcon}
+                            autoPlay={true}
+                          /> */}
                         </View>
                         {/* daily low temp */}
                         <View style={styles.weekColWrap}>

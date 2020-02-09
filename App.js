@@ -568,6 +568,7 @@ class App extends Component {
               style={{ backgroundColor: imageBg }}
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
+              weatherCode={this.state.openWeatherId}
               weather={this.state.weather.list}
               skyWeather={this.state.skyWeather.daily.data}
             />

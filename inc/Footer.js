@@ -50,7 +50,7 @@ export default Footer;
 // style
 const footerStyles = StyleSheet.create({
   footerText: {
-    color: '#fff',
+    color: colours.white,
     fontSize: 16,
     padding: 10,
     textAlign: 'center'

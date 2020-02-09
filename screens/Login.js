@@ -1,7 +1,6 @@
 // imports
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -11,6 +10,7 @@ import FormButton from '../components/FormButton';
 import ErrorMessage from '../components/ErrorMessage';
 import AppLogo from '../components/AppLogo';
 import { withFirebaseHOC } from '../config/Firebase';
+import colours from '../assets/colours.json';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -63,17 +63,16 @@ class Login extends Component {
     return (
       <SafeAreaView style={loginStyles.container}>
         <HideWithKeyboard style={loginStyles.logoContainer}>
-          <AppLogo />
-          {/* <Text
+          {/* <AppLogo /> */}
+          <Text
             style={loginStyles.simpleWeather}>
             SIMPLE WEATHER
-        </Text> */}
+        </Text>
         </HideWithKeyboard>
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values, actions) => {
-            this.handleOnLogin(values, actions);
-          }}
+            this.handleOnLogin(values, actions);}}
           validationSchema={validationSchema}>
           {({
             handleChange,
@@ -93,9 +92,8 @@ class Login extends Component {
                   placeholder='Enter email'
                   autoCapitalize='none'
                   iconName='ios-mail'
-                  iconColor='#fff'
-                  onBlur={handleBlur('email')}
-                />
+                  iconColor={colours.white}
+                  onBlur={handleBlur('email')} />
                 <ErrorMessage errorValue={touched.email && errors.email} />
                 <FormInput
                   name='password'
@@ -104,50 +102,60 @@ class Login extends Component {
                   placeholder='Enter password'
                   secureTextEntry={passwordVisibility}
                   iconName='ios-lock'
-                  iconColor='#fff'
+                  iconColor={colours.white}
                   onBlur={handleBlur('password')}
                   rightIcon={
                     <TouchableOpacity onPress={this.handlePasswordVisibility}>
                       <Ionicons name={rightIcon} size={28} color='grey' />
-                    </TouchableOpacity>
-                  }
-                />
+                    </TouchableOpacity>} />
                 <ErrorMessage errorValue={touched.password && errors.password} />
                 <View style={loginStyles.buttonContainer}>
                   <FormButton
-                    buttonType='outline'
                     onPress={handleSubmit}
                     title='LOGIN'
-                    buttonColor='#039BE5'
                     disabled={!isValid || isSubmitting}
-                    loading={isSubmitting}
-                  />
+                    loading={isSubmitting} />
                 </View>
                 <ErrorMessage errorValue={errors.general} />
               </Fragment>
             )}
         </Formik>
-        <Button
-          title="Skip this step"
-          onPress={this.goToApp}
-          titleStyle={{
-            color: '#fff'
-          }}
-          type='clear' />
-        <Button
-          title="Don't have an account? Sign Up"
-          onPress={this.goToSignup}
-          titleStyle={{
-            color: '#F57C00'
-          }}
-          type='clear' />
-        <Button
-          title='Forgot Password?'
-          onPress={this.goToForgotPassword}
-          titleStyle={{
-            color: '#039BE5'
-          }}
-          type='clear' />
+        <TouchableOpacity
+          style={loginStyles.link}
+          onPress={this.goToApp}>
+          <Text
+            style={{
+              color: colours.white,
+              fontFamily: 'allerLt',
+              fontSize: 18
+            }}>
+            Skip this step
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={loginStyles.link}
+          onPress={this.goToSignup}>
+          <Text
+            style={{
+              color: colours.spotBlue,
+              fontFamily: 'allerLt',
+              fontSize: 18
+            }}>
+            Don't have an account? Sign Up
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={loginStyles.link}
+          onPress={this.goToForgotPassword}>
+          <Text
+            style={{
+              color: colours.spotOrange,
+              fontFamily: 'allerLt',
+              fontSize: 18
+            }}>
+            Forgotton password?
+          </Text>
+        </TouchableOpacity>
       </SafeAreaView>
     )
   }
@@ -159,8 +167,12 @@ class Login extends Component {
 const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#303030',
+    backgroundColor: colours.simpleWeather,
     justifyContent: 'center'
+  },
+  link: {
+    alignItems: 'center',
+    margin: 8
   },
   logoContainer: {
     marginBottom: 15,
@@ -170,11 +182,12 @@ const loginStyles = StyleSheet.create({
     margin: 20
   },
   simpleWeather: {
-    color: '#fff',
+    color: colours.white,
     fontSize: 22,
     fontFamily: 'allerDisplay',
     textAlign: 'center',
-    paddingTop: 4
+    paddingTop: 4,
+    paddingBottom: 30
   }
 })
 

@@ -1,12 +1,13 @@
 // imports
 import React, { Component, Fragment } from 'react'
-import { Text, SafeAreaView, View, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, SafeAreaView, View, StyleSheet } from 'react-native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import FormInput from '../components/FormInput'
 import FormButton from '../components/FormButton'
 import ErrorMessage from '../components/ErrorMessage'
 import { withFirebaseHOC } from '../config/Firebase'
+import colours from '../assets/colours.json';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,12 +30,14 @@ class ForgotPassword extends Component {
     }
   }
 
+  goToSignup = () => this.props.navigation.navigate('Login');
+
   // START render ForgotPassword
   render() {
     console.log('Inside render from ForgotPassword...');
     return (
       <SafeAreaView style={forgotPasswordStyles.container}>
-        <Text style={forgotPasswordStyles.text}>Forgot Password?</Text>
+          <Text style={forgotPasswordStyles.text}>Reset Password</Text>
         <Formik
           initialValues={{ email: '' }}
           onSubmit={(values, actions) => {
@@ -59,23 +62,31 @@ class ForgotPassword extends Component {
                   placeholder='Enter email'
                   autoCapitalize='none'
                   iconName='ios-mail'
-                  iconColor='#fff'
-                  onBlur={handleBlur('email')}
-                />
+                  iconColor={colours.white}
+                  onBlur={handleBlur('email')} />
                 <ErrorMessage errorValue={touched.email && errors.email} />
                 <View style={forgotPasswordStyles.buttonContainer}>
                   <FormButton
-                    buttonType='outline'
                     onPress={handleSubmit}
                     title='Send Email'
-                    buttonColor='#039BE5'
-                    disabled={!isValid || isSubmitting}
-                  />
+                    disabled={!isValid || isSubmitting} />
                 </View>
                 <ErrorMessage errorValue={errors.general} />
               </Fragment>
             )}
         </Formik>
+        <TouchableOpacity
+          style={forgotPasswordStyles.link}
+          onPress={this.goToSignup}>
+          <Text
+            style={{
+              color: colours.white,
+              fontFamily: 'allerLt',
+              fontSize: 18
+            }}>
+            Back to login
+          </Text>
+        </TouchableOpacity>
       </SafeAreaView>
     )
   }
@@ -87,16 +98,21 @@ class ForgotPassword extends Component {
 const forgotPasswordStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#303030',
+    backgroundColor: colours.simpleWeather,
     justifyContent: 'center'
   },
+  link: {
+    alignItems: 'center',
+    margin: 8
+  },
   text: {
-    color: '#fff',
-    fontSize: 24,
+    color: colours.white,
+    fontFamily: 'allerLt',
+    fontSize: 18,
     marginLeft: 25
   },
   buttonContainer: {
-    margin: 25
+    margin: 20
   }
 })
 
