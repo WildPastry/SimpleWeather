@@ -17,10 +17,12 @@
   "snowDark": "#002f69",
   "mistDark": "#999999",
   "nightDark": "#000000",
-  "white" : "#fff",
+  "white": "#fff",
   "simpleWeather": "#303030",
   "peach": "#ff6666",
   "spotYellow": "#ffc82e",
-  "spotBlue" : "#039BE5",
-  "spotOrange" : "#F57C00"
+  "spotBlue": "#039BE5",
+  "spotOrange": "#F57C00",
+  "niceGreen": "#37d493",
+  "niceRed": "#fa4f4f"
 }

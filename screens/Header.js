@@ -59,26 +59,45 @@ class Header extends Component {
   }
 
   componentDidMount = async () => {
-    const user = firebase.auth().currentUser;
-    const db = firebase.firestore();
-    // Check for logged in users on load
-    if (user) {
-      var docRef = db.collection("users").doc(user.uid);
-      docRef.get().then(function (doc) {
-        if (doc.exists) {
-          console.log("Document data:", doc.data());
-        } else {
-          console.log("No docs exist...");
-        }
-      }).catch(function (error) {
-        console.log("Error getting document:", error);
-      });
-    } else {
-      console.log('No user is currently logged in...');
+    let mounted = true;
+    if (mounted) {
+      // load firebase data
+      const user = firebase.auth().currentUser;
+      const db = firebase.firestore();
+      // check for logged in users on load
+      if (user) {
+        var docRef = db.collection("users").doc(user.uid);
+        docRef.get().then(function (doc) {
+          if (doc.exists) {
+            console.log("Document data:", doc.data());
+          } else {
+            console.log("No docs exist...");
+          }
+        }).catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+      } else {
+        console.log('No user is currently logged in...');
+      }
+      // get users saved data on load
+      // locationRef.on('value', snapshot => {
+      //   if (snapshot.exists()) {
+      //     let data = snapshot.val();
+      //     let locations = Object.values(data);
+      //     this.setState({ savedLocations: locations }, function () {
+      //       console.log(this.state.savedLocations);
+      //     })
+      //   } else {
+      //     this.setState({
+      //       savedLocations: ''
+      //     });
+      //   }
+      // })
     }
+    return () => mounted = false;
   }
 
-  // Handle signout
+  // handle signout
   handleSignout = async () => {
     try {
       await this.props.firebase.signOut()
@@ -88,29 +107,8 @@ class Header extends Component {
     }
   }
 
-  // Handle login
+  // handle login
   handleLogin = () => this.props.navigation.navigate('Login');
-
-  // componentDidMount() {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     // get data on load
-  //     locationRef.on('value', snapshot => {
-  //       if (snapshot.exists()) {
-  //         let data = snapshot.val();
-  //         let locations = Object.values(data);
-  //         this.setState({ savedLocations: locations }, function () {
-  //           console.log(this.state.savedLocations);
-  //         })
-  //       } else {
-  //         this.setState({
-  //           savedLocations: ''
-  //         });
-  //       }
-  //     })
-  //   }
-  //   return () => mounted = false;
-  // }
 
   // handle animation
   handleAnimate = () => {

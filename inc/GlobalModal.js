@@ -45,32 +45,34 @@ class GlobalModal extends Component {
               </Text>
             </View>
             <View style={globalModalStyles.buttonsWrapper}>
-              {/* close modal button */}
+              {/* close modal buttons */}
               <TouchableHighlight
                 style={{ padding: 12 }}
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}>
+                {/* cancel */}
                 <Ionicons
                   name='ios-close-circle'
                   size={45}
-                  color={colours.white}
+                  color={colours.niceRed}
                 />
               </TouchableHighlight>
               <TouchableHighlight
                 style={{ padding: 12 }}
                 onPress={this.handleLocation}>
+                {/* save */}
                 <Ionicons
                   name='ios-checkmark-circle'
                   size={45}
-                  color={colours.white}
+                  color={colours.niceGreen}
                 />
               </TouchableHighlight>
             </View>
           </View>
         </Modal>
         {/* END modal */}
-        
+
         {/* show modal button */}
         <TouchableHighlight
           onPress={() => {
