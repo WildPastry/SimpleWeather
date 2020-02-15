@@ -11,6 +11,10 @@ import nightWeatherIcons from './../assets/nightIcons.json';
 import { Ionicons } from '@expo/vector-icons';
 import weather from './../assets/animations/weather.json';
 
+// firebase
+import { withFirebaseHOC } from '../config/Firebase';
+import Firebase, { FirebaseProvider } from '../config/Firebase';
+
 // set up auth key for sky data
 const geo = configData.GEO;
 
@@ -280,7 +284,13 @@ class Current extends Component {
           justifyContent: 'center',
           backgroundColor: colourBg
         }}>
-          <GlobalModal />
+          <FirebaseProvider value={Firebase}>
+            <GlobalModal
+              currentLocation={this.props.currentLocation}
+              currentLat={this.props.currentLat}
+              currentLng={this.props.currentLng}
+            />
+          </FirebaseProvider>
         </View>
         {/* END add location button */}
 
@@ -380,4 +390,4 @@ class Current extends Component {
 }
 // END Current
 
-export default Current;
+export default withFirebaseHOC(Current);

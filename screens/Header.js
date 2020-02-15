@@ -27,11 +27,9 @@ class Header extends Component {
     this.state = {
       progress: false,
       showMenu: false,
-      currentKey: '',
       savedLocations: []
     };
     this.handleAnimate = this.handleAnimate.bind(this);
-    // this.handleLocation = this.handleLocation.bind(this);
   }
 
   renderMenuOption() {
@@ -69,7 +67,7 @@ class Header extends Component {
         var docRef = db.collection("users").doc(user.uid);
         docRef.get().then(function (doc) {
           if (doc.exists) {
-            console.log("Document data:", doc.data());
+            console.log("User", doc.data().name, "is logged in");
           } else {
             console.log("No docs exist...");
           }
@@ -132,30 +130,6 @@ class Header extends Component {
     }
     return () => mounted = false;
   }
-
-  // handle location
-  // handleLocation() {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     console.log('Handle location pressed...');
-  //     // get the unique key generated
-  //     var newLocationId = locationRef.push({}).key;
-  //     // save location details to database
-  //     swDB.ref('weather/locations/' + newLocationId).set({
-  //       key: newLocationId,
-  //       lat: this.props.currentLat,
-  //       lng: this.props.currentLng,
-  //       location: this.props.currentLocation
-  //     }, function (error) {
-  //       if (error) {
-  //         console.log(error);
-  //       } else {
-  //         console.log('Location details saved...');
-  //       }
-  //     });
-  //   }
-  //   return () => mounted = false;
-  // }
 
   // handle delete
   // handleDelete(val) {
