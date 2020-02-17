@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Modal, Text, StyleSheet, TouchableHighlight, View, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colours from './../assets/colours.json';
-// import configData from './../data/config.json';
 
 // firebase
 import * as firebase from 'firebase';
@@ -21,68 +20,63 @@ class GlobalModal extends Component {
     this.setState({ modalVisible: visible });
   }
 
-  // componentDidMount = async () => {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     // load firebase data
-  //     const user = firebase.auth().currentUser;
-  //     const db = firebase.firestore();
-  //     // check for logged in users on load
-  //     if (user) {
-  //       var docRef = db.collection("users").doc(user.uid);
-  //       docRef.get().then(function (doc) {
-  //         if (doc.exists) {
-  //           console.log("User", doc.data().name, "is logged in");
-  //         } else {
-  //           console.log("No docs exist...");
-  //         }
-  //       }).catch(function (error) {
-  //         console.log("Error getting document:", error);
-  //       });
-  //     } else {
-  //       console.log('No user is currently logged in...');
-  //     }
-  //     // get users saved data on load
-  //     // locationRef.on('value', snapshot => {
-  //     //   if (snapshot.exists()) {
-  //     //     let data = snapshot.val();
-  //     //     let locations = Object.values(data);
-  //     //     this.setState({ savedLocations: locations }, function () {
-  //     //       console.log(this.state.savedLocations);
-  //     //     })
-  //     //   } else {
-  //     //     this.setState({
-  //     //       savedLocations: ''
-  //     //     });
-  //     //   }
-  //     // })
-  //   }
-  //   return () => mounted = false;
-  // }
-
   // handle location
   handleLocation = () => {
     let mounted = true;
     if (mounted) {
       console.log('Handle location pressed...');
-      // load firebase data
-      const user = firebase.auth().currentUser;
-      const db = firebase.database();
-      const ref = db.ref(user.uid);
-      const locationRef = ref.child("locations");
-      // get the unique key generated
-      var newLocationId = locationRef.push({}).key;
-      // save location details to database
-      db.ref(user.uid + '/locations/' + newLocationId).set({
-        key: newLocationId,
-        lat: this.props.currentLat,
-        lng: this.props.currentLng,
-        location: this.props.currentLocation
-      }, function (error) {
-        if (error) {
-          console.log(error);
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // user is signed in
+          // load firebase data
+          const user = firebase.auth().currentUser;
+          const db = firebase.firestore();
+          const dbRT = firebase.database();
+          const ref = dbRT.ref(user.uid);
+          const locationRef = ref.child("locations");
+          // get users saved data
+          locationRef.on('value', snapshot => {
+            if (snapshot.exists()) {
+              let data = snapshot.val();
+              let locations = Object.values(data);
+              console.log(locations);
+            } else {
+              console.log('No snapshots exist...');
+            }
+          })
+          // get the unique key generated
+          var newLocationId = locationRef.push({}).key;
+          // save location details to database
+          db.ref(user.uid + '/locations/' + newLocationId).set({
+            key: newLocationId,
+            lat: this.props.currentLat,
+            lng: this.props.currentLng,
+            location: this.props.currentLocation
+          }, function (error) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Location details saved...');
+            }
+          });
+
         } else {
-          console.log('Location details saved...');
+          // no user is signed in
+          // Works on both Android and iOS
+          Alert.alert(
+            'Not Logged In',
+            'Please login or signup to save locations',
+            [
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+          );
+
         }
       });
     }

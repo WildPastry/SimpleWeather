@@ -6,7 +6,6 @@ import SavedLocations from '../inc/SavedLocations';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
 import timeout from './../data/timeout.js';
-// import configData from './../data/config.json';
 
 // firebase
 import * as firebase from 'firebase';
@@ -33,9 +32,11 @@ class Header extends Component {
   }
 
   renderMenuOption() {
-    const user = firebase.auth().currentUser;
     // Change menu based on user status
     let menuDisplay;
+    // load firebase data
+    const user = firebase.auth().currentUser;
+
     if (user) {
       menuDisplay = (
         <Button
@@ -59,9 +60,10 @@ class Header extends Component {
   componentDidMount = async () => {
     let mounted = true;
     if (mounted) {
-      // load firebase data
-      const user = firebase.auth().currentUser;
       const db = firebase.firestore();
+      const dbRT = firebase.database();
+      const ref = dbRT.ref(user.uid);
+      const locationRef = ref.child("locations");
       // check for logged in users on load
       if (user) {
         var docRef = db.collection("users").doc(user.uid);
@@ -74,23 +76,33 @@ class Header extends Component {
         }).catch(function (error) {
           console.log("Error getting document:", error);
         });
+        // get users saved data on load
+        locationRef.on('value', snapshot => {
+          if (snapshot.exists()) {
+            let data = snapshot.val();
+            let locations = Object.values(data);
+            this.setState({ savedLocations: locations }, function () {
+              console.log(this.state.savedLocations);
+            })
+          } else {
+            this.setState({
+              savedLocations: ''
+            });
+          }
+        })
       } else {
         console.log('No user is currently logged in...');
       }
-      // get users saved data on load
-      // locationRef.on('value', snapshot => {
-      //   if (snapshot.exists()) {
-      //     let data = snapshot.val();
-      //     let locations = Object.values(data);
-      //     this.setState({ savedLocations: locations }, function () {
-      //       console.log(this.state.savedLocations);
-      //     })
-      //   } else {
-      //     this.setState({
-      //       savedLocations: ''
-      //     });
-      //   }
-      // })
+    }
+    return () => mounted = false;
+  }
+
+  // handle delete
+  handleDelete(val) {
+    let mounted = true;
+    if (mounted) {
+      console.log(val);
+      dbRT.ref(user.uid + '/locations/' + val).remove();
     }
     return () => mounted = false;
   }
@@ -99,6 +111,7 @@ class Header extends Component {
   handleSignout = async () => {
     try {
       await this.props.firebase.signOut()
+      // console.log("User", user, "is logged in");
       this.props.navigation.navigate('Auth');
     } catch (error) {
       console.log(error)
@@ -130,16 +143,6 @@ class Header extends Component {
     }
     return () => mounted = false;
   }
-
-  // handle delete
-  // handleDelete(val) {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     console.log(val);
-  //     swDB.ref('weather/locations/' + val).remove();
-  //   }
-  //   return () => mounted = false;
-  // }
 
   // START render Header
   render() {
