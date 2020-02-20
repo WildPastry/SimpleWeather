@@ -20,69 +20,73 @@ class GlobalModal extends Component {
     this.setState({ modalVisible: visible });
   }
 
+  // handle login
+  handleLogin = () => this.props.navigation.navigate('Login');
+
   // handle location
-  handleLocation = () => {
-    let mounted = true;
-    if (mounted) {
-      console.log('Handle location pressed...');
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          // user is signed in
-          // load firebase data
-          const user = firebase.auth().currentUser;
-          const db = firebase.firestore();
-          const dbRT = firebase.database();
-          const ref = dbRT.ref(user.uid);
-          const locationRef = ref.child("locations");
-          // get users saved data
-          locationRef.on('value', snapshot => {
-            if (snapshot.exists()) {
-              let data = snapshot.val();
-              let locations = Object.values(data);
-              console.log(locations);
-            } else {
-              console.log('No snapshots exist...');
-            }
-          })
-          // get the unique key generated
-          var newLocationId = locationRef.push({}).key;
-          // save location details to database
-          db.ref(user.uid + '/locations/' + newLocationId).set({
-            key: newLocationId,
-            lat: this.props.currentLat,
-            lng: this.props.currentLng,
-            location: this.props.currentLocation
-          }, function (error) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Location details saved...');
-            }
-          });
+  // handleLocation = () => {
+  //   let mounted = true;
+  //   if (mounted) {
+  //     console.log('Handle location pressed...');
+  //     // check firebase for user
+  //     // firebase.auth().onAuthStateChanged(function (user) {
+  //       if (user) {
+  //         // user is signed in
+  //         // load firebase data
+  //         const user = firebase.auth().currentUser;
+  //         const db = firebase.firestore();
+  //         const dbRT = firebase.database();
+  //         const ref = dbRT.ref(user.uid);
+  //         const locationRef = ref.child("locations");
+  //         // get users saved data
+  //         locationRef.on('value', snapshot => {
+  //           if (snapshot.exists()) {
+  //             let data = snapshot.val();
+  //             let locations = Object.values(data);
+  //             console.log(locations);
+  //           } else {
+  //             console.log('No snapshots exist...');
+  //           }
+  //         })
+  //         // get the unique key generated
+  //         var newLocationId = locationRef.push({}).key;
+  //         // save location details to database
+  //         db.ref(user.uid + '/locations/' + newLocationId).set({
+  //           key: newLocationId,
+  //           lat: this.props.currentLat,
+  //           lng: this.props.currentLng,
+  //           location: this.props.currentLocation
+  //         }, function (error) {
+  //           if (error) {
+  //             console.log(error);
+  //           } else {
+  //             console.log('Location details saved...');
+  //           }
+  //         });
 
-        } else {
-          // no user is signed in
-          // Works on both Android and iOS
-          Alert.alert(
-            'Not Logged In',
-            'Please login or signup to save locations',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ],
-            { cancelable: false },
-          );
+  //       } else {
+  //         // no user is signed in
+  //         // Works on both Android and iOS
+  //         Alert.alert(
+  //           'Not Logged In',
+  //           'Please login or signup to save locations',
+  //           [
+  //             {
+  //               text: 'Cancel',
+  //               onPress: () => console.log('Cancel Pressed'),
+  //               style: 'cancel',
+  //             },
+  //             { text: 'OK', onPress: () => console.log('OK Pressed') },
+  //           ],
+  //           { cancelable: false },
+  //         );
 
-        }
-      });
-    }
-    this.setModalVisible(false);
-    return () => mounted = false;
-  }
+  //       }
+  //     // });
+  //   }
+  //   this.setModalVisible(false);
+  //   return () => mounted = false;
+  // }
 
   // START render GlobalModal
   render() {
