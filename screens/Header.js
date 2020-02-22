@@ -29,6 +29,7 @@ class Header extends Component {
       savedLocations: []
     };
     this.handleAnimate = this.handleAnimate.bind(this);
+    this.updateSkyData = this.updateSkyData.bind(this);
   }
 
   renderMenuOption() {
@@ -37,8 +38,8 @@ class Header extends Component {
     // load firebase data
     var user = firebase.auth().currentUser;
     if (user) {
-      console.log('User ID:  ' + user.uid);
-      console.log('User email:  ' + user.providerData[0].email);
+      // console.log('User ID:  ' + user.uid);
+      console.log('Current signed in user email:  ' + user.providerData[0].email);
       menuDisplay = (
         <Button
           title='Signout'
@@ -65,39 +66,15 @@ class Header extends Component {
       console.log('inside componentDidMount from Header.js');
       // check firebase for user
       var user = firebase.auth().currentUser;
-      console.log(user);
-      // try {
-      //   await new Promise((resolve, reject) =>
-      //     app.auth().onAuthStateChanged(
-      //       user => {
-      //         if (user) {
-      //           // User is signed in.
-      //           console.log(user);
-      //           resolve(user)
-      //         } else {
-      //           // No user is signed in.
-      //           console.log('no user logged in');
-      //           reject('no user logged in');
-      //         }
-      //       },
-      //       // Prevent console error
-      //       error => reject(error)
-      //     )
-      //   )
-      //   return true
-      // } catch (error) {
-      //   return false
-      // }
-      // check firebase for user
-      // firebase.auth().onAuthStateChanged(function (user) {
-      // console.log(firebase.auth().currentUser.isAnonymous)
-      // console.log(firebase.auth().currentUser)
       if (user) {
+        // user is signed in
+        // load firebase data
         const db = firebase.firestore();
         const dbRT = firebase.database();
         const ref = dbRT.ref(user.uid);
         const locationRef = ref.child("locations");
         var docRef = db.collection("users").doc(user.uid);
+        // check if the signed in user has data saved
         docRef.get().then(function (doc) {
           if (doc.exists) {
             console.log("User", doc.data().name, "is logged in");
@@ -107,8 +84,8 @@ class Header extends Component {
         }).catch(function (error) {
           console.log("Error getting document:", error);
         });
-        // get users saved data on load
-        locationRef.once('value', snapshot => {
+        // get signed in users saved data on load
+        locationRef.on('value', snapshot => {
           if (snapshot.exists()) {
             let data = snapshot.val();
             let locations = Object.values(data);
@@ -116,6 +93,7 @@ class Header extends Component {
               console.log(this.state.savedLocations);
             })
           } else {
+            // if they have no locations saved set state to null
             this.setState({
               savedLocations: ''
             });
@@ -130,6 +108,8 @@ class Header extends Component {
 
   // handle delete
   handleDelete(val) {
+    var user = firebase.auth().currentUser;
+    const dbRT = firebase.database();
     let mounted = true;
     if (mounted) {
       console.log(val);
@@ -138,11 +118,26 @@ class Header extends Component {
     return () => mounted = false;
   }
 
+  // update sky data function
+  updateSkyData(val) {
+    let mounted = true;
+    if (mounted) {
+      console.log('Inside handleLocationChange from Header.js...');
+      console.log(val);
+      var options = {
+        googleLat: val['currentSavedLat'],
+        googleLng: val['currentSavedLng'],
+        googleName: val['currentSavedName']
+      };
+      this.props.updateSkyData(options);
+    }
+    return () => mounted = false;
+  }
+
   // handle signout
   handleSignout = async () => {
     try {
       await this.props.firebase.signOut()
-      // console.log("User", user, "is logged in");
       this.props.navigation.navigate('Auth');
     } catch (error) {
       console.log(error)
@@ -217,15 +212,11 @@ class Header extends Component {
             {/* save current location */}
             <View>
               {this.renderMenuOption()}
-              {/* <TouchableOpacity onPress={this.handleLocation}>
-                <Text style={headerStyles.menuText}>
-                  Save current location
-                  </Text>
-              </TouchableOpacity> */}
               {/* saved locations list */}
               {this.state.savedLocations.length > 0 ? (
                 <SavedLocations
                   savedLocations={this.state.savedLocations}
+                  updateSkyData={this.updateSkyData}
                   handleDelete={this.handleDelete} />
               ) : (
                   <Text style={headerStyles.menuText}>

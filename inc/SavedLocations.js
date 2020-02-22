@@ -10,8 +10,9 @@ class SavedLocations extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
+    this.updateSkyData = this.updateSkyData.bind(this);
   }
-  
+
   // static proptypes
   static propTypes = {
     savedLocations: PropTypes.array.isRequired
@@ -26,6 +27,20 @@ class SavedLocations extends Component {
     return () => mounted = false;
   }
 
+  // handle location change
+  updateSkyData = (val) => {
+    let mounted = true;
+    if (mounted) {
+      var options = {
+        currentSavedLat: val[0],
+        currentSavedLng: val[1],
+        currentSavedName: val[2]
+      }
+      this.props.updateSkyData(options);
+    }
+    return () => mounted = false;
+  }
+
   // START render SavedLocations
   render() {
     console.log('Inside render from SavedLocations...');
@@ -34,7 +49,14 @@ class SavedLocations extends Component {
         {this.props.savedLocations.map((location, index) => {
           return (
             <View style={savedLocationStyles.locationListWrapper} key={index}>
-              <Text style={savedLocationStyles.locationListText}>{location.location}</Text>
+              <Text
+                onPress={this.updateSkyData.bind(this, [
+                  location.lat,
+                  location.lng,
+                  location.location
+                ])}
+                style={savedLocationStyles.locationListText}>{location.location}
+              </Text>
               <Ionicons
                 onPress={this.handleDelete.bind(this, location.key)}
                 name='ios-close-circle'

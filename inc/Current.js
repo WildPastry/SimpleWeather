@@ -81,11 +81,13 @@ class Current extends Component {
 
   // update sky data function
   updateSkyData() {
+    console.log('Inside updateSkyData from Current.js...');
     var options = {
       googleLat: this.state.googleLat,
       googleLng: this.state.googleLng,
       googleName: this.state.googleName
     };
+    console.log(options);
     this.props.updateSkyData(options);
   }
 

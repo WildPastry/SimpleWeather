@@ -107,15 +107,17 @@ class App extends Component {
   }
 
   // update sky data function
-  updateSkyData(value) {
+  updateSkyData(val) {
+    console.log('Inside updateSkyData from App.js...');
+    console.log(val);
     this.setState({
       isLoaded: false,
-      currentLat: value['googleLat'],
-      currentLng: value['googleLng'],
-      currentLocation: value['googleName']
-    });
-    // call sky data function with new values
-    this.getSkyData();
+      currentLat: val['googleLat'],
+      currentLng: val['googleLng'],
+      currentLocation: val['googleName']
+    },
+      // call sky data function with new values
+      this.getSkyData);
   }
 
   // fallback function
@@ -246,8 +248,8 @@ class App extends Component {
   getSkyData() {
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-    console.log('FROM getSkyData ' + myLat);
-    console.log('FROM getSkyData ' + myLng);
+    console.log('FROM getSkyData (App.js) ' + myLat);
+    console.log('FROM getSkyData (App.js) ' + myLng);
     // fetch sky data
     fetch(
       'https://api.darksky.net/forecast/' +
@@ -536,6 +538,7 @@ class App extends Component {
               <Header
                 navigation={this.props.navigation}
                 currentLocation={this.state.currentLocation}
+                updateSkyData={this.updateSkyData}
                 currentLat={this.state.currentLat}
                 currentLng={this.state.currentLng}
                 currentBg={this.state.weekBg}

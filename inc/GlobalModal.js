@@ -30,62 +30,52 @@ class GlobalModal extends Component {
       console.log('Handle location pressed...');
       // check firebase for user
       var user = firebase.auth().currentUser;
-      // firebase.auth().onAuthStateChanged(function (user) {
+      console.log(user);
       if (user) {
         console.log('User ID:  ' + user.uid);
         console.log('User email:  ' + user.providerData[0].email);
-        // // user is signed in
-        // // load firebase data
-        // const user = firebase.auth().currentUser;
-        // const db = firebase.firestore();
-        // const dbRT = firebase.database();
-        // const ref = dbRT.ref(user.uid);
-        // const locationRef = ref.child("locations");
-        // // get users saved data
-        // locationRef.on('value', snapshot => {
-        //   if (snapshot.exists()) {
-        //     let data = snapshot.val();
-        //     let locations = Object.values(data);
-        //     console.log(locations);
-        //   } else {
-        //     console.log('No snapshots exist...');
-        //   }
-        // })
-        // // get the unique key generated
-        // var newLocationId = locationRef.push({}).key;
-        // // save location details to database
-        // db.ref(user.uid + '/locations/' + newLocationId).set({
-        //   key: newLocationId,
-        //   lat: this.props.currentLat,
-        //   lng: this.props.currentLng,
-        //   location: this.props.currentLocation
-        // }, function (error) {
-        //   if (error) {
-        //     console.log(error);
-        //   } else {
-        //     console.log('Location details saved...');
-        //   }
-        // });
+        // user is signed in
+        // load firebase data
+        const dbRT = firebase.database();
+        const ref = dbRT.ref(user.uid);
+        const locationRef = ref.child("locations");
+        // get signed in users saved data on click
+        locationRef.on('value', snapshot => {
+          if (snapshot.exists()) {
+            let data = snapshot.val();
+            let locations = Object.values(data);
+            console.log(locations);
+          } else {
+            console.log('No snapshots exist...');
+          }
+        })
+        // get the unique key generated
+        var newLocationId = locationRef.push({}).key;
+        // save location details to database
+        dbRT.ref(user.uid + '/locations/' + newLocationId).set({
+          key: newLocationId,
+          lat: this.props.currentLat,
+          lng: this.props.currentLng,
+          location: this.props.currentLocation
+        }, function (error) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Location details saved...');
+          }
+        });
 
       } else {
         // no user is signed in
-        // Works on both Android and iOS
         Alert.alert(
           'Not Logged In',
           'Please login or signup to save locations',
           [
-            {
-              text: 'Cancel',
-              onPress: () => console.log('Cancel Pressed'),
-              style: 'cancel',
-            },
             { text: 'OK', onPress: () => console.log('OK Pressed') },
           ],
           { cancelable: false },
         );
-
       }
-      // });
     }
     this.setModalVisible(false);
     return () => mounted = false;
