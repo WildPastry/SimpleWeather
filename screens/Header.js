@@ -33,33 +33,37 @@ class Header extends Component {
 
   renderMenuOption() {
     // Change menu based on user status
-    // let menuDisplay;
+    let menuDisplay;
     // load firebase data
-    // var user = firebase.auth().currentUser;
-    // if (user) {
-    //   menuDisplay = (
-    //     <Button
-    //       title='Signout'
-    //       onPress={this.handleSignout}
-    //       titleStyle={headerStyles.menuText}
-    //       type='clear' />
-    //   );
-    // } else {
-    //   menuDisplay = (
-    //     <Button
-    //       title='Login or create account'
-    //       onPress={this.handleLogin}
-    //       titleStyle={headerStyles.menuText}
-    //       type='clear' />
-    //   );
-    // }
-    // return menuDisplay;
+    var user = firebase.auth().currentUser;
+    if (user) {
+      console.log('User ID:  ' + user.uid);
+      console.log('User email:  ' + user.providerData[0].email);
+      menuDisplay = (
+        <Button
+          title='Signout'
+          onPress={this.handleSignout}
+          titleStyle={headerStyles.menuText}
+          type='clear' />
+      );
+    } else {
+      console.log('No user is logged in...');
+      menuDisplay = (
+        <Button
+          title='Login or create account'
+          onPress={this.handleLogin}
+          titleStyle={headerStyles.menuText}
+          type='clear' />
+      );
+    }
+    return menuDisplay;
   }
 
   componentDidMount = async () => {
     let mounted = true;
     if (mounted) {
       console.log('inside componentDidMount from Header.js');
+      // check firebase for user
       var user = firebase.auth().currentUser;
       console.log(user);
       // try {
@@ -86,42 +90,40 @@ class Header extends Component {
       // }
       // check firebase for user
       // firebase.auth().onAuthStateChanged(function (user) {
-        // console.log(firebase.auth().currentUser.isAnonymous)
-        // console.log(firebase.auth().currentUser)
-        // if (user) {
-        //   const db = firebase.firestore();
-        //   const dbRT = firebase.database();
-        //   const ref = dbRT.ref(user.uid);
-        //   const locationRef = ref.child("locations");
-        //   // check for logged in users on load
-        //   var docRef = db.collection("users").doc(user.uid);
-        //   docRef.get().then(function (doc) {
-        //     if (doc.exists) {
-        //       console.log("User", doc.data().name, "is logged in");
-        //     } else {
-        //       console.log("No docs exist...");
-        //     }
-        //   }).catch(function (error) {
-        //     console.log("Error getting document:", error);
-        //   });
-        //   // get users saved data on load
-        //   locationRef.once('value', snapshot => {
-        //     if (snapshot.exists()) {
-        //       let data = snapshot.val();
-        //       let locations = Object.values(data);
-        //       this.setState({ savedLocations: locations }, function () {
-        //         console.log(this.state.savedLocations);
-        //       })
-        //     } else {
-        //       this.setState({
-        //         savedLocations: ''
-        //       });
-        //     }
-        //   })
-        // } else {
-        //   console.log('No user is currently logged in...');
-        // }
-      // });
+      // console.log(firebase.auth().currentUser.isAnonymous)
+      // console.log(firebase.auth().currentUser)
+      if (user) {
+        const db = firebase.firestore();
+        const dbRT = firebase.database();
+        const ref = dbRT.ref(user.uid);
+        const locationRef = ref.child("locations");
+        var docRef = db.collection("users").doc(user.uid);
+        docRef.get().then(function (doc) {
+          if (doc.exists) {
+            console.log("User", doc.data().name, "is logged in");
+          } else {
+            console.log("No docs exist...");
+          }
+        }).catch(function (error) {
+          console.log("Error getting document:", error);
+        });
+        // get users saved data on load
+        locationRef.once('value', snapshot => {
+          if (snapshot.exists()) {
+            let data = snapshot.val();
+            let locations = Object.values(data);
+            this.setState({ savedLocations: locations }, function () {
+              console.log(this.state.savedLocations);
+            })
+          } else {
+            this.setState({
+              savedLocations: ''
+            });
+          }
+        })
+      } else {
+        console.log('No user is currently logged in...');
+      }
     }
     return () => mounted = false;
   }
