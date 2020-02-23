@@ -21,8 +21,7 @@
   "simpleWeather": "#303030",
   "peach": "#ff6666",
   "spotYellow": "#ffc82e",
-  "spotBlue": "#039BE5",
-  "spotOrange": "#F57C00",
-  "niceGreen": "#37d493",
-  "niceRed": "#fa4f4f"
+  "spotBlue": "#1faadb",
+  "spotOrange": "#fa774f",
+  "spotGreen": "#37d493"
 }

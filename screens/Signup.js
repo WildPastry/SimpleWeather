@@ -119,9 +119,9 @@ class Signup extends Component {
                       name='name'
                       value={values.name}
                       onChangeText={handleChange('name')}
-                      placeholder='Enter your full name'
+                      placeholder='Enter your name'
                       iconName='md-person'
-                      iconColor='#fff'
+                      iconColor={colours.white}
                       onBlur={handleBlur('name')} />
                     <ErrorMessage errorValue={touched.name && errors.name} />
                     <FormInput
@@ -194,7 +194,7 @@ class Signup extends Component {
           onPress={this.goToLogin}>
           <Text
             style={{
-              color: colours.spotBlue,
+              color: colours.spotYellow,
               fontFamily: 'allerLt',
               fontSize: 18
             }}>

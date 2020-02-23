@@ -139,6 +139,7 @@ class Header extends Component {
     try {
       await this.props.firebase.signOut()
       this.props.navigation.navigate('Auth');
+      console.log('User has been signed out...');
     } catch (error) {
       console.log(error)
     }

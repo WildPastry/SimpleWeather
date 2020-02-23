@@ -112,7 +112,7 @@ class GlobalModal extends Component {
                 <Ionicons
                   name='ios-close-circle'
                   size={45}
-                  color={colours.niceRed}
+                  color={colours.spotOrange}
                 />
               </TouchableHighlight>
               <TouchableHighlight
@@ -122,7 +122,7 @@ class GlobalModal extends Component {
                 <Ionicons
                   name='ios-checkmark-circle'
                   size={45}
-                  color={colours.niceGreen}
+                  color={colours.spotGreen}
                 />
               </TouchableHighlight>
             </View>

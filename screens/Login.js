@@ -62,17 +62,16 @@ class Login extends Component {
     const { passwordVisibility, rightIcon } = this.state
     return (
       <SafeAreaView style={loginStyles.container}>
-        <HideWithKeyboard style={loginStyles.logoContainer}>
-          {/* <AppLogo /> */}
-          <Text
-            style={loginStyles.simpleWeather}>
-            SIMPLE WEATHER
+        {/* <AppLogo /> */}
+        <Text
+          style={loginStyles.simpleWeather}>
+          SIMPLE WEATHER
         </Text>
-        </HideWithKeyboard>
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values, actions) => {
-            this.handleOnLogin(values, actions);}}
+            this.handleOnLogin(values, actions);
+          }}
           validationSchema={validationSchema}>
           {({
             handleChange,
@@ -149,7 +148,7 @@ class Login extends Component {
           onPress={this.goToForgotPassword}>
           <Text
             style={{
-              color: colours.spotOrange,
+              color: colours.spotYellow,
               fontFamily: 'allerLt',
               fontSize: 18
             }}>
