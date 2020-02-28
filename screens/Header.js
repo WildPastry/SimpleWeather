@@ -244,7 +244,7 @@ const headerStyles = StyleSheet.create({
   menuText: {
     color: colours.spotYellow,
     fontSize: 19,
-    fontFamily: 'allerBd',
+    fontFamily: 'allerRg',
     textAlign: 'center',
     marginBottom: 8
   },

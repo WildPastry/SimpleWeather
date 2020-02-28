@@ -218,15 +218,12 @@ const signupStyles = StyleSheet.create({
     justifyContent: 'center'
   },
   link: {
-    alignItems: 'center',
-    margin: 8
-  },
-  logoContainer: {
-    marginBottom: 15,
     alignItems: 'center'
   },
   buttonContainer: {
-    margin: 25
+    margin: 25,
+    marginBottom: 10,
+    marginTop: 10
   },
   checkBoxContainer: {
     backgroundColor: colours.simpleWeather,

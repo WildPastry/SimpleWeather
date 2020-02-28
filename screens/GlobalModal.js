@@ -15,6 +15,7 @@ class GlobalModal extends Component {
   state = {
     modalVisible: false,
   };
+
   // show/hide modal visibility
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -30,7 +31,7 @@ class GlobalModal extends Component {
       console.log('Handle location pressed...');
       // check firebase for user
       var user = firebase.auth().currentUser;
-      console.log(user);
+      console.log('Current user is: ' + user);
       if (user) {
         console.log('User ID:  ' + user.uid);
         console.log('User email:  ' + user.providerData[0].email);
@@ -71,7 +72,8 @@ class GlobalModal extends Component {
           'Not Logged In',
           'Please login or signup to save locations',
           [
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
+            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'Login', onPress: this.handleLogin },
           ],
           { cancelable: false },
         );
@@ -153,7 +155,7 @@ export default withFirebaseHOC(GlobalModal);
 const globalModalStyles = StyleSheet.create({
   modalWrapper: {
     alignItems: 'center',
-    backgroundColor: '#303030',
+    backgroundColor: colours.simpleWeather,
     flex: 1,
     justifyContent: 'center'
   },

@@ -68,7 +68,7 @@ class ForgotPassword extends Component {
                 <View style={forgotPasswordStyles.buttonContainer}>
                   <FormButton
                     onPress={handleSubmit}
-                    title='Send Email'
+                    title='SEND EMAIL'
                     disabled={!isValid || isSubmitting} />
                 </View>
                 <ErrorMessage errorValue={errors.general} />
@@ -80,7 +80,7 @@ class ForgotPassword extends Component {
           onPress={this.goToSignup}>
           <Text
             style={{
-              color: colours.white,
+              color: colours.spotYellow,
               fontFamily: 'allerLt',
               fontSize: 18
             }}>
@@ -112,7 +112,9 @@ const forgotPasswordStyles = StyleSheet.create({
     marginLeft: 25
   },
   buttonContainer: {
-    margin: 20
+    margin: 25,
+    marginBottom: 10,
+    marginTop: 10
   }
 })
 

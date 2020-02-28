@@ -543,29 +543,30 @@ class App extends Component {
                 currentLng={this.state.currentLng}
                 currentBg={this.state.weekBg}
               />
+              {/* current */}
+              <View style={{ backgroundColor: imageBg }}>
+                <Current
+                  navigation={this.props.navigation}
+                  keyboardShouldPersistTaps='handled'
+                  weatherCode={this.state.openWeatherId}
+                  currentBg={this.state.weekBg}
+                  currentIcon={this.state.currentIcon}
+                  updateSkyData={this.updateSkyData}
+                  errorMessage={this.state.errorMessag}
+                  currentLocation={this.state.currentLocation}
+                  currentLat={this.state.currentLat}
+                  currentLng={this.state.currentLng}
+                  wind={this.state.wind}
+                  humidity={this.state.humidity}
+                  temp={this.state.temp}
+                  high={this.state.high}
+                  low={this.state.low}
+                  desc={this.state.desc}
+                  icon={this.state.icon}
+                  sunset={this.state.sunset}
+                />
+              </View>
             </FirebaseProvider>
-            {/* current */}
-            <View style={{ backgroundColor: imageBg }}>
-              <Current
-                keyboardShouldPersistTaps='handled'
-                weatherCode={this.state.openWeatherId}
-                currentBg={this.state.weekBg}
-                currentIcon={this.state.currentIcon}
-                updateSkyData={this.updateSkyData}
-                errorMessage={this.state.errorMessag}
-                currentLocation={this.state.currentLocation}
-                currentLat={this.state.currentLat}
-                currentLng={this.state.currentLng}
-                wind={this.state.wind}
-                humidity={this.state.humidity}
-                temp={this.state.temp}
-                high={this.state.high}
-                low={this.state.low}
-                desc={this.state.desc}
-                icon={this.state.icon}
-                sunset={this.state.sunset}
-              />
-            </View>
             {/* week */}
             <Week
               style={{ backgroundColor: imageBg }}

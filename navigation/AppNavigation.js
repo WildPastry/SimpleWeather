@@ -2,6 +2,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import Home from '../screens/Home';
 import Header from '../screens/Header';
+import GlobalModal from '../screens/GlobalModal';
 import App from '../App';
 
 const AppNavigation = createStackNavigator(
@@ -14,6 +15,12 @@ const AppNavigation = createStackNavigator(
     },
     Header: {
       screen: Header,
+      navigationOptions: {
+        header: null
+      }
+    },
+    GlobalModal: {
+      screen: GlobalModal,
       navigationOptions: {
         header: null
       }

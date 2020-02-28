@@ -178,7 +178,9 @@ const loginStyles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-    margin: 20
+    margin: 25,
+    marginBottom: 10,
+    marginTop: 10
   },
   simpleWeather: {
     color: colours.white,

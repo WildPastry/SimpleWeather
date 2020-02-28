@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text, Keyboard, SafeAreaView, View } from 'react-native';
 import configData from './../data/config.json';
-import GlobalModal from '../inc/GlobalModal';
+import GlobalModal from '../screens/GlobalModal';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
@@ -286,8 +286,10 @@ class Current extends Component {
           justifyContent: 'center',
           backgroundColor: colourBg
         }}>
+          {/* globalmodal */}
           <FirebaseProvider value={Firebase}>
             <GlobalModal
+              navigation={this.props.navigation}
               currentLocation={this.props.currentLocation}
               currentLat={this.props.currentLat}
               currentLng={this.props.currentLng}
