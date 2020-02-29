@@ -1,6 +1,6 @@
 // imports
 import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements'
 import SavedLocations from '../inc/SavedLocations';
 import colours from './../assets/colours.json';
@@ -152,7 +152,7 @@ class Header extends Component {
   handleAnimate = () => {
     let mounted = true;
     if (mounted) {
-      console.log('Animating from 20...');
+      console.log('Inside handleAnimate from Header.js...');
       if (this.state.progress === false) {
         this.animation.play(20, 80);
         this.setState({
@@ -160,7 +160,7 @@ class Header extends Component {
           showMenu: true
         });
       } else {
-        console.log('Animating from 110...');
+        console.log('Inside handleAnimate from Header.js...');
         this.animation.play(110, 150);
         this.setState({
           progress: false,
@@ -173,7 +173,7 @@ class Header extends Component {
 
   // START render Header
   render() {
-    console.log('Inside render from Header...');
+    console.log('Inside render from Header.js...');
     return (
       // master wrap
       <View>

@@ -1,6 +1,6 @@
 // imports
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Alert, View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
 import colours from './../assets/colours.json';
@@ -10,6 +10,7 @@ class SavedLocations extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleAlert = this.handleAlert.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
   }
 
@@ -25,6 +26,22 @@ class SavedLocations extends Component {
       this.props.handleDelete(val);
     }
     return () => mounted = false;
+  }
+
+  // handle alert
+  handleAlert = (val) => {
+    console.log('Inside handleAlert from SavedLocations.js...');
+    console.log('Value is: ' + val);
+    // Alert
+    Alert.alert(
+      'Remove Location',
+      'Are you sure you want to remove this saved location?',
+      [
+        { text: 'No', style: 'cancel' },
+        { text: 'Yes', onPress: () => this.handleDelete(val) },
+      ],
+      { cancelable: false },
+    );
   }
 
   // handle location change
@@ -43,7 +60,7 @@ class SavedLocations extends Component {
 
   // START render SavedLocations
   render() {
-    console.log('Inside render from SavedLocations...');
+    console.log('Inside render from SavedLocations.js...');
     return (
       <View>
         {this.props.savedLocations.map((location, index) => {
@@ -58,7 +75,7 @@ class SavedLocations extends Component {
                 style={savedLocationStyles.locationListText}>{location.location}
               </Text>
               <Ionicons
-                onPress={this.handleDelete.bind(this, location.key)}
+                onPress={this.handleAlert.bind(this, location.key)}
                 name='ios-close-circle'
                 size={30}
                 color={colours.white}

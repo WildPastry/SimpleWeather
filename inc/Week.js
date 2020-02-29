@@ -6,7 +6,6 @@ import colours from './../assets/colours.json';
 import weatherIcons from './../assets/icons.json';
 import { Ionicons } from '@expo/vector-icons';
 import weather from './../assets/animations/weather.json';
-import LottieView from 'lottie-react-native';
 
 // moment set up
 var moment = require('moment');
@@ -18,7 +17,7 @@ var styles = require('../styles.js');
 class Week extends Component {
   // START Week render
   render() {
-    console.log('Inside render from Week...');
+    console.log('Inside render from Week.js...');
     // new array for filtering
     var filteredWeather = [];
 
@@ -28,7 +27,7 @@ class Week extends Component {
     // set up icon display
     let currentWeatherIcon;
 
-    console.log('weatherCode from Week ' + weatherCode);
+    console.log('weatherCode from Week.js ' + weatherCode);
 
     // weather icon logic
     // group 2xx: thunderstorm

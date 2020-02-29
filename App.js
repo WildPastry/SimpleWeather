@@ -56,7 +56,6 @@ const windyWeather = require('./assets/animations/weather/weather-windy.json');
 
 // START App
 class App extends Component {
-
   // control requests
   _isMounted = false;
   constructor(props) {
@@ -95,6 +94,7 @@ class App extends Component {
       weekBarBg: null
     };
     // bind functions to state
+    this.handleLoaded = this.handleLoaded.bind(this);
     this._getLocationAsync = this._getLocationAsync.bind(this);
     this.requestLocationPermission = this.requestLocationPermission.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
@@ -104,6 +104,16 @@ class App extends Component {
     this.setBgDay = this.setBgDay.bind(this);
     this.setBgNight = this.setBgNight.bind(this);
     this.fallback = this.fallback.bind(this);
+  }
+
+  // handle loading
+  handleLoaded = () => {
+    console.log('Inside handleLoaded from App.js...');
+    this.setState({
+      isLoaded: true
+    }, () => {
+      console.log('App loaded: ' + this.state.isLoaded);
+    });
   }
 
   // update sky data function
@@ -175,7 +185,7 @@ class App extends Component {
     console.log('_getLocationAsync function running...');
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync({
-      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
+      enableHighAccuracy: true, timeout: 1500, maximumAge: 1000
     });
     console.log('providerStatus =');
     console.log(providerStatus);
@@ -185,7 +195,6 @@ class App extends Component {
         errorMessage: 'Please enable location services for SIMPLEWEATHER in your device settings',
       });
       console.log('getProviderStatusAsync error message...');
-      Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
       // run fallback function
       this.fallback();
@@ -199,7 +208,6 @@ class App extends Component {
         errorMessage: 'Location permission was denied, please enable location services for SIMPLEWEATHER in your device settings',
       });
       console.log('askAsync error message...');
-      Alert.alert(this.state.errorMessage);
       console.log(this.state.errorMessage);
       // run fallback function
       this.fallback();
@@ -208,8 +216,9 @@ class App extends Component {
     // success function
     console.log('success function for getCurrentPositionAsync from App.js');
     let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
+      enableHighAccuracy: true, timeout: 1500, maximumAge: 1000
     });
+    console.log(location);
     this.setState({
       location: location,
       currentLat: location.coords.latitude.toFixed(5),
@@ -237,7 +246,8 @@ class App extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
-          currentLocation: responseJson.results[8].formatted_address
+          // fix google names with numbers in front
+          currentLocation: responseJson.results[8].formatted_address.replace(/^[\s\d]+/, '')
         });
       });
     this.getSkyData();
@@ -390,11 +400,11 @@ class App extends Component {
     imageBg = colours.night;
     this.setState({
       // loading screen
-      isLoaded: true,
       currentIcon: nightWeather,
       weekBg: colours.nightDark,
       weekBarBg: colours.night
     });
+    this.handleLoaded();
   }
 
   // day colour bg logic
@@ -483,10 +493,7 @@ class App extends Component {
         weekBarBg: colours.clearSky
       });
     }
-    this.setState({
-      // loading screen
-      isLoaded: true,
-    })
+    this.handleLoaded();
   }
 
   componentWillUnmount() {
@@ -500,6 +507,7 @@ class App extends Component {
 
     // START loading function
     if (!isLoaded) {
+      console.log('Inside RENDER NOT COMPLETE from App.js...');
       return (
         // START loading display
         <View style={styles.loader}>
@@ -519,6 +527,7 @@ class App extends Component {
       );
       // END loading function
     } else {
+      console.log('Inside RENDER COMPLETE from App.js...');
       return (
         // START main container
         <View

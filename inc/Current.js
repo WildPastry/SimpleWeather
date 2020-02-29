@@ -93,11 +93,11 @@ class Current extends Component {
 
   // START render Current
   render() {
-    console.log('Inside render from Current...');
+    console.log('Inside render from Current.js...');
     // set up weather code
     var weatherCode = this.props.weatherCode;
 
-    console.log('weatherCode from Current ' + weatherCode);
+    console.log('weatherCode from Current.js ' + weatherCode);
 
     // set up icon display
     let displayWeatherIcon;
@@ -188,6 +188,8 @@ class Current extends Component {
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
+            console.log(details);
+            console.log(details.formatted_address);
             // fix google names with numbers in front
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
@@ -289,6 +291,8 @@ class Current extends Component {
           {/* globalmodal */}
           <FirebaseProvider value={Firebase}>
             <GlobalModal
+              handleFail={this.handleFail}
+              handleSuccess={this.handleSuccess}
               navigation={this.props.navigation}
               currentLocation={this.props.currentLocation}
               currentLat={this.props.currentLat}
@@ -303,8 +307,8 @@ class Current extends Component {
           {/* main icon */}
           <LottieView
             style={{
-              height: 250,
-              width: 250
+              height: 215,
+              width: 215
             }}
             ref={animation => {
               this.animation = animation;

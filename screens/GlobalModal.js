@@ -12,23 +12,65 @@ import 'firebase/auth';
 
 // START GlobalModal
 class GlobalModal extends Component {
-  state = {
-    modalVisible: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false
+    };
+    this.setModalVisible = this.setModalVisible.bind(this);
+    this.dismissModal = this.dismissModal.bind(this);
+    this.handleFail = this.handleFail.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
+  }
 
   // show/hide modal visibility
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    this.setState({ modalVisible: visible }, () => console.log(this.state.modalVisible));
+  }
+
+  // dimiss modal
+  dismissModal() {
+    console.log('Inside dismissModal from GlobalModal.js...');
+    this.setModalVisible(false);
   }
 
   // handle login
   handleLogin = () => this.props.navigation.navigate('Login');
 
+  // handle alert fail
+  handleFail = () => {
+    console.log('Inside handleFail from GlobalModal.js...');
+    // Alert
+    Alert.alert(
+      'Not Logged In',
+      'Please login or signup to save locations',
+      [
+        { text: 'Cancel', onPress: this.dismissModal, style: 'cancel' },
+        { text: 'Login', onPress: this.handleLogin },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  // handle alert success
+  handleSuccess = () => {
+    console.log('Inside handleSuccess from GlobalModal.js...');
+    // Alert
+    Alert.alert(
+      'Success',
+      'Location details have been saved',
+      [
+        { text: 'OK', onPress: this.dismissModal, style: 'cancel' },
+      ],
+      { cancelable: false },
+    );
+  }
+
   // handle location
   handleLocation = () => {
     let mounted = true;
     if (mounted) {
-      console.log('Handle location pressed...');
+      console.log('Inside handleLocation from GlobalModal.js...');
       // check firebase for user
       var user = firebase.auth().currentUser;
       console.log('Current user is: ' + user);
@@ -45,7 +87,12 @@ class GlobalModal extends Component {
           if (snapshot.exists()) {
             let data = snapshot.val();
             let locations = Object.values(data);
-            console.log(locations);
+            console.log('Location check before saving');
+            locations.map((location, index) => {
+              console.log(index + ' : ' + location);
+            })
+            // console.log(locations.location);
+            console.log('this.props.currentLocation: ' + this.props.currentLocation);
           } else {
             console.log('No snapshots exist...');
           }
@@ -62,40 +109,32 @@ class GlobalModal extends Component {
           if (error) {
             console.log(error);
           } else {
+            // no error and user is signed in so:
             console.log('Location details saved...');
           }
         });
-
       } else {
         // no user is signed in
-        Alert.alert(
-          'Not Logged In',
-          'Please login or signup to save locations',
-          [
-            { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            { text: 'Login', onPress: this.handleLogin },
-          ],
-          { cancelable: false },
-        );
+        console.log('No user is logged in to save details...');
+        this.handleFail();
       }
     }
-    this.setModalVisible(false);
+    if (user) {
+      this.handleSuccess();
+    }
     return () => mounted = false;
   }
 
   // START render GlobalModal
   render() {
-    console.log('Inside render from GlobalModal...');
+    console.log('Inside render from GlobalModal.js...');
     return (
       <View>
         {/* START modal */}
         <Modal
           animationType="fade"
           transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
+          visible={this.state.modalVisible}>
           <View style={globalModalStyles.modalWrapper}>
             <View style={globalModalStyles.buttonsWrapper}>
               {/* text */}

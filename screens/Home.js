@@ -10,7 +10,7 @@ class Home extends Component {
   }
 // START render Home
   render() {
-    console.log('Inside render from Home...');
+    console.log('Inside render from Home.js...');
     return (
       <FirebaseProvider value={Firebase}>
         <App navigation={ this.props.navigation } />

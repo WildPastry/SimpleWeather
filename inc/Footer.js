@@ -7,7 +7,7 @@ import colours from './../assets/colours.json';
 class Footer extends Component {
   // START render Footer
   render() {
-    console.log('Inside render from Footer...');
+    console.log('Inside render from Footer.js...');
     return (
       <View
         style={{
