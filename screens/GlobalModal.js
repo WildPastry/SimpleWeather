@@ -15,12 +15,43 @@ class GlobalModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false
+      modalVisible: false,
+      locationCheck: []
     };
     this.setModalVisible = this.setModalVisible.bind(this);
     this.dismissModal = this.dismissModal.bind(this);
     this.handleFail = this.handleFail.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
+    this.locationCheck = this.locationCheck.bind(this);
+  }
+
+  componentDidMount = async () => {
+    let mounted = true;
+    if (mounted) {
+      console.log('inside componentDidMount from GlobalModal.js');
+      // // check firebase for user
+      var user = firebase.auth().currentUser;
+      if (user) {
+        // user is signed in
+        // load firebase data
+        const dbRT = firebase.database();
+        const ref = dbRT.ref(user.uid);
+        const locationRef = ref.child("locations");
+        // get signed in users saved data on click
+        locationRef.on('value', snapshot => {
+          if (snapshot.exists()) {
+            let data = snapshot.val();
+            let locations = Object.values(data);
+            this.setState({ locationCheck: locations });
+          } else {
+            console.log('No snapshots exist...');
+          }
+        })
+      } else {
+        console.log('No user is currently logged in...');
+      }
+    }
+    return () => mounted = false;
   }
 
   // show/hide modal visibility
@@ -66,8 +97,24 @@ class GlobalModal extends Component {
     );
   }
 
+  // location check
+  locationCheck = () => {
+    var currentLocation = this.props.currentLocation;
+    console.log(currentLocation);
+    console.log(this.state.locationCheck);
+    // return this.state.locationCheck(location => currentLocation === location);
+    // this.state.locationCheck.map((location, index) => {
+    //   if (currentLocation == location.location) {
+    //     console.log('Location is already saved...');
+    //   } else {
+    //     console.log('Great, we can add this location...');
+    //   }
+    // })
+  }
+
   // handle location
   handleLocation = () => {
+    var currentLocation = this.props.currentLocation;
     let mounted = true;
     if (mounted) {
       console.log('Inside handleLocation from GlobalModal.js...');
@@ -82,21 +129,29 @@ class GlobalModal extends Component {
         const dbRT = firebase.database();
         const ref = dbRT.ref(user.uid);
         const locationRef = ref.child("locations");
-        // get signed in users saved data on click
-        locationRef.on('value', snapshot => {
-          if (snapshot.exists()) {
-            let data = snapshot.val();
-            let locations = Object.values(data);
-            console.log('Location check before saving');
-            locations.map((location, index) => {
-              console.log(index + ' : ' + location);
-            })
-            // console.log(locations.location);
-            console.log('this.props.currentLocation: ' + this.props.currentLocation);
-          } else {
-            console.log('No snapshots exist...');
-          }
-        })
+        // // get signed in users saved data on click
+        // locationRef.on('value', snapshot => {
+        //   if (snapshot.exists()) {
+        //     let data = snapshot.val();
+        //     let locations = Object.values(data);
+        //     console.log('Location check before saving');
+        //     locations.map((location, index) => {
+        //       console.log(index);
+        //       console.log(location);
+        //     })
+        //     // console.log(locations.location);
+        //     console.log('Current location to check: ' + this.props.currentLocation);
+        //   } else {
+        //     console.log('No snapshots exist...');
+        //   }
+        // })
+
+        // this.state.locationCheck.map((location, index) => {
+        //   // console.log(index);
+        //   console.log(location.location);
+        //   // console.log('Current location: ' + this.props.currentLocation);
+        // })
+
         // get the unique key generated
         var newLocationId = locationRef.push({}).key;
         // save location details to database
@@ -104,7 +159,7 @@ class GlobalModal extends Component {
           key: newLocationId,
           lat: this.props.currentLat,
           lng: this.props.currentLng,
-          location: this.props.currentLocation
+          location: currentLocation
         }, function (error) {
           if (error) {
             console.log(error);
@@ -158,7 +213,7 @@ class GlobalModal extends Component {
               </TouchableHighlight>
               <TouchableHighlight
                 style={{ padding: 12 }}
-                onPress={this.handleLocation}>
+                onPress={this.locationCheck}>
                 {/* save */}
                 <Ionicons
                   name='ios-checkmark-circle'

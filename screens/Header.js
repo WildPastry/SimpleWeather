@@ -90,7 +90,8 @@ class Header extends Component {
             let data = snapshot.val();
             let locations = Object.values(data);
             this.setState({ savedLocations: locations }, function () {
-              console.log(this.state.savedLocations);
+              // console.log(this.state.savedLocations);
+              console.log('Locations loaded in Header.js...');
             })
           } else {
             // if they have no locations saved set state to null
