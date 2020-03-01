@@ -22,6 +22,7 @@ class GlobalModal extends Component {
     this.dismissModal = this.dismissModal.bind(this);
     this.handleFail = this.handleFail.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
+    this.handleDuplicate = this.handleDuplicate.bind(this);
     this.locationCheck = this.locationCheck.bind(this);
   }
 
@@ -56,7 +57,7 @@ class GlobalModal extends Component {
 
   // show/hide modal visibility
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible }, () => console.log(this.state.modalVisible));
+    this.setState({ modalVisible: visible }, () => console.log('Is modal visible? ' + this.state.modalVisible));
   }
 
   // dimiss modal
@@ -97,24 +98,37 @@ class GlobalModal extends Component {
     );
   }
 
+    // handle alert duplicate
+    handleDuplicate = () => {
+      console.log('Inside handleDuplicate from GlobalModal.js...');
+      // Alert
+      Alert.alert(
+        'Duplicate',
+        'This location has already been saved',
+        [
+          { text: 'OK', onPress: this.dismissModal, style: 'cancel' },
+        ],
+        { cancelable: false },
+      );
+    }
+
   // location check
-  locationCheck = () => {
-    var currentLocation = this.props.currentLocation;
-    console.log(currentLocation);
-    console.log(this.state.locationCheck);
-    // return this.state.locationCheck(location => currentLocation === location);
-    // this.state.locationCheck.map((location, index) => {
-    //   if (currentLocation == location.location) {
-    //     console.log('Location is already saved...');
-    //   } else {
-    //     console.log('Great, we can add this location...');
-    //   }
-    // })
+  locationCheck = (val) => {
+    console.log('COMPARE: ' + val);
+    // compare current location to the saved locations
+    const e =  this.state.locationCheck.some(location => val === location.location);
+    if (e != true){
+      console.log('Must be false: ' + e);
+      this.handleLocation();
+    } else {
+      console.log('Must be true: ' + e);
+      this.handleDuplicate();
+    }
   }
 
   // handle location
   handleLocation = () => {
-    var currentLocation = this.props.currentLocation;
+    // var currentLocation = this.props.currentLocation;
     let mounted = true;
     if (mounted) {
       console.log('Inside handleLocation from GlobalModal.js...');
@@ -159,7 +173,7 @@ class GlobalModal extends Component {
           key: newLocationId,
           lat: this.props.currentLat,
           lng: this.props.currentLng,
-          location: currentLocation
+          location: this.props.currentLocation
         }, function (error) {
           if (error) {
             console.log(error);
@@ -183,6 +197,7 @@ class GlobalModal extends Component {
   // START render GlobalModal
   render() {
     console.log('Inside render from GlobalModal.js...');
+    var currentLocation = this.props.currentLocation;
     return (
       <View>
         {/* START modal */}
@@ -213,7 +228,7 @@ class GlobalModal extends Component {
               </TouchableHighlight>
               <TouchableHighlight
                 style={{ padding: 12 }}
-                onPress={this.locationCheck}>
+                onPress={this.locationCheck.bind(this, currentLocation)}>
                 {/* save */}
                 <Ionicons
                   name='ios-checkmark-circle'

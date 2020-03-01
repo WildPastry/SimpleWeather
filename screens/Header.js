@@ -29,6 +29,7 @@ class Header extends Component {
       savedLocations: []
     };
     this.handleAnimate = this.handleAnimate.bind(this);
+    this.handleHome = this.handleHome.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
   }
 
@@ -135,6 +136,16 @@ class Header extends Component {
     return () => mounted = false;
   }
 
+  // handle home
+  handleHome(val) {
+    var options = {
+      currentSavedLat: val[0],
+      currentSavedLng: val[1],
+      currentSavedName: val[2]
+    }
+    console.log(options);
+  }
+
   // handle signout
   handleSignout = async () => {
     try {
@@ -211,9 +222,21 @@ class Header extends Component {
         {/* menu */}
         {this.state.showMenu &&
           <View style={headerStyles.menuWrap}>
-            {/* save current location */}
+            {/* render menu based on user status */}
             <View>
               {this.renderMenuOption()}
+            </View>
+            {/* set current location as home */}
+            <Text
+              style={headerStyles.menuText}
+              onPress={this.handleHome.bind(this, [
+                this.props.currentLat,
+                this.props.currentLng,
+                this.props.currentLocation
+              ])}>
+              Set Current location as home
+            </Text>
+            <View>
               {/* saved locations list */}
               {this.state.savedLocations.length > 0 ? (
                 <SavedLocations

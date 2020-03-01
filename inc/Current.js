@@ -100,53 +100,60 @@ class Current extends Component {
     console.log('weatherCode from Current.js ' + weatherCode);
 
     // set up icon display
-    let displayWeatherIcon;
     let currentWeatherIcon;
 
-    // weather icon logic
-    // group 2xx: thunderstorm
-    if (weatherCode >= 200 && weatherCode <= 232) {
-      currentWeatherIcon = weather.weatherStorm;
-      // group 3xx: drizzle
-    } else if (
-      (weatherCode) >= 300 &&
-      (weatherCode) <= 321
-    ) {
-      currentWeatherIcon = weather.weatherRainyNight;
-      // group 5xx: rain
-    } else if (
-      (weatherCode) >= 500 &&
-      (weatherCode) <= 531
-    ) {
-      currentWeatherIcon = weather.weatherRainyNight;
-      // group 6xx: snow
-    } else if (
-      (weatherCode) >= 600 &&
-      (weatherCode) <= 622
-    ) {
-      currentWeatherIcon = weather.weatherSnow;
-      // group 7xx: atmosphere
-    } else if (
-      (weatherCode) >= 701 &&
-      (weatherCode) <= 781
-    ) {
-      currentWeatherIcon = weather.weatherFoggy;
-      // group 80x: scattered clouds
-    } else if (
-      (weatherCode) >= 801 &&
-      (weatherCode) <= 802
-    ) {
-      currentWeatherIcon = weather.weatherPartlyCloudy;
-      // group 80x: broken clouds
-    } else if (
-      (weatherCode) >= 803 &&
-      (weatherCode) <= 804
-    ) {
-      currentWeatherIcon = weather.weatherPartlyCloudy;
-      // group 800: clear
-    } else {
-      currentWeatherIcon = weather.weatherSunny;
-    }
+    // check night or day
+    var isNightOrDay = this.props.icon.includes('02n');
+
+    // night or day function
+    console.log('Night = ' + isNightOrDay + ' from Current.js');
+    if (isNightOrDay === true) {
+      currentWeatherIcon = weather.weatherNight
+    } else
+      // weather icon logic
+      // group 2xx: thunderstorm
+      if (weatherCode >= 200 && weatherCode <= 232) {
+        currentWeatherIcon = weather.weatherStorm;
+        // group 3xx: drizzle
+      } else if (
+        (weatherCode) >= 300 &&
+        (weatherCode) <= 321
+      ) {
+        currentWeatherIcon = weather.weatherpartlyShower;
+        // group 5xx: rain
+      } else if (
+        (weatherCode) >= 500 &&
+        (weatherCode) <= 531
+      ) {
+        currentWeatherIcon = weather.weatherpartlyShower;
+        // group 6xx: snow
+      } else if (
+        (weatherCode) >= 600 &&
+        (weatherCode) <= 622
+      ) {
+        currentWeatherIcon = weather.weatherSnow;
+        // group 7xx: atmosphere
+      } else if (
+        (weatherCode) >= 701 &&
+        (weatherCode) <= 781
+      ) {
+        currentWeatherIcon = weather.weatherFoggy;
+        // group 80x: scattered clouds
+      } else if (
+        (weatherCode) >= 801 &&
+        (weatherCode) <= 802
+      ) {
+        currentWeatherIcon = weather.weatherPartlyCloudy;
+        // group 80x: broken clouds
+      } else if (
+        (weatherCode) >= 803 &&
+        (weatherCode) <= 804
+      ) {
+        currentWeatherIcon = weather.weatherPartlyCloudy;
+        // group 800: clear
+      } else {
+        currentWeatherIcon = weather.weatherSunny;
+      }
 
     // set up date constants
     const today = this.state.currentDate;
@@ -156,18 +163,7 @@ class Current extends Component {
     // set up colour bg variable
     var colourBg = this.props.currentBg;
 
-    // check night or day
-    var isNightOrDay = this.props.icon.includes('01n');
-
-    // night or day function
-    console.log('Night = ' + isNightOrDay + ' from Current.js');
-    if (isNightOrDay === true) {
-      displayWeatherIcon = nightWeatherIcons;
-    } else {
-      displayWeatherIcon = weatherIcons;
-    }
-
-    // set up date VARIABLES
+    // set up dates
     var todaySun = moment.unix(this.props.sunset);
     var dateSun = moment(todaySun).format('HH:MM');
 
@@ -188,8 +184,10 @@ class Current extends Component {
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
-            console.log(details);
-            console.log(details.formatted_address);
+            // console.log(details);
+            // console.log(details.formatted_address);
+            // console.log(details.address_components[1].long_name);
+            // console.log(details.address_components[2].long_name);
             // fix google names with numbers in front
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({

@@ -185,7 +185,7 @@ class App extends Component {
     console.log('_getLocationAsync function running...');
     // check provider and if location services are enabled
     let providerStatus = await Location.getProviderStatusAsync({
-      enableHighAccuracy: true, timeout: 1500, maximumAge: 1000
+      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
     });
     console.log('providerStatus =');
     console.log(providerStatus);
@@ -216,9 +216,9 @@ class App extends Component {
     // success function
     console.log('success function for getCurrentPositionAsync from App.js');
     let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: true, timeout: 1500, maximumAge: 1000
+      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
     });
-    console.log(location);
+    // console.log(location);
     this.setState({
       location: location,
       currentLat: location.coords.latitude.toFixed(5),
@@ -245,9 +245,14 @@ class App extends Component {
     )
       .then((response) => response.json())
       .then((responseJson) => {
+        console.log(responseJson.results[0]);
+        console.log(responseJson.results[0].address_components[1].long_name);
+        console.log(responseJson.results[0].address_components[2].long_name);
         this.setState({
           // fix google names with numbers in front
-          currentLocation: responseJson.results[8].formatted_address.replace(/^[\s\d]+/, '')
+          // currentLocation: responseJson.results[8].formatted_address.replace(/^[\s\d]+/, '')
+          currentLocation: responseJson.results[0].address_components[1].long_name + ', ' +
+          responseJson.results[0].address_components[2].long_name
         });
       });
     this.getSkyData();
@@ -383,7 +388,7 @@ class App extends Component {
   // check night or day function
   nightOrDay() {
     console.log('Icon = ' + this.state.icon + ' from App.js');
-    var isNightOrDay = this.state.icon.includes('01n');
+    var isNightOrDay = this.state.icon.includes('02n');
     console.log('Night = ' + isNightOrDay + ' from App.js');
     if (isNightOrDay === true) {
       this.setBgNight();
@@ -399,7 +404,6 @@ class App extends Component {
     console.log('Night function running...');
     imageBg = colours.night;
     this.setState({
-      // loading screen
       currentIcon: nightWeather,
       weekBg: colours.nightDark,
       weekBarBg: colours.night
