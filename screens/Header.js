@@ -30,6 +30,8 @@ class Header extends Component {
     };
     this.handleAnimate = this.handleAnimate.bind(this);
     this.handleHome = this.handleHome.bind(this);
+    this.handleFail = this.handleFail.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
   }
 
@@ -39,13 +41,12 @@ class Header extends Component {
     // load firebase data
     var user = firebase.auth().currentUser;
     if (user) {
-      // console.log('User ID:  ' + user.uid);
       console.log('Current signed in user email:  ' + user.providerData[0].email);
       menuDisplay = (
         <Button
           title='Signout'
           onPress={this.handleSignout}
-          titleStyle={headerStyles.menuText}
+          titleStyle={headerStyles.menuTitle}
           type='clear' />
       );
     } else {
@@ -54,7 +55,7 @@ class Header extends Component {
         <Button
           title='Login or create account'
           onPress={this.handleLogin}
-          titleStyle={headerStyles.menuText}
+          titleStyle={headerStyles.menuTitle}
           type='clear' />
       );
     }
@@ -91,7 +92,6 @@ class Header extends Component {
             let data = snapshot.val();
             let locations = Object.values(data);
             this.setState({ savedLocations: locations }, function () {
-              // console.log(this.state.savedLocations);
               console.log('Locations loaded in Header.js...');
             })
           } else {
@@ -106,6 +106,35 @@ class Header extends Component {
       }
     }
     return () => mounted = false;
+  }
+
+  // handle alert fail
+  handleFail = () => {
+    console.log('Inside handleFail from Header.js...');
+    // Alert
+    Alert.alert(
+      'Not Logged In',
+      'Please login or signup to set a location as home',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Login', onPress: this.handleLogin },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  // handle alert success
+  handleSuccess = () => {
+    console.log('Inside handleSuccess from Header.js...');
+    // Alert
+    Alert.alert(
+      'Success',
+      'New location set as home',
+      [
+        { text: 'OK', style: 'cancel' },
+      ],
+      { cancelable: false },
+    );
   }
 
   // handle delete
@@ -138,12 +167,46 @@ class Header extends Component {
 
   // handle home
   handleHome(val) {
-    var options = {
-      currentSavedLat: val[0],
-      currentSavedLng: val[1],
-      currentSavedName: val[2]
+    let mounted = true;
+    if (mounted) {
+      console.log('Inside handleHome from Header.js...');
+      var options = {
+        currentSavedLat: val[0],
+        currentSavedLng: val[1],
+        currentSavedName: val[2]
+      }
+      console.log(options);
+      // check firebase for user
+      var user = firebase.auth().currentUser;
+      if (user) {
+        console.log('User ID:  ' + user.uid);
+        console.log('User email:  ' + user.providerData[0].email);
+        // user is signed in
+        // load firebase data
+        const dbRT = firebase.database();
+        // save home location
+        dbRT.ref(user.uid + '/home').set({
+          lat: options.currentSavedLat,
+          lng: options.currentSavedLng,
+          location: options.currentSavedName
+        }, function (error) {
+          if (error) {
+            console.log(error);
+          } else {
+            // no error and user is signed in so:
+            console.log('Home location saved...');
+          }
+        });
+      } else {
+        // no user is signed in
+        console.log('No user is logged in to save details...');
+        this.handleFail();
+      }
     }
-    console.log(options);
+    if (user) {
+      this.handleSuccess();
+    }
+    return () => mounted = false;
   }
 
   // handle signout
@@ -234,7 +297,7 @@ class Header extends Component {
                 this.props.currentLng,
                 this.props.currentLocation
               ])}>
-              Set Current location as home
+              Set current location to home
             </Text>
             <View>
               {/* saved locations list */}
@@ -245,7 +308,7 @@ class Header extends Component {
                   handleDelete={this.handleDelete} />
               ) : (
                   <Text style={headerStyles.menuText}>
-                    No saved locations yet...
+                    No saved locations yet
                   </Text>
                 )}
             </View>
@@ -264,6 +327,13 @@ export default withFirebaseHOC(Header);
 const headerStyles = StyleSheet.create({
   menuWrap: {
     padding: 8
+  },
+  menuTitle: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerBd',
+    textAlign: 'center',
+    marginBottom: 8
   },
   menuText: {
     color: colours.spotYellow,

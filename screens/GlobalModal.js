@@ -128,13 +128,11 @@ class GlobalModal extends Component {
 
   // handle location
   handleLocation = () => {
-    // var currentLocation = this.props.currentLocation;
     let mounted = true;
     if (mounted) {
       console.log('Inside handleLocation from GlobalModal.js...');
       // check firebase for user
       var user = firebase.auth().currentUser;
-      console.log('Current user is: ' + user);
       if (user) {
         console.log('User ID:  ' + user.uid);
         console.log('User email:  ' + user.providerData[0].email);
@@ -143,29 +141,6 @@ class GlobalModal extends Component {
         const dbRT = firebase.database();
         const ref = dbRT.ref(user.uid);
         const locationRef = ref.child("locations");
-        // // get signed in users saved data on click
-        // locationRef.on('value', snapshot => {
-        //   if (snapshot.exists()) {
-        //     let data = snapshot.val();
-        //     let locations = Object.values(data);
-        //     console.log('Location check before saving');
-        //     locations.map((location, index) => {
-        //       console.log(index);
-        //       console.log(location);
-        //     })
-        //     // console.log(locations.location);
-        //     console.log('Current location to check: ' + this.props.currentLocation);
-        //   } else {
-        //     console.log('No snapshots exist...');
-        //   }
-        // })
-
-        // this.state.locationCheck.map((location, index) => {
-        //   // console.log(index);
-        //   console.log(location.location);
-        //   // console.log('Current location: ' + this.props.currentLocation);
-        // })
-
         // get the unique key generated
         var newLocationId = locationRef.push({}).key;
         // save location details to database

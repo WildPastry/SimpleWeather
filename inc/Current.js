@@ -107,10 +107,11 @@ class Current extends Component {
 
     // night or day function
     console.log('Night = ' + isNightOrDay + ' from Current.js');
+    // weather icon logic
+    // night
     if (isNightOrDay === true) {
       currentWeatherIcon = weather.weatherNight
     } else
-      // weather icon logic
       // group 2xx: thunderstorm
       if (weatherCode >= 200 && weatherCode <= 232) {
         currentWeatherIcon = weather.weatherStorm;
@@ -119,13 +120,13 @@ class Current extends Component {
         (weatherCode) >= 300 &&
         (weatherCode) <= 321
       ) {
-        currentWeatherIcon = weather.weatherpartlyShower;
+        currentWeatherIcon = weather.weatherPartlyShower;
         // group 5xx: rain
       } else if (
         (weatherCode) >= 500 &&
         (weatherCode) <= 531
       ) {
-        currentWeatherIcon = weather.weatherpartlyShower;
+        currentWeatherIcon = weather.weatherPartlyShower;
         // group 6xx: snow
       } else if (
         (weatherCode) >= 600 &&

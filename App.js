@@ -21,8 +21,11 @@ import { PermissionsAndroid } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 // firebase
+import * as firebase from 'firebase';
 import { withFirebaseHOC } from './config/Firebase';
 import Firebase, { FirebaseProvider } from './config/Firebase';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 // stylesheet
 var styles = require('./styles.js');
@@ -147,14 +150,55 @@ class App extends Component {
     // set component mounted
     this._isMounted = true;
     console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
-    // platform check
-    if (Platform.OS === 'ios') {
-      // get user location function
-      this._getLocationAsync();
-    }
-    else {
-      // check android permissions
-      this.requestLocationPermission();
+    // check firebase for user
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // user is signed in
+      // load firebase data
+      const db = firebase.firestore();
+      const dbRT = firebase.database();
+      const ref = dbRT.ref(user.uid);
+      const homeRef = ref.child("home");
+      var docRef = db.collection("users").doc(user.uid);
+      // check if the signed in user has data saved
+      docRef.get().then(function (doc) {
+        if (doc.exists) {
+          console.log("User", doc.data().name, "is logged in");
+        } else {
+          console.log("No docs exist...");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+      // get signed in users saved data on load
+      homeRef.on('value', snapshot => {
+        if (snapshot.exists()) {
+          let home = snapshot.val();
+          console.log(home);
+          var homeLat = home.lat;
+          var homeLng = home.lng;
+          var homeLocation = home.location;
+          this.setState({
+            currentLat: homeLat,
+            currentLng: homeLng,
+            currentLocation: homeLocation
+          }, this.getSkyData);
+        } else {
+          console.log('No home saved...');
+        }
+      })
+      // no user
+    } else {
+      console.log('No user is currently logged in...');
+      // platform check
+      if (Platform.OS === 'ios') {
+        // get user location function
+        this._getLocationAsync();
+      }
+      else {
+        // check android permissions
+        this.requestLocationPermission();
+      }
     }
   }
   // END component mounted
@@ -252,7 +296,7 @@ class App extends Component {
           // fix google names with numbers in front
           // currentLocation: responseJson.results[8].formatted_address.replace(/^[\s\d]+/, '')
           currentLocation: responseJson.results[0].address_components[1].long_name + ', ' +
-          responseJson.results[0].address_components[2].long_name
+            responseJson.results[0].address_components[2].long_name
         });
       });
     this.getSkyData();
