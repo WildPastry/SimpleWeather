@@ -140,7 +140,7 @@ class Login extends Component {
               fontFamily: 'allerLt',
               fontSize: 18
             }}>
-            Don't have an account? Sign Up
+            Don't have an account? Sign up
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

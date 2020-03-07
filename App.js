@@ -140,9 +140,7 @@ class App extends Component {
       currentLocation: 'Wellington, New Zealand',
       currentLat: -41.2865,
       currentLng: 174.7762
-    });
-    // run data function using fallback details
-    this.getSkyData();
+    },this.getSkyData);
   }
 
   // START component mounted
@@ -191,14 +189,16 @@ class App extends Component {
     } else {
       console.log('No user is currently logged in...');
       // platform check
-      if (Platform.OS === 'ios') {
-        // get user location function
-        this._getLocationAsync();
-      }
-      else {
-        // check android permissions
-        this.requestLocationPermission();
-      }
+      // if (Platform.OS === 'ios') {
+      //   // get user location function
+      //   this._getLocationAsync();
+      // }
+      // else {
+      //   // check android permissions
+      //   this.requestLocationPermission();
+      // }
+      // run fallback function
+      this.fallback();
     }
   }
   // END component mounted
