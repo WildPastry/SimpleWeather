@@ -10,7 +10,7 @@
     "accordion-collapse-react-native": "^0.2.6",
     "chroma-js": "^2.1.0",
     "expo": "^36.0.2",
-    "expo-cli": "^3.17.23",
+    "expo-cli": "^3.18.2",
     "expo-font": "^8.0.0",
     "expo-location": "^8.0.0",
     "firebase": "^7.6.1",
