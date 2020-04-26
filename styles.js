@@ -94,6 +94,13 @@ const myStylesheet = StyleSheet.create({
     padding: 10,
     textAlign: 'center'
   },
+  currentDescSummary: {
+    color: '#fff',
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    textAlign: 'center',
+    paddingBottom: 12
+  },
   dateText: {
     color: '#fff',
     fontSize: 22,

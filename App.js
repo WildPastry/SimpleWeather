@@ -140,7 +140,7 @@ class App extends Component {
       currentLocation: 'Wellington, New Zealand',
       currentLat: -41.2865,
       currentLng: 174.7762
-    },this.getSkyData);
+    }, this.getSkyData);
   }
 
   // START component mounted
@@ -553,6 +553,20 @@ class App extends Component {
     // declare loading variables in current state
     var { isLoaded } = this.state;
 
+    // console.log(this.state.skyWeather.currently);
+    // console.log(this.state.skyWeather.daily.data[0]);
+    // console.log(this.state.skyWeather.hourly);
+
+    // console.log(this.state.skyWeather);
+    // console.log('From App.js ' + this.state.skyWeather.hourly);
+    // console.log(this.state.skyWeather.currently);
+    // console.log(this.state.skyWeather.daily);
+    // console.log(this.state.skyWeather.hourly);
+    // {this.state.skyWeather.map((hourlyWeather) => {
+    //   console.log(hourlyWeather.time);
+    //   console.log(hourlyWeather.summary);
+    // })}
+
     // START loading function
     if (!isLoaded) {
       console.log('Inside RENDER NOT COMPLETE from App.js...');
@@ -621,6 +635,7 @@ class App extends Component {
                   desc={this.state.desc}
                   icon={this.state.icon}
                   sunset={this.state.sunset}
+                  skyWeather={this.state.skyWeather}
                 />
               </View>
             </FirebaseProvider>

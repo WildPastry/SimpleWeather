@@ -24,6 +24,9 @@ var styles = require('../styles.js');
 // moment set up
 var moment = require('moment');
 
+// countdown set up
+// var countdown;
+
 // START Current
 class Current extends Component {
   constructor(props) {
@@ -38,7 +41,7 @@ class Current extends Component {
       // placeholder clear
       placeholder: this.props.currentLocation,
       // google places listview
-      listViewDisplayed: true
+      listViewDisplayed: true,
     };
     this.updateSkyData = this.updateSkyData.bind(this);
     this._keyboardDidShow = this._keyboardDidShow.bind(this);
@@ -55,12 +58,39 @@ class Current extends Component {
       'keyboardDidHide',
       this._keyboardDidHide
     );
+    // call countdown function
+    // this.countDown = setInterval(() => {
+    //   this.startCountDown();
+    // }, 1000);
   }
+
+  // start countdown function
+  // startCountDown = () => {
+  //   var sunSetTime = this.props.sunset;
+  //   var sunTimer = new Date(sunSetTime * 1000).toString();
+  //   var sunTimerShort = sunTimer.slice(0, 24);
+  //   var countDownDate = new Date(sunTimerShort).getTime();
+  //   var now = new Date().getTime();
+  //   var distance = countDownDate - now;
+  //   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  //   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  //   // getCountdown.innerHTML = "<h1>" + hours + " : " +
+  //   //   minutes + " : " + seconds + " " + "</h1>";
+  //   console.log(hours + minutes + seconds);
+  //   // if (distance < 0) {
+  //   //   clearInterval(countDown);
+  //   //   getCountdown.innerHTML = "<h1>" + "Expired" + "</h1>";
+  //   // }
+  // }
 
   // keyboard will un-mount function
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
+    // clear countdown
+    // clearInterval(this.countDown);
   }
 
   // keyboard shown
@@ -161,12 +191,39 @@ class Current extends Component {
     const day = moment(today).format('dddd,');
     const date = moment(today).format('MMMM D');
 
+    console.log(today)
     // set up colour bg variable
     var colourBg = this.props.currentBg;
 
-    // set up dates
-    var todaySun = moment.unix(this.props.sunset);
-    var dateSun = moment(todaySun).format('HH:MM');
+    // countdown function
+    // clearInterval(countDown);
+    // clearInterval(countDown);
+    // set up countdown
+    // countdown set up
+    // var sunSetTime = this.props.sunset;
+    // var sunTimer = new Date(sunSetTime * 1000).toString();
+    // var sunTimerShort = sunTimer.slice(0, 24);
+    // var countDownDate = new Date(sunTimerShort).getTime();
+
+    // console.log(countDownDate);
+    // var todaySun = moment.unix(this.props.sunset);
+    // var dateSun = moment(todaySun).format('HH:MM');
+
+    // console.log('Time of sunset: ' + this.props.sunset);
+    // console.log('Current time: ' + moment().unix());
+
+    // console.log(dateSun);
+    // console.log(this.props.sunset);
+
+    // console.log(this.props.skyWeather.currently);
+    // console.log(this.props.skyWeather.daily.data[0]);
+    // console.log(this.props.skyWeather.hourly.data);
+
+    // {
+    //   this.props.skyWeather.hourly.data.map((hourlyData) => {
+    //     console.log(moment(hourlyData.time).format('HH:MM:SSSS'));
+    //   });
+    // }
 
     return (
       <SafeAreaView
@@ -323,7 +380,7 @@ class Current extends Component {
           {/* low temp */}
           <View>
             <Text style={styles.currentTempLow}>
-              {/* up arrow */}
+              {/* down arrow */}
               <Ionicons name="ios-arrow-round-down" size={30}
                 color={colours.white} />{' '}
               {this.props.low}°
@@ -350,8 +407,13 @@ class Current extends Component {
         {/* END date display */}
 
         {/* START description */}
+        {/* Current description */}
         <Text style={styles.currentDesc}>
           Right now it's {this.props.temp}° with {this.props.desc}
+        </Text>
+        {/* Hourly description */}
+        <Text style={styles.currentDescSummary}>
+          Hourly summary - {this.props.skyWeather.hourly.data[0].summary.toLowerCase()}
         </Text>
         {/* END description */}
 
