@@ -16,7 +16,8 @@ class SavedLocations extends Component {
     super(props);
     this.state = {
       // home icon
-      home: ''
+      home: '',
+      homeIcon: []
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAlert = this.handleAlert.bind(this);
@@ -68,45 +69,82 @@ class SavedLocations extends Component {
   }
 
   // START component mounted
-  // componentDidMount() {
-  //   // check firebase for user
-  //   var user = firebase.auth().currentUser;
-  //   if (user) {
-  //     // user is signed in
-  //     // load firebase data
-  //     const dbRT = firebase.database();
-  //     const ref = dbRT.ref(user.uid);
-  //     const homeRef = ref.child("home");
-  //     // get signed in users saved data on load
-  //     homeRef.on('value', snapshot => {
-  //       if (snapshot.exists()) {
-  //         let home = snapshot.val();
-  //         console.log(home);
-  //         this.setState({
-  //           home: home
-  //         });
-  //       } else {
-  //         console.log('No home saved...');
-  //       }
-  //     });
-  //     // no user
-  //   }
-  // }
+  componentDidMount() {
+    // check firebase for user
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // user is signed in
+      // load firebase data
+      const dbRT = firebase.database();
+      const ref = dbRT.ref(user.uid);
+      const homeRef = ref.child("home");
+      const locationRef = ref.child("locations");
+
+      locationRef.on('value', snapshot => {
+        if (snapshot.exists()) {
+          let data = snapshot.val();
+          let locations = Object.values(data);
+          this.setState({ locationCheck: locations });
+        } else {
+          console.log('No snapshots exist...');
+        }
+      }),
+
+      homeRef.on('value', snapshot => {
+        if (snapshot.exists()) {
+          let home = snapshot.val();
+          console.log(home);
+          this.setState({
+            home: home
+          });
+        } else {
+          console.log('No home saved...');
+        }
+      }),this.locationCheck;
+
+      // const e = this.state.locationCheck.some(location => home === location.location);
+      // if (e != true) {
+      //   console.log('Must be false: ' + e);
+      // } else {
+      //   console.log('Must be true: ' + e);
+      // }
+      
+    }
+  }
   // END component mounted
+
+    // location check
+    locationCheck = () => {
+      console.log(this.state.home);
+      console.log(this.state.locationCheck);
+        // compare current location to the saved locations
+        // const e = this.state.locationCheck.some(location => this.state.home === location.location);
+        // if (e != true) {
+        //   console.log('Must be false: ' + e);
+        //   this.handleLocation();
+        // } else {
+        //   console.log('Must be true: ' + e);
+        //   this.handleDuplicate();
+        // }
+    }
 
   // START render SavedLocations
   render() {
     console.log('Inside render from SavedLocations.js...');
+    console.log(this.state.home);
+    console.log(this.state.homeIcon);
     return (
       <View>
         {this.props.savedLocations.map((location, index) => {
           return (
             <View style={savedLocationStyles.locationListWrapper} key={index}>
-              {/* <Ionicons
-                name='ios-home'
-                size={30}
-                color={colours.spotYellow}
-              /> */}
+              {
+                this.state.isVisible ? <Ionicons
+                  name='ios-home'
+                  size={30}
+                  color={colours.spotYellow}
+                /> : null
+              }
               <Text
                 onPress={this.updateSkyData.bind(this, [
                   location.lat,

@@ -62,6 +62,7 @@ class Header extends Component {
     return menuDisplay;
   }
 
+  // START componentDidMount
   componentDidMount = async () => {
     let mounted = true;
     if (mounted) {
@@ -107,6 +108,7 @@ class Header extends Component {
     }
     return () => mounted = false;
   }
+  // END componentDidMount
 
   // handle alert fail
   handleFail = () => {

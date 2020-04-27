@@ -98,31 +98,50 @@ class GlobalModal extends Component {
     );
   }
 
-    // handle alert duplicate
-    handleDuplicate = () => {
-      console.log('Inside handleDuplicate from GlobalModal.js...');
-      // Alert
-      Alert.alert(
-        'Duplicate',
-        'This location has already been saved',
-        [
-          { text: 'OK', onPress: this.dismissModal, style: 'cancel' },
-        ],
-        { cancelable: false },
-      );
-    }
+  // handle alert duplicate
+  handleDuplicate = () => {
+    console.log('Inside handleDuplicate from GlobalModal.js...');
+    // Alert
+    Alert.alert(
+      'Duplicate',
+      'This location has already been saved',
+      [
+        { text: 'OK', onPress: this.dismissModal, style: 'cancel' },
+      ],
+      { cancelable: false },
+    );
+  }
+
+  // handle location limit
+  handleLimit = () => {
+    console.log('Inside handleLimit from GlobalModal.js...');
+    // Alert
+    Alert.alert(
+      'Limit Reached',
+      'Maximum saved locations reached, please remove a saved location to add another.',
+      [
+        { text: 'OK', onPress: this.dismissModal, style: 'cancel' },
+      ],
+      { cancelable: false },
+    );
+  }
 
   // location check
   locationCheck = (val) => {
     console.log('COMPARE: ' + val);
-    // compare current location to the saved locations
-    const e =  this.state.locationCheck.some(location => val === location.location);
-    if (e != true){
-      console.log('Must be false: ' + e);
-      this.handleLocation();
+    // check location length to limit it to 5
+    if (this.state.locationCheck.length < 5) {
+      // compare current location to the saved locations
+      const e = this.state.locationCheck.some(location => val === location.location);
+      if (e != true) {
+        console.log('Must be false: ' + e);
+        this.handleLocation();
+      } else {
+        console.log('Must be true: ' + e);
+        this.handleDuplicate();
+      }
     } else {
-      console.log('Must be true: ' + e);
-      this.handleDuplicate();
+      this.handleLimit();
     }
   }
 
