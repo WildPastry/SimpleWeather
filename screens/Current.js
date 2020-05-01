@@ -7,9 +7,9 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
 import weatherIcons from './../assets/icons.json';
-import nightWeatherIcons from './../assets/nightIcons.json';
 import { Ionicons } from '@expo/vector-icons';
 import weather from './../assets/animations/weather.json';
+// import testIcon from './../assets/animations/data.json';
 
 // firebase
 import { withFirebaseHOC } from '../config/Firebase';
@@ -137,6 +137,10 @@ class Current extends Component {
 
     // night or day function
     console.log('Night = ' + isNightOrDay + ' from Current.js');
+
+    // test icon
+    // currentWeatherIcon = testIcon
+
     // weather icon logic
     // night
     if (isNightOrDay === true) {
@@ -413,7 +417,7 @@ class Current extends Component {
         </Text>
         {/* Hourly description */}
         <Text style={styles.currentDescSummary}>
-          Summary for the hour | {this.props.skyWeather.hourly.data[0].summary.toLowerCase()}
+          Hour summary: {this.props.skyWeather.hourly.data[0].summary.toLowerCase()}
         </Text>
         {/* END description */}
 

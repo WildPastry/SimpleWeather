@@ -21,6 +21,11 @@ import Firebase, { FirebaseProvider } from './config/Firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+// firebase globals
+import {decode, encode} from 'base-64'
+if (!global.btoa) {  global.btoa = encode }
+if (!global.atob) { global.atob = decode }
+
 // stylesheet
 var styles = require('./styles.js');
 
@@ -313,9 +318,10 @@ class App extends Component {
   // check night or day function
   nightOrDay() {
     console.log('Icon = ' + this.state.icon + ' from App.js');
-    var isNightOrDay = this.state.icon.includes('02n');
-    console.log('Night = ' + isNightOrDay + ' from App.js');
-    if (isNightOrDay === true) {
+    var conditions = ["01n", "02n"];
+    var checkNight = conditions.some(e => this.state.icon.includes(e));
+    console.log('Night = ' + checkNight + ' from App.js');
+    if (checkNight === true) {
       this.setBgNight();
       console.log('Must be night...');
     } else {
@@ -329,7 +335,6 @@ class App extends Component {
     console.log('Night function running...');
     imageBg = colours.night;
     this.setState({
-      currentIcon: nightWeather,
       weekBg: colours.nightDark,
       weekBarBg: colours.night
     });
@@ -338,12 +343,12 @@ class App extends Component {
 
   // day colour bg logic
   setBgDay() {
+    console.log(this.state.temp);
     console.log('Day function running...');
     // group 2xx: thunderstorm
     if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
       imageBg = colours.thunderStorm;
       this.setState({
-        currentIcon: thunderWeather,
         weekBg: colours.thunderStormDark,
         weekBarBg: colours.thunderStorm
       });
@@ -354,7 +359,6 @@ class App extends Component {
     ) {
       imageBg = colours.showerRain;
       this.setState({
-        currentIcon: partlyShowerWeather,
         weekBg: colours.showerRainDark,
         weekBarBg: colours.showerRain
       });
@@ -365,7 +369,6 @@ class App extends Component {
     ) {
       imageBg = colours.rain;
       this.setState({
-        currentIcon: stormWeather,
         weekBg: colours.rainDark,
         weekBarBg: colours.rain
       });
@@ -376,7 +379,6 @@ class App extends Component {
     ) {
       imageBg = colours.snow;
       this.setState({
-        currentIcon: snowWeather,
         weekBg: colours.snowDark,
         weekBarBg: colours.snow
       });
@@ -387,7 +389,6 @@ class App extends Component {
     ) {
       imageBg = colours.thunderStorm;
       this.setState({
-        currentIcon: thunderWeather,
         weekBg: colours.thunderStormDark,
         weekBarBg: colours.thunderStorm
       });
@@ -398,7 +399,6 @@ class App extends Component {
     ) {
       imageBg = colours.scatteredClouds;
       this.setState({
-        currentIcon: partlyCloudyWeather,
         weekBg: colours.scatteredCloudsDark,
         weekBarBg: colours.scatteredClouds
       });
@@ -409,7 +409,6 @@ class App extends Component {
     ) {
       imageBg = colours.brokenClouds;
       this.setState({
-        currentIcon: partlyCloudyWeather,
         weekBg: colours.brokenCloudsDark,
         weekBarBg: colours.brokenClouds
       });
@@ -417,7 +416,6 @@ class App extends Component {
     } else {
       imageBg = colours.clearSky;
       this.setState({
-        currentIcon: sunnyWeather,
         weekBg: colours.clearSkyDark,
         weekBarBg: colours.clearSky
       });
@@ -448,7 +446,7 @@ class App extends Component {
             ref={animation => {
               this.animation = animation;
             }}
-            source={require('./assets/animations/398-snap-loader-white.json')}
+            source={require('./assets/animations/loader.json')}
             autoPlay={true}
           />
         </View>
@@ -488,7 +486,6 @@ class App extends Component {
                   keyboardShouldPersistTaps='handled'
                   weatherCode={this.state.openWeatherId}
                   currentBg={this.state.weekBg}
-                  currentIcon={this.state.currentIcon}
                   updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}
