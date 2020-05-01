@@ -12,9 +12,9 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import configData from './data/config.json';
 import Header from './screens/Header';
-import Current from './inc/Current';
-import Week from './inc/Week';
-import Footer from './inc/Footer';
+import Current from './screens/Current';
+import Week from './screens/Week';
+import Footer from './screens/Footer';
 import colours from './assets/colours.json';
 import { PermissionsAndroid } from 'react-native';
 // import Geolocation from 'react-native-geolocation-service';
@@ -26,6 +26,11 @@ import { withFirebaseHOC } from './config/Firebase';
 import Firebase, { FirebaseProvider } from './config/Firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
+
+// atob
+// import {decode, encode} from 'base-64'
+// if (!global.btoa) {  global.btoa = encode }
+// if (!global.atob) { global.atob = decode }
 
 // stylesheet
 var styles = require('./styles.js');

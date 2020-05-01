@@ -413,7 +413,7 @@ class Current extends Component {
         </Text>
         {/* Hourly description */}
         <Text style={styles.currentDescSummary}>
-          Hourly summary - {this.props.skyWeather.hourly.data[0].summary.toLowerCase()}
+          Summary for the hour | {this.props.skyWeather.hourly.data[0].summary.toLowerCase()}
         </Text>
         {/* END description */}
 

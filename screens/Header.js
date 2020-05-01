@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Alert, Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements'
-import SavedLocations from '../inc/SavedLocations';
+import { SavedLocations } from './SavedLocations';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
 import timeout from './../data/timeout.js';
