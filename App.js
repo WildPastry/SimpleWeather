@@ -1,23 +1,17 @@
 // imports
 import React, { Component } from 'react';
 import {
-  Alert,
   AppRegistry,
   Dimensions,
-  Platform,
   ScrollView,
   View
 } from 'react-native';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import configData from './data/config.json';
 import Header from './screens/Header';
 import Current from './screens/Current';
 import Week from './screens/Week';
 import Footer from './screens/Footer';
 import colours from './assets/colours.json';
-import { PermissionsAndroid } from 'react-native';
-// import Geolocation from 'react-native-geolocation-service';
 import LottieView from 'lottie-react-native';
 
 // firebase
@@ -27,16 +21,10 @@ import Firebase, { FirebaseProvider } from './config/Firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-// atob
-// import {decode, encode} from 'base-64'
-// if (!global.btoa) {  global.btoa = encode }
-// if (!global.atob) { global.atob = decode }
-
 // stylesheet
 var styles = require('./styles.js');
 
 // set up auth keys
-const geo = configData.GEO;
 const open = configData.OPEN;
 const sky = configData.SKY;
 
@@ -103,11 +91,8 @@ class App extends Component {
     };
     // bind functions to state
     this.handleLoaded = this.handleLoaded.bind(this);
-    this._getLocationAsync = this._getLocationAsync.bind(this);
-    this.requestLocationPermission = this.requestLocationPermission.bind(this);
     this.updateSkyData = this.updateSkyData.bind(this);
     this.getSkyData = this.getSkyData.bind(this);
-    this.reverseGeo = this.reverseGeo.bind(this);
     this.nightOrDay = this.nightOrDay.bind(this);
     this.setBgDay = this.setBgDay.bind(this);
     this.setBgNight = this.setBgNight.bind(this);
@@ -193,120 +178,11 @@ class App extends Component {
       // no user
     } else {
       console.log('No user is currently logged in...');
-      // platform check
-      // if (Platform.OS === 'ios') {
-      //   // get user location function
-      //   this._getLocationAsync();
-      // }
-      // else {
-      //   // check android permissions
-      //   this.requestLocationPermission();
-      // }
       // run fallback function
       this.fallback();
     }
   }
   // END component mounted
-
-  // START android permissions function
-  requestLocationPermission = async () => {
-    // check for location access
-    const granted =
-      await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-    await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
-    if (granted) {
-      console.log("You can use the ACCESS_FINE_LOCATION");
-      console.log("You can use the ACCESS_COARSE_LOCATION");
-      // run fallback function
-      this.fallback();
-    }
-    else {
-      console.log("ACCESS_FINE_LOCATION permission denied");
-      console.log("ACCESS_COARSE_LOCATION permission denied");
-      // run fallback function
-      this.fallback();
-    }
-  };
-  // END android permissions function
-
-  // START get location function
-  _getLocationAsync = async () => {
-    console.log('_getLocationAsync function running...');
-    // check provider and if location services are enabled
-    let providerStatus = await Location.getProviderStatusAsync({
-      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
-    });
-    console.log('providerStatus =');
-    console.log(providerStatus);
-    // services disabled error
-    if (!providerStatus.locationServicesEnabled) {
-      this.setState({
-        errorMessage: 'Please enable location services for SIMPLEWEATHER in your device settings',
-      });
-      console.log('getProviderStatusAsync error message...');
-      console.log(this.state.errorMessage);
-      // run fallback function
-      this.fallback();
-    }
-
-    // check permissions
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    // permission denied error
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Location permission was denied, please enable location services for SIMPLEWEATHER in your device settings',
-      });
-      console.log('askAsync error message...');
-      console.log(this.state.errorMessage);
-      // run fallback function
-      this.fallback();
-    }
-
-    // success function
-    console.log('success function for getCurrentPositionAsync from App.js');
-    let location = await Location.getCurrentPositionAsync({
-      enableHighAccuracy: false, timeout: 15000, maximumAge: 10000
-    });
-    // console.log(location);
-    this.setState({
-      location: location,
-      currentLat: location.coords.latitude.toFixed(5),
-      currentLng: location.coords.longitude.toFixed(5)
-    });
-    // reverse geo function
-    this.reverseGeo();
-  };
-  // END get location function
-
-  // START reverse geo function
-  reverseGeo() {
-    var myLat = this.state.currentLat;
-    var myLng = this.state.currentLng;
-    // fetch location data
-    fetch(
-      // google data
-      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-      myLat +
-      ',' +
-      myLng +
-      '&key=' +
-      geo
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson.results[0]);
-        console.log(responseJson.results[0].address_components[1].long_name);
-        console.log(responseJson.results[0].address_components[2].long_name);
-        this.setState({
-          // fix google names with numbers in front
-          // currentLocation: responseJson.results[8].formatted_address.replace(/^[\s\d]+/, '')
-          currentLocation: responseJson.results[0].address_components[1].long_name + ', ' +
-            responseJson.results[0].address_components[2].long_name
-        });
-      });
-    this.getSkyData();
-  }
-  // END reverse geo fucntion
 
   // START sky data function
   getSkyData() {
@@ -557,20 +433,6 @@ class App extends Component {
   render() {
     // declare loading variables in current state
     var { isLoaded } = this.state;
-
-    // console.log(this.state.skyWeather.currently);
-    // console.log(this.state.skyWeather.daily.data[0]);
-    // console.log(this.state.skyWeather.hourly);
-
-    // console.log(this.state.skyWeather);
-    // console.log('From App.js ' + this.state.skyWeather.hourly);
-    // console.log(this.state.skyWeather.currently);
-    // console.log(this.state.skyWeather.daily);
-    // console.log(this.state.skyWeather.hourly);
-    // {this.state.skyWeather.map((hourlyWeather) => {
-    //   console.log(hourlyWeather.time);
-    //   console.log(hourlyWeather.summary);
-    // })}
 
     // START loading function
     if (!isLoaded) {
