@@ -15,8 +15,7 @@ class SavedLocations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // home icon
-      home: ''
+      home: []
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAlert = this.handleAlert.bind(this);
@@ -68,30 +67,39 @@ class SavedLocations extends Component {
   }
 
   // START component mounted
-  // componentDidMount() {
-  //   // check firebase for user
-  //   var user = firebase.auth().currentUser;
-  //   if (user) {
-  //     // user is signed in
-  //     // load firebase data
-  //     const dbRT = firebase.database();
-  //     const ref = dbRT.ref(user.uid);
-  //     const homeRef = ref.child("home");
-  //     // get signed in users saved data on load
-  //     homeRef.on('value', snapshot => {
-  //       if (snapshot.exists()) {
-  //         let home = snapshot.val();
-  //         console.log(home);
-  //         this.setState({
-  //           home: home
-  //         });
-  //       } else {
-  //         console.log('No home saved...');
-  //       }
-  //     });
-  //     // no user
-  //   }
-  // }
+  componentDidMount() {
+    // set temporary array to check for a saved home location
+    var checkHome = this.props.savedLocations;
+    // check firebase for user
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // user is signed in
+      // load firebase data
+      const dbRT = firebase.database();
+      const ref = dbRT.ref(user.uid);
+      const homeRef = ref.child("home");
+      // get signed in users saved data on load
+      homeRef.on('value', snapshot => {
+        if (snapshot.exists()) {
+          let home = snapshot.val();
+          // set the home location as the conditions to check the array
+          const conditions = [home.location]
+          // loop through and check each value
+          for (var i = 0; i < checkHome.length; i++) {
+            var checkVal = conditions.some(e => checkHome[i].location.includes(e));
+            // set true/false value
+            checkHome[i].icon = checkVal
+          }
+          this.setState({
+            home: checkHome
+          });
+        } else {
+          console.log('No home saved...');
+        }
+      });
+      // no user
+    }
+  }
   // END component mounted
 
   // START render SavedLocations
@@ -99,14 +107,9 @@ class SavedLocations extends Component {
     console.log('Inside render from SavedLocations.js...');
     return (
       <View>
-        {this.props.savedLocations.map((location, index) => {
+        {this.state.home.map((location, index) => {
           return (
             <View style={savedLocationStyles.locationListWrapper} key={index}>
-              {/* <Ionicons
-                name='ios-home'
-                size={30}
-                color={colours.spotYellow}
-              /> */}
               <Text
                 onPress={this.updateSkyData.bind(this, [
                   location.lat,
@@ -115,12 +118,23 @@ class SavedLocations extends Component {
                 ])}
                 style={savedLocationStyles.locationListText}>{location.location}
               </Text>
-              <Ionicons
-                onPress={this.handleAlert.bind(this, location.key)}
-                name='ios-close-circle'
-                size={30}
-                color={colours.white}
-              />
+              <View style={savedLocationStyles.locationIconWrapper}>
+                {/* home icon */}
+                {location.icon ?
+                  <Ionicons
+                    style={{ marginRight: 15 }}
+                    name='ios-home'
+                    size={30}
+                    color={colours.spotGreen}
+                  /> : null}
+                {/* remove location icon */}
+                <Ionicons
+                  onPress={this.handleAlert.bind(this, location.key)}
+                  name='ios-close-circle'
+                  size={30}
+                  color={colours.white}
+                />
+              </View>
             </View>
           );
         })}
@@ -146,5 +160,9 @@ const savedLocationStyles = StyleSheet.create({
     color: colours.white,
     padding: 9,
     marginBottom: 3
+  },
+  locationIconWrapper: {
+    alignItems: 'flex-end',
+    flexDirection: 'row',
   }
 });

@@ -171,6 +171,7 @@ class Header extends Component {
   handleHome(val) {
     let mounted = true;
     if (mounted) {
+      // this.handleAnimate();
       console.log('Inside handleHome from Header.js...');
       var options = {
         currentSavedLat: val[0],
@@ -205,9 +206,9 @@ class Header extends Component {
         this.handleFail();
       }
     }
-    if (user) {
-      this.handleSuccess();
-    }
+    // if (user) {
+    //   this.handleSuccess();
+    // }
     return () => mounted = false;
   }
 
