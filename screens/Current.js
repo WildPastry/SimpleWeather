@@ -1,6 +1,6 @@
 // imports
 import React, { Component } from 'react';
-import { Text, Keyboard, SafeAreaView, View } from 'react-native';
+import { Text, Keyboard, SafeAreaView, StyleSheet, View } from 'react-native';
 import configData from './../data/config.json';
 import GlobalModal from '../screens/GlobalModal';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -18,14 +18,32 @@ import Firebase, { FirebaseProvider } from '../config/Firebase';
 // set up auth key for sky data
 const geo = configData.GEO;
 
-// stylesheet
-var styles = require('../styles.js');
-
 // moment set up
 var moment = require('moment');
 
 // countdown set up
 // var countdown;
+
+const cloudyNightWeather = require('./../assets/animations/weather/weather-cloudy-night.json');
+const foggyWeather = require('./../assets/animations/weather/weather-foggy.json');
+const mistWeather = require('./../assets/animations/weather/weather-mist.json');
+const nightWeather = require('./../assets/animations/weather/weather-night.json');
+const partlyCloudyWeather = require('./../assets/animations/weather/weather-partly-cloudy.json');
+const partlyShowerWeather = require('./../assets/animations/weather/weather-partly-shower.json');
+const rainyNightWeather = require('./../assets/animations/weather/weather-rainy-night.json');
+const snowNightWeather = require('./../assets/animations/weather/weather-snow-night.json');
+const snowSunnyWeather = require('./../assets/animations/weather/weather-snow-sunny.json');
+const snowWeather = require('./../assets/animations/weather/weather-snow.json');
+const stormShowersDayWeather = require('./../assets/animations/weather/weather-storm-showers-day.json');
+const stormWeather = require('./../assets/animations/weather/weather-storm.json');
+const sunnyWeather = require('./../assets/animations/weather/weather-sunny.json');
+const thunderWeather = require('./../assets/animations/weather/weather-thunder.json');
+const windyWeather = require('./../assets/animations/weather/weather-windy.json');
+
+// capitalize first char
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
 
 // START Current
 class Current extends Component {
@@ -133,17 +151,18 @@ class Current extends Component {
     let currentWeatherIcon;
 
     // check night or day
-    var isNightOrDay = this.props.icon.includes('02n');
+    var conditions = ["01n", "02n", "03n", "04n", "05n"];
+    var checkNight = conditions.some(e => this.props.icon.includes(e));
 
     // night or day function
-    console.log('Night = ' + isNightOrDay + ' from Current.js');
+    console.log('Night = ' + checkNight + ' from Current.js');
 
     // test icon
     // currentWeatherIcon = testIcon
 
     // weather icon logic
     // night
-    if (isNightOrDay === true) {
+    if (checkNight === true) {
       currentWeatherIcon = weather.weatherNight
     } else
       // group 2xx: thunderstorm
@@ -194,6 +213,7 @@ class Current extends Component {
     const today = this.state.currentDate;
     const day = moment(today).format('dddd,');
     const date = moment(today).format('MMMM D');
+    const year = moment(today).format('YYYY');
 
     console.log(today)
     // set up colour bg variable
@@ -232,7 +252,7 @@ class Current extends Component {
     return (
       <SafeAreaView
         keyboardShouldPersistTaps='handled'
-        style={styles.currentWrap}>
+        style={currentStyles.currentWrap}>
 
         {/* START autocomplete input */}
         <GooglePlacesAutocomplete
@@ -287,7 +307,7 @@ class Current extends Component {
               alignItems: 'center',
               backgroundColor: colourBg,
               borderRadius: 0,
-              borderTopColor: colours.simpleWeather,
+              borderTopColor: colours.spotGreyMed,
               borderTopWidth: 0,
               color: colours.white,
               height: 50,
@@ -365,7 +385,7 @@ class Current extends Component {
         {/* END add location button */}
 
         {/* START main icon */}
-        <View style={styles.currentIconWrap}>
+        <View style={currentStyles.currentIconWrap}>
           {/* main icon */}
           <LottieView
             style={{
@@ -382,10 +402,10 @@ class Current extends Component {
         {/* END main icon */}
 
         {/* START temps */}
-        <View style={styles.currentTempWrap}>
+        <View style={currentStyles.currentTempWrap}>
           {/* low temp */}
           <View>
-            <Text style={styles.currentTempLow}>
+            <Text style={currentStyles.currentTempLow}>
               {/* down arrow */}
               <Ionicons name="ios-arrow-round-down" size={30}
                 color={colours.white} />{' '}
@@ -393,10 +413,10 @@ class Current extends Component {
             </Text>
           </View>
           {/* current temp */}
-          <Text style={styles.currentTemp}> {this.props.temp}°</Text>
+          <Text style={currentStyles.currentTemp}> {this.props.temp}°</Text>
           {/* high temp */}
           <View>
-            <Text style={styles.currentTempHigh}>
+            <Text style={currentStyles.currentTempHigh}>
               {/* up arrow */}
               <Ionicons name="ios-arrow-round-up" size={30}
                 color={colours.white} />{' '}
@@ -407,25 +427,24 @@ class Current extends Component {
         {/* END temps */}
 
         {/* START date display */}
-        <Text style={styles.dateText}>
-          {day} {date}
+        <Text style={currentStyles.currentDateText}>
+          {day} {date}, {year}
         </Text>
         {/* END date display */}
 
         {/* START description */}
         {/* Current description */}
-        <Text style={styles.currentDesc}>
-          Right now it's {this.props.temp}° with {this.props.desc}
+        <Text style={currentStyles.currentDesc}>
+          {this.props.skyWeather.currently.summary.toLowerCase().capitalize()}
         </Text>
-        {/* Hourly description */}
-        <Text style={styles.currentDescSummary}>
-          Hour summary: {this.props.skyWeather.hourly.data[0].summary.toLowerCase()}
+        <Text style={currentStyles.currentDescSummary}>
+          Currently {this.props.temp}° with a daily high of {this.props.high}°
         </Text>
         {/* END description */}
 
         {/* START wind and humidity */}
-        <View style={styles.currentWindHumWrap}>
-          <View style={styles.currentDetailsWrap}>
+        <View style={currentStyles.currentWindHumWrap}>
+          <View style={currentStyles.currentDetailsWrap}>
             <Text
               style={{
                 fontFamily: 'weatherfont',
@@ -435,12 +454,12 @@ class Current extends Component {
               }}>
               {weatherIcons.windSpeed.code}
             </Text>
-            <Text style={styles.currentDetails}>
+            <Text style={currentStyles.currentDetails}>
               {'  '}
-              {Math.round(this.props.wind)} km/h
+              {Math.round(this.props.skyWeather.currently.windSpeed)} km/h
             </Text>
           </View>
-          <View style={styles.currentDetailsWrap}>
+          <View style={currentStyles.currentDetailsWrap}>
             <Text
               style={{
                 fontFamily: 'weatherfont',
@@ -450,7 +469,7 @@ class Current extends Component {
               }}>
               {weatherIcons.humidity.code}
             </Text>
-            <Text style={styles.currentDetails}>
+            <Text style={currentStyles.currentDetails}>
               {'  '}
               {this.props.humidity}
             </Text>
@@ -466,3 +485,83 @@ class Current extends Component {
 // END Current
 
 export default withFirebaseHOC(Current);
+
+// style
+const currentStyles = StyleSheet.create({
+  currentWrap: {
+    alignSelf: 'stretch',
+    flex: 1
+  },
+  currentIconWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 65
+  },
+  currentIconSmall: {
+    alignSelf: 'center',
+    height: 30,
+    width: 30
+  },
+  currentTemp: {
+    color: colours.white,
+    fontSize: 70,
+    fontFamily: 'allerDisplay',
+    textAlign: 'center'
+  },
+  currentTempWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'baseline'
+  },
+  currentWindHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 4
+  },
+  currentDetailsWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 8
+  },
+  currentDetails: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    paddingTop: 4
+  },
+  currentTempHigh: {
+    color: colours.white,
+    fontSize: 30,
+    fontFamily: 'allerLt',
+    paddingBottom: 12
+  },
+  currentTempLow: {
+    color: colours.white,
+    fontSize: 30,
+    fontFamily: 'allerLt',
+    paddingBottom: 12
+  },
+  currentDesc: {
+    color: colours.white,
+    fontSize: 21,
+    fontFamily: 'allerBd',
+    padding: 10,
+    textAlign: 'center'
+  },
+  currentDescSummary: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    textAlign: 'center',
+    paddingBottom: 12
+  },
+  currentDateText: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    padding: 10,
+    paddingBottom: 0,
+    textAlign: 'center',
+    marginTop: 10
+  }
+});

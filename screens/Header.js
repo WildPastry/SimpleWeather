@@ -280,7 +280,7 @@ class Header extends Component {
           </View>
           {/* right icon for balance */}
           <View style={{
-            backgroundColor: colours.simpleWeather,
+            backgroundColor: colours.spotGreyMed,
             height: 35,
             width: 35
           }} />
@@ -331,12 +331,12 @@ export default withFirebaseHOC(Header);
 // style
 const headerStyles = StyleSheet.create({
   menuWrap: {
-    backgroundColor: '#212121',
+    backgroundColor: colours.spotGreyDark,
     borderBottomColor: colours.spotGrey,
     borderBottomWidth: 0.5
   },
   listWrap: {
-    backgroundColor: '#303030',
+    backgroundColor: colours.spotGreyMed,
     paddingTop: 4,
     paddingBottom: 4
   },
@@ -385,8 +385,8 @@ const headerStyles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#303030',
+    backgroundColor: colours.spotGreyMed,
     borderBottomColor: colours.white,
     borderBottomWidth: 0.5
-  },
+  }
 });

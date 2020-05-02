@@ -1,6 +1,6 @@
 // imports
 import React, { Component } from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { Text, ScrollView, StyleSheet, View } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import colours from './../assets/colours.json';
 import weatherIcons from './../assets/icons.json';
@@ -8,9 +8,6 @@ import { Ionicons } from '@expo/vector-icons';
 
 // moment set up
 var moment = require('moment');
-
-// stylesheet
-var styles = require('../styles.js');
 
 // START Week
 class Week extends Component {
@@ -56,7 +53,7 @@ class Week extends Component {
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
-          <Text style={styles.weekHeading}>Next 5 Days forecast</Text>
+          <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
 
           {/* START map */}
           <View>
@@ -79,6 +76,9 @@ class Week extends Component {
                 );
               }
 
+              // convert mps to kmph
+              var windSpeed = dailyWeather.wind.speed * 3.6
+
               return (
                 // START week display
                 <View key={dailyWeather.dt}>
@@ -91,9 +91,9 @@ class Week extends Component {
                     }}>
                     {/* collapse header */}
                     <CollapseHeader>
-                      <View style={styles.weekIconTempWrap}>
+                      <View style={weekStyles.weekIconTempWrap}>
                         {/* day */}
-                        <View style={styles.weekColWrapLeft}>
+                        <View style={weekStyles.weekColWrapLeft}>
                           <Text
                             style={{
                               justifyContent: 'center',
@@ -111,7 +111,7 @@ class Week extends Component {
                           </Text>
                         </View>
                         {/* daily icon */}
-                        <View style={styles.weekColWrap}>
+                        <View style={weekStyles.weekColWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
@@ -123,8 +123,8 @@ class Week extends Component {
                           </Text>
                         </View>
                         {/* daily low temp */}
-                        <View style={styles.weekColWrap}>
-                          <Text style={styles.weekLowTemp}>
+                        <View style={weekStyles.weekColWrap}>
+                          <Text style={weekStyles.weekLowTemp}>
                             <Ionicons
                               name='ios-arrow-round-down'
                               size={19}
@@ -134,8 +134,8 @@ class Week extends Component {
                           </Text>
                         </View>
                         {/* daily high temp */}
-                        <View style={styles.weekColWrap}>
-                          <Text style={styles.weekHighTemp}>
+                        <View style={weekStyles.weekColWrap}>
+                          <Text style={weekStyles.weekHighTemp}>
                             <Ionicons
                               name='ios-arrow-round-up'
                               size={19}
@@ -150,16 +150,16 @@ class Week extends Component {
                     {/* collapse body */}
                     <CollapseBody>
                       {/* START description */}
-                      <Text style={styles.weekDesc}>
+                      <Text style={weekStyles.weekDesc}>
                         {dailySummary} with a high of{' '}
                         {Math.round(dailyWeather.main[1])}°
                       </Text>
                       {/* END description */}
 
                       {/* START wind and humidity */}
-                      <View style={styles.currentWindHumWrap}>
+                      <View style={weekStyles.weekWindHumWrap}>
                         {/* START wind speed */}
-                        <View style={styles.currentWindWrap}>
+                        <View style={weekStyles.weekWindWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
@@ -169,15 +169,15 @@ class Week extends Component {
                             }}>
                             {weatherIcons.windSpeed.code}
                           </Text>
-                          <Text style={styles.currentWindHumDetails}>
+                          <Text style={weekStyles.weekWindHumDetails}>
                             {'  '}
-                            {Math.round(dailyWeather.wind.speed)} km/h
+                            {Math.round(windSpeed)} km/h
                           </Text>
                         </View>
                         {/* END wind speed */}
 
                         {/* START humidity */}
-                        <View style={styles.currentHumWrap}>
+                        <View style={weekStyles.weekHumWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
@@ -187,7 +187,7 @@ class Week extends Component {
                             }}>
                             {weatherIcons.humidity.code}
                           </Text>
-                          <Text style={styles.currentWindHumDetails}>
+                          <Text style={weekStyles.weekWindHumDetails}>
                             {'  '}
                             {dailyWeather.main.humidity}
                           </Text>
@@ -212,3 +212,83 @@ class Week extends Component {
 // END Week
 
 export default Week;
+
+// style
+const weekStyles = StyleSheet.create({
+  weekIconTempWrap: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 45,
+    justifyContent: 'space-between'
+  },
+  weekColWrap: {
+    width: 50,
+    height: 45,
+    justifyContent: 'center'
+  },
+  weekColWrapLeft: {
+    width: 75,
+    height: 45,
+    justifyContent: 'center'
+  },
+  weekIcon: {
+    alignSelf: 'flex-start',
+    height: 30,
+    width: 30
+  },
+  weekLowTemp: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+  },
+  weekHighTemp: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+  },
+  weekHeading: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    padding: 10,
+    textAlign: 'center',
+    marginTop: 2
+  },
+  weekText: {
+    color: colours.white,
+    fontSize: 19,
+    textAlign: 'center'
+  },
+  weekTextBot: {
+    color: colours.white,
+    fontSize: 19,
+    textAlign: 'left',
+    marginBottom: 12
+  },
+  weekDesc: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerRg',
+    padding: 10,
+    textAlign: 'center'
+  },
+  weekWindHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 4
+  },
+  weekWindWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  weekHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  weekWindHumDetails: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    paddingTop: 4
+  },
+});

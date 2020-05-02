@@ -258,7 +258,7 @@ export default withFirebaseHOC(GlobalModal);
 const globalModalStyles = StyleSheet.create({
   modalWrapper: {
     alignItems: 'center',
-    backgroundColor: colours.simpleWeather,
+    backgroundColor: colours.spotGreyMed,
     flex: 1,
     justifyContent: 'center'
   },

@@ -166,7 +166,7 @@ class Login extends Component {
 const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colours.simpleWeather,
+    backgroundColor: colours.spotGreyMed,
     justifyContent: 'center'
   },
   link: {

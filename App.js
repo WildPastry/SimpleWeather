@@ -4,6 +4,7 @@ import {
   AppRegistry,
   Dimensions,
   ScrollView,
+  StyleSheet,
   View
 } from 'react-native';
 import configData from './data/config.json';
@@ -26,9 +27,6 @@ import {decode, encode} from 'base-64'
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
-// stylesheet
-var styles = require('./styles.js');
-
 // set up auth keys
 const open = configData.OPEN;
 const sky = configData.SKY;
@@ -38,22 +36,6 @@ const window = Dimensions.get('window');
 
 // set up image display variable
 let imageBg;
-
-const cloudyNightWeather = require('./assets/animations/weather/weather-cloudy-night.json');
-const foggyWeather = require('./assets/animations/weather/weather-foggy.json');
-const mistWeather = require('./assets/animations/weather/weather-mist.json');
-const nightWeather = require('./assets/animations/weather/weather-night.json');
-const partlyCloudyWeather = require('./assets/animations/weather/weather-partly-cloudy.json');
-const partlyShowerWeather = require('./assets/animations/weather/weather-partly-shower.json');
-const rainyNightWeather = require('./assets/animations/weather/weather-rainy-night.json');
-const snowNightWeather = require('./assets/animations/weather/weather-snow-night.json');
-const snowSunnyWeather = require('./assets/animations/weather/weather-snow-sunny.json');
-const snowWeather = require('./assets/animations/weather/weather-snow.json');
-const stormShowersDayWeather = require('./assets/animations/weather/weather-storm-showers-day.json');
-const stormWeather = require('./assets/animations/weather/weather-storm.json');
-const sunnyWeather = require('./assets/animations/weather/weather-sunny.json');
-const thunderWeather = require('./assets/animations/weather/weather-thunder.json');
-const windyWeather = require('./assets/animations/weather/weather-windy.json');
 
 // START App
 class App extends Component {
@@ -203,7 +185,7 @@ class App extends Component {
       myLat +
       ',' +
       myLng +
-      '?units=si'
+      '?units=ca'
     )
       // log HTTP response error or success for data call
       .then((res) => {
@@ -318,7 +300,7 @@ class App extends Component {
   // check night or day function
   nightOrDay() {
     console.log('Icon = ' + this.state.icon + ' from App.js');
-    var conditions = ["01n", "02n"];
+    var conditions = ["01n", "02n", "03n", "04n", "05n"];
     var checkNight = conditions.some(e => this.state.icon.includes(e));
     console.log('Night = ' + checkNight + ' from App.js');
     if (checkNight === true) {
@@ -429,6 +411,9 @@ class App extends Component {
 
   // START render App
   render() {
+    // console.log(this.state.skyWeather);
+    // console.log(this.state.weather);
+    // console.log(this.state.openWeather);
     // declare loading variables in current state
     var { isLoaded } = this.state;
 
@@ -437,7 +422,7 @@ class App extends Component {
       console.log('Inside RENDER NOT COMPLETE from App.js...');
       return (
         // START loading display
-        <View style={styles.loader}>
+        <View style={appStyles.loader}>
           <LottieView
             style={{
               height: 250,
@@ -461,7 +446,7 @@ class App extends Component {
           keyboardShouldPersistTaps='handled'
           style={{ alignItems: 'center', backgroundColor: colours.simpleWeather, flex: 1 }}>
           {/* top bar */}
-          <View style={styles.headerTopBar} />
+          <View style={{height: 22}} />
           <ScrollView
             loop={false}
             width={window.width}
@@ -531,3 +516,13 @@ AppRegistry.registerComponent('basic-weather', () => ButtonBasics);
 
 // register swiper functionality
 AppRegistry.registerComponent('basic-weather', () => SwiperComponent);
+
+// style
+const appStyles = StyleSheet.create({
+  loader: {
+    alignItems: 'center',
+    backgroundColor: colours.spotGreyMed,
+    flex: 1,
+    justifyContent: 'center'
+  }
+});

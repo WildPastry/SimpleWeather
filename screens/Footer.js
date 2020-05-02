@@ -12,7 +12,7 @@ class Footer extends Component {
       <View
         style={{
           alignSelf: 'stretch',
-          backgroundColor: colours.simpleWeather,
+          backgroundColor: colours.spotGreyMed,
           flex: 1,
           justifyContent: 'center',
           paddingTop: 8,

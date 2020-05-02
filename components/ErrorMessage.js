@@ -2,12 +2,12 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 const ErrorMessage = ({ errorValue }) => (
-  <View style={styles.container}>
-    <Text style={styles.errorText}>{errorValue}</Text>
+  <View style={errorStyles.container}>
+    <Text style={errorStyles.errorText}>{errorValue}</Text>
   </View>
 )
 
-const styles = StyleSheet.create({
+const errorStyles = StyleSheet.create({
   container: {
     marginLeft: 25
   },
