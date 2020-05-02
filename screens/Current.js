@@ -346,7 +346,9 @@ class Current extends Component {
           overflow: 'visible',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: colourBg
+          backgroundColor: colourBg,
+          borderTopColor: colours.spotGrey,
+          borderTopWidth: 0.5
         }}>
           {/* globalmodal */}
           <FirebaseProvider value={Firebase}>

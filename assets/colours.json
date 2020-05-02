@@ -23,5 +23,6 @@
   "spotYellow": "#ffc82e",
   "spotBlue": "#1faadb",
   "spotOrange": "#fa774f",
-  "spotGreen": "#37d493"
+  "spotGreen": "#37d493",
+  "spotGrey": "#999999"
 }

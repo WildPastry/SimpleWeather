@@ -289,20 +289,22 @@ class Header extends Component {
         {this.state.showMenu &&
           <View style={headerStyles.menuWrap}>
             {/* render menu based on user status */}
-            <View>
+            <View style={headerStyles.border}>
               {this.renderMenuOption()}
             </View>
             {/* set current location as home */}
-            <Text
-              style={headerStyles.menuText}
-              onPress={this.handleHome.bind(this, [
-                this.props.currentLat,
-                this.props.currentLng,
-                this.props.currentLocation
-              ])}>
-              Set current location to home
+            <View style={headerStyles.border}>
+              <Text
+                style={headerStyles.menuTextGreen}
+                onPress={this.handleHome.bind(this, [
+                  this.props.currentLat,
+                  this.props.currentLng,
+                  this.props.currentLocation
+                ])}>
+                Set current location to home
             </Text>
-            <View>
+            </View>
+            <View style={headerStyles.listWrap}>
               {/* saved locations list */}
               {this.state.savedLocations.length > 0 ? (
                 <SavedLocations
@@ -310,7 +312,7 @@ class Header extends Component {
                   updateSkyData={this.updateSkyData}
                   handleDelete={this.handleDelete} />
               ) : (
-                  <Text style={headerStyles.menuText}>
+                  <Text style={headerStyles.menuTextYellow}>
                     No saved locations yet
                   </Text>
                 )}
@@ -329,21 +331,39 @@ export default withFirebaseHOC(Header);
 // style
 const headerStyles = StyleSheet.create({
   menuWrap: {
-    padding: 8
+    backgroundColor: '#212121',
+    borderBottomColor: colours.spotGrey,
+    borderBottomWidth: 0.5
+  },
+  listWrap: {
+    backgroundColor: '#303030',
+    paddingTop: 4,
+    paddingBottom: 4
   },
   menuTitle: {
     color: colours.white,
     fontSize: 19,
     fontFamily: 'allerBd',
     textAlign: 'center',
-    marginBottom: 8
+    padding: 8
   },
-  menuText: {
+  border: {
+    borderBottomColor: colours.spotGrey,
+    borderBottomWidth: 0.5
+  },
+  menuTextYellow: {
     color: colours.spotYellow,
     fontSize: 19,
     fontFamily: 'allerRg',
     textAlign: 'center',
-    marginBottom: 8
+    padding: 8
+  },
+  menuTextGreen: {
+    color: colours.spotGreen,
+    fontSize: 19,
+    fontFamily: 'allerRg',
+    textAlign: 'center',
+    padding: 12
   },
   simpleWeather: {
     color: colours.white,

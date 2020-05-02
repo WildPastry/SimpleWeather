@@ -152,7 +152,9 @@ const savedLocationStyles = StyleSheet.create({
   locationListWrapper: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingLeft: 8,
+    paddingRight: 8
   },
   locationListText: {
     fontSize: 19,
