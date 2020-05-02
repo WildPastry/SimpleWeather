@@ -1,5 +1,6 @@
 {
   "clearSky": "#e6a441",
+  "clearSkyDark": "#da9228",
   "scatteredClouds": "#6e859e",
   "brokenClouds": "#6e859e",
   "showerRain": "#2485c7",
@@ -8,7 +9,6 @@
   "snow": "#174683",
   "mist": "#c8c8c8",
   "night": "#303030",
-  "clearSkyDark": "#e68a00",
   "scatteredCloudsDark": "#5d6e80",
   "brokenCloudsDark": "#546679",
   "showerRainDark": "#106dac",
