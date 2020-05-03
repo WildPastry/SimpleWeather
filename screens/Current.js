@@ -9,7 +9,6 @@ import LottieView from 'lottie-react-native';
 import weatherIcons from './../assets/icons.json';
 import { Ionicons } from '@expo/vector-icons';
 import weather from './../assets/animations/weather.json';
-// import testIcon from './../assets/animations/data.json';
 
 // firebase
 import { withFirebaseHOC } from '../config/Firebase';
@@ -27,7 +26,7 @@ var moment = require('moment');
 const cloudyNightWeather = require('./../assets/animations/weather/weather-cloudy-night.json');
 const foggyWeather = require('./../assets/animations/weather/weather-foggy.json');
 const mistWeather = require('./../assets/animations/weather/weather-mist.json');
-const nightWeather = require('./../assets/animations/weather/weather-night.json');
+const nightClear = require('./../assets/animations/weather/nightClear.json');
 const partlyCloudyWeather = require('./../assets/animations/weather/weather-partly-cloudy.json');
 const partlyShowerWeather = require('./../assets/animations/weather/weather-partly-shower.json');
 const rainyNightWeather = require('./../assets/animations/weather/weather-rainy-night.json');
@@ -39,6 +38,7 @@ const stormWeather = require('./../assets/animations/weather/weather-storm.json'
 const sunnyWeather = require('./../assets/animations/weather/weather-sunny.json');
 const thunderWeather = require('./../assets/animations/weather/weather-thunder.json');
 const windyWeather = require('./../assets/animations/weather/weather-windy.json');
+const lightRain = require('./../assets/animations/weather/lightRain.json');
 
 // capitalize first char
 String.prototype.capitalize = function () {
@@ -150,20 +150,10 @@ class Current extends Component {
     // set up icon display
     let currentWeatherIcon;
 
-    // check night or day
-    var conditions = ["01n", "02n", "03n", "04n", "05n"];
-    var checkNight = conditions.some(e => this.props.icon.includes(e));
-
-    // night or day function
-    console.log('Night = ' + checkNight + ' from Current.js');
-
-    // test icon
-    // currentWeatherIcon = testIcon
-
     // weather icon logic
     // night
-    if (checkNight === true) {
-      currentWeatherIcon = weather.weatherNight
+    if (this.props.night === true) {
+      currentWeatherIcon = nightClear
     } else
       // group 2xx: thunderstorm
       if (weatherCode >= 200 && weatherCode <= 232) {
@@ -173,13 +163,13 @@ class Current extends Component {
         (weatherCode) >= 300 &&
         (weatherCode) <= 321
       ) {
-        currentWeatherIcon = weather.weatherPartlyShower;
+        currentWeatherIcon = lightRain;
         // group 5xx: rain
       } else if (
         (weatherCode) >= 500 &&
         (weatherCode) <= 531
       ) {
-        currentWeatherIcon = weather.weatherPartlyShower;
+        currentWeatherIcon = lightRain;
         // group 6xx: snow
       } else if (
         (weatherCode) >= 600 &&

@@ -74,7 +74,9 @@ class App extends Component {
       sunset: '',
       // colour background
       weekBg: null,
-      weekBarBg: null
+      weekBarBg: null,
+      // night or day
+      night: false
     };
     // bind functions to state
     this.handleLoaded = this.handleLoaded.bind(this);
@@ -300,16 +302,14 @@ class App extends Component {
   // check night or day function
   nightOrDay() {
     console.log('Icon = ' + this.state.icon + ' from App.js');
-    var conditions = ["01n", "02n", "03n", "04n", "05n"];
+    // night icon conditions
+    var conditions = ["01n", "02n", "03n", "04n", "09n", "10n", "11n", "13n", "50n"];
+    // loop conditions
     var checkNight = conditions.some(e => this.state.icon.includes(e));
     console.log('Night = ' + checkNight + ' from App.js');
-    if (checkNight === true) {
-      this.setBgNight();
-      console.log('Must be night...');
-    } else {
-      console.log('Must be day...');
-      this.setBgDay();
-    }
+    // apply function based on result
+    checkNight ? (this.setState({ night: true }), this.setBgNight()) :
+     (this.setState({ night: false }),this.setBgDay());
   }
 
   // night colour bg logic
@@ -484,6 +484,7 @@ class App extends Component {
                   desc={this.state.desc}
                   icon={this.state.icon}
                   sunset={this.state.sunset}
+                  night={this.state.night}
                   skyWeather={this.state.skyWeather}
                 />
               </View>
