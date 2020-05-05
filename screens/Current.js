@@ -256,10 +256,7 @@ class Current extends Component {
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
-            // console.log(details);
-            // console.log(details.formatted_address);
-            // console.log(details.address_components[1].long_name);
-            // console.log(details.address_components[2].long_name);
+            console.log(data);
             // fix google names with numbers in front
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
@@ -326,7 +323,7 @@ class Current extends Component {
               elevation: 1
             },
             separator: {
-              backgroundColor: '#ffffff48',
+              backgroundColor: colours.spotGrey,
               height: 0.5
             }
           }}
@@ -428,7 +425,7 @@ class Current extends Component {
           {this.props.skyWeather.currently.summary.toLowerCase().capitalize()}
         </Text>
         <Text style={currentStyles.currentDescSummary}>
-          Currently {this.props.temp}° with a daily high of {this.props.high}°
+          Currently {this.props.temp}° with a high of {this.props.high}°
         </Text>
         {/* END description */}
 
@@ -485,7 +482,7 @@ const currentStyles = StyleSheet.create({
   currentIconWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 65
+    marginTop: 60
   },
   currentIconSmall: {
     alignSelf: 'center',

@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements'
 import SavedLocations from './SavedLocations';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import timeout from './../data/timeout.js';
 
 // firebase
@@ -294,27 +295,32 @@ class Header extends Component {
             </View>
             {/* set current location as home */}
             <View style={headerStyles.border}>
-              <Text
-                style={headerStyles.menuTextGreen}
+              <Button
+                title='Set current location to home'
                 onPress={this.handleHome.bind(this, [
                   this.props.currentLat,
                   this.props.currentLng,
                   this.props.currentLocation
-                ])}>
-                Set current location to home
-            </Text>
+                ])}
+                titleStyle={headerStyles.menuTextGreen}
+                type='clear' />
             </View>
-            <View style={headerStyles.listWrap}>
+            <View>
               {/* saved locations list */}
               {this.state.savedLocations.length > 0 ? (
-                <SavedLocations
-                  savedLocations={this.state.savedLocations}
-                  updateSkyData={this.updateSkyData}
-                  handleDelete={this.handleDelete} />
+                <View style={headerStyles.listWrap}>
+                  <SavedLocations
+                    style={headerStyles.listItems}
+                    savedLocations={this.state.savedLocations}
+                    updateSkyData={this.updateSkyData}
+                    handleDelete={this.handleDelete} />
+                </View>
               ) : (
-                  <Text style={headerStyles.menuTextYellow}>
-                    No saved locations yet
+                  <View style={headerStyles.listWrap}>
+                    <Text style={headerStyles.menuTextYellow}>
+                      No saved locations yet
                   </Text>
+                  </View>
                 )}
             </View>
           </View>
@@ -330,20 +336,27 @@ export default withFirebaseHOC(Header);
 
 // style
 const headerStyles = StyleSheet.create({
+  flex: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   menuWrap: {
     backgroundColor: colours.spotGreyDark,
     borderBottomColor: colours.spotGrey,
     borderBottomWidth: 0.5
   },
   listWrap: {
-    backgroundColor: colours.spotGreyMed,
+    backgroundColor: colours.spotGreyDark
+  },
+  listItems: {
     paddingTop: 4,
     paddingBottom: 4
   },
   menuTitle: {
     color: colours.white,
     fontSize: 19,
-    fontFamily: 'allerBd',
+    fontFamily: 'allerRg',
     textAlign: 'center',
     padding: 8
   },

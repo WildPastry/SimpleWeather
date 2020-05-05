@@ -444,7 +444,7 @@ class App extends Component {
         // START main container
         <View
           keyboardShouldPersistTaps='handled'
-          style={{ alignItems: 'center', backgroundColor: colours.simpleWeather, flex: 1 }}>
+          style={{ alignItems: 'center', backgroundColor: colours.spotGreyMed, flex: 1 }}>
           {/* top bar */}
           <View style={{height: 22}} />
           <ScrollView
