@@ -318,7 +318,7 @@ class Header extends Component {
               ) : (
                   <View style={headerStyles.listWrap}>
                     <Text style={headerStyles.menuTextYellow}>
-                      No saved locations yet
+                      No saved locations
                   </Text>
                   </View>
                 )}
@@ -369,14 +369,17 @@ const headerStyles = StyleSheet.create({
     fontSize: 19,
     fontFamily: 'allerRg',
     textAlign: 'center',
-    padding: 8
+    paddingRight: 8,
+    paddingLeft: 8,
+    paddingBottom: 10,
+    paddingTop: 10
   },
   menuTextGreen: {
     color: colours.spotGreen,
     fontSize: 19,
     fontFamily: 'allerRg',
     textAlign: 'center',
-    padding: 12
+    padding: 8
   },
   simpleWeather: {
     color: colours.white,

@@ -45,6 +45,11 @@ String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
+// remove last char
+String.prototype.cutString = function () {
+  return this.substring(0, this.length - 1);
+}
+
 // START Current
 class Current extends Component {
   constructor(props) {
@@ -205,7 +210,6 @@ class Current extends Component {
     const date = moment(today).format('MMMM D');
     const year = moment(today).format('YYYY');
 
-    console.log(today)
     // set up colour bg variable
     var colourBg = this.props.currentBg;
 
@@ -256,7 +260,6 @@ class Current extends Component {
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
-            console.log(data);
             // fix google names with numbers in front
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
@@ -422,7 +425,9 @@ class Current extends Component {
         {/* START description */}
         {/* Current description */}
         <Text style={currentStyles.currentDesc}>
-          {this.props.skyWeather.currently.summary.toLowerCase().capitalize()}
+          {this.props.skyWeather.hourly.summary.cutString()}
+          {/* {this.props.skyWeather.daily.data[0].summary} */}
+          {/* {this.props.skyWeather.currently.summary.toLowerCase().capitalize()} */}
         </Text>
         <Text style={currentStyles.currentDescSummary}>
           Currently {this.props.temp}° with a high of {this.props.high}°
@@ -431,6 +436,21 @@ class Current extends Component {
 
         {/* START wind and humidity */}
         <View style={currentStyles.currentWindHumWrap}>
+          {/* <View style={currentStyles.currentDetailsWrap}>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 24,
+                textAlign: 'center',
+                color: colours.white
+              }}>
+              {weatherIcons.thermal.code}
+            </Text>
+            <Text style={currentStyles.currentDetails}>
+              {'  '}
+              {Math.round(this.props.skyWeather.daily.data[0].visibility)}%
+            </Text>
+          </View> */}
           <View style={currentStyles.currentDetailsWrap}>
             <Text
               style={{
@@ -458,7 +478,7 @@ class Current extends Component {
             </Text>
             <Text style={currentStyles.currentDetails}>
               {'  '}
-              {this.props.humidity}
+              {this.props.humidity}%
             </Text>
           </View>
         </View>

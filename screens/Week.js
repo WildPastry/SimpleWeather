@@ -39,8 +39,8 @@ class Week extends Component {
     }
 
     // set up colour bg variables
-    var colourBg = this.props.weekBg;
-    var colourBarBg = this.props.weekBarBg;
+    const colourBg = this.props.weekBg;
+    const colourBarBg = this.props.weekBarBg;
 
     // set current weather icon based on weather
     return (
@@ -53,10 +53,11 @@ class Week extends Component {
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
-          <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
-
+          <View style={{ backgroundColor: colourBarBg, marginBottom: 3 }}>
+            <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
+          </View>
           {/* START map */}
-          <View>
+          <View style={{ marginBottom: 3 }}>
             {filteredWeather.map((dailyWeather) => {
               // set up date variables
               var today = moment.unix(dailyWeather.dt);

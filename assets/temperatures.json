@@ -1,0 +1,100 @@
+{
+  "tempBelow20": "#2e3f6b",
+  "tempBelow20d": "#1C2945",
+
+  "tempBelow10": "#244773",
+  "tempBelow10d": "#13304D",
+
+  "temp0": "#184F7B",
+  "temp0d": "#0B3554",
+
+  "temp1": "#00678f",
+  "temp1d": "#005975",
+
+  "temp2": "#007496",
+  "temp2d": "#00637a",
+  
+  "temp3": "#00819b",
+  "temp3d": "#00707f",
+    
+  "temp4": "#008d9c",
+  "temp4d": "#007c82",
+    
+  "temp5": "#009a9b",
+  "temp5d": "#007f7c",
+    
+  "temp6": "#00a697",
+  "temp6d": "#008c7b",
+    
+  "temp7": "#26b192",
+  "temp7d": "#22967a",
+    
+  "temp8": "#4fbc8c",
+  "temp8d": "#45a075",
+    
+  "temp9": "#71c685",
+  "temp9d": "#63aa72",
+    
+  "temp10": "#7ac780",
+  "temp10d": "#6cad6f",
+    
+  "temp11": "#82c87c",
+  "temp11d": "#73ad6d",
+    
+  "temp12": "#8bc977",
+  "temp12d": "#7bad68",
+    
+  "temp13": "#94ca73",
+  "temp13d": "#82af66",
+    
+  "temp14": "#9dca6f",
+  "temp14d": "#8baf62",
+    
+  "temp15": "#a6cb6b",
+  "temp15d": "#93af5d",
+    
+  "temp16": "#afcb67",
+  "temp16d": "#9aaf5a",
+    
+  "temp17": "#b8cb64",
+  "temp17d": "#a3af58",
+    
+  "temp18": "#c1cb61",
+  "temp18d": "#abaf54",
+    
+  "temp19": "#cbcb5f",
+  "temp19d": "#afac54",
+    
+  "temp20": "#d4cb5d",
+  "temp20d": "#bab052",
+    
+  "temp22": "#d6bf52",
+  "temp22d": "#baa449",
+    
+  "temp23": "#d8b349",
+  "temp23d": "#bc9942",
+    
+  "temp24": "#d9a741",
+  "temp24d": "#bf903c",
+    
+  "temp25": "#d98e37",
+  "temp25d": "#bf7932",
+    
+  "temp26": "#d98135",
+  "temp26d": "#bf6d30",
+    
+  "temp27": "#d77435",
+  "temp27d": "#bc612f",
+    
+  "temp28": "#d56735",
+  "temp28d": "#ba5831",
+    
+  "temp29": "#d25a37",
+  "temp29d": "#b74b32",
+    
+  "tempAbove40": "#ce4c3a",
+  "tempAbove40d": "#b24034",
+
+  "tempAbove50": "#c93d3d",
+  "tempAbove50d": "#ad3636"
+}

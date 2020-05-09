@@ -13,6 +13,7 @@ import Current from './screens/Current';
 import Week from './screens/Week';
 import Footer from './screens/Footer';
 import colours from './assets/colours.json';
+import temperatures from './assets/temperatures.json';
 import LottieView from 'lottie-react-native';
 
 // firebase
@@ -23,8 +24,8 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 // firebase globals
-import {decode, encode} from 'base-64'
-if (!global.btoa) {  global.btoa = encode }
+import { decode, encode } from 'base-64'
+if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
 // set up auth keys
@@ -34,7 +35,7 @@ const sky = configData.SKY;
 // get device width
 const window = Dimensions.get('window');
 
-// set up image display variable
+// set up image display variables
 let imageBg;
 
 // START App
@@ -208,6 +209,7 @@ class App extends Component {
             high: Math.round(skyData.daily.data[0].temperatureMax),
             low: Math.round(skyData.daily.data[0].temperatureMin)
           });
+          // currentTemp = Math.round(skyData.currently.temperature);
         }
       });
     // daily weather data
@@ -309,7 +311,7 @@ class App extends Component {
     console.log('Night = ' + checkNight + ' from App.js');
     // apply function based on result
     checkNight ? (this.setState({ night: true }), this.setBgNight()) :
-     (this.setState({ night: false }),this.setBgDay());
+      (this.setState({ night: false }), this.setBgDay());
   }
 
   // night colour bg logic
@@ -317,91 +319,134 @@ class App extends Component {
     console.log('Night function running...');
     imageBg = colours.night;
     this.setState({
-      weekBg: colours.nightDark,
-      weekBarBg: colours.night
+      weekBg: colours.night,
+      weekBarBg: colours.nightDark
     });
     this.handleLoaded();
   }
 
   // day colour bg logic
   setBgDay() {
-    console.log(this.state.temp);
+    // console.log(this.state.temp);
+
+    let currentBg;
+    let currentBarBg;
+    var currentTemp = this.state.temp;
     console.log('Day function running...');
-    // group 2xx: thunderstorm
-    if (this.state.openWeatherId >= 200 && this.state.openWeatherId <= 232) {
-      imageBg = colours.thunderStorm;
-      this.setState({
-        weekBg: colours.thunderStormDark,
-        weekBarBg: colours.thunderStorm
-      });
-      // group 3xx: drizzle
-    } else if (
-      (this.state.openWeatherId) >= 300 &&
-      (this.state.openWeatherId) <= 321
-    ) {
-      imageBg = colours.showerRain;
-      this.setState({
-        weekBg: colours.showerRainDark,
-        weekBarBg: colours.showerRain
-      });
-      // group 5xx: rain
-    } else if (
-      (this.state.openWeatherId) >= 500 &&
-      (this.state.openWeatherId) <= 531
-    ) {
-      imageBg = colours.rain;
-      this.setState({
-        weekBg: colours.rainDark,
-        weekBarBg: colours.rain
-      });
-      // group 6xx: snow
-    } else if (
-      (this.state.openWeatherId) >= 600 &&
-      (this.state.openWeatherId) <= 622
-    ) {
-      imageBg = colours.snow;
-      this.setState({
-        weekBg: colours.snowDark,
-        weekBarBg: colours.snow
-      });
-      // group 7xx: atmosphere
-    } else if (
-      (this.state.openWeatherId) >= 701 &&
-      (this.state.openWeatherId) <= 781
-    ) {
-      imageBg = colours.thunderStorm;
-      this.setState({
-        weekBg: colours.thunderStormDark,
-        weekBarBg: colours.thunderStorm
-      });
-      // group 80x: scattered clouds
-    } else if (
-      (this.state.openWeatherId) >= 801 &&
-      (this.state.openWeatherId) <= 802
-    ) {
-      imageBg = colours.scatteredClouds;
-      this.setState({
-        weekBg: colours.scatteredCloudsDark,
-        weekBarBg: colours.scatteredClouds
-      });
-      // group 80x: broken clouds
-    } else if (
-      (this.state.openWeatherId) >= 803 &&
-      (this.state.openWeatherId) <= 804
-    ) {
-      imageBg = colours.brokenClouds;
-      this.setState({
-        weekBg: colours.brokenCloudsDark,
-        weekBarBg: colours.brokenClouds
-      });
-      // group 800: clear
-    } else {
-      imageBg = colours.clearSky;
-      this.setState({
-        weekBg: colours.clearSkyDark,
-        weekBarBg: colours.clearSky
-      });
+    console.log(currentTemp + ' From day function');
+
+    if (currentTemp <= -20) {
+      currentBg = temperatures.tempBelow20;
+      currentBarBg = temperatures.tempBelow20d;
+    } else if ((currentTemp <= -10) && (currentTemp > -20)) {
+      currentBg = temperatures.tempBelow10;
+      currentBarBg = temperatures.tempBelow10d;
+    } else if (currentTemp === 0) {
+      currentBg = temperatures.temp0;
+      currentBarBg = temperatures.temp0d;
+    } else if (currentTemp === 1) {
+      currentBg = temperatures.temp1;
+      currentBarBg = temperatures.temp1d;
+    } else if (currentTemp === 2) {
+      currentBg = temperatures.temp2;
+      currentBarBg = temperatures.temp2d;
+    } else if (currentTemp === 3) {
+      currentBg = temperatures.temp3;
+      currentBarBg = temperatures.temp3d;
+    } else if (currentTemp === 4) {
+      currentBg = temperatures.temp4;
+      currentBarBg = temperatures.temp4d;
+    } else if (currentTemp === 5) {
+      currentBg = temperatures.temp5;
+      currentBarBg = temperatures.temp5d;
+    } else if (currentTemp === 6) {
+      currentBg = temperatures.temp6;
+      currentBarBg = temperatures.temp6d;
+    } else if (currentTemp === 7) {
+      currentBg = temperatures.temp7;
+      currentBarBg = temperatures.temp7d;
+    } else if (currentTemp === 8) {
+      currentBg = temperatures.temp8;
+      currentBarBg = temperatures.temp8d;
+    } else if (currentTemp === 9) {
+      currentBg = temperatures.temp9;
+      currentBarBg = temperatures.temp9d;
+    } else if (currentTemp === 11) {
+      currentBg = temperatures.temp11;
+      currentBarBg = temperatures.temp11d;
+    } else if (currentTemp === 12) {
+      currentBg = temperatures.temp12;
+      currentBarBg = temperatures.temp12d;
+    } else if (currentTemp === 13) {
+      currentBg = temperatures.temp13;
+      currentBarBg = temperatures.temp13d;
+    } else if (currentTemp === 14) {
+      currentBg = temperatures.temp14;
+      currentBarBg = temperatures.temp14d;
+    } else if (currentTemp === 15) {
+      currentBg = temperatures.temp15;
+      currentBarBg = temperatures.temp15d;
+    } else if (currentTemp === 16) {
+      currentBg = temperatures.temp16;
+      currentBarBg = temperatures.temp16d;
+    } else if (currentTemp === 17) {
+      currentBg = temperatures.temp17;
+      currentBarBg = temperatures.temp17d;
+    } else if (currentTemp === 18) {
+      currentBg = temperatures.temp18;
+      currentBarBg = temperatures.temp18d;
+    } else if (currentTemp === 19) {
+      currentBg = temperatures.temp19;
+      currentBarBg = temperatures.temp19d;
+    } else if (currentTemp === 20) {
+      currentBg = temperatures.temp20;
+      currentBarBg = temperatures.temp20d;
+    } else if (currentTemp === 21) {
+      currentBg = temperatures.temp21;
+      currentBarBg = temperatures.temp21d;
+    } else if (currentTemp === 22) {
+      currentBg = temperatures.temp22;
+      currentBarBg = temperatures.temp22d;
+    } else if (currentTemp === 23) {
+      currentBg = temperatures.temp23;
+      currentBarBg = temperatures.temp23d;
+    } else if (currentTemp === 24) {
+      currentBg = temperatures.temp24;
+      currentBarBg = temperatures.temp24d;
+    } else if (currentTemp === 25) {
+      currentBg = temperatures.temp25;
+      currentBarBg = temperatures.temp25d;
+    } else if (currentTemp === 26) {
+      currentBg = temperatures.temp26;
+      currentBarBg = temperatures.temp26d;
+    } else if (currentTemp === 27) {
+      currentBg = temperatures.temp27;
+      currentBarBg = temperatures.temp27d;
+    } else if (currentTemp === 28) {
+      currentBg = temperatures.temp28;
+      currentBarBg = temperatures.temp28d;
+    } else if (currentTemp === 29) {
+      currentBg = temperatures.temp29;
+      currentBarBg = temperatures.temp29d;
+    } else if ((currentTemp >= 40) && (currentTemp < 50)) {
+      currentBg = temperatures.tempAbove40;
+      currentBarBg = temperatures.tempAbove40d;
+    } else if (currentTemp >= 50) {
+      currentBg = temperatures.tempAbove50;
+      currentBarBg = temperatures.tempAbove50d;
     }
+    
+    imageBg = currentBg;
+
+    // console.log(currentTemp);
+    // console.log(currentBg);
+
+    this.setState({
+      weekBg: currentBg,
+      weekBarBg: currentBarBg
+    });
+
+    //  run app loaded function
     this.handleLoaded();
   }
 
@@ -411,9 +456,6 @@ class App extends Component {
 
   // START render App
   render() {
-    // console.log(this.state.skyWeather);
-    // console.log(this.state.weather);
-    // console.log(this.state.openWeather);
     // declare loading variables in current state
     var { isLoaded } = this.state;
 
@@ -446,7 +488,7 @@ class App extends Component {
           keyboardShouldPersistTaps='handled'
           style={{ alignItems: 'center', backgroundColor: colours.spotGreyMed, flex: 1 }}>
           {/* top bar */}
-          <View style={{height: 22}} />
+          <View style={{ height: 22 }} />
           <ScrollView
             loop={false}
             width={window.width}
@@ -462,7 +504,6 @@ class App extends Component {
                 updateSkyData={this.updateSkyData}
                 currentLat={this.state.currentLat}
                 currentLng={this.state.currentLng}
-                currentBg={this.state.weekBg}
               />
               {/* current */}
               <View style={{ backgroundColor: imageBg }}>
@@ -470,7 +511,7 @@ class App extends Component {
                   navigation={this.props.navigation}
                   keyboardShouldPersistTaps='handled'
                   weatherCode={this.state.openWeatherId}
-                  currentBg={this.state.weekBg}
+                  currentBg={this.state.weekBarBg}
                   updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}

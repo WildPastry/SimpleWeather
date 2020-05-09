@@ -17,8 +17,8 @@ class Footer extends Component {
           justifyContent: 'center',
           paddingTop: 8,
           paddingBottom: 8,
-          borderTopColor: colours.white,
-          borderTopWidth: 0.5
+          // borderTopColor: colours.white,
+          // borderTopWidth: 0.5,
         }}>
         <Text style={footerStyles.footerText}>
           <Text style={{

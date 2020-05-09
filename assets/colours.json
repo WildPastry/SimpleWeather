@@ -1,5 +1,5 @@
 {
-  "simpleWeather": "#303030",
+  "simpleWeather": "#313136",
 
   "clearSky": "#e68341",
   "clearSkyDark": "#d46921",
@@ -25,8 +25,8 @@
   "mist": "#c8c8c8",
   "mistDark": "#999999",
 
-  "night": "#232429",
-  "nightDark": "#1a1c24",
+  "night": "#35363d",
+  "nightDark": "#262833",
 
   "black": "#000",
   "white": "#fff",
@@ -39,6 +39,6 @@
   "spotLightGrey": "#e0e0e0",
   "spotGrey": "#999999",
   "spotGreyTrans": "#9999993f",
-  "spotGreyMed": "#303030",
-  "spotGreyDark": "#212121"
+  "spotGreyMed": "#313136",
+  "spotGreyDark": "#2b2b2e"
 }
