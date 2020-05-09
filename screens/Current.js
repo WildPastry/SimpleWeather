@@ -268,7 +268,7 @@ class Current extends Component {
               googleLng: details.geometry.location.lng.toFixed(5),
               googleName: updatedAddress
             });
-            // update sky data function
+            // // update sky data function
             this.updateSkyData();
           }}
           // data query
@@ -331,11 +331,11 @@ class Current extends Component {
             }
           }}
           // google options
-          currentLocation={false}
+          currentLocation={true}
           currentLocationLabel='Current location'
           nearbyPlacesAPI='GooglePlacesSearch'
           GooglePlacesDetailsQuery={{
-            fields: 'formatted_address'
+            fields: 'geometry,formatted_address'
           }}
           filterReverseGeocodingByTypes={[
             'locality',

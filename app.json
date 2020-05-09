@@ -4,7 +4,6 @@
     "name": "Simple Weather",
     "slug": "simple-weather",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android"
@@ -15,7 +14,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#303030"
+      "backgroundColor": "#313136"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -30,7 +29,8 @@
     },
     "android": {
       "permissions": [
-        "ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
       ],
       "package": "com.mp.simpleweather",
       "versionCode": 1

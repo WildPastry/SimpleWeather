@@ -62,7 +62,9 @@ class Login extends Component {
     const { passwordVisibility, rightIcon } = this.state
     return (
       <SafeAreaView style={loginStyles.container}>
-        {/* <AppLogo /> */}
+        <View style={loginStyles.logoContainer}>
+          <AppLogo />
+        </View>
         <Text
           style={loginStyles.simpleWeather}>
           SIMPLE WEATHER
@@ -174,7 +176,7 @@ const loginStyles = StyleSheet.create({
     margin: 8
   },
   logoContainer: {
-    marginBottom: 15,
+    marginBottom: 10,
     alignItems: 'center'
   },
   buttonContainer: {

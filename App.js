@@ -438,9 +438,6 @@ class App extends Component {
     
     imageBg = currentBg;
 
-    // console.log(currentTemp);
-    // console.log(currentBg);
-
     this.setState({
       weekBg: currentBg,
       weekBarBg: currentBarBg
