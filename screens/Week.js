@@ -53,7 +53,10 @@ class Week extends Component {
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
-          <View style={{ backgroundColor: colourBarBg, marginBottom: 3 }}>
+          <View style={{
+            backgroundColor: colourBarBg, 
+            marginBottom: 10
+          }}>
             <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
           </View>
           {/* START map */}
@@ -190,7 +193,7 @@ class Week extends Component {
                           </Text>
                           <Text style={weekStyles.weekWindHumDetails}>
                             {'  '}
-                            {dailyWeather.main.humidity}
+                            {dailyWeather.main.humidity}%
                           </Text>
                         </View>
                         {/* END humidity */}
@@ -250,10 +253,9 @@ const weekStyles = StyleSheet.create({
   weekHeading: {
     color: colours.white,
     fontSize: 19,
-    fontFamily: 'allerLt',
-    padding: 10,
-    textAlign: 'center',
-    marginTop: 2
+    fontFamily: 'allerBd',
+    padding: 12,
+    textAlign: 'center'
   },
   weekText: {
     color: colours.white,

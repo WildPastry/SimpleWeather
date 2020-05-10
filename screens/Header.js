@@ -344,7 +344,7 @@ const headerStyles = StyleSheet.create({
   menuWrap: {
     backgroundColor: colours.spotGreyDark,
     borderBottomColor: colours.spotGrey,
-    borderBottomWidth: 0.5
+    borderBottomWidth: 1
   },
   listWrap: {
     backgroundColor: colours.spotGreyDark
@@ -362,7 +362,7 @@ const headerStyles = StyleSheet.create({
   },
   border: {
     borderBottomColor: colours.spotGrey,
-    borderBottomWidth: 0.5
+    borderBottomWidth: 1
   },
   menuTextYellow: {
     color: colours.spotYellow,
@@ -402,7 +402,7 @@ const headerStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: colours.spotGreyMed,
-    borderBottomColor: colours.white,
-    borderBottomWidth: 0.5
+    borderBottomColor: colours.spotGrey,
+    borderBottomWidth: 1
   }
 });

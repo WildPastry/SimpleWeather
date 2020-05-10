@@ -20,9 +20,6 @@ const geo = configData.GEO;
 // moment set up
 var moment = require('moment');
 
-// countdown set up
-// var countdown;
-
 const cloudyNightWeather = require('./../assets/animations/weather/weather-cloudy-night.json');
 const foggyWeather = require('./../assets/animations/weather/weather-foggy.json');
 const mistWeather = require('./../assets/animations/weather/weather-mist.json');
@@ -81,32 +78,7 @@ class Current extends Component {
       'keyboardDidHide',
       this._keyboardDidHide
     );
-    // call countdown function
-    // this.countDown = setInterval(() => {
-    //   this.startCountDown();
-    // }, 1000);
   }
-
-  // start countdown function
-  // startCountDown = () => {
-  //   var sunSetTime = this.props.sunset;
-  //   var sunTimer = new Date(sunSetTime * 1000).toString();
-  //   var sunTimerShort = sunTimer.slice(0, 24);
-  //   var countDownDate = new Date(sunTimerShort).getTime();
-  //   var now = new Date().getTime();
-  //   var distance = countDownDate - now;
-  //   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  //   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  //   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  //   // getCountdown.innerHTML = "<h1>" + hours + " : " +
-  //   //   minutes + " : " + seconds + " " + "</h1>";
-  //   console.log(hours + minutes + seconds);
-  //   // if (distance < 0) {
-  //   //   clearInterval(countDown);
-  //   //   getCountdown.innerHTML = "<h1>" + "Expired" + "</h1>";
-  //   // }
-  // }
 
   // keyboard will un-mount function
   componentWillUnmount() {
@@ -210,38 +182,13 @@ class Current extends Component {
     const date = moment(today).format('MMMM D');
     const year = moment(today).format('YYYY');
 
-    // set up colour bg variable
+    // set up colour bg variables
     var colourBg = this.props.currentBg;
+    var colourBarBg = this.props.currentBarBg;
 
-    // countdown function
-    // clearInterval(countDown);
-    // clearInterval(countDown);
-    // set up countdown
-    // countdown set up
-    // var sunSetTime = this.props.sunset;
-    // var sunTimer = new Date(sunSetTime * 1000).toString();
-    // var sunTimerShort = sunTimer.slice(0, 24);
-    // var countDownDate = new Date(sunTimerShort).getTime();
-
-    // console.log(countDownDate);
-    // var todaySun = moment.unix(this.props.sunset);
-    // var dateSun = moment(todaySun).format('HH:MM');
-
-    // console.log('Time of sunset: ' + this.props.sunset);
-    // console.log('Current time: ' + moment().unix());
-
-    // console.log(dateSun);
-    // console.log(this.props.sunset);
-
-    // console.log(this.props.skyWeather.currently);
-    // console.log(this.props.skyWeather.daily.data[0]);
-    // console.log(this.props.skyWeather.hourly.data);
-
-    // {
-    //   this.props.skyWeather.hourly.data.map((hourlyData) => {
-    //     console.log(moment(hourlyData.time).format('HH:MM:SSSS'));
-    //   });
-    // }
+    // set up sunset time formats
+    var todaySun = moment.unix(this.props.sunset);
+    var dateSun = moment(todaySun).format('HH:MM');
 
     return (
       <SafeAreaView
@@ -289,13 +236,13 @@ class Current extends Component {
             },
             textInputContainer: {
               alignContent: 'center',
-              backgroundColor: colourBg,
+              backgroundColor: colourBarBg,
               height: 50,
               width: '100%'
             },
             textInput: {
               alignItems: 'center',
-              backgroundColor: colourBg,
+              backgroundColor: colourBarBg,
               borderRadius: 0,
               borderTopColor: colours.spotGreyMed,
               borderTopWidth: 0,
@@ -317,7 +264,7 @@ class Current extends Component {
               textAlign: 'center'
             },
             listView: {
-              backgroundColor: colourBg,
+              backgroundColor: colourBarBg,
               color: colours.white,
               fontFamily: 'allerLt',
               fontSize: 19,
@@ -325,13 +272,18 @@ class Current extends Component {
               top: 50,
               elevation: 1
             },
+            predefinedPlacesDescription: {
+              color: colours.white,
+              fontFamily: 'allerLt',
+              fontSize: 19
+            },
             separator: {
-              backgroundColor: colours.spotGrey,
-              height: 0.5
+              backgroundColor: colourBg,
+              height: 2
             }
           }}
           // google options
-          currentLocation={true}
+          currentLocation={false}
           currentLocationLabel='Current location'
           nearbyPlacesAPI='GooglePlacesSearch'
           GooglePlacesDetailsQuery={{
@@ -356,7 +308,7 @@ class Current extends Component {
           overflow: 'visible',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: colourBg,
+          backgroundColor: colourBarBg,
           borderTopColor: colours.spotGrey,
           borderTopWidth: 0.5
         }}>
@@ -425,8 +377,8 @@ class Current extends Component {
         {/* START description */}
         {/* Current description */}
         <Text style={currentStyles.currentDesc}>
-          {this.props.skyWeather.hourly.summary.cutString()}
-          {/* {this.props.skyWeather.daily.data[0].summary} */}
+          {/* {this.props.skyWeather.hourly.summary.cutString()} */}
+          {this.props.skyWeather.daily.data[0].summary}
           {/* {this.props.skyWeather.currently.summary.toLowerCase().capitalize()} */}
         </Text>
         <Text style={currentStyles.currentDescSummary}>
@@ -434,9 +386,73 @@ class Current extends Component {
         </Text>
         {/* END description */}
 
-        {/* START wind and humidity */}
+        {/* START morning afternoon night */}
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around', 
+          backgroundColor: colourBarBg,
+          marginTop: 15,
+          marginBottom: 10,
+          padding: 10
+        }}>
+          <View>
+            <Text style={currentStyles.currentSecondaryInfoHeading}>
+              Morning
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 55,
+                textAlign: 'center',
+                color: colours.white
+              }}>
+              {weatherIcons[this.props.openWeather.list[0].weather[0].id].code}
+            </Text>
+            {/* <Text style={currentStyles.currentSecondaryInfoText}>
+              {this.props.openWeather.list[0].weather[0].description}
+            </Text> */}
+          </View>
+          <View>
+            <Text style={currentStyles.currentSecondaryInfoHeading}>
+              Afternoon
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 55,
+                textAlign: 'center',
+                color: colours.white
+              }}>
+              {weatherIcons[this.props.openWeather.list[2].weather[0].id].code}
+            </Text>
+            {/* <Text style={currentStyles.currentSecondaryInfoText}>
+              {this.props.openWeather.list[2].weather[0].description}
+            </Text> */}
+          </View>
+          <View>
+            <Text style={currentStyles.currentSecondaryInfoHeading}>
+              Night
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 55,
+                textAlign: 'center',
+                color: colours.white
+              }}>
+              {weatherIcons[this.props.openWeather.list[4].weather[0].id].code}
+            </Text>
+            {/* <Text style={currentStyles.currentSecondaryInfoText}>
+              {this.props.openWeather.list[4].weather[0].description}
+            </Text> */}
+          </View>
+        </View>
+        {/* END morning afternoon night */}
+
+        {/* START sun wind humidity */}
         <View style={currentStyles.currentWindHumWrap}>
-          {/* <View style={currentStyles.currentDetailsWrap}>
+          {/* sunset */}
+          <View style={currentStyles.currentDetailsWrap}>
             <Text
               style={{
                 fontFamily: 'weatherfont',
@@ -444,13 +460,14 @@ class Current extends Component {
                 textAlign: 'center',
                 color: colours.white
               }}>
-              {weatherIcons.thermal.code}
+              {weatherIcons.sunset.code}
             </Text>
             <Text style={currentStyles.currentDetails}>
               {'  '}
-              {Math.round(this.props.skyWeather.daily.data[0].visibility)}%
+              {dateSun}
             </Text>
-          </View> */}
+          </View>
+          {/* wind     */}
           <View style={currentStyles.currentDetailsWrap}>
             <Text
               style={{
@@ -466,6 +483,7 @@ class Current extends Component {
               {Math.round(this.props.skyWeather.currently.windSpeed)} km/h
             </Text>
           </View>
+          {/* humidity     */}
           <View style={currentStyles.currentDetailsWrap}>
             <Text
               style={{
@@ -482,7 +500,7 @@ class Current extends Component {
             </Text>
           </View>
         </View>
-        {/* END wind and humidity */}
+        {/* END sun wind humidity */}
 
       </SafeAreaView>
     );
@@ -570,5 +588,18 @@ const currentStyles = StyleSheet.create({
     paddingBottom: 0,
     textAlign: 'center',
     marginTop: 10
+  },
+  currentSecondaryInfoHeading: {
+    color: colours.white,
+    fontSize: 19,
+    paddingTop: 10,
+    fontFamily: 'allerRg',
+    textAlign: 'center'
+  },
+  currentSecondaryInfoText: {
+    color: colours.spotYellow,
+    fontSize: 19,
+    fontFamily: 'allerLt',
+    textAlign: 'center'
   }
 });

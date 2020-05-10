@@ -335,12 +335,15 @@ class App extends Component {
     console.log('Day function running...');
     console.log(currentTemp + ' From day function');
 
-    if (currentTemp <= -20) {
-      currentBg = temperatures.tempBelow20;
-      currentBarBg = temperatures.tempBelow20d;
-    } else if ((currentTemp <= -10) && (currentTemp > -20)) {
-      currentBg = temperatures.tempBelow10;
-      currentBarBg = temperatures.tempBelow10d;
+    if (currentTemp < -15) {
+      currentBg = temperatures.tempBelowM15;
+      currentBarBg = temperatures.tempBelowM15d;
+    } else if ((currentTemp < -5) && (currentTemp > -16)) {
+      currentBg = temperatures.tempM6toM15;
+      currentBarBg = temperatures.tempM6toM15d;
+    } else if ((currentTemp < 0) && (currentTemp > -6)) {
+      currentBg = temperatures.tempM1toM5;
+      currentBarBg = temperatures.tempM1toM5d;
     } else if (currentTemp === 0) {
       currentBg = temperatures.temp0;
       currentBarBg = temperatures.temp0d;
@@ -371,6 +374,9 @@ class App extends Component {
     } else if (currentTemp === 9) {
       currentBg = temperatures.temp9;
       currentBarBg = temperatures.temp9d;
+    }  else if (currentTemp === 10) {
+      currentBg = temperatures.temp10;
+      currentBarBg = temperatures.temp10d;
     } else if (currentTemp === 11) {
       currentBg = temperatures.temp11;
       currentBarBg = temperatures.temp11d;
@@ -428,15 +434,38 @@ class App extends Component {
     } else if (currentTemp === 29) {
       currentBg = temperatures.temp29;
       currentBarBg = temperatures.temp29d;
-    } else if ((currentTemp >= 40) && (currentTemp < 50)) {
-      currentBg = temperatures.tempAbove40;
-      currentBarBg = temperatures.tempAbove40d;
-    } else if (currentTemp >= 50) {
+    } else if (currentTemp === 30) {
+      currentBg = temperatures.temp30;
+      currentBarBg = temperatures.temp30d;
+    } else if (currentTemp === 31) {
+      currentBg = temperatures.temp31;
+      currentBarBg = temperatures.temp31d;
+    } else if (currentTemp === 32) {
+      currentBg = temperatures.temp32;
+      currentBarBg = temperatures.temp32d;
+    } else if (currentTemp === 33) {
+      currentBg = temperatures.temp33;
+      currentBarBg = temperatures.temp33d;
+    } else if (currentTemp === 34) {
+      currentBg = temperatures.temp34;
+      currentBarBg = temperatures.temp34d;
+    } else if (currentTemp === 35) {
+      currentBg = temperatures.temp35;
+      currentBarBg = temperatures.temp35d;
+    } else if ((currentTemp > 35) && (currentTemp < 41)) {
+      currentBg = temperatures.temp36to40;
+      currentBarBg = temperatures.temp36to40d;
+    } else if ((currentTemp > 40) && (currentTemp < 51)) {
+      currentBg = temperatures.temp41to50;
+      currentBarBg = temperatures.temp41to50d;
+    } else if (currentTemp > 50) {
       currentBg = temperatures.tempAbove50;
       currentBarBg = temperatures.tempAbove50d;
     }
     
     imageBg = currentBg;
+
+    console.log(currentBg);
 
     this.setState({
       weekBg: currentBg,
@@ -508,7 +537,8 @@ class App extends Component {
                   navigation={this.props.navigation}
                   keyboardShouldPersistTaps='handled'
                   weatherCode={this.state.openWeatherId}
-                  currentBg={this.state.weekBarBg}
+                  currentBg={this.state.weekBg}
+                  currentBarBg={this.state.weekBarBg}
                   updateSkyData={this.updateSkyData}
                   errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}
@@ -524,6 +554,7 @@ class App extends Component {
                   sunset={this.state.sunset}
                   night={this.state.night}
                   skyWeather={this.state.skyWeather}
+                  openWeather={this.state.weather}
                 />
               </View>
             </FirebaseProvider>
