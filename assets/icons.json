@@ -383,7 +383,12 @@
   "thermal": {
     "code": ""
   },
+
   "sunset": {
     "code": ""
+  },
+
+  "snowflake": {
+    "code": ""
   }
 }

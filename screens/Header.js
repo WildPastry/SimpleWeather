@@ -354,7 +354,7 @@ const headerStyles = StyleSheet.create({
   },
   menuTitle: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerRg',
     textAlign: 'center',
     padding: 8
@@ -365,7 +365,7 @@ const headerStyles = StyleSheet.create({
   },
   menuTextYellow: {
     color: colours.spotYellow,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerRg',
     textAlign: 'center',
     paddingRight: 8,
@@ -375,7 +375,7 @@ const headerStyles = StyleSheet.create({
   },
   menuTextGreen: {
     color: colours.spotGreen,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerRg',
     textAlign: 'center',
     padding: 8

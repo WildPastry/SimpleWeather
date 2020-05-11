@@ -128,7 +128,7 @@ class Login extends Component {
             style={{
               color: colours.white,
               fontFamily: 'allerLt',
-              fontSize: 18
+              fontSize: 19
             }}>
             Skip this step
           </Text>
@@ -140,7 +140,7 @@ class Login extends Component {
             style={{
               color: colours.spotBlue,
               fontFamily: 'allerLt',
-              fontSize: 18
+              fontSize: 19
             }}>
             Don't have an account? Sign up
           </Text>
@@ -152,7 +152,7 @@ class Login extends Component {
             style={{
               color: colours.spotYellow,
               fontFamily: 'allerLt',
-              fontSize: 18
+              fontSize: 19
             }}>
             Forgotton password?
           </Text>

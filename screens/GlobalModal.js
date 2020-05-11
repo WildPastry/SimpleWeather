@@ -268,7 +268,7 @@ const globalModalStyles = StyleSheet.create({
   },
   text: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
     textAlign: 'center'
   }

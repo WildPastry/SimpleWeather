@@ -73,6 +73,7 @@ class App extends Component {
       wind: '',
       icon: '',
       sunset: '',
+      feelslike: '',
       // colour background
       weekBg: null,
       weekBarBg: null,
@@ -279,7 +280,8 @@ class App extends Component {
                   humidity: openResponseJson.main.humidity,
                   wind: openResponseJson.wind.speed,
                   icon: openResponseJson.weather[0].icon,
-                  sunset: openResponseJson.sys.sunset
+                  sunset: openResponseJson.sys.sunset,
+                  feelslike: openResponseJson.main.feels_like,
                 },
                 () => {
                   this.nightOrDay();
@@ -552,6 +554,7 @@ class App extends Component {
                   desc={this.state.desc}
                   icon={this.state.icon}
                   sunset={this.state.sunset}
+                  feelslike={this.state.feelslike}
                   night={this.state.night}
                   skyWeather={this.state.skyWeather}
                   openWeather={this.state.weather}

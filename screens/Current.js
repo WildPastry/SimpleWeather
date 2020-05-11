@@ -9,7 +9,6 @@ import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
 import weatherIcons from './../assets/icons.json';
 import { Ionicons } from '@expo/vector-icons';
-import weather from './../assets/animations/weather.json';
 
 // firebase
 import { withFirebaseHOC } from '../config/Firebase';
@@ -21,12 +20,23 @@ const geo = configData.GEO;
 // moment set up
 var moment = require('moment');
 
-const brokenClouds = require('./../assets/animations/weather/brokenClouds.json');
-const overcastClouds = require('./../assets/animations/weather/overcastClouds.json');
-const nightClear = require('./../assets/animations/weather/nightClear.json');
-const dayClear = require('./../assets/animations/weather/dayClear.json');
+// group 2xx: thunderstorm
 const lightningStorm = require('./../assets/animations/weather/lightningStorm.json');
+// group 3xx: drizzle
+// group 5xx: rain
 const lightRain = require('./../assets/animations/weather/lightRain.json');
+// group 6xx: snow
+const snow = require('./../assets/animations/weather/snow.json');
+// group 7xx: atmosphere
+const mist = require('./../assets/animations/weather/mist.json');
+// group 80x: clouds
+const fewClouds = require('./../assets/animations/weather/fewClouds.json');
+const brokenClouds = require('./../assets/animations/weather/brokenClouds.json');
+const scatteredClouds = require('./../assets/animations/weather/scatteredClouds.json');
+const overcastClouds = require('./../assets/animations/weather/overcastClouds.json');
+// group 800: clear
+const dayClear = require('./../assets/animations/weather/dayClear.json');
+const nightClear = require('./../assets/animations/weather/nightClear.json');
 
 // capitalize first char
 String.prototype.capitalize = function () {
@@ -143,20 +153,18 @@ class Current extends Component {
         (weatherCode) >= 600 &&
         (weatherCode) <= 622
       ) {
-        currentWeatherIcon = weather.weatherSnow;
+        currentWeatherIcon = snow;
         // group 7xx: atmosphere
       } else if (
         (weatherCode) >= 701 &&
         (weatherCode) <= 781
       ) {
-        currentWeatherIcon = weather.weatherFoggy;
-        // group 80x: scattered clouds
-      } else if (
-        (weatherCode) >= 801 &&
-        (weatherCode) <= 802
-      ) {
-        currentWeatherIcon = weather.weatherPartlyCloudy;
-        // group 80x: broken clouds
+        currentWeatherIcon = mist;
+        // group 80x: clouds
+      } else if (weatherCode === 801) {
+        currentWeatherIcon = fewClouds;
+      } else if (weatherCode === 802) {
+        currentWeatherIcon = scatteredClouds;
       } else if (weatherCode === 803) {
         currentWeatherIcon = brokenClouds;
       } else if (weatherCode === 804) {
@@ -243,7 +251,7 @@ class Current extends Component {
               marginLeft: 0,
               marginRight: 0,
               fontFamily: 'allerLt',
-              fontSize: 19,
+              fontSize: 18,
               textAlign: 'center',
               zIndex: 1
             },
@@ -257,7 +265,7 @@ class Current extends Component {
               backgroundColor: colourBarBg,
               color: colours.white,
               fontFamily: 'allerLt',
-              fontSize: 19,
+              fontSize: 18,
               position: 'absolute',
               top: 50,
               elevation: 1
@@ -265,7 +273,7 @@ class Current extends Component {
             predefinedPlacesDescription: {
               color: colours.white,
               fontFamily: 'allerLt',
-              fontSize: 19
+              fontSize: 18
             },
             separator: {
               backgroundColor: colourBg,
@@ -372,12 +380,25 @@ class Current extends Component {
           {/* Daily summary: {this.props.skyWeather.daily.data[0].summary.cutString()} */}
           {/* {this.props.skyWeather.currently.summary.toLowerCase().capitalize()} */}
         </Text>
+
+        {/* feels like */}
+        {/* <Text style={currentStyles.currentDescSummary}>
+          <Ionicons
+            name='ios-snow'
+            size={19}
+            color={colours.white}
+          />{' '}
+          Feels like {Math.round(this.props.feelslike)}° 
+          with {Math.round(this.props.skyWeather.currently.visibility)}km visibility
+        </Text> */}
+
+        {/* daily summary */}
         <Text style={currentStyles.currentDescSummary}>
           <Ionicons
             name='md-time'
             size={19}
             color={colours.white}
-          />{' '}{' '}
+          />{' '}
           {/* Daily summary: */}
           {this.props.skyWeather.daily.data[0].summary.cutString()}
           {/* Currently {this.props.temp}° with {this.props.desc} */}
@@ -391,7 +412,7 @@ class Current extends Component {
               <Text
                 style={{
                   justifyContent: 'center',
-                  fontSize: 19,
+                  fontSize: 18,
                   fontFamily: 'allerRg',
                   color: colours.spotYellow
                 }}>
@@ -412,6 +433,7 @@ class Current extends Component {
             <View style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
+              // backgroundColor: colours.spotGreyMed,
               marginTop: 5,
               marginBottom: 5,
               paddingLeft: 20,
@@ -419,6 +441,7 @@ class Current extends Component {
               paddingTop: 10,
               paddingBottom: 10
             }}>
+              {/* Morning */}
               <View>
                 <Text style={currentStyles.currentSecondaryInfoHeading}>
                   Morning
@@ -434,6 +457,8 @@ class Current extends Component {
                   {/* <Text>{Math.round(this.props.openWeather.list[0].main.temp)}°</Text> */}
                 </Text>
               </View>
+
+              {/* Afternoon */}
               <View>
                 <Text style={currentStyles.currentSecondaryInfoHeading}>
                   Afternoon
@@ -448,6 +473,8 @@ class Current extends Component {
                   {weatherIcons[this.props.openWeather.list[1].weather[0].id].code}
                 </Text>
               </View>
+
+              {/* Evening */}
               <View>
                 <Text style={currentStyles.currentSecondaryInfoHeading}>
                   Evening
@@ -464,10 +491,11 @@ class Current extends Component {
               </View>
             </View>
             {/* END morning afternoon evening */}
+
             {/* START sun wind humidity */}
             <View style={currentStyles.currentWindHumWrap}>
               {/* sunset */}
-              <View style={currentStyles.currentDetailsWrap}>
+              {/* <View style={currentStyles.currentDetailsWrap}>
                 <Text
                   style={{
                     fontFamily: 'weatherfont',
@@ -481,7 +509,7 @@ class Current extends Component {
                   {'  '}
                   {dateSun}
                 </Text>
-              </View>
+              </View> */}
               {/* wind     */}
               <View style={currentStyles.currentDetailsWrap}>
                 <Text
@@ -516,6 +544,7 @@ class Current extends Component {
               </View>
             </View>
             {/* END sun wind humidity */}
+
           </CollapseBody>
         </Collapse>
       </SafeAreaView>
@@ -566,7 +595,7 @@ const currentStyles = StyleSheet.create({
   },
   currentDetails: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
     paddingTop: 4
   },
@@ -584,21 +613,21 @@ const currentStyles = StyleSheet.create({
   },
   currentDesc: {
     color: colours.white,
-    fontSize: 21,
+    fontSize: 19,
     fontFamily: 'allerBd',
     padding: 10,
     textAlign: 'center'
   },
   currentDescSummary: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
     textAlign: 'center',
-    paddingBottom: 12
+    paddingBottom: 10
   },
   currentDateText: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
     padding: 10,
     paddingBottom: 0,
@@ -607,14 +636,8 @@ const currentStyles = StyleSheet.create({
   },
   currentSecondaryInfoHeading: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerRg',
-    textAlign: 'center'
-  },
-  currentSecondaryInfoText: {
-    color: colours.spotYellow,
-    fontSize: 19,
-    fontFamily: 'allerLt',
     textAlign: 'center'
   }
 });

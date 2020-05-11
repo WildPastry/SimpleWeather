@@ -157,7 +157,7 @@ const savedLocationStyles = StyleSheet.create({
     paddingRight: 8
   },
   locationListText: {
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
     color: colours.white,
     padding: 9,

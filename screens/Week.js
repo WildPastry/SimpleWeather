@@ -54,7 +54,7 @@ class Week extends Component {
         <ScrollView>
           {/* weekly weather heading and description */}
           <View style={{
-            backgroundColor: colourBarBg, 
+            backgroundColor: colourBarBg,
             marginBottom: 10
           }}>
             <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
@@ -101,14 +101,14 @@ class Week extends Component {
                           <Text
                             style={{
                               justifyContent: 'center',
-                              fontSize: 19,
+                              fontSize: 18,
                               fontFamily: 'allerRg',
                               color: colours.white
                             }}>
                             {/* chevron icon */}
                             <Ionicons
                               name='ios-arrow-down'
-                              size={19}
+                              size={18}
                               color={colours.white}
                             />{' '}{' '}
                             {day}
@@ -131,7 +131,7 @@ class Week extends Component {
                           <Text style={weekStyles.weekLowTemp}>
                             <Ionicons
                               name='ios-arrow-round-down'
-                              size={19}
+                              size={18}
                               color={colours.white}
                             />{' '}
                             {Math.round(dailyWeather.main[0])}°
@@ -142,7 +142,7 @@ class Week extends Component {
                           <Text style={weekStyles.weekHighTemp}>
                             <Ionicons
                               name='ios-arrow-round-up'
-                              size={19}
+                              size={18}
                               color={colours.white}
                             />{' '}
                             {Math.round(dailyWeather.main[1])}°
@@ -162,6 +162,24 @@ class Week extends Component {
 
                       {/* START wind and humidity */}
                       <View style={weekStyles.weekWindHumWrap}>
+                        {/* START feels like */}
+                        {/* <View style={weekStyles.weekWindWrap}>
+                          <Text
+                            style={{
+                              fontFamily: 'weatherfont',
+                              fontSize: 24,
+                              textAlign: 'center',
+                              color: colours.white
+                            }}>
+                            {weatherIcons.snowflake.code}
+                          </Text>
+                          <Text style={weekStyles.weekWindHumDetails}>
+                            {'  '}
+                            {dailyWeather.main.feels_like}°
+                          </Text>
+                        </View> */}
+                        {/* END feels like */}
+
                         {/* START wind speed */}
                         <View style={weekStyles.weekWindWrap}>
                           <Text
@@ -242,35 +260,35 @@ const weekStyles = StyleSheet.create({
   },
   weekLowTemp: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
   },
   weekHighTemp: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
   },
   weekHeading: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerBd',
     padding: 12,
     textAlign: 'center'
   },
   weekText: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     textAlign: 'center'
   },
   weekTextBot: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     textAlign: 'left',
     marginBottom: 12
   },
   weekDesc: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerRg',
     padding: 10,
     textAlign: 'center'
@@ -290,7 +308,7 @@ const weekStyles = StyleSheet.create({
   },
   weekWindHumDetails: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerLt',
     paddingTop: 4
   },
