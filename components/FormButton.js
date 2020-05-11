@@ -9,6 +9,6 @@ const FormButton = ({ title, buttonType, buttonColor, ...rest }) => (
     buttonStyle={{ borderColor: buttonColor, borderRadius: 20 }}
     titleStyle={{ color: buttonColor }}
   />
-)
+);
 
-export default FormButton
+export default FormButton;

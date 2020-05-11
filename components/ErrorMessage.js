@@ -5,7 +5,7 @@ const ErrorMessage = ({ errorValue }) => (
   <View style={errorStyles.container}>
     <Text style={errorStyles.errorText}>{errorValue}</Text>
   </View>
-)
+);
 
 const errorStyles = StyleSheet.create({
   container: {
@@ -14,6 +14,6 @@ const errorStyles = StyleSheet.create({
   errorText: {
     color: 'red'
   }
-})
+});
 
-export default ErrorMessage
+export default ErrorMessage;

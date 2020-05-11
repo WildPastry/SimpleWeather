@@ -22,7 +22,7 @@ const FormInput = ({
         placeholder={placeholder}
       />
     </View>
-  )
+  );
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
   iconStyle: {
     marginRight: 10
   }
-})
+});
 
-export default FormInput
+export default FormInput;

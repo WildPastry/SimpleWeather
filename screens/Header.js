@@ -5,7 +5,6 @@ import { Button } from 'react-native-elements'
 import SavedLocations from './SavedLocations';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
-import { Ionicons } from '@expo/vector-icons';
 import timeout from './../data/timeout.js';
 
 // firebase

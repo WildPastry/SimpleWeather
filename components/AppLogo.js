@@ -6,6 +6,6 @@ const AppLogo = () => (
     source={require('../assets/brand.png')}
     style={{ width: 100, height: 100 }}
   />
-)
+);
 
-export default AppLogo
+export default AppLogo;

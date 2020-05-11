@@ -304,6 +304,7 @@ class App extends Component {
   // check night or day function
   nightOrDay() {
     console.log('Icon = ' + this.state.icon + ' from App.js');
+    console.log('Code = ' + this.state.openWeatherId + ' from App.js');
     // night icon conditions
     var conditions = ["01n", "02n", "03n", "04n", "09n", "10n", "11n", "13n", "50n"];
     // loop conditions
@@ -327,7 +328,6 @@ class App extends Component {
 
   // day colour bg logic
   setBgDay() {
-    // console.log(this.state.temp);
 
     let currentBg;
     let currentBarBg;
@@ -374,7 +374,7 @@ class App extends Component {
     } else if (currentTemp === 9) {
       currentBg = temperatures.temp9;
       currentBarBg = temperatures.temp9d;
-    }  else if (currentTemp === 10) {
+    } else if (currentTemp === 10) {
       currentBg = temperatures.temp10;
       currentBarBg = temperatures.temp10d;
     } else if (currentTemp === 11) {
@@ -462,10 +462,10 @@ class App extends Component {
       currentBg = temperatures.tempAbove50;
       currentBarBg = temperatures.tempAbove50d;
     }
-    
+
     imageBg = currentBg;
 
-    console.log(currentBg);
+    console.log(currentBg + ' From day function');
 
     this.setState({
       weekBg: currentBg,
