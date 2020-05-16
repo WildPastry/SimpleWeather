@@ -57,7 +57,9 @@ class Week extends Component {
             backgroundColor: colourBarBg,
             marginBottom: 10
           }}>
-            <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
+            <View style={{ backgroundColor: colours.spotGreyDarkTrans }}>
+              <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
+            </View>
           </View>
           {/* START map */}
           <View style={{ marginBottom: 3 }}>
@@ -225,8 +227,8 @@ class Week extends Component {
             })}
             {/* END map */}
           </View>
-        </ScrollView>
-      </View>
+        </ScrollView >
+      </View >
     );
   }
   // END Week render

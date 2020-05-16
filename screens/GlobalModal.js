@@ -217,7 +217,7 @@ class GlobalModal extends Component {
                 <Ionicons
                   name='ios-close-circle'
                   size={45}
-                  color={colours.spotOrange}
+                  color={colours.spotRed}
                 />
               </TouchableHighlight>
               <TouchableHighlight

@@ -193,7 +193,7 @@ class Current extends Component {
         keyboardShouldPersistTaps='handled'
         style={currentStyles.currentWrap}>
 
-        {/* START autocomplete input */}
+        {/* autocomplete input */}
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps='handled'
           placeholder={this.state.placeholder}
@@ -205,7 +205,7 @@ class Current extends Component {
           fetchDetails={true}
           renderDescription={(row) => row.description}
           onPress={(data, details = null) => {
-            // fix google names with numbers in front
+            // fix google names
             var updatedAddress = details.formatted_address.replace(/^[\s\d]+/, '');
             this.setState({
               // set state with google details
@@ -213,7 +213,7 @@ class Current extends Component {
               googleLng: details.geometry.location.lng.toFixed(5),
               googleName: updatedAddress
             });
-            // // update sky data function
+            // update sky data function
             this.updateSkyData();
           }}
           // data query
@@ -293,9 +293,8 @@ class Current extends Component {
           ]}
           debounce={100}
         />
-        {/* END autocomplete input */}
 
-        {/* START add location button */}
+        {/* add location button */}
         <View style={{
           zIndex: 2,
           position: 'absolute',
@@ -322,9 +321,7 @@ class Current extends Component {
             />
           </FirebaseProvider>
         </View>
-        {/* END add location button */}
 
-        {/* START main icon */}
         <View style={currentStyles.currentIconWrap}>
           {/* main icon */}
           <LottieView
@@ -339,9 +336,7 @@ class Current extends Component {
             autoPlay={true}
           />
         </View>
-        {/* END main icon */}
 
-        {/* START temps */}
         <View style={currentStyles.currentTempWrap}>
           {/* low temp */}
           <View>
@@ -364,35 +359,27 @@ class Current extends Component {
             </Text>
           </View>
         </View>
-        {/* END temps */}
 
-        {/* START date display */}
+        {/* date display */}
         <Text style={currentStyles.currentDateText}>
           {day} {date}, {year}
         </Text>
-        {/* END date display */}
 
-        {/* START description */}
         {/* Current description */}
         <Text style={currentStyles.currentDesc}>
           Currently {this.props.temp}° with {this.props.desc}
-          {/* {this.props.skyWeather.hourly.summary.cutString()} */}
-          {/* Daily summary: {this.props.skyWeather.daily.data[0].summary.cutString()} */}
-          {/* {this.props.skyWeather.currently.summary.toLowerCase().capitalize()} */}
         </Text>
-        {/* END description */}
 
         <Collapse>
           {/* collapse header */}
-          <CollapseHeader style={{ marginBottom: 10, marginTop: 10 }}>
+          <CollapseHeader style={{ marginBottom: 15, marginTop: 5 }}>
             <View style={{ alignItems: 'center' }}>
-
               {/* more details */}
               <Text
                 style={{
                   justifyContent: 'center',
                   fontSize: 18,
-                  fontFamily: 'allerRg',
+                  fontFamily: 'allerBd',
                   color: colours.spotYellow
                 }}>
                 <Ionicons
@@ -408,93 +395,70 @@ class Current extends Component {
           {/* collapse body */}
           <CollapseBody style={{
             backgroundColor: colourBarBg,
-            marginBottom: 15,
-            padding: 20
+            marginBottom: 15
           }}>
 
-            {/* daily summary */}
-            <Text style={currentStyles.currentDescSummary}>
-              <Ionicons
-                name='md-time'
-                size={19}
-                color={colours.white}
-              />{' '}
-              {/* Daily summary: */}
-              {this.props.skyWeather.daily.data[0].summary.cutString()}
-              {/* Currently {this.props.temp}° with {this.props.desc} */}
-            </Text>
-
-            {/* feels like */}
-            <Text style={currentStyles.currentDescSummary}>
-              <Ionicons
-                name='ios-snow'
-                size={19}
-                color={colours.white}
-              />{' '}
-          Feels like {Math.round(this.props.feelslike)}°
-          {/* with {Math.round(this.props.skyWeather.currently.visibility)}km visibility */}
-            </Text>
-
-            {/* START morning afternoon evening */}
             <View style={{
               flexDirection: 'row',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              backgroundColor: colours.spotGreyDarkTrans,
+              padding: 15
+            }}>
+              <Text style={currentStyles.currentSecondaryInfoHeading}>
+                Morning</Text>
+              <Text style={currentStyles.currentSecondaryInfoHeading}>
+                Afternoon</Text>
+              <Text style={currentStyles.currentSecondaryInfoHeading}>
+                Evening</Text>
+            </View>
+
+            {/* morning afternoon evening */}
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: colours.spotGreyTrans,
+              paddingLeft: 20,
+              paddingRight: 20,
+              paddingBottom: 15,
+              paddingTop: 5
             }}>
               {/* Morning */}
-              <View>
-                <Text style={currentStyles.currentSecondaryInfoHeading}>
-                  Morning
-            </Text>
-                <Text
-                  style={{
-                    fontFamily: 'weatherfont',
-                    fontSize: 45,
-                    textAlign: 'center',
-                    color: colours.white
-                  }}>
-                  {weatherIcons[this.props.openWeather.list[0].weather[0].id].code}
-                  {/* <Text>{Math.round(this.props.openWeather.list[0].main.temp)}°</Text> */}
-                </Text>
-              </View>
+              <Text
+                style={{
+                  fontFamily: 'weatherfont',
+                  fontSize: 45,
+                  textAlign: 'center',
+                  color: colours.white
+                }}>
+                {weatherIcons[this.props.openWeather.list[0].weather[0].id].code}
+              </Text>
 
               {/* Afternoon */}
-              <View>
-                <Text style={currentStyles.currentSecondaryInfoHeading}>
-                  Afternoon
-            </Text>
-                <Text
-                  style={{
-                    fontFamily: 'weatherfont',
-                    fontSize: 45,
-                    textAlign: 'center',
-                    color: colours.white
-                  }}>
-                  {weatherIcons[this.props.openWeather.list[1].weather[0].id].code}
-                </Text>
-              </View>
+              <Text
+                style={{
+                  fontFamily: 'weatherfont',
+                  fontSize: 45,
+                  textAlign: 'center',
+                  color: colours.white
+                }}>
+                {weatherIcons[this.props.openWeather.list[1].weather[0].id].code}
+              </Text>
 
               {/* Evening */}
-              <View>
-                <Text style={currentStyles.currentSecondaryInfoHeading}>
-                  Evening
-            </Text>
-                <Text
-                  style={{
-                    fontFamily: 'weatherfont',
-                    fontSize: 45,
-                    textAlign: 'center',
-                    color: colours.white
-                  }}>
-                  {weatherIcons[this.props.openWeather.list[2].weather[0].id].code}
-                </Text>
-              </View>
+              <Text
+                style={{
+                  fontFamily: 'weatherfont',
+                  fontSize: 45,
+                  textAlign: 'center',
+                  color: colours.white
+                }}>
+                {weatherIcons[this.props.openWeather.list[2].weather[0].id].code}
+              </Text>
             </View>
-            {/* END morning afternoon evening */}
 
             {/* START sun wind humidity */}
-            <View style={currentStyles.currentWindHumWrap}>
-              {/* sunset */}
-              {/* <View style={currentStyles.currentDetailsWrap}>
+            {/* <View style={currentStyles.currentWindHumWrap}>
+              <View style={currentStyles.currentDetailsWrap}>
                 <Text
                   style={{
                     fontFamily: 'weatherfont',
@@ -508,8 +472,7 @@ class Current extends Component {
                   {'  '}
                   {dateSun}
                 </Text>
-              </View> */}
-              {/* wind     */}
+              </View>
               <View style={currentStyles.currentDetailsWrap}>
                 <Text
                   style={{
@@ -525,7 +488,6 @@ class Current extends Component {
                   {Math.round(this.props.skyWeather.currently.windSpeed)} km/h
             </Text>
               </View>
-              {/* humidity     */}
               <View style={currentStyles.currentDetailsWrap}>
                 <Text
                   style={{
@@ -541,9 +503,19 @@ class Current extends Component {
                   {this.props.humidity}%
             </Text>
               </View>
-            </View>
+            </View> */}
             {/* END sun wind humidity */}
 
+            {/* daily summary */}
+            <View style={{ padding: 15 }}>
+              <Text style={currentStyles.currentDescSummaryBold}>
+                <Ionicons
+                  name='ios-time'
+                  size={19}
+                  color={colours.white}
+                /> {' '}Daily Summary
+              </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.skyWeather.daily.data[0].summary.cutString().toLowerCase()}{' '}with{' '}{Math.round(this.props.skyWeather.currently.windSpeed)} km/h wind,{' '}{this.props.humidity}% humidity{' '}and{' '}{Math.round(this.props.skyWeather.currently.visibility)}km visibility.</Text>
+            </View>
           </CollapseBody>
         </Collapse>
       </SafeAreaView>
@@ -584,13 +556,12 @@ const currentStyles = StyleSheet.create({
   },
   currentWindHumWrap: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 4
+    justifyContent: 'space-around'
   },
   currentDetailsWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 8
+    padding: 10
   },
   currentDetails: {
     color: colours.white,
@@ -619,8 +590,15 @@ const currentStyles = StyleSheet.create({
   },
   currentDescSummary: {
     color: colours.white,
-    fontSize: 18,
+    fontSize: 19,
+    lineHeight: 25,
     fontFamily: 'allerLt',
+    textAlign: 'center'
+  },
+  currentDescSummaryBold: {
+    color: colours.white,
+    fontSize: 19,
+    fontFamily: 'allerBd',
     textAlign: 'center',
     paddingBottom: 10
   },
