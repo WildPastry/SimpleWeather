@@ -3,7 +3,7 @@
 
   "clearSky": "#e68341",
   "clearSkyDark": "#d46921",
-  
+
   "scatteredClouds": "#6e859e",
   "scatteredCloudsDark": "#5d6e80",
 
@@ -35,6 +35,7 @@
   "spotBlue": "#1faadb",
   "spotOrange": "#fa774f",
   "spotGreen": "#37d493",
+  "spotRed": "#ff6b6b",
 
   "spotLightGrey": "#e0e0e0",
   "spotGrey": "#c9c9c9",

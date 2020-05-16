@@ -99,9 +99,11 @@ class Signup extends Component {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                check: false }}
+                check: false
+              }}
               onSubmit={(values, actions) => {
-                this.handleOnSignup(values, actions) }}
+                this.handleOnSignup(values, actions)
+              }}
               validationSchema={validationSchema}>
               {({
                 handleChange,
@@ -119,7 +121,7 @@ class Signup extends Component {
                       name='name'
                       value={values.name}
                       onChangeText={handleChange('name')}
-                      placeholder='Enter your name'
+                      placeholder='Enter name'
                       iconName='md-person'
                       iconColor={colours.white}
                       onBlur={handleBlur('name')} />
@@ -145,7 +147,7 @@ class Signup extends Component {
                       secureTextEntry={passwordVisibility}
                       rightIcon={
                         <TouchableOpacity onPress={this.handlePasswordVisibility}>
-                          <Ionicons name={passwordIcon} size={28} color='grey' />
+                          <Ionicons name={passwordIcon} size={28} color={colours.spotGrey} />
                         </TouchableOpacity>
                       } />
                     <ErrorMessage errorValue={touched.password && errors.password} />
@@ -164,20 +166,29 @@ class Signup extends Component {
                           <Ionicons
                             name={confirmPasswordIcon}
                             size={28}
-                            color='grey'
+                            color={colours.spotGrey}
                           />
                         </TouchableOpacity>} />
                     <ErrorMessage
                       errorValue={touched.confirmPassword && errors.confirmPassword} />
+                    {/* checkbox */}
                     <CheckBox
+                      center={true}
                       containerStyle={signupStyles.checkBoxContainer}
                       checkedIcon='check-box'
                       iconType='material'
                       uncheckedIcon='check-box-outline-blank'
+                      checkedColor={colours.spotGreen}
                       title='Agree to terms and conditions'
                       checkedTitle='You agreed to our terms and conditions'
                       checked={values.check}
+                      textStyle={{
+                        color: colours.spotGrey,
+                        fontWeight: 'normal',
+                        fontSize: 15
+                      }}
                       onPress={() => setFieldValue('check', !values.check)} />
+                    {/* checkbox */}
                     <View style={signupStyles.buttonContainer}>
                       <FormButton
                         onPress={handleSubmit}
@@ -190,17 +201,17 @@ class Signup extends Component {
                 )}
             </Formik>
             <TouchableOpacity
-          style={signupStyles.link}
-          onPress={this.goToLogin}>
-          <Text
-            style={{
-              color: colours.spotYellow,
-              fontFamily: 'allerLt',
-              fontSize: 18
-            }}>
-            Have an account? Login
+              style={signupStyles.link}
+              onPress={this.goToLogin}>
+              <Text
+                style={{
+                  color: colours.spotYellow,
+                  fontFamily: 'allerLt',
+                  fontSize: 18
+                }}>
+                Have an account? Login
           </Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
           </ScrollView>
         </KeyboardAvoidingView>
       </View>

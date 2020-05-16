@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import colours from '../assets/colours.json';
 
 const ErrorMessage = ({ errorValue }) => (
   <View style={errorStyles.container}>
@@ -12,7 +13,9 @@ const errorStyles = StyleSheet.create({
     marginLeft: 25
   },
   errorText: {
-    color: 'red'
+    color: colours.spotRed,
+    fontFamily: 'allerLt',
+    fontSize: 15
   }
 });
 

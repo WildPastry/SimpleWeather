@@ -380,35 +380,14 @@ class Current extends Component {
           {/* Daily summary: {this.props.skyWeather.daily.data[0].summary.cutString()} */}
           {/* {this.props.skyWeather.currently.summary.toLowerCase().capitalize()} */}
         </Text>
-
-        {/* feels like */}
-        {/* <Text style={currentStyles.currentDescSummary}>
-          <Ionicons
-            name='ios-snow'
-            size={19}
-            color={colours.white}
-          />{' '}
-          Feels like {Math.round(this.props.feelslike)}° 
-          with {Math.round(this.props.skyWeather.currently.visibility)}km visibility
-        </Text> */}
-
-        {/* daily summary */}
-        <Text style={currentStyles.currentDescSummary}>
-          <Ionicons
-            name='md-time'
-            size={19}
-            color={colours.white}
-          />{' '}
-          {/* Daily summary: */}
-          {this.props.skyWeather.daily.data[0].summary.cutString()}
-          {/* Currently {this.props.temp}° with {this.props.desc} */}
-        </Text>
         {/* END description */}
 
         <Collapse>
           {/* collapse header */}
-          <CollapseHeader style={{ marginBottom: 10 }}>
+          <CollapseHeader style={{ marginBottom: 10, marginTop: 10 }}>
             <View style={{ alignItems: 'center' }}>
+
+              {/* more details */}
               <Text
                 style={{
                   justifyContent: 'center',
@@ -416,7 +395,6 @@ class Current extends Component {
                   fontFamily: 'allerRg',
                   color: colours.spotYellow
                 }}>
-                {/* chevron icon */}
                 <Ionicons
                   name='ios-arrow-down'
                   size={19}
@@ -428,18 +406,39 @@ class Current extends Component {
           </CollapseHeader>
 
           {/* collapse body */}
-          <CollapseBody style={{ backgroundColor: colourBarBg, marginBottom: 15 }}>
+          <CollapseBody style={{
+            backgroundColor: colourBarBg,
+            marginBottom: 15,
+            padding: 20
+          }}>
+
+            {/* daily summary */}
+            <Text style={currentStyles.currentDescSummary}>
+              <Ionicons
+                name='md-time'
+                size={19}
+                color={colours.white}
+              />{' '}
+              {/* Daily summary: */}
+              {this.props.skyWeather.daily.data[0].summary.cutString()}
+              {/* Currently {this.props.temp}° with {this.props.desc} */}
+            </Text>
+
+            {/* feels like */}
+            <Text style={currentStyles.currentDescSummary}>
+              <Ionicons
+                name='ios-snow'
+                size={19}
+                color={colours.white}
+              />{' '}
+          Feels like {Math.round(this.props.feelslike)}°
+          {/* with {Math.round(this.props.skyWeather.currently.visibility)}km visibility */}
+            </Text>
+
             {/* START morning afternoon evening */}
             <View style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
-              // backgroundColor: colours.spotGreyMed,
-              marginTop: 5,
-              marginBottom: 5,
-              paddingLeft: 20,
-              paddingRight: 20,
-              paddingTop: 10,
-              paddingBottom: 10
+              justifyContent: 'space-between'
             }}>
               {/* Morning */}
               <View>
@@ -565,7 +564,7 @@ const currentStyles = StyleSheet.create({
   currentIconWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 60
+    marginTop: 40
   },
   currentIconSmall: {
     alignSelf: 'center',
@@ -613,7 +612,7 @@ const currentStyles = StyleSheet.create({
   },
   currentDesc: {
     color: colours.white,
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: 'allerBd',
     padding: 10,
     textAlign: 'center'

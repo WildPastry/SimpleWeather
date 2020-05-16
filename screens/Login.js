@@ -111,11 +111,13 @@ class Login extends Component {
                     </TouchableOpacity>} />
                 <ErrorMessage errorValue={touched.password && errors.password} />
                 <View style={loginStyles.buttonContainer}>
+                  {/* login button */}
                   <FormButton
                     onPress={handleSubmit}
                     title='LOGIN'
                     disabled={!isValid || isSubmitting}
                     loading={isSubmitting} />
+                  {/* login button */}
                 </View>
                 <ErrorMessage errorValue={errors.general} />
               </Fragment>
@@ -128,7 +130,7 @@ class Login extends Component {
             style={{
               color: colours.white,
               fontFamily: 'allerLt',
-              fontSize: 19
+              fontSize: 18
             }}>
             Skip this step
           </Text>
@@ -140,7 +142,7 @@ class Login extends Component {
             style={{
               color: colours.spotBlue,
               fontFamily: 'allerLt',
-              fontSize: 19
+              fontSize: 18
             }}>
             Don't have an account? Sign up
           </Text>
@@ -152,7 +154,7 @@ class Login extends Component {
             style={{
               color: colours.spotYellow,
               fontFamily: 'allerLt',
-              fontSize: 19
+              fontSize: 18
             }}>
             Forgotton password?
           </Text>
