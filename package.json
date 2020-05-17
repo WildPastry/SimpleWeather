@@ -9,7 +9,7 @@
   "dependencies": {
     "accordion-collapse-react-native": "^0.2.10",
     "expo": "^37.0.0",
-    "expo-cli": "^3.20.5",
+    "expo-cli": "^3.20.9",
     "expo-font": "~8.1.0",
     "firebase": "7.9.0",
     "formik": "1.5.8",

@@ -187,8 +187,7 @@ class Week extends Component {
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
-                              fontSize: 24,
-                              textAlign: 'center',
+                              fontSize: 18,
                               color: colours.white
                             }}>
                             {weatherIcons.windSpeed.code}
@@ -205,8 +204,7 @@ class Week extends Component {
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
-                              fontSize: 24,
-                              textAlign: 'center',
+                              fontSize: 18,
                               color: colours.white
                             }}>
                             {weatherIcons.humidity.code}

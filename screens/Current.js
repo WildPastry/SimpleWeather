@@ -1,6 +1,6 @@
 // imports
 import React, { Component } from 'react';
-import { Text, Keyboard, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Text, Keyboard, Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import configData from './../data/config.json';
 import GlobalModal from '../screens/GlobalModal';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -67,6 +67,49 @@ class Current extends Component {
     this.updateSkyData = this.updateSkyData.bind(this);
     this._keyboardDidShow = this._keyboardDidShow.bind(this);
     this._keyboardDidHide = this._keyboardDidHide.bind(this);
+  }
+
+  renderSunDetails() {
+    // set up sunset time formats
+    var sunrise = moment.unix(this.props.sunrise).format('h:mm A');
+    var sunset = moment.unix(this.props.sunset).format('h:mm A');
+
+    // Change sun details based on night or day
+    let sunDisplay;
+    if (this.props.night === true) {
+      sunDisplay = (
+        <View style={currentStyles.currentDetailsWrap}>
+          <Text
+            style={{
+              fontFamily: 'weatherfont',
+              fontSize: 18,
+              color: colours.spotYellow
+            }}>
+            {weatherIcons.sunrise.code}
+          </Text>
+          <Text style={currentStyles.currentDetails}>
+            {'  '}Sunrise at {sunrise}
+          </Text>
+        </View>
+      );
+    } else {
+      sunDisplay = (
+        <View style={currentStyles.currentDetailsWrap}>
+          <Text
+            style={{
+              fontFamily: 'weatherfont',
+              fontSize: 18,
+              color: colours.spotYellow
+            }}>
+            {weatherIcons.sunset.code}
+          </Text>
+          <Text style={currentStyles.currentDetails}>
+            {'  '}Sunset at {sunset}
+          </Text>
+        </View>
+      );
+    }
+    return sunDisplay;
   }
 
   // keyboard did mount function
@@ -183,10 +226,6 @@ class Current extends Component {
     // set up colour bg variables
     var colourBg = this.props.currentBg;
     var colourBarBg = this.props.currentBarBg;
-
-    // set up sunset time formats
-    var todaySun = moment.unix(this.props.sunset);
-    var dateSun = moment(todaySun).format('HH:MM');
 
     return (
       <SafeAreaView
@@ -507,15 +546,18 @@ class Current extends Component {
             {/* END sun wind humidity */}
 
             {/* daily summary */}
-            <View style={{ padding: 15 }}>
+            <View style={{ padding: 10 }}>
               <Text style={currentStyles.currentDescSummaryBold}>
                 <Ionicons
-                  name='ios-time'
+                  name='md-time'
                   size={19}
                   color={colours.white}
                 /> {' '}Daily Summary
-              </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.skyWeather.daily.data[0].summary.cutString().toLowerCase()}{' '}with{' '}{Math.round(this.props.skyWeather.currently.windSpeed)} km/h wind,{' '}{this.props.humidity}% humidity{' '}and{' '}{Math.round(this.props.skyWeather.currently.visibility)}km visibility.</Text>
+              </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.skyWeather.daily.data[0].summary.cutString().toLowerCase()}{' '}with{' '}{Math.round(this.props.skyWeather.currently.windSpeed)} km/h wind and{' '}{this.props.humidity}% humidity</Text>
+              {/* sun details */}
+              {this.renderSunDetails()}
             </View>
+
           </CollapseBody>
         </Collapse>
       </SafeAreaView>
@@ -561,13 +603,12 @@ const currentStyles = StyleSheet.create({
   currentDetailsWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10
+    paddingTop: 8
   },
   currentDetails: {
     color: colours.white,
     fontSize: 18,
-    fontFamily: 'allerLt',
-    paddingTop: 4
+    fontFamily: 'allerRg'
   },
   currentTempHigh: {
     color: colours.white,

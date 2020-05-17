@@ -73,6 +73,7 @@ class App extends Component {
       wind: '',
       icon: '',
       sunset: '',
+      sunrise: '',
       feelslike: '',
       // colour background
       weekBg: null,
@@ -281,6 +282,7 @@ class App extends Component {
                   wind: openResponseJson.wind.speed,
                   icon: openResponseJson.weather[0].icon,
                   sunset: openResponseJson.sys.sunset,
+                  sunrise: openResponseJson.sys.sunrise,
                   feelslike: openResponseJson.main.feels_like,
                 },
                 () => {
@@ -554,6 +556,7 @@ class App extends Component {
                   desc={this.state.desc}
                   icon={this.state.icon}
                   sunset={this.state.sunset}
+                  sunrise={this.state.sunrise}
                   feelslike={this.state.feelslike}
                   night={this.state.night}
                   skyWeather={this.state.skyWeather}
