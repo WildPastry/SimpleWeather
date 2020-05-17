@@ -21,8 +21,9 @@ const geo = configData.GEO;
 var moment = require('moment');
 
 // group 2xx: thunderstorm
-const lightningStorm = require('./../assets/animations/weather/lightningStorm.json');
+const thunderStorm = require('./../assets/animations/weather/thunderStorm.json');
 // group 3xx: drizzle
+const lightDrizzle = require('./../assets/animations/weather/lightDrizzle.json');
 // group 5xx: rain
 const lightRain = require('./../assets/animations/weather/lightRain.json');
 // group 6xx: snow
@@ -31,6 +32,7 @@ const snow = require('./../assets/animations/weather/snow.json');
 const mist = require('./../assets/animations/weather/mist.json');
 // group 80x: clouds
 const fewClouds = require('./../assets/animations/weather/fewClouds.json');
+const fewCloudsNight = require('./../assets/animations/weather/fewCloudsNight.json');
 const brokenClouds = require('./../assets/animations/weather/brokenClouds.json');
 const scatteredClouds = require('./../assets/animations/weather/scatteredClouds.json');
 const overcastClouds = require('./../assets/animations/weather/overcastClouds.json');
@@ -172,50 +174,50 @@ class Current extends Component {
     let currentWeatherIcon;
 
     // weather icon logic
-    // night
-    if (this.props.night === true) {
+    // group 2xx: thunderstorm
+    if (weatherCode >= 200 && weatherCode <= 232) {
+      currentWeatherIcon = thunderStorm;
+      // group 3xx: drizzle
+    } else if (
+      (weatherCode) >= 300 &&
+      (weatherCode) <= 321
+    ) {
+      currentWeatherIcon = lightDrizzle;
+      // group 5xx: rain
+    } else if (
+      (weatherCode) >= 500 &&
+      (weatherCode) <= 531
+    ) {
+      currentWeatherIcon = lightRain;
+      // group 6xx: snow
+    } else if (
+      (weatherCode) >= 600 &&
+      (weatherCode) <= 622
+    ) {
+      currentWeatherIcon = snow;
+      // group 7xx: atmosphere
+    } else if (
+      (weatherCode) >= 701 &&
+      (weatherCode) <= 781
+    ) {
+      currentWeatherIcon = mist;
+      // group 80x: clouds
+    } else if ((weatherCode === 801) && (this.props.night === true)) {
+      currentWeatherIcon = fewCloudsNight;
+    } else if ((weatherCode === 801) && (this.props.night === false)){
+      currentWeatherIcon = fewClouds;
+    }else if (weatherCode === 802) {
+      currentWeatherIcon = scatteredClouds;
+    } else if (weatherCode === 803) {
+      currentWeatherIcon = brokenClouds;
+    } else if (weatherCode === 804) {
+      currentWeatherIcon = overcastClouds;
+      // group 800: clear
+    } else if ((weatherCode === 800) && (this.props.night === true)) {
       currentWeatherIcon = nightClear
-    } else
-      // group 2xx: thunderstorm
-      if (weatherCode >= 200 && weatherCode <= 232) {
-        currentWeatherIcon = lightningStorm;
-        // group 3xx: drizzle
-      } else if (
-        (weatherCode) >= 300 &&
-        (weatherCode) <= 321
-      ) {
-        currentWeatherIcon = lightRain;
-        // group 5xx: rain
-      } else if (
-        (weatherCode) >= 500 &&
-        (weatherCode) <= 531
-      ) {
-        currentWeatherIcon = lightRain;
-        // group 6xx: snow
-      } else if (
-        (weatherCode) >= 600 &&
-        (weatherCode) <= 622
-      ) {
-        currentWeatherIcon = snow;
-        // group 7xx: atmosphere
-      } else if (
-        (weatherCode) >= 701 &&
-        (weatherCode) <= 781
-      ) {
-        currentWeatherIcon = mist;
-        // group 80x: clouds
-      } else if (weatherCode === 801) {
-        currentWeatherIcon = fewClouds;
-      } else if (weatherCode === 802) {
-        currentWeatherIcon = scatteredClouds;
-      } else if (weatherCode === 803) {
-        currentWeatherIcon = brokenClouds;
-      } else if (weatherCode === 804) {
-        currentWeatherIcon = overcastClouds;
-        // group 800: clear
-      } else {
-        currentWeatherIcon = dayClear;
-      }
+    } else {
+      currentWeatherIcon = dayClear;
+    }
 
     // set up date constants
     const today = this.state.currentDate;
