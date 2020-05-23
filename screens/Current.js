@@ -34,8 +34,11 @@ const mist = require('./../assets/animations/weather/mist.json');
 const fewClouds = require('./../assets/animations/weather/fewClouds.json');
 const fewCloudsNight = require('./../assets/animations/weather/fewCloudsNight.json');
 const brokenClouds = require('./../assets/animations/weather/brokenClouds.json');
+const brokenCloudsNight = require('./../assets/animations/weather/brokenCloudsNight.json');
 const scatteredClouds = require('./../assets/animations/weather/scatteredClouds.json');
+const scatteredCloudsNight = require('./../assets/animations/weather/scatteredCloudsNight.json');
 const overcastClouds = require('./../assets/animations/weather/overcastClouds.json');
+const overcastCloudsNight = require('./../assets/animations/weather/overcastCloudsNight.json');
 // group 800: clear
 const dayClear = require('./../assets/animations/weather/dayClear.json');
 const nightClear = require('./../assets/animations/weather/nightClear.json');
@@ -204,13 +207,19 @@ class Current extends Component {
       // group 80x: clouds
     } else if ((weatherCode === 801) && (this.props.night === true)) {
       currentWeatherIcon = fewCloudsNight;
-    } else if ((weatherCode === 801) && (this.props.night === false)){
+    } else if ((weatherCode === 801) && (this.props.night === false)) {
       currentWeatherIcon = fewClouds;
-    }else if (weatherCode === 802) {
+    } else if ((weatherCode === 802) && (this.props.night === true)) {
+      currentWeatherIcon = scatteredCloudsNight;
+    } else if ((weatherCode === 802) && (this.props.night === false)) {
       currentWeatherIcon = scatteredClouds;
-    } else if (weatherCode === 803) {
+    } else if ((weatherCode === 803) && (this.props.night === true)) {
+      currentWeatherIcon = brokenCloudsNight;
+    } else if ((weatherCode === 803) && (this.props.night === false)) {
       currentWeatherIcon = brokenClouds;
-    } else if (weatherCode === 804) {
+    } else if ((weatherCode === 804) && (this.props.night === true)) {
+      currentWeatherIcon = overcastCloudsNight;
+    } else if ((weatherCode === 804) && (this.props.night === false)) {
       currentWeatherIcon = overcastClouds;
       // group 800: clear
     } else if ((weatherCode === 800) && (this.props.night === true)) {
