@@ -31,6 +31,13 @@ if (!global.atob) { global.atob = decode }
 // set up auth keys
 const open = configData.OPEN;
 const sky = configData.SKY;
+const geo = configData.GEO;
+
+// set up URLS
+const darkURL = configData.DARKURL;
+const openWeekURL = configData.OPENWEEKURL;
+const openCurrentURL = configData.OPENCURRENTURL;
+const timezoneURL = configData.TIMEZONEURL;
 
 // get device width
 const window = Dimensions.get('window');
@@ -51,8 +58,8 @@ class App extends Component {
       fontLoaded: false,
       // sky weather
       skyWeather: [],
-      // open weather daily data array
-      weather: [],
+      // open weather weekly data array
+      openWeekWeather: [],
       // open weather current data array and id
       openWeather: [],
       openWeatherId: null,
@@ -75,6 +82,12 @@ class App extends Component {
       sunset: '',
       sunrise: '',
       feelslike: '',
+      // timezone data
+      dstOffsetSunset: '',
+      rawOffsetSunset: '',
+      dstOffsetSunrise: '',
+      rawOffsetSunrise: '',
+      timeZoneId: '',
       // colour background
       weekBg: null,
       weekBarBg: null,
@@ -180,120 +193,40 @@ class App extends Component {
   getSkyData() {
     var myLat = this.state.currentLat;
     var myLng = this.state.currentLng;
-    console.log('FROM getSkyData (App.js) ' + myLat);
-    console.log('FROM getSkyData (App.js) ' + myLng);
-    // fetch sky data
-    fetch(
-      'https://api.darksky.net/forecast/' +
-      sky +
-      '/' +
-      myLat +
-      ',' +
-      myLng +
-      '?units=ca'
-    )
-      // log HTTP response error or success for data call
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('DarkSky Failed with HTTP code ' + res.status);
-        } else {
-          console.log('DarkSky Success with HTTP code ' + res.status);
-        }
-        return res;
+    // promise all data
+    Promise.all([
+      fetch(darkURL + sky + '/' + myLat + ',' + myLng + '?units=ca'),
+      fetch(openCurrentURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open),
+      fetch(openWeekURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open)
+    ])
+      // set json
+      .then(([skyData, openCurrentData, openWeekData]) => {
+        return Promise.all([skyData.json(), openCurrentData.json(), openWeekData.json()])
       })
-      // convert raw data call into json
-      .then((result) => result.json())
-      .then((skyData) => {
+      // set state
+      .then(([skyData, openCurrentData, openWeekData]) => {
         if (this._isMounted) {
           this.setState({
+            // skyData
             skyWeather: skyData,
             temp: Math.round(skyData.currently.temperature),
             high: Math.round(skyData.daily.data[0].temperatureMax),
-            low: Math.round(skyData.daily.data[0].temperatureMin)
-          });
-          // currentTemp = Math.round(skyData.currently.temperature);
+            low: Math.round(skyData.daily.data[0].temperatureMin),
+            // openCurrentData
+            openWeather: openCurrentData,
+            openWeatherId: openCurrentData.weather[0].id,
+            desc: openCurrentData.weather[0].description,
+            humidity: openCurrentData.main.humidity,
+            wind: openCurrentData.wind.speed,
+            icon: openCurrentData.weather[0].icon,
+            sunset: openCurrentData.sys.sunset,
+            sunrise: openCurrentData.sys.sunrise,
+            feelslike: openCurrentData.main.feels_like,
+            // openWeekData
+            openWeekWeather: openWeekData
+          }, this.findUserLocalTime);
         }
-      });
-    // daily weather data
-    fetch(
-      'https://api.openweathermap.org/data/2.5/forecast?lat=' +
-      myLat +
-      '&lon=' +
-      myLng +
-      '&units=metric&APPID=' +
-      open
-    )
-      // log HTTP response error or success for data call
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(
-            'Open Weather DAILY Failed with HTTP code ' + res.status
-          );
-        } else {
-          console.log(
-            'Open Weather DAILY Success with HTTP code ' + res.status
-          );
-        }
-        return res;
-      })
-      // convert raw data call into json
-      .then((result) => result.json())
-      .then((data) => {
-        if (this._isMounted) {
-          this.setState({
-            weather: data
-          });
-        }
-        // current weather data
-        fetch(
-          'https://api.openweathermap.org/data/2.5/weather?lat=' +
-          myLat +
-          '&lon=' +
-          myLng +
-          '&units=metric&APPID=' +
-          open
-        )
-          // log HTTP response error or success for data call
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error(
-                'Open Weather CURRENT Failed with HTTP code ' + res.status
-              );
-            } else {
-              console.log(
-                'Open Weather CURRENT Success with HTTP code ' + res.status
-              );
-            }
-            return res;
-          })
-          // convert raw data call into json
-          .then((openResponse) => openResponse.json())
-          .then((openResponseJson) => {
-            if (this._isMounted) {
-              this.setState(
-                {
-                  // weather wrapper
-                  openWeather: openResponseJson,
-                  // icon id
-                  openWeatherId: openResponseJson.weather[0].id,
-                  // weather and location data
-                  desc: openResponseJson.weather[0].description,
-                  humidity: openResponseJson.main.humidity,
-                  wind: openResponseJson.wind.speed,
-                  icon: openResponseJson.weather[0].icon,
-                  sunset: openResponseJson.sys.sunset,
-                  sunrise: openResponseJson.sys.sunrise,
-                  feelslike: openResponseJson.main.feels_like,
-                },
-                () => {
-                  this.nightOrDay();
-                }
-              );
-            }
-          });
-      })
-      // catch and log errors
-      .catch((error) => {
+      }).catch((error) => {
         if (error.res) {
         } else if (error.request) {
           console.log(error.request);
@@ -303,9 +236,48 @@ class App extends Component {
         console.log(error.config);
       });
   }
-  // END sky data fucntion
+  // END sky data function
 
-  // check night or day function
+  // find users local time
+  findUserLocalTime() {
+    var myLat = this.state.currentLat;
+    var myLng = this.state.currentLng;
+    // promise all data
+    Promise.all([
+      fetch(timezoneURL + myLat + ',' + myLng + '&timestamp=' + this.state.sunrise + '&key=' + geo),
+      fetch(timezoneURL + myLat + ',' + myLng + '&timestamp=' + this.state.sunset + '&key=' + geo)
+    ])
+      // set json
+      .then(([sunriseData, sunsetData]) => {
+        return Promise.all([sunriseData.json(), sunsetData.json()])
+      })
+      // set state
+      .then(([sunriseData, sunsetData]) => {
+        if (this._isMounted) {
+          this.setState({
+            // timezone ID
+            timeZoneId: sunriseData.timeZoneId,
+            // sunriseData
+            dstOffsetSunrise: sunriseData.dstOffset,
+            rawOffsetSunrise: sunriseData.rawOffset,          
+            // sunsetData
+            dstOffsetSunset: sunsetData.dstOffset,
+            rawOffsetSunset: sunsetData.rawOffset
+
+          },this.nightOrDay);
+        }
+      }).catch((error) => {
+        if (error.res) {
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log('error ', error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
+  // check night or day
   nightOrDay() {
     console.log('Icon = ' + this.state.icon + ' from App.js');
     console.log('Code = ' + this.state.openWeatherId + ' from App.js');
@@ -327,6 +299,7 @@ class App extends Component {
       weekBg: colours.night,
       weekBarBg: colours.nightDark
     });
+    // run app loaded function
     this.handleLoaded();
   }
 
@@ -476,7 +449,7 @@ class App extends Component {
       weekBarBg: currentBarBg
     });
 
-    //  run app loaded function
+    // run app loaded function
     this.handleLoaded();
   }
 
@@ -559,8 +532,13 @@ class App extends Component {
                   sunrise={this.state.sunrise}
                   feelslike={this.state.feelslike}
                   night={this.state.night}
+                  dstOffsetSunset={this.state.dstOffsetSunset}
+                  rawOffsetSunset={this.state.rawOffsetSunset}
+                  dstOffsetSunrise={this.state.dstOffsetSunrise}
+                  rawOffsetSunrise={this.state.rawOffsetSunrise}
+                  timeZoneId={this.state.timeZoneId}
                   skyWeather={this.state.skyWeather}
-                  openWeather={this.state.weather}
+                  openWeather={this.state.openWeekWeather}
                 />
               </View>
             </FirebaseProvider>
@@ -570,7 +548,7 @@ class App extends Component {
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
               weatherCode={this.state.openWeatherId}
-              weather={this.state.weather.list}
+              weather={this.state.openWeekWeather.list}
               skyWeather={this.state.skyWeather.daily.data}
             />
             {/* footer */}

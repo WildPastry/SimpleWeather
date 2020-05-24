@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { withFirebaseHOC } from '../config/Firebase';
 import Firebase, { FirebaseProvider } from '../config/Firebase';
 
-// set up auth key for sky data
+// set up auth key for google data
 const geo = configData.GEO;
 
 // moment set up
@@ -75,9 +75,62 @@ class Current extends Component {
   }
 
   renderSunDetails() {
+    // Set up local timestamp for sunrise/sunset
+    var sunsetTimeStamp = this.props.sunset;
+    var sunriseTimeStamp = this.props.sunrise;
+    var sunsetDateOffset = this.props.dstOffsetSunset;
+    var sunsetRawOffset = this.props.rawOffsetSunset;
+    var sunriseDateOffset = this.props.dstOffsetSunrise;
+    var sunriseRawOffset = this.props.rawOffsetSunrise;
+
+    // const today = this.state.currentDate;
+    // const day = moment(today).format('dddd,');
+    // const date = moment(today).format('MMMM D');
+    // const year = moment(today).format('YYYY');
+
+    console.log(sunsetTimeStamp);
+    console.log(sunriseTimeStamp);
+    console.log(sunsetDateOffset);
+    console.log(sunsetRawOffset);
+    console.log(sunriseDateOffset);
+    console.log(sunriseRawOffset);
+
+    console.log(this.props.timeZoneId);
+
+    var sunsetTime = (sunsetTimeStamp + sunsetDateOffset + sunsetRawOffset);
+    var sunriseTime = (sunriseTimeStamp + sunriseDateOffset + sunriseRawOffset);
+
+    console.log(sunsetTime);
+    console.log(sunriseTime);
+
+    function calcTime(offset) {
+      var d = new Date();
+      var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+      var nd = new Date(utc + (1000 * offset));
+
+      console.log("The local sunrise time is " + nd.toLocaleString());
+    }
+
+    calcTime(sunriseDateOffset);
+    // console.log('Sunrise = ' + sunriseTime);
+    // console.log('Sunset = ' + sunsetTime);
+
+    // var check = moment.unix(sunriseTime).toDate();
+
+    // console.log(moment(check).format("hh:mm A"))
+
+    //     var date = new Date(sunriseTimeStamp * 1000);
+    // console.log(date)
+
+    // 2020-05-24T07:30:40.000Z
+
+    // console.log(moment("2015-01-16T12:00:00").format("hh:mm:ss A"))
+    // console.log(moment("2015-01-16T24:00:00").format("hh:mm:ss A"))
+    // moment('2016-07-28 06:15 PM', 'YYYY-MM-DD hh:mm a').format('YYYY/MM/DD hh:mm a')
+
     // set up sunset time formats
-    var sunrise = moment.unix(this.props.sunrise).format('h:mm A');
-    var sunset = moment.unix(this.props.sunset).format('h:mm A');
+    var sunrise = moment.unix(sunriseTimeStamp).format('h:mm A');
+    var sunset = moment.unix(sunsetTimeStamp).format('h:mm A');
 
     // Change sun details based on night or day
     let sunDisplay;
@@ -133,8 +186,6 @@ class Current extends Component {
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
-    // clear countdown
-    // clearInterval(this.countDown);
   }
 
   // keyboard shown
@@ -168,6 +219,7 @@ class Current extends Component {
   // START render Current
   render() {
     console.log('Inside render from Current.js...');
+
     // set up weather code
     var weatherCode = this.props.weatherCode;
 
@@ -237,6 +289,10 @@ class Current extends Component {
     // set up colour bg variables
     var colourBg = this.props.currentBg;
     var colourBarBg = this.props.currentBarBg;
+
+    // console.log(this.props.openWeather.list[2].dt_txt);
+    // console.log(this.props.openWeather.list[5].dt_txt);
+    // console.log(this.props.openWeather.list[14].dt_txt);
 
     return (
       <SafeAreaView
@@ -480,7 +536,8 @@ class Current extends Component {
                   textAlign: 'center',
                   color: colours.white
                 }}>
-                {weatherIcons[this.props.openWeather.list[0].weather[0].id].code}
+                {/* 6am */}
+                {weatherIcons[this.props.openWeather.list[2].weather[0].id].code}
               </Text>
 
               {/* Afternoon */}
@@ -491,7 +548,8 @@ class Current extends Component {
                   textAlign: 'center',
                   color: colours.white
                 }}>
-                {weatherIcons[this.props.openWeather.list[1].weather[0].id].code}
+                {/* 3pm */}
+                {weatherIcons[this.props.openWeather.list[5].weather[0].id].code}
               </Text>
 
               {/* Evening */}
@@ -502,59 +560,10 @@ class Current extends Component {
                   textAlign: 'center',
                   color: colours.white
                 }}>
-                {weatherIcons[this.props.openWeather.list[2].weather[0].id].code}
+                {/* 6pm */}
+                {weatherIcons[this.props.openWeather.list[14].weather[0].id].code}
               </Text>
             </View>
-
-            {/* START sun wind humidity */}
-            {/* <View style={currentStyles.currentWindHumWrap}>
-              <View style={currentStyles.currentDetailsWrap}>
-                <Text
-                  style={{
-                    fontFamily: 'weatherfont',
-                    fontSize: 24,
-                    textAlign: 'center',
-                    color: colours.white
-                  }}>
-                  {weatherIcons.sunset.code}
-                </Text>
-                <Text style={currentStyles.currentDetails}>
-                  {'  '}
-                  {dateSun}
-                </Text>
-              </View>
-              <View style={currentStyles.currentDetailsWrap}>
-                <Text
-                  style={{
-                    fontFamily: 'weatherfont',
-                    fontSize: 24,
-                    textAlign: 'center',
-                    color: colours.white
-                  }}>
-                  {weatherIcons.windSpeed.code}
-                </Text>
-                <Text style={currentStyles.currentDetails}>
-                  {'  '}
-                  {Math.round(this.props.skyWeather.currently.windSpeed)} km/h
-            </Text>
-              </View>
-              <View style={currentStyles.currentDetailsWrap}>
-                <Text
-                  style={{
-                    fontFamily: 'weatherfont',
-                    fontSize: 24,
-                    textAlign: 'center',
-                    color: colours.white
-                  }}>
-                  {weatherIcons.humidity.code}
-                </Text>
-                <Text style={currentStyles.currentDetails}>
-                  {'  '}
-                  {this.props.humidity}%
-            </Text>
-              </View>
-            </View> */}
-            {/* END sun wind humidity */}
 
             {/* daily summary */}
             <View style={{ padding: 10 }}>
