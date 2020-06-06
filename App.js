@@ -29,15 +29,10 @@ if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
 // set up auth keys
-const open = configData.OPEN;
-const sky = configData.SKY;
-const geo = configData.GEO;
+const open = configData.OPEN, sky = configData.SKY, geo = configData.GEO;
 
 // set up URLS
-const darkURL = configData.DARKURL;
-const openWeekURL = configData.OPENWEEKURL;
-const openCurrentURL = configData.OPENCURRENTURL;
-const timezoneURL = configData.TIMEZONEURL;
+const darkURL = configData.DARKURL, openWeekURL = configData.OPENWEEKURL, openCurrentURL = configData.OPENCURRENTURL, timezoneURL = configData.TIMEZONEURL;
 
 // get device width
 const window = Dimensions.get('window');
@@ -71,23 +66,15 @@ class App extends Component {
       currentLng: null,
       currentLocation: null,
       // weather and location data
-      location: '',
-      desc: '',
-      temp: '',
-      high: '',
-      low: '',
-      humidity: '',
-      wind: '',
-      icon: '',
-      sunset: '',
-      sunrise: '',
-      feelslike: '',
+      location: '', desc: '', temp: '', high: '', low: '',
+      humidity: '', wind: '', icon: '', sunset: '', sunrise: '', feelslike: '',
       // timezone data
       dstOffsetSunset: '',
       rawOffsetSunset: '',
       dstOffsetSunrise: '',
       rawOffsetSunrise: '',
       timeZoneId: '',
+      timeZoneName: '',
       // colour background
       weekBg: null,
       weekBarBg: null,
@@ -120,9 +107,7 @@ class App extends Component {
     console.log(val);
     this.setState({
       isLoaded: false,
-      currentLat: val['googleLat'],
-      currentLng: val['googleLng'],
-      currentLocation: val['googleName']
+      currentLat: val['googleLat'], currentLng: val['googleLng'], currentLocation: val['googleName']
     },
       // call sky data function with new values
       this.getSkyData);
@@ -132,9 +117,7 @@ class App extends Component {
   fallback() {
     this.setState({
       // fallback
-      currentLocation: 'Wellington, New Zealand',
-      currentLat: -41.2865,
-      currentLng: 174.7762
+      currentLocation: 'Wellington, New Zealand', currentLat: -41.2865, currentLng: 174.7762
     }, this.getSkyData);
   }
 
@@ -148,10 +131,7 @@ class App extends Component {
     if (user) {
       // user is signed in
       // load firebase data
-      const db = firebase.firestore();
-      const dbRT = firebase.database();
-      const ref = dbRT.ref(user.uid);
-      const homeRef = ref.child("home");
+      const db = firebase.firestore(), dbRT = firebase.database(), ref = dbRT.ref(user.uid), homeRef = ref.child("home");
       var docRef = db.collection("users").doc(user.uid);
       // check if the signed in user has data saved
       docRef.get().then(function (doc) {
@@ -168,9 +148,7 @@ class App extends Component {
         if (snapshot.exists()) {
           let home = snapshot.val();
           console.log(home);
-          var homeLat = home.lat;
-          var homeLng = home.lng;
-          var homeLocation = home.location;
+          var homeLat = home.lat, homeLng = home.lng, homeLocation = home.location;
           this.setState({
             currentLat: homeLat,
             currentLng: homeLng,
@@ -191,8 +169,7 @@ class App extends Component {
 
   // START sky data function
   getSkyData() {
-    var myLat = this.state.currentLat;
-    var myLng = this.state.currentLng;
+    var myLat = this.state.currentLat, myLng = this.state.currentLng;
     // promise all data
     Promise.all([
       fetch(darkURL + sky + '/' + myLat + ',' + myLng + '?units=ca'),
@@ -240,8 +217,11 @@ class App extends Component {
 
   // find users local time
   findUserLocalTime() {
-    var myLat = this.state.currentLat;
-    var myLng = this.state.currentLng;
+    var myLat = this.state.currentLat, myLng = this.state.currentLng;
+
+    // var myDate = new Date('1/1/1970');
+    // var timeStamp = myDate.getTime();
+
     // promise all data
     Promise.all([
       fetch(timezoneURL + myLat + ',' + myLng + '&timestamp=' + this.state.sunrise + '&key=' + geo),
@@ -257,14 +237,15 @@ class App extends Component {
           this.setState({
             // timezone ID
             timeZoneId: sunriseData.timeZoneId,
+            timeZoneName: sunriseData.timeZoneName,
             // sunriseData
             dstOffsetSunrise: sunriseData.dstOffset,
-            rawOffsetSunrise: sunriseData.rawOffset,          
+            rawOffsetSunrise: sunriseData.rawOffset,
             // sunsetData
             dstOffsetSunset: sunsetData.dstOffset,
             rawOffsetSunset: sunsetData.rawOffset
 
-          },this.nightOrDay);
+          }, this.nightOrDay);
         }
       }).catch((error) => {
         if (error.res) {
@@ -537,6 +518,7 @@ class App extends Component {
                   dstOffsetSunrise={this.state.dstOffsetSunrise}
                   rawOffsetSunrise={this.state.rawOffsetSunrise}
                   timeZoneId={this.state.timeZoneId}
+                  timeZoneName={this.state.timeZoneName}
                   skyWeather={this.state.skyWeather}
                   openWeather={this.state.openWeekWeather}
                 />

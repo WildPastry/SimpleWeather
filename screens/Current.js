@@ -18,7 +18,7 @@ import Firebase, { FirebaseProvider } from '../config/Firebase';
 const geo = configData.GEO;
 
 // moment set up
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 // group 2xx: thunderstorm
 const thunderStorm = require('./../assets/animations/weather/thunderStorm.json');
@@ -76,61 +76,108 @@ class Current extends Component {
 
   renderSunDetails() {
     // Set up local timestamp for sunrise/sunset
-    var sunsetTimeStamp = this.props.sunset;
-    var sunriseTimeStamp = this.props.sunrise;
-    var sunsetDateOffset = this.props.dstOffsetSunset;
-    var sunsetRawOffset = this.props.rawOffsetSunset;
-    var sunriseDateOffset = this.props.dstOffsetSunrise;
-    var sunriseRawOffset = this.props.rawOffsetSunrise;
+    var sunsetTimeStamp = this.props.sunset,
+      sunsetDateOffset = this.props.dstOffsetSunset,
+      sunsetRawOffset = this.props.rawOffsetSunset,
 
-    // const today = this.state.currentDate;
-    // const day = moment(today).format('dddd,');
-    // const date = moment(today).format('MMMM D');
-    // const year = moment(today).format('YYYY');
-
-    console.log(sunsetTimeStamp);
-    console.log(sunriseTimeStamp);
-    console.log(sunsetDateOffset);
-    console.log(sunsetRawOffset);
-    console.log(sunriseDateOffset);
-    console.log(sunriseRawOffset);
-
-    console.log(this.props.timeZoneId);
+      sunriseTimeStamp = this.props.sunrise,
+      sunriseDateOffset = this.props.dstOffsetSunrise,
+      sunriseRawOffset = this.props.rawOffsetSunrise;
 
     var sunsetTime = (sunsetTimeStamp + sunsetDateOffset + sunsetRawOffset);
     var sunriseTime = (sunriseTimeStamp + sunriseDateOffset + sunriseRawOffset);
 
-    console.log(sunsetTime);
-    console.log(sunriseTime);
+    var rawSunset = (sunsetTime * 1000);
+    var rawSunsetDate = new Date(rawSunset);
+    var sunset = moment(rawSunsetDate).tz(this.props.timeZoneId).format("h:mm A");
 
-    function calcTime(offset) {
-      var d = new Date();
-      var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-      var nd = new Date(utc + (1000 * offset));
+    var rawSunrise = (sunriseTime * 1000);
+    var rawSunriseDate = new Date(rawSunrise);
+    var sunrise = moment(rawSunriseDate).tz(this.props.timeZoneId).format("h:mm A");
 
-      console.log("The local sunrise time is " + nd.toLocaleString());
-    }
+    // console.log(finalSunset);
 
-    calcTime(sunriseDateOffset);
-    // console.log('Sunrise = ' + sunriseTime);
-    // console.log('Sunset = ' + sunsetTime);
+    // console.log(sunsetTime)
+    // console.log(timestamp)
+    // console.log(this.props.timeZoneId);
+    // console.log(this.props.timeZoneName);
 
-    // var check = moment.unix(sunriseTime).toDate();
+    // console.log('Sunset ' + sunsetTimeStamp);
+    // console.log('Sunset dstOffset ' + sunsetDateOffset);
+    // console.log('Sunset rawOffset ' + sunsetRawOffset);
 
-    // console.log(moment(check).format("hh:mm A"))
+    // console.log('Sunrise ' + sunriseTimeStamp);    
+    // console.log('Sunrise dstOffset ' + sunriseDateOffset);
+    // console.log('Sunrise rawOffset ' + sunriseRawOffset);
 
-    //     var date = new Date(sunriseTimeStamp * 1000);
-    // console.log(date)
+    // console.log('Sunset ADDED ' + sunsetTime);
+    // console.log('Sunrise ADDED ' + sunriseTime);
 
-    // 2020-05-24T07:30:40.000Z
+    // function calcTime(time, offset) {
 
-    // console.log(moment("2015-01-16T12:00:00").format("hh:mm:ss A"))
-    // console.log(moment("2015-01-16T24:00:00").format("hh:mm:ss A"))
-    // moment('2016-07-28 06:15 PM', 'YYYY-MM-DD hh:mm a').format('YYYY/MM/DD hh:mm a')
+    //   // create Date object for current location
+    //   var d = new Date();
+    //   // console.log(d);
+    //   // var dateString = moment.unix(value).format("MM/DD/YYYY");
+    //   // console.log(dateString);
 
+    //   // convert to msec
+    //   // add local time zone offset
+    //   // get UTC time in msec
+    //   var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+
+    //   // create new Date object for different city
+    //   // using supplied offset
+    //   var nd = new Date(utc + (3600000 * offset));
+
+    //   // return time as a string
+    //   return "Sunset time: " + nd.toLocaleString();
+    // }
+
+    // function toTimeZone(time, zone) {
+    //   var format = 'h:mm A';
+    //   return moment(time, format).tz(zone).format(format);
+    // }
+    // console.log(moment().format()); 
+    // console.log(moment(sunsetTime).tz(this.props.timeZoneId).format("h:mm A"))
+    // var c = moment.tz(sunsetTime, this.props.timeZoneId);
+    // var d = c.format("h:mm A");
+    // console.log(d)
+    // var d = new Date();
+    // console.log(d);
+    // var dateString = moment.unix(sunsetTimeStamp).format("MM/DD/YYYY h:mm A");
+    // console.log(dateString);
+
+    // var sunsettest = calcTime(sunsetDateOffset);
+    // console.log(sunsettest);
+
+    // var testsun = moment(sunriseTime).format('YYYY/MM/DD HH:mm:ss');
+    // console.log(testsun);
     // set up sunset time formats
-    var sunrise = moment.unix(sunriseTimeStamp).format('h:mm A');
-    var sunset = moment.unix(sunsetTimeStamp).format('h:mm A');
+    // var sunrise = moment.unix(sunriseTime).format('h:mm A');
+    // var sunset = moment.unix(sunsetTime).format('h:mm A');
+
+    // var sunrise = sunriseTime;
+    // var sunset = sunsetTime;
+
+    // function calcTime(offset) {
+    //   var d = new Date();
+    //   var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    //   var nd = new Date(utc + (3600000*offset));
+
+    //   alert("The local time is " + nd.toLocaleString());
+    //   }
+    //   calcTime(-28800.0);
+
+    // var myDate = new Date('1/1/1970');
+    // var checkSunrise = sunriseTime = myDate.getTime();
+
+    // console.log(checkSunrise);
+
+    console.log('Final sunrise time: ' + sunrise);
+    console.log('Final sunset time: ' + sunset);
+
+    // calcTime(rawOffset+dstOffset);
 
     // Change sun details based on night or day
     let sunDisplay;
@@ -290,9 +337,9 @@ class Current extends Component {
     var colourBg = this.props.currentBg;
     var colourBarBg = this.props.currentBarBg;
 
-    // console.log(this.props.openWeather.list[2].dt_txt);
-    // console.log(this.props.openWeather.list[5].dt_txt);
-    // console.log(this.props.openWeather.list[14].dt_txt);
+    console.log(this.props.openWeather.list[2].dt_txt);
+    console.log(this.props.openWeather.list[5].dt_txt);
+    console.log(this.props.openWeather.list[14].dt_txt);
 
     return (
       <SafeAreaView

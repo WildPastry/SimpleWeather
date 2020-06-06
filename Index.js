@@ -11,24 +11,26 @@ import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
+// https://github.com/cawfree/react-native-basement/blob/master/docs/GETTING-STARTED.md
+
 // Use iPhone6 as base size which is 375 x 667
-// const baseWidth = 375;
-// const baseHeight = 667;
+const baseWidth = 375;
+const baseHeight = 667;
 
-// const scaleWidth = width / baseWidth;
-// const scaleHeight = height / baseHeight;
-// const scale = Math.min(scaleWidth, scaleHeight);
+const scaleWidth = width / baseWidth;
+const scaleHeight = height / baseHeight;
+const scale = Math.min(scaleWidth, scaleHeight);
 
-// export const scaledSize =
-//   (size) => Math.ceil((size * scale));
+export const scaledSize =
+  (size) => Math.ceil((size * scale));
 
-// const size = {
-//   small: scaledSize(25),
-//   oneThird: scaledSize(125),
-//   fullScreen: scaledSize(375),
-// };
+const size = {
+  small: scaledSize(25),
+  oneThird: scaledSize(125),
+  fullScreen: scaledSize(375),
+};
 
-// console.log(size);
+console.log(size);
 
 // // iPhone 5s
 // { small: 22, oneThird: 107, fullScreen: 320 }
