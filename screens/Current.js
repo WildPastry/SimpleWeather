@@ -18,7 +18,7 @@ import Firebase, { FirebaseProvider } from '../config/Firebase';
 const geo = configData.GEO;
 
 // moment set up
-var moment = require('moment-timezone');
+var moment = require('moment');
 
 // group 2xx: thunderstorm
 const thunderStorm = require('./../assets/animations/weather/thunderStorm.json');
@@ -77,107 +77,29 @@ class Current extends Component {
   renderSunDetails() {
     // Set up local timestamp for sunrise/sunset
     var sunsetTimeStamp = this.props.sunset,
-      sunsetDateOffset = this.props.dstOffsetSunset,
-      sunsetRawOffset = this.props.rawOffsetSunset,
-
       sunriseTimeStamp = this.props.sunrise,
-      sunriseDateOffset = this.props.dstOffsetSunrise,
-      sunriseRawOffset = this.props.rawOffsetSunrise;
+      daylightOffset = this.props.dstOffsetSunset,
+      utcOffset = this.props.rawOffsetSunset
 
-    var sunsetTime = (sunsetTimeStamp + sunsetDateOffset + sunsetRawOffset);
-    var sunriseTime = (sunriseTimeStamp + sunriseDateOffset + sunriseRawOffset);
+    var sunsetTime = (sunsetTimeStamp + daylightOffset + utcOffset);
+    var sunriseTime = (sunriseTimeStamp + daylightOffset + utcOffset);
 
-    var rawSunset = (sunsetTime * 1000);
-    var rawSunsetDate = new Date(rawSunset);
-    var sunset = moment(rawSunsetDate).tz(this.props.timeZoneId).format("h:mm A");
+    console.log(this.props.timeZoneId);
+    console.log(this.props.timeZoneName);
 
-    var rawSunrise = (sunriseTime * 1000);
-    var rawSunriseDate = new Date(rawSunrise);
-    var sunrise = moment(rawSunriseDate).tz(this.props.timeZoneId).format("h:mm A");
+    console.log('Sunset ' + sunsetTimeStamp);
+    console.log('Sunrise ' + sunriseTimeStamp);
+    console.log('Daylight offset ' + daylightOffset);
+    console.log('UTC offset ' + utcOffset);
 
-    // console.log(finalSunset);
+    console.log('Sunset ADDED ' + sunsetTime);
+    console.log('Sunrise ADDED ' + sunriseTime);
 
-    // console.log(sunsetTime)
-    // console.log(timestamp)
-    // console.log(this.props.timeZoneId);
-    // console.log(this.props.timeZoneName);
+    var sunrise = moment.unix(sunriseTime).format('HH:mm');
+    var sunset = moment.unix(sunsetTime).format('HH:mm');
 
-    // console.log('Sunset ' + sunsetTimeStamp);
-    // console.log('Sunset dstOffset ' + sunsetDateOffset);
-    // console.log('Sunset rawOffset ' + sunsetRawOffset);
-
-    // console.log('Sunrise ' + sunriseTimeStamp);    
-    // console.log('Sunrise dstOffset ' + sunriseDateOffset);
-    // console.log('Sunrise rawOffset ' + sunriseRawOffset);
-
-    // console.log('Sunset ADDED ' + sunsetTime);
-    // console.log('Sunrise ADDED ' + sunriseTime);
-
-    // function calcTime(time, offset) {
-
-    //   // create Date object for current location
-    //   var d = new Date();
-    //   // console.log(d);
-    //   // var dateString = moment.unix(value).format("MM/DD/YYYY");
-    //   // console.log(dateString);
-
-    //   // convert to msec
-    //   // add local time zone offset
-    //   // get UTC time in msec
-    //   var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-
-    //   // create new Date object for different city
-    //   // using supplied offset
-    //   var nd = new Date(utc + (3600000 * offset));
-
-    //   // return time as a string
-    //   return "Sunset time: " + nd.toLocaleString();
-    // }
-
-    // function toTimeZone(time, zone) {
-    //   var format = 'h:mm A';
-    //   return moment(time, format).tz(zone).format(format);
-    // }
-    // console.log(moment().format()); 
-    // console.log(moment(sunsetTime).tz(this.props.timeZoneId).format("h:mm A"))
-    // var c = moment.tz(sunsetTime, this.props.timeZoneId);
-    // var d = c.format("h:mm A");
-    // console.log(d)
-    // var d = new Date();
-    // console.log(d);
-    // var dateString = moment.unix(sunsetTimeStamp).format("MM/DD/YYYY h:mm A");
-    // console.log(dateString);
-
-    // var sunsettest = calcTime(sunsetDateOffset);
-    // console.log(sunsettest);
-
-    // var testsun = moment(sunriseTime).format('YYYY/MM/DD HH:mm:ss');
-    // console.log(testsun);
-    // set up sunset time formats
-    // var sunrise = moment.unix(sunriseTime).format('h:mm A');
-    // var sunset = moment.unix(sunsetTime).format('h:mm A');
-
-    // var sunrise = sunriseTime;
-    // var sunset = sunsetTime;
-
-    // function calcTime(offset) {
-    //   var d = new Date();
-    //   var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    //   var nd = new Date(utc + (3600000*offset));
-
-    //   alert("The local time is " + nd.toLocaleString());
-    //   }
-    //   calcTime(-28800.0);
-
-    // var myDate = new Date('1/1/1970');
-    // var checkSunrise = sunriseTime = myDate.getTime();
-
-    // console.log(checkSunrise);
-
-    console.log('Final sunrise time: ' + sunrise);
-    console.log('Final sunset time: ' + sunset);
-
-    // calcTime(rawOffset+dstOffset);
+    // var newSunset = moment(finalSunset).format('HH:mm:ss');
+    // console.log(newSunset)
 
     // Change sun details based on night or day
     let sunDisplay;

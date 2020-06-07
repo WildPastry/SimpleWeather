@@ -219,9 +219,6 @@ class App extends Component {
   findUserLocalTime() {
     var myLat = this.state.currentLat, myLng = this.state.currentLng;
 
-    // var myDate = new Date('1/1/1970');
-    // var timeStamp = myDate.getTime();
-
     // promise all data
     Promise.all([
       fetch(timezoneURL + myLat + ',' + myLng + '&timestamp=' + this.state.sunrise + '&key=' + geo),
@@ -240,11 +237,7 @@ class App extends Component {
             timeZoneName: sunriseData.timeZoneName,
             // sunriseData
             dstOffsetSunrise: sunriseData.dstOffset,
-            rawOffsetSunrise: sunriseData.rawOffset,
-            // sunsetData
-            dstOffsetSunset: sunsetData.dstOffset,
-            rawOffsetSunset: sunsetData.rawOffset
-
+            rawOffsetSunrise: sunriseData.rawOffset
           }, this.nightOrDay);
         }
       }).catch((error) => {
@@ -515,8 +508,6 @@ class App extends Component {
                   night={this.state.night}
                   dstOffsetSunset={this.state.dstOffsetSunset}
                   rawOffsetSunset={this.state.rawOffsetSunset}
-                  dstOffsetSunrise={this.state.dstOffsetSunrise}
-                  rawOffsetSunrise={this.state.rawOffsetSunrise}
                   timeZoneId={this.state.timeZoneId}
                   timeZoneName={this.state.timeZoneName}
                   skyWeather={this.state.skyWeather}
