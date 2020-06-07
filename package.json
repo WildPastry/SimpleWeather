@@ -15,7 +15,6 @@
     "formik": "1.5.8",
     "lottie-react-native": "^2.6.1",
     "moment": "^2.25.3",
-    "moment-timezone": "^0.5.31",
     "native-base": "^2.13.12",
     "react": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",

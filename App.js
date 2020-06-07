@@ -69,10 +69,8 @@ class App extends Component {
       location: '', desc: '', temp: '', high: '', low: '',
       humidity: '', wind: '', icon: '', sunset: '', sunrise: '', feelslike: '',
       // timezone data
-      dstOffsetSunset: '',
-      rawOffsetSunset: '',
-      dstOffsetSunrise: '',
-      rawOffsetSunrise: '',
+      dstOffset: '',
+      rawOffset: '',
       timeZoneId: '',
       timeZoneName: '',
       // colour background
@@ -221,23 +219,21 @@ class App extends Component {
 
     // promise all data
     Promise.all([
-      fetch(timezoneURL + myLat + ',' + myLng + '&timestamp=' + this.state.sunrise + '&key=' + geo),
       fetch(timezoneURL + myLat + ',' + myLng + '&timestamp=' + this.state.sunset + '&key=' + geo)
     ])
       // set json
-      .then(([sunriseData, sunsetData]) => {
-        return Promise.all([sunriseData.json(), sunsetData.json()])
+      .then(([timezoneData]) => {
+        return Promise.all([timezoneData.json()])
       })
       // set state
-      .then(([sunriseData, sunsetData]) => {
+      .then(([timezoneData]) => {
         if (this._isMounted) {
           this.setState({
-            // timezone ID
-            timeZoneId: sunriseData.timeZoneId,
-            timeZoneName: sunriseData.timeZoneName,
-            // sunriseData
-            dstOffsetSunrise: sunriseData.dstOffset,
-            rawOffsetSunrise: sunriseData.rawOffset
+            // timezoneData
+            timeZoneId: timezoneData.timeZoneId,
+            timeZoneName: timezoneData.timeZoneName,
+            dstOffset: timezoneData.dstOffset,
+            rawOffset: timezoneData.rawOffset
           }, this.nightOrDay);
         }
       }).catch((error) => {
@@ -506,10 +502,9 @@ class App extends Component {
                   sunrise={this.state.sunrise}
                   feelslike={this.state.feelslike}
                   night={this.state.night}
-                  dstOffsetSunset={this.state.dstOffsetSunset}
-                  rawOffsetSunset={this.state.rawOffsetSunset}
+                  dstOffset={this.state.dstOffset}
+                  rawOffset={this.state.rawOffset}
                   timeZoneId={this.state.timeZoneId}
-                  timeZoneName={this.state.timeZoneName}
                   skyWeather={this.state.skyWeather}
                   openWeather={this.state.openWeekWeather}
                 />

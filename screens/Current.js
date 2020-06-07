@@ -62,8 +62,6 @@ class Current extends Component {
       googleLat: '',
       googleLng: '',
       googleName: '',
-      // get current date
-      currentDate: new Date(),
       // placeholder clear
       placeholder: this.props.currentLocation,
       // google places listview
@@ -78,28 +76,16 @@ class Current extends Component {
     // Set up local timestamp for sunrise/sunset
     var sunsetTimeStamp = this.props.sunset,
       sunriseTimeStamp = this.props.sunrise,
-      daylightOffset = this.props.dstOffsetSunset,
-      utcOffset = this.props.rawOffsetSunset
+      daylightOffset = this.props.dstOffset,
+      rawOffset = this.props.rawOffset;
 
-    var sunsetTime = (sunsetTimeStamp + daylightOffset + utcOffset);
-    var sunriseTime = (sunriseTimeStamp + daylightOffset + utcOffset);
+    var sunsetTime = (sunsetTimeStamp + daylightOffset + rawOffset);
+    var sunriseTime = (sunriseTimeStamp + daylightOffset + rawOffset);
 
     console.log(this.props.timeZoneId);
-    console.log(this.props.timeZoneName);
 
-    console.log('Sunset ' + sunsetTimeStamp);
-    console.log('Sunrise ' + sunriseTimeStamp);
-    console.log('Daylight offset ' + daylightOffset);
-    console.log('UTC offset ' + utcOffset);
-
-    console.log('Sunset ADDED ' + sunsetTime);
-    console.log('Sunrise ADDED ' + sunriseTime);
-
-    var sunrise = moment.unix(sunriseTime).format('HH:mm');
-    var sunset = moment.unix(sunsetTime).format('HH:mm');
-
-    // var newSunset = moment(finalSunset).format('HH:mm:ss');
-    // console.log(newSunset)
+    var sunrise = moment.utc(moment(sunriseTime * 1000)).format('h:mm a');
+    var sunset = moment.utc(moment(sunsetTime * 1000)).format('h:mm a');
 
     // Change sun details based on night or day
     let sunDisplay;
@@ -250,10 +236,10 @@ class Current extends Component {
     }
 
     // set up date constants
-    const today = this.state.currentDate;
-    const day = moment(today).format('dddd,');
-    const date = moment(today).format('MMMM D');
-    const year = moment(today).format('YYYY');
+    var daylightOffset = this.props.dstOffset;
+    var rawOffset = this.props.rawOffset;
+    var currentDate = moment().unix() + daylightOffset + rawOffset;
+    var currentDateTime = moment.utc(moment(currentDate * 1000)).format("dddd, MMMM Do, h:mm a");
 
     // set up colour bg variables
     var colourBg = this.props.currentBg;
@@ -437,7 +423,7 @@ class Current extends Component {
 
         {/* date display */}
         <Text style={currentStyles.currentDateText}>
-          {day} {date}, {year}
+          {currentDateTime}
         </Text>
 
         {/* Current description */}
