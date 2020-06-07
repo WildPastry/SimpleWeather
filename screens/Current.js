@@ -235,7 +235,7 @@ class Current extends Component {
       currentWeatherIcon = dayClear;
     }
 
-    // set up date constants
+    // set up date time to local time
     var daylightOffset = this.props.dstOffset;
     var rawOffset = this.props.rawOffset;
     var currentDate = moment().unix() + daylightOffset + rawOffset;
@@ -244,6 +244,43 @@ class Current extends Component {
     // set up colour bg variables
     var colourBg = this.props.currentBg;
     var colourBarBg = this.props.currentBarBg;
+
+    // morning afternoon evening conditions
+    var conditions = ["09:00:00", "13:00:00", "17:00:00"];
+    // var getTimes = conditions.some(e => this.state.icon.includes(e));
+
+    var openData = this.props.openWeather.list
+    // openData = openData.filter(e => e.list.includes("09:00:00"))
+    // console.log(openData[2].dt_txt);
+
+    // let filteredData = openData.filter(x => String(x.dt_txt).includes("09:00:00"));
+    let filteredData = openData.filter(e => e.dt_txt.includes("09:00:00"));
+
+// test cases
+// var str1 = 'hi, how do you do?';
+// var str2 = 'regular string';
+
+// // does the test strings contains this terms?
+// var conditions = ["hello", "hi", "howdy"];
+
+// // run the tests agains every element in the array
+// var test1 = conditions.some(el => str1.includes(el));
+// var test2 = conditions.some(el => str2.includes(el));
+
+// // display results
+// console.log(str1, ' ===> ', test1);
+// console.log(str2, ' ===> ', test2);
+
+    // let getTimes = conditions.some(e => openData.includes(e));
+    // var match = openData.dt_txt.some(e => {
+    //   return "09:00:00" === e;
+    // });
+
+    console.log(filteredData);
+
+    // openData = openData.filter(e => e.list.includes("09:00:00"))
+
+    // console.log(openData);
 
     console.log(this.props.openWeather.list[2].dt_txt);
     console.log(this.props.openWeather.list[5].dt_txt);
