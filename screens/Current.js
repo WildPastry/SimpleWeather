@@ -175,8 +175,9 @@ class Current extends Component {
   render() {
     console.log('Inside render from Current.js...');
 
-    // set up weather code
+    // set up weather code and data
     var weatherCode = this.props.weatherCode;
+    const openData = this.props.openWeather.list
 
     console.log('weatherCode from Current.js ' + weatherCode);
 
@@ -245,46 +246,14 @@ class Current extends Component {
     var colourBg = this.props.currentBg;
     var colourBarBg = this.props.currentBarBg;
 
-    // morning afternoon evening conditions
-    var conditions = ["09:00:00", "13:00:00", "17:00:00"];
-    // var getTimes = conditions.some(e => this.state.icon.includes(e));
+    // filter data for morning afternoon evening conditions
+    let filterMorning = openData.filter(e => e.dt_txt.includes("09:00:00"));
+    let filterAfternoon = openData.filter(e => e.dt_txt.includes("12:00:00"));
+    let filterEvening = openData.filter(e => e.dt_txt.includes("18:00:00"));
 
-    var openData = this.props.openWeather.list
-    // openData = openData.filter(e => e.list.includes("09:00:00"))
-    // console.log(openData[2].dt_txt);
-
-    // let filteredData = openData.filter(x => String(x.dt_txt).includes("09:00:00"));
-    let filteredData = openData.filter(e => e.dt_txt.includes("09:00:00"));
-
-// test cases
-// var str1 = 'hi, how do you do?';
-// var str2 = 'regular string';
-
-// // does the test strings contains this terms?
-// var conditions = ["hello", "hi", "howdy"];
-
-// // run the tests agains every element in the array
-// var test1 = conditions.some(el => str1.includes(el));
-// var test2 = conditions.some(el => str2.includes(el));
-
-// // display results
-// console.log(str1, ' ===> ', test1);
-// console.log(str2, ' ===> ', test2);
-
-    // let getTimes = conditions.some(e => openData.includes(e));
-    // var match = openData.dt_txt.some(e => {
-    //   return "09:00:00" === e;
-    // });
-
-    console.log(filteredData);
-
-    // openData = openData.filter(e => e.list.includes("09:00:00"))
-
-    // console.log(openData);
-
-    console.log(this.props.openWeather.list[2].dt_txt);
-    console.log(this.props.openWeather.list[5].dt_txt);
-    console.log(this.props.openWeather.list[14].dt_txt);
+    console.log(filterMorning[0].dt_txt);
+    console.log(filterAfternoon[0].dt_txt);
+    console.log(filterEvening[0].dt_txt);
 
     return (
       <SafeAreaView
@@ -529,7 +498,7 @@ class Current extends Component {
                   color: colours.white
                 }}>
                 {/* 6am */}
-                {weatherIcons[this.props.openWeather.list[2].weather[0].id].code}
+                {weatherIcons[filterMorning[0].weather[0].id].code}
               </Text>
 
               {/* Afternoon */}
@@ -541,7 +510,7 @@ class Current extends Component {
                   color: colours.white
                 }}>
                 {/* 3pm */}
-                {weatherIcons[this.props.openWeather.list[5].weather[0].id].code}
+                {weatherIcons[filterAfternoon[0].weather[0].id].code}
               </Text>
 
               {/* Evening */}
@@ -553,7 +522,7 @@ class Current extends Component {
                   color: colours.white
                 }}>
                 {/* 6pm */}
-                {weatherIcons[this.props.openWeather.list[14].weather[0].id].code}
+                {weatherIcons[filterEvening[0].weather[0].id].code}
               </Text>
             </View>
 
