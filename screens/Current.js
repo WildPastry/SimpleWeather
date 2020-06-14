@@ -26,6 +26,8 @@ const thunderStorm = require('./../assets/animations/weather/thunderStorm.json')
 const lightDrizzle = require('./../assets/animations/weather/lightDrizzle.json');
 // group 5xx: rain
 const lightRain = require('./../assets/animations/weather/lightRain.json');
+const moderateRain = require('./../assets/animations/weather/moderateRain.json');
+const heavyRain = require('./../assets/animations/weather/heavyRain.json');
 // group 6xx: snow
 const snow = require('./../assets/animations/weather/snow.json');
 // group 7xx: atmosphere
@@ -89,7 +91,8 @@ class Current extends Component {
 
     // Change sun details based on night or day
     let sunDisplay;
-    if (this.props.night === true) {
+    const night = this.props.night;
+    if (night) {
       sunDisplay = (
         <View style={currentStyles.currentDetailsWrap}>
           <Text
@@ -195,11 +198,15 @@ class Current extends Component {
     ) {
       currentWeatherIcon = lightDrizzle;
       // group 5xx: rain
+    } else if (weatherCode === 500) {
+      currentWeatherIcon = lightRain;
+    } else if (weatherCode === 501) {
+      currentWeatherIcon = moderateRain;
     } else if (
-      (weatherCode) >= 500 &&
+      (weatherCode) >= 502 &&
       (weatherCode) <= 531
     ) {
-      currentWeatherIcon = lightRain;
+      currentWeatherIcon = heavyRain;
       // group 6xx: snow
     } else if (
       (weatherCode) >= 600 &&
@@ -213,24 +220,24 @@ class Current extends Component {
     ) {
       currentWeatherIcon = mist;
       // group 80x: clouds
-    } else if ((weatherCode === 801) && (this.props.night === true)) {
+    } else if ((weatherCode === 801) && (night)) {
       currentWeatherIcon = fewCloudsNight;
-    } else if ((weatherCode === 801) && (this.props.night === false)) {
+    } else if ((weatherCode === 801) && (!night)) {
       currentWeatherIcon = fewClouds;
-    } else if ((weatherCode === 802) && (this.props.night === true)) {
+    } else if ((weatherCode === 802) && (night)) {
       currentWeatherIcon = scatteredCloudsNight;
-    } else if ((weatherCode === 802) && (this.props.night === false)) {
+    } else if ((weatherCode === 802) && (!night)) {
       currentWeatherIcon = scatteredClouds;
-    } else if ((weatherCode === 803) && (this.props.night === true)) {
+    } else if ((weatherCode === 803) && (night)) {
       currentWeatherIcon = brokenCloudsNight;
-    } else if ((weatherCode === 803) && (this.props.night === false)) {
+    } else if ((weatherCode === 803) && (!night)) {
       currentWeatherIcon = brokenClouds;
-    } else if ((weatherCode === 804) && (this.props.night === true)) {
+    } else if ((weatherCode === 804) && (night)) {
       currentWeatherIcon = overcastCloudsNight;
-    } else if ((weatherCode === 804) && (this.props.night === false)) {
+    } else if ((weatherCode === 804) && (!night)) {
       currentWeatherIcon = overcastClouds;
       // group 800: clear
-    } else if ((weatherCode === 800) && (this.props.night === true)) {
+    } else if ((weatherCode === 800) && (night)) {
       currentWeatherIcon = nightClear
     } else {
       currentWeatherIcon = dayClear;
@@ -250,10 +257,6 @@ class Current extends Component {
     let filterMorning = openData.filter(e => e.dt_txt.includes("09:00:00"));
     let filterAfternoon = openData.filter(e => e.dt_txt.includes("12:00:00"));
     let filterEvening = openData.filter(e => e.dt_txt.includes("18:00:00"));
-
-    console.log(filterMorning[0].dt_txt);
-    console.log(filterAfternoon[0].dt_txt);
-    console.log(filterEvening[0].dt_txt);
 
     return (
       <SafeAreaView
