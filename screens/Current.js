@@ -55,6 +55,8 @@ String.prototype.cutString = function () {
   return this.substring(0, this.length - 1);
 }
 
+var night;
+
 // START Current
 class Current extends Component {
   constructor(props) {
@@ -539,7 +541,7 @@ class Current extends Component {
                 /> {' '}Daily Summary
               </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.skyWeather.daily.data[0].summary.cutString().toLowerCase()}{' '}with{' '}{Math.round(this.props.skyWeather.currently.windSpeed)} km/h wind and{' '}{this.props.humidity}% humidity</Text>
               {/* sun details */}
-              {this.renderSunDetails()}
+              {/* {this.renderSunDetails()} */}
             </View>
 
           </CollapseBody>
