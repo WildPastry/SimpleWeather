@@ -397,7 +397,10 @@ const headerStyles = StyleSheet.create({
     width: 35
   },
   headerWrap: {
-    padding: 10,
+    paddingRight: 5,
+    paddingLeft: 5,
+    paddingBottom: 10,
+    paddingTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: colours.spotGreyMed,

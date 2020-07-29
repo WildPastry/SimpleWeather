@@ -265,6 +265,26 @@ class Current extends Component {
         keyboardShouldPersistTaps='handled'
         style={currentStyles.currentWrap}>
 
+        {/* search button */}
+        <View pointerEvents='none'
+        style={{
+          zIndex: 2,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '10%',
+          height: 50,
+          overflow: 'visible',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Ionicons
+            name='ios-search'
+            size={30}
+            color={colours.white}
+          />
+        </View>
+
         {/* autocomplete input */}
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps='handled'
@@ -376,10 +396,7 @@ class Current extends Component {
           height: 50,
           overflow: 'visible',
           alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: colourBarBg,
-          borderTopColor: colours.spotGrey,
-          borderTopWidth: 0.5
+          justifyContent: 'center'
         }}>
           {/* globalmodal */}
           <FirebaseProvider value={Firebase}>
