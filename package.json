@@ -8,10 +8,11 @@
   },
   "dependencies": {
     "accordion-collapse-react-native": "^0.2.10",
+    "dot-prop": "^5.2.0",
     "expo": "^37.0.0",
-    "expo-cli": "^3.22.3",
+    "expo-cli": "^3.23.3",
     "expo-font": "~8.1.0",
-    "firebase": "7.9.0",
+    "firebase": "^7.17.2",
     "formik": "1.5.8",
     "lottie-react-native": "^2.6.1",
     "moment": "^2.25.3",

@@ -505,7 +505,6 @@ class App extends Component {
                   dstOffset={this.state.dstOffset}
                   rawOffset={this.state.rawOffset}
                   timeZoneId={this.state.timeZoneId}
-                  skyWeather={this.state.skyWeather}
                   openWeather={this.state.openWeekWeather}
                 />
               </View>

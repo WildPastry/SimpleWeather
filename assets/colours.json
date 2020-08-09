@@ -1,30 +1,6 @@
 {
   "simpleWeather": "#313136",
-
-  "clearSky": "#e68341",
-  "clearSkyDark": "#d46921",
-
-  "scatteredClouds": "#6e859e",
-  "scatteredCloudsDark": "#5d6e80",
-
-  "brokenClouds": "#6e859e",
-  "brokenCloudsDark": "#546679",
-
-  "showerRain": "#2485c7",
-  "showerRainDark": "#106dac",
-
-  "rain": "#2485c7",
-  "rainDark": "#0b5a8f",
-
-  "thunderStorm": "#505050",
-  "thunderStormDark": "#353535",
-
-  "snow": "#174683",
-  "snowDark": "#002f69",
-
-  "mist": "#c8c8c8",
-  "mistDark": "#999999",
-
+  
   "night": "#35363d",
   "nightDark": "#262833",
 
