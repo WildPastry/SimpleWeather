@@ -183,7 +183,8 @@ class Current extends Component {
     // set up weather code and data
     var weatherCode = this.props.weatherCode;
     const openData = this.props.openWeather.list
-
+    const night = this.props.night;
+    
     console.log('weatherCode from Current.js ' + weatherCode);
 
     // set up icon display
