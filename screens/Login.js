@@ -59,6 +59,7 @@ class Login extends Component {
 				this.props.navigation.navigate('App');
 			}
 		} catch (error) {
+			console.log(error)
 			actions.setFieldError('general', error.message);
 		} finally {
 			actions.setSubmitting(false);

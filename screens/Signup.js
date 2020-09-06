@@ -84,8 +84,7 @@ class Signup extends Component {
 					.createNewUser(userData)
 					.then(function () {
 						var user = firebase.auth().currentUser;
-						user
-							.sendEmailVerification()
+						user.sendEmailVerification()
 							.then(function () {
 								console.log('Success in sending email');
 							})
