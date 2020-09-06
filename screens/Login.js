@@ -5,17 +5,12 @@ import {
 	SafeAreaView,
 	View,
 	Text,
-	TouchableOpacity,
-	TouchableWithoutFeedback,
-	Keyboard,
+	TouchableOpacity
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {
-	HideWithKeyboard,
-	ShowWithKeyboard,
-} from 'react-native-hide-with-keyboard';
+import { HideWithKeyboard } from 'react-native-hide-with-keyboard';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import ErrorMessage from '../components/ErrorMessage';
@@ -33,13 +28,6 @@ const validationSchema = Yup.object().shape({
 		.required()
 		.min(6, 'Password must have at least 6 characters '),
 });
-
-const DismissKeyboard = ({ children }) => (
-	<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-		{' '}
-		{children}
-	</TouchableWithoutFeedback>
-);
 
 // START Login
 class Login extends Component {
@@ -168,19 +156,19 @@ class Login extends Component {
 							Don't have an account? Sign up
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity
-						style={loginStyles.link}
-						onPress={this.goToForgotPassword}>
-						<Text
-							style={{
-								color: colours.spotYellow,
-								fontFamily: 'allerLt',
-								fontSize: 18,
-							}}>
-							Forgotton password?
-						</Text>
-					</TouchableOpacity>
 				</HideWithKeyboard>
+				<TouchableOpacity
+					style={loginStyles.link}
+					onPress={this.goToForgotPassword}>
+					<Text
+						style={{
+							color: colours.spotYellow,
+							fontFamily: 'allerLt',
+							fontSize: 18,
+						}}>
+						Forgotton password?
+					</Text>
+				</TouchableOpacity>
 			</SafeAreaView>
 		);
 	}

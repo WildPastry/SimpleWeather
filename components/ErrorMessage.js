@@ -10,7 +10,8 @@ const ErrorMessage = ({ errorValue }) => (
 
 const errorStyles = StyleSheet.create({
   container: {
-    marginLeft: 25
+    marginLeft: 25,
+    marginRight: 25
   },
   errorText: {
     color: colours.spotRed,

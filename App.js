@@ -13,7 +13,6 @@ import Current from './screens/Current';
 import Week from './screens/Week';
 import Footer from './screens/Footer';
 import colours from './assets/colours.json';
-import temperatures from './assets/temperatures.json';
 import LottieView from 'lottie-react-native';
 
 // firebase
@@ -192,7 +191,7 @@ class App extends Component {
             openWeatherId: openCurrentData.weather[0].id,
             desc: openCurrentData.weather[0].description,
             humidity: openCurrentData.main.humidity,
-            wind: openCurrentData.wind.speed,
+            wind: openCurrentData.wind.speed * 3.6,
             icon: openCurrentData.weather[0].icon,
             sunset: openCurrentData.sys.sunset,
             sunrise: openCurrentData.sys.sunrise,
@@ -275,144 +274,66 @@ class App extends Component {
 
   // day colour bg logic
   setBgDay() {
-
     let currentBg;
     let currentBarBg;
-    var currentTemp = this.state.temp;
-    console.log('Day function running...');
-    console.log(currentTemp + ' From day function');
+    var currentID = this.state.openWeatherId;
+    console.log(currentID,'From day function');
 
-    if (currentTemp < -15) {
-      currentBg = temperatures.tempBelowM15;
-      currentBarBg = temperatures.tempBelowM15d;
-    } else if ((currentTemp < -5) && (currentTemp > -16)) {
-      currentBg = temperatures.tempM6toM15;
-      currentBarBg = temperatures.tempM6toM15d;
-    } else if ((currentTemp < 0) && (currentTemp > -6)) {
-      currentBg = temperatures.tempM1toM5;
-      currentBarBg = temperatures.tempM1toM5d;
-    } else if (currentTemp === 0) {
-      currentBg = temperatures.temp0;
-      currentBarBg = temperatures.temp0d;
-    } else if (currentTemp === 1) {
-      currentBg = temperatures.temp1;
-      currentBarBg = temperatures.temp1d;
-    } else if (currentTemp === 2) {
-      currentBg = temperatures.temp2;
-      currentBarBg = temperatures.temp2d;
-    } else if (currentTemp === 3) {
-      currentBg = temperatures.temp3;
-      currentBarBg = temperatures.temp3d;
-    } else if (currentTemp === 4) {
-      currentBg = temperatures.temp4;
-      currentBarBg = temperatures.temp4d;
-    } else if (currentTemp === 5) {
-      currentBg = temperatures.temp5;
-      currentBarBg = temperatures.temp5d;
-    } else if (currentTemp === 6) {
-      currentBg = temperatures.temp6;
-      currentBarBg = temperatures.temp6d;
-    } else if (currentTemp === 7) {
-      currentBg = temperatures.temp7;
-      currentBarBg = temperatures.temp7d;
-    } else if (currentTemp === 8) {
-      currentBg = temperatures.temp8;
-      currentBarBg = temperatures.temp8d;
-    } else if (currentTemp === 9) {
-      currentBg = temperatures.temp9;
-      currentBarBg = temperatures.temp9d;
-    } else if (currentTemp === 10) {
-      currentBg = temperatures.temp10;
-      currentBarBg = temperatures.temp10d;
-    } else if (currentTemp === 11) {
-      currentBg = temperatures.temp11;
-      currentBarBg = temperatures.temp11d;
-    } else if (currentTemp === 12) {
-      currentBg = temperatures.temp12;
-      currentBarBg = temperatures.temp12d;
-    } else if (currentTemp === 13) {
-      currentBg = temperatures.temp13;
-      currentBarBg = temperatures.temp13d;
-    } else if (currentTemp === 14) {
-      currentBg = temperatures.temp14;
-      currentBarBg = temperatures.temp14d;
-    } else if (currentTemp === 15) {
-      currentBg = temperatures.temp15;
-      currentBarBg = temperatures.temp15d;
-    } else if (currentTemp === 16) {
-      currentBg = temperatures.temp16;
-      currentBarBg = temperatures.temp16d;
-    } else if (currentTemp === 17) {
-      currentBg = temperatures.temp17;
-      currentBarBg = temperatures.temp17d;
-    } else if (currentTemp === 18) {
-      currentBg = temperatures.temp18;
-      currentBarBg = temperatures.temp18d;
-    } else if (currentTemp === 19) {
-      currentBg = temperatures.temp19;
-      currentBarBg = temperatures.temp19d;
-    } else if (currentTemp === 20) {
-      currentBg = temperatures.temp20;
-      currentBarBg = temperatures.temp20d;
-    } else if (currentTemp === 21) {
-      currentBg = temperatures.temp21;
-      currentBarBg = temperatures.temp21d;
-    } else if (currentTemp === 22) {
-      currentBg = temperatures.temp22;
-      currentBarBg = temperatures.temp22d;
-    } else if (currentTemp === 23) {
-      currentBg = temperatures.temp23;
-      currentBarBg = temperatures.temp23d;
-    } else if (currentTemp === 24) {
-      currentBg = temperatures.temp24;
-      currentBarBg = temperatures.temp24d;
-    } else if (currentTemp === 25) {
-      currentBg = temperatures.temp25;
-      currentBarBg = temperatures.temp25d;
-    } else if (currentTemp === 26) {
-      currentBg = temperatures.temp26;
-      currentBarBg = temperatures.temp26d;
-    } else if (currentTemp === 27) {
-      currentBg = temperatures.temp27;
-      currentBarBg = temperatures.temp27d;
-    } else if (currentTemp === 28) {
-      currentBg = temperatures.temp28;
-      currentBarBg = temperatures.temp28d;
-    } else if (currentTemp === 29) {
-      currentBg = temperatures.temp29;
-      currentBarBg = temperatures.temp29d;
-    } else if (currentTemp === 30) {
-      currentBg = temperatures.temp30;
-      currentBarBg = temperatures.temp30d;
-    } else if (currentTemp === 31) {
-      currentBg = temperatures.temp31;
-      currentBarBg = temperatures.temp31d;
-    } else if (currentTemp === 32) {
-      currentBg = temperatures.temp32;
-      currentBarBg = temperatures.temp32d;
-    } else if (currentTemp === 33) {
-      currentBg = temperatures.temp33;
-      currentBarBg = temperatures.temp33d;
-    } else if (currentTemp === 34) {
-      currentBg = temperatures.temp34;
-      currentBarBg = temperatures.temp34d;
-    } else if (currentTemp === 35) {
-      currentBg = temperatures.temp35;
-      currentBarBg = temperatures.temp35d;
-    } else if ((currentTemp > 35) && (currentTemp < 41)) {
-      currentBg = temperatures.temp36to40;
-      currentBarBg = temperatures.temp36to40d;
-    } else if ((currentTemp > 40) && (currentTemp < 51)) {
-      currentBg = temperatures.temp41to50;
-      currentBarBg = temperatures.temp41to50d;
-    } else if (currentTemp > 50) {
-      currentBg = temperatures.tempAbove50;
-      currentBarBg = temperatures.tempAbove50d;
-    }
+      // group 2xx: thunderstorm
+      if (currentID >= 200 && currentID <= 232) {
+          currentBg = colours.thunderStormDark;
+          currentBarBg = colours.thunderStorm;
+        // group 3xx: drizzle
+      } else if (
+        (currentID) >= 300 &&
+        (currentID) <= 321
+      ) {
+          currentBg = colours.showerRainDark;
+          currentBarBg = colours.showerRain;
+        // group 5xx: rain
+      } else if (
+        (currentID) >= 500 &&
+        (currentID) <= 531
+      ) {
+          currentBg = colours.rainDark;
+          currentBarBg = colours.rain;
+        // group 6xx: snow
+      } else if (
+        (currentID) >= 600 &&
+        (currentID) <= 622
+      ) {
+          currentBg = colours.snowDark;
+          currentBarBg = colours.snow;
+        // group 7xx: atmosphere
+      } else if (
+        (currentID) >= 701 &&
+        (currentID) <= 781
+      ) {
+          currentBg = colours.thunderStormDark;
+          currentBarBg = colours.thunderStorm;
+        // group 80x: scattered clouds
+      } else if (
+        (currentID) >= 801 &&
+        (currentID) <= 802
+      ) {
+          currentBg = colours.scatteredCloudsDark;
+          currentBarBg = colours.scatteredClouds;
+        // group 80x: broken clouds
+      } else if (
+        (currentID) >= 803 &&
+        (currentID) <= 804
+      ) {
+          currentBg = colours.brokenCloudsDark;
+          currentBarBg = colours.brokenClouds;
+        // group 800: clear
+      } else {
+          currentBg = colours.clearSkyDark;
+          currentBarBg = colours.clearSky;
+      }
 
     imageBg = currentBg;
 
-    console.log(currentBg + ' From day function');
+    console.log(imageBg,'From day function');
 
     this.setState({
       weekBg: currentBg,

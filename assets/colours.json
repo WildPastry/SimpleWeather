@@ -1,22 +1,46 @@
 {
-  "simpleWeather": "#313136",
-  
-  "night": "#35363d",
-  "nightDark": "#262833",
+	"simpleWeather": "#313136",
 
-  "black": "#000",
-  "white": "#fff",
+	"black": "#000",
+	"white": "#fff",
 
-  "spotYellow": "#ffc82e",
-  "spotBlue": "#1faadb",
-  "spotOrange": "#fa774f",
-  "spotGreen": "#37d493",
-  "spotRed": "#ff6b6b",
+	"spotYellow": "#ffc82e",
+	"spotBlue": "#1faadb",
+	"spotOrange": "#fa774f",
+	"spotGreen": "#37d493",
+	"spotRed": "#ff6b6b",
 
-  "spotLightGrey": "#e0e0e0",
-  "spotGrey": "#c9c9c9",
-  "spotGreyMed": "#313136",
-  "spotGreyDark": "#2b2b2e",
-  "spotGreyTrans": "#31313631",
-  "spotGreyDarkTrans": "#2929384f"
+	"spotGrey": "#c9c9c9",
+	"spotLightGrey": "#e0e0e0",
+	"spotGreyMed": "#313136",
+	"spotGreyDark": "#2b2b2e",
+	"spotGreyTrans": "#31313631",
+	"spotGreyDarkTrans": "#2929384f",
+
+	"night": "#35363d",
+	"nightDark": "#262833",
+
+	"clearSky": "#e6a441",
+	"clearSkyDark": "#e68a00",
+
+	"scatteredClouds": "#6e859e",
+	"scatteredCloudsDark": "#5d6e80",
+
+	"brokenClouds": "#6e859e",
+	"brokenCloudsDark": "#546679",
+
+	"showerRain": "#2485c7",
+	"showerRainDark": "#106dac",
+
+	"rain": "#2485c7",
+	"rainDark": "#0b5a8f",
+
+	"thunderStorm": "#505050",
+	"thunderStormDark": "#353535",
+
+	"snow": "#174683",
+	"snowDark": "#002f69",
+
+	"mist": "#c8c8c8",
+	"mistDark": "#999999"
 }

@@ -164,23 +164,6 @@ class Week extends Component {
 
                       {/* START wind and humidity */}
                       <View style={weekStyles.weekWindHumWrap}>
-                        {/* START feels like */}
-                        {/* <View style={weekStyles.weekWindWrap}>
-                          <Text
-                            style={{
-                              fontFamily: 'weatherfont',
-                              fontSize: 24,
-                              textAlign: 'center',
-                              color: colours.white
-                            }}>
-                            {weatherIcons.snowflake.code}
-                          </Text>
-                          <Text style={weekStyles.weekWindHumDetails}>
-                            {'  '}
-                            {dailyWeather.main.feels_like}°
-                          </Text>
-                        </View> */}
-                        {/* END feels like */}
 
                         {/* START wind speed */}
                         <View style={weekStyles.weekWindWrap}>

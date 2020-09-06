@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string()
     .label('Name')
     .required()
-    .min(2, 'Must have at least 2 characters'),
+    .min(3, 'Must have at least 3 characters'),
   email: Yup.string()
     .label('Email')
     .email('Enter a valid email')
@@ -91,7 +91,7 @@ class Signup extends Component {
       <View style={signupStyles.container}>
         <KeyboardAvoidingView
           enabled
-          behavior='padding'>
+          behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView>
             <Formik
               initialValues={{

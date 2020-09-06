@@ -20,7 +20,6 @@ const validationSchema = Yup.object().shape({
 class ForgotPassword extends Component {
   handlePasswordReset = async (values, actions) => {
     const { email } = values
-
     try {
       await this.props.firebase.passwordReset(email)
       console.log('Password reset email sent successfully')
@@ -37,7 +36,6 @@ class ForgotPassword extends Component {
     console.log('Inside render from ForgotPassword...');
     return (
       <SafeAreaView style={forgotPasswordStyles.container}>
-          <Text style={forgotPasswordStyles.text}>Reset Password</Text>
         <Formik
           initialValues={{ email: '' }}
           onSubmit={(values, actions) => {
@@ -104,12 +102,6 @@ const forgotPasswordStyles = StyleSheet.create({
   link: {
     alignItems: 'center',
     margin: 8
-  },
-  text: {
-    color: colours.white,
-    fontFamily: 'allerLt',
-    fontSize: 18,
-    marginLeft: 25
   },
   buttonContainer: {
     margin: 25,

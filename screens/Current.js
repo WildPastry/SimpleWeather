@@ -487,7 +487,6 @@ class Current extends Component {
             backgroundColor: colourBarBg,
             marginBottom: 15
           }}>
-
             <View style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
@@ -559,7 +558,7 @@ class Current extends Component {
                 /> {' '}Daily Summary
               </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.desc}{' '}with{' '}{Math.round(this.props.wind)} km/h wind and{' '}{this.props.humidity}% humidity</Text>
               {/* sun details */}
-              {/* {this.renderSunDetails()} */}
+              {this.renderSunDetails()}
             </View>
 
           </CollapseBody>

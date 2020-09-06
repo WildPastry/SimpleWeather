@@ -11,8 +11,6 @@ import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
-// https://github.com/cawfree/react-native-basement/blob/master/docs/GETTING-STARTED.md
-
 // Use iPhone6 as base size which is 375 x 667
 const baseWidth = 375;
 const baseHeight = 667;
