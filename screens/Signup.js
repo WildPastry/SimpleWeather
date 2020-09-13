@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
+	Alert,
 	StyleSheet,
 	View,
 	TouchableOpacity,
@@ -84,7 +85,8 @@ class Signup extends Component {
 					.createNewUser(userData)
 					.then(function () {
 						var user = firebase.auth().currentUser;
-						user.sendEmailVerification()
+						user
+							.sendEmailVerification()
 							.then(function () {
 								console.log('Success in sending email');
 							})
@@ -96,6 +98,13 @@ class Signup extends Component {
 						console.log(error);
 					});
 			}
+			// Alert
+			// Alert.alert(
+			// 	'Account successfully created',
+			// 	'You can now sign into the app with your credentials',
+			// 	[{ text: 'Confirm', onPress: () => this.goToLogin }],
+			// 	{ cancelable: false }
+			// );
 		} catch (error) {
 			console.log(error);
 			actions.setFieldError('general', error.message);

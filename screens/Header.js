@@ -1,7 +1,14 @@
 // imports
 import React, { Component } from 'react';
-import { Alert, Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button } from 'react-native-elements'
+import {
+	Alert,
+	Animated,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { Button } from 'react-native-elements';
 import SavedLocations from './SavedLocations';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
@@ -17,317 +24,401 @@ import 'firebase/auth';
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 // run timeout function
-{ timeout }
+{
+	timeout;
+}
 
 // START Header
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      progress: false,
-      showMenu: false,
-      savedLocations: []
-    };
-    this.handleAnimate = this.handleAnimate.bind(this);
-    this.handleHome = this.handleHome.bind(this);
-    this.handleFail = this.handleFail.bind(this);
-    this.handleSuccess = this.handleSuccess.bind(this);
-    this.updateSkyData = this.updateSkyData.bind(this);
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			progress: false,
+			showMenu: false,
+			savedLocations: [],
+		};
+		this.handleAnimate = this.handleAnimate.bind(this);
+		this.handleHome = this.handleHome.bind(this);
+		this.handleFail = this.handleFail.bind(this);
+		this.handleSuccess = this.handleSuccess.bind(this);
+		this.updateSkyData = this.updateSkyData.bind(this);
+	}
 
-  renderMenuOption() {
-    // Change menu based on user status
-    let menuDisplay;
-    // load firebase data
-    var user = firebase.auth().currentUser;
-    if (user) {
-      console.log('Current signed in user email:  ' + user.providerData[0].email);
-      menuDisplay = (
-        <Button
-          title='Signout'
-          onPress={this.handleSignout}
-          titleStyle={headerStyles.menuTitle}
-          type='clear' />
-      );
-    } else {
-      console.log('No user is logged in...');
-      menuDisplay = (
-        <Button
-          title='Login or create account'
-          onPress={this.handleLogin}
-          titleStyle={headerStyles.menuTitle}
-          type='clear' />
-      );
-    }
-    return menuDisplay;
-  }
+	renderMenuOption() {
+		// Change menu based on user status
+		let menuDisplay;
+		// load firebase data
+		var user = firebase.auth().currentUser;
+		if (user) {
+			console.log(
+				'Current signed in user email:  ' + user.providerData[0].email
+			);
+			menuDisplay = (
+				<Button
+					title='Signout'
+					onPress={this.handleSignout}
+					titleStyle={headerStyles.menuTitle}
+					type='clear'
+				/>
+			);
+		} else {
+			console.log('No user is logged in...');
+			menuDisplay = (
+				<Button
+					title='Login or create account'
+					onPress={this.handleLogin}
+					titleStyle={headerStyles.menuTitle}
+					type='clear'
+				/>
+			);
+		}
+		return menuDisplay;
+	}
 
-  // START componentDidMount
-  componentDidMount = async () => {
-    let mounted = true;
-    if (mounted) {
-      console.log('inside componentDidMount from Header.js');
-      // check firebase for user
-      var user = firebase.auth().currentUser;
-      if (user) {
-        // user is signed in
-        // load firebase data
-        const db = firebase.firestore();
-        const dbRT = firebase.database();
-        const ref = dbRT.ref(user.uid);
-        const locationRef = ref.child("locations");
-        var docRef = db.collection("users").doc(user.uid);
-        // check if the signed in user has data saved
-        docRef.get().then(function (doc) {
-          if (doc.exists) {
-            console.log("User", doc.data().name, "is logged in");
-          } else {
-            console.log("No docs exist...");
-          }
-        }).catch(function (error) {
-          console.log("Error getting document:", error);
-        });
-        // get signed in users saved data on load
-        locationRef.on('value', snapshot => {
-          if (snapshot.exists()) {
-            let data = snapshot.val();
-            let locations = Object.values(data);
-            this.setState({ savedLocations: locations }, function () {
-              console.log('Locations loaded in Header.js...');
-            })
-          } else {
-            // if they have no locations saved set state to null
-            this.setState({
-              savedLocations: ''
-            });
-          }
-        })
-      } else {
-        console.log('No user is currently logged in...');
-      }
-    }
-    return () => mounted = false;
-  }
-  // END componentDidMount
+	// START componentDidMount
+	componentDidMount = async () => {
+		let mounted = true;
+		if (mounted) {
+			console.log('inside componentDidMount from Header.js');
+			// check firebase for user
+			var user = firebase.auth().currentUser;
+			if (user) {
+				// user is signed in
+				// load firebase data
+				const db = firebase.firestore();
+				const dbRT = firebase.database();
+				const ref = dbRT.ref(user.uid);
+				const locationRef = ref.child('locations');
+				var docRef = db.collection('users').doc(user.uid);
+				// check if the signed in user has data saved
+				docRef
+					.get()
+					.then(function (doc) {
+						if (doc.exists) {
+							console.log('User', doc.data().name, 'is logged in');
+						} else {
+							console.log('No docs exist...');
+						}
+					})
+					.catch(function (error) {
+						console.log('Error getting document:', error);
+					});
+				// get signed in users saved data on load
+				locationRef.on('value', (snapshot) => {
+					if (snapshot.exists()) {
+						let data = snapshot.val();
+						let locations = Object.values(data);
+						this.setState({ savedLocations: locations }, function () {
+							console.log('Locations loaded in Header.js...');
+						});
+					} else {
+						// if they have no locations saved set state to null
+						this.setState({
+							savedLocations: '',
+						});
+					}
+				});
+			} else {
+				console.log('No user is currently logged in...');
+			}
+		}
+		return () => (mounted = false);
+	};
+	// END componentDidMount
 
-  // handle alert fail
-  handleFail = () => {
-    console.log('Inside handleFail from Header.js...');
-    // Alert
-    Alert.alert(
-      'Not Logged In',
-      'Please login or signup to set a location as home',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Login', onPress: this.handleLogin },
-      ],
-      { cancelable: false },
-    );
-  }
+	// handle location limit
+	handleLimit = () => {
+		console.log('Inside handleLimit from GlobalModal.js...');
+		// Alert
+		Alert.alert(
+			'Limit Reached',
+			'Cant set this location to home because its not a saved location and the maximum saved locations are reached, please remove a saved location to add this one.',
+			[{ text: 'OK', onPress: this.dismissModal, style: 'cancel' }],
+			{ cancelable: false }
+		);
+	};
 
-  // handle alert success
-  handleSuccess = () => {
-    console.log('Inside handleSuccess from Header.js...');
-    // Alert
-    Alert.alert(
-      'Success',
-      'New location set as home',
-      [
-        { text: 'OK', style: 'cancel' },
-      ],
-      { cancelable: false },
-    );
-  }
+	// handle alert fail
+	handleFail = () => {
+		console.log('Inside handleFail from Header.js...');
+		// Alert
+		Alert.alert(
+			'Not Logged In',
+			'Please login or signup to set a location as home',
+			[
+				{ text: 'Cancel', style: 'cancel' },
+				{ text: 'Login', onPress: this.handleLogin },
+			],
+			{ cancelable: false }
+		);
+	};
 
-  // handle delete
-  handleDelete(val) {
-    var user = firebase.auth().currentUser;
-    const dbRT = firebase.database();
-    let mounted = true;
-    if (mounted) {
-      console.log(val);
-      dbRT.ref(user.uid + '/locations/' + val).remove();
-    }
-    return () => mounted = false;
-  }
+	// handle alert success
+	handleSuccess = (val) => {
+		console.log('Inside handleSuccess from Header.js...');
+		// Alert
+		Alert.alert(
+			'Success',
+			val + ' is set as home',
+			[{ text: 'OK', style: 'cancel' }],
+			{ cancelable: false }
+		);
+	};
 
-  // update sky data function
-  updateSkyData(val) {
-    let mounted = true;
-    if (mounted) {
-      console.log('Inside handleLocationChange from Header.js...');
-      console.log(val);
-      var options = {
-        googleLat: val['currentSavedLat'],
-        googleLng: val['currentSavedLng'],
-        googleName: val['currentSavedName']
-      };
-      this.props.updateSkyData(options);
-    }
-    return () => mounted = false;
-  }
+	// handle delete
+	handleDelete(val) {
+		var user = firebase.auth().currentUser;
+		const dbRT = firebase.database();
+		let mounted = true;
+		if (mounted) {
+			console.log(val);
+			dbRT.ref(user.uid + '/locations/' + val).remove();
+		}
+		return () => (mounted = false);
+	}
 
-  // handle home
-  handleHome(val) {
-    let mounted = true;
-    if (mounted) {
-      // this.handleAnimate();
-      console.log('Inside handleHome from Header.js...');
-      var options = {
-        currentSavedLat: val[0],
-        currentSavedLng: val[1],
-        currentSavedName: val[2]
-      }
-      console.log(options);
-      // check firebase for user
-      var user = firebase.auth().currentUser;
-      if (user) {
-        console.log('User ID:  ' + user.uid);
-        console.log('User email:  ' + user.providerData[0].email);
-        // user is signed in
-        // load firebase data
-        const dbRT = firebase.database();
-        // save home location
-        dbRT.ref(user.uid + '/home').set({
-          lat: options.currentSavedLat,
-          lng: options.currentSavedLng,
-          location: options.currentSavedName
-        }, function (error) {
-          if (error) {
-            console.log(error);
-          } else {
-            // no error and user is signed in so:
-            console.log('Home location saved...');
-          }
-        });
-      } else {
-        // no user is signed in
-        console.log('No user is logged in to save details...');
-        this.handleFail();
-      }
-    }
-    // if (user) {
-    //   this.handleSuccess();
-    // }
-    return () => mounted = false;
-  }
+	// update sky data function
+	updateSkyData(val) {
+		let mounted = true;
+		if (mounted) {
+			console.log('Inside handleLocationChange from Header.js...');
+			console.log(val);
+			var options = {
+				googleLat: val['currentSavedLat'],
+				googleLng: val['currentSavedLng'],
+				googleName: val['currentSavedName'],
+			};
+			this.props.updateSkyData(options);
+		}
+		return () => (mounted = false);
+	}
 
-  // handle signout
-  handleSignout = async () => {
-    try {
-      await this.props.firebase.signOut()
-      this.props.navigation.navigate('Auth');
-      console.log('User has been signed out...');
-    } catch (error) {
-      console.log(error)
-    }
-  }
+	// handle home
+	handleHome(val) {
+		let mounted = true;
+		if (mounted) {
+			// this.handleAnimate();
+			console.log('Inside handleHome from Header.js...');
+			var options = {
+				currentSavedLat: val[0],
+				currentSavedLng: val[1],
+				currentSavedName: val[2],
+			};
+			console.log(options);
+			// check firebase for user
+			var user = firebase.auth().currentUser;
+			if (user) {
+				console.log('User ID:', user.uid);
+				console.log('User email:', user.providerData[0].email);
+				// user is signed in
+				// load firebase data
+				const dbRT = firebase.database();
+				if (this.state.savedLocations.length < 5) {
+					const e = this.state.savedLocations.some(
+						(location) => options.currentSavedName === location.location
+					);
+					if (e != true) {
+						console.log('Must be false: ' + e);
+						const ref = dbRT.ref(user.uid);
+						const locationRef = ref.child('locations');
+						// get the unique key generated
+						var newLocationId = locationRef.push({}).key;
+						// save location details to database
+						dbRT.ref(user.uid + '/locations/' + newLocationId).set(
+							{
+								key: newLocationId,
+								lat: this.props.currentLat,
+								lng: this.props.currentLng,
+								location: this.props.currentLocation,
+							},
+							function (error) {
+								if (error) {
+									console.log(error);
+								} else {
+									// no error and user is signed in so:
+									console.log('Location details saved...');
+								}
+							}
+						);
+					} else {
+						console.log('Must be true: ' + e);
+					}
+					// save home location
+					dbRT.ref(user.uid + '/home').set(
+						{
+							lat: options.currentSavedLat,
+							lng: options.currentSavedLng,
+							location: options.currentSavedName,
+						},
+						function (error) {
+							if (error) {
+								console.log(error);
+							} else {
+								// no error and user is signed in so:
+								console.log('Home location saved...');
+							}
+						}
+					);
+				} else {
+					this.handleLimit();
+				}
+			} else {
+				// no user is signed in
+				console.log('No user is logged in to save details...');
+				this.handleFail();
+			}
+		}
+		if (user) {
+			this.handleSuccess(options.currentSavedName);
+		}
+		return () => (mounted = false);
+	}
 
-  // handle login
-  handleLogin = () => this.props.navigation.navigate('Login');
+	// async locationCheck(val) {
+	//   console.log('COMPARE: ' + val);
+	//   console.log(this.state.savedLocations);
+	//   try {
+	//     const response = await fetch(url);
+	//     console.log(await response.text());
+	//   }
+	//   catch (err) {
+	//     console.log('fetch failed', err);
+	//   }
+	// }
 
-  // handle animation
-  handleAnimate = () => {
-    let mounted = true;
-    if (mounted) {
-      console.log('Inside handleAnimate from Header.js...');
-      if (this.state.progress === false) {
-        this.animation.play(20, 80);
-        this.setState({
-          progress: true,
-          showMenu: true
-        });
-      } else {
-        console.log('Inside handleAnimate from Header.js...');
-        this.animation.play(110, 150);
-        this.setState({
-          progress: false,
-          showMenu: false
-        });
-      }
-    }
-    return () => mounted = false;
-  }
+	// location check
+	// locationCheck = (val) => {
+	//   let response;
+	//   console.log('COMPARE: ' + val);
+	//   console.log(this.state.savedLocations);
+	// 	// check location length to limit it to 5
+	// 	if (this.state.savedLocations.length < 5) {
+	//     console.log('Less than 5');
+	//     response = true;
+	// 	} else {
+	//     console.log('5...');
+	//     response = false;
+	//   }
+	//   return response;
+	// };
 
-  // START render Header
-  render() {
-    console.log('Inside render from Header.js...');
-    return (
-      // master wrap
-      <View>
-        {/* header wrap */}
-        <View style={headerStyles.headerWrap}>
-          {/* hamburger */}
-          <AnimatedTouchable onPress={this.handleAnimate} style={{
-            height: 35,
-            width: 35,
-          }}>
-            <LottieView
-              ref={animation => {
-                this.animation = animation;
-              }}
-              source={require('./../assets/animations/hamburger.json')}
-              loop={false}
-            />
-          </AnimatedTouchable>
-          {/* brand wrap */}
-          <View style={{ flexDirection: 'row' }}>
-            {/* brand text */}
-            <Text
-              style={headerStyles.simpleWeather}>
-              SIMPLE WEATHER
-            </Text>
-          </View>
-          {/* right icon for balance */}
-          <View style={{
-            backgroundColor: colours.spotGreyMed,
-            height: 35,
-            width: 35
-          }} />
-        </View>
-        {/* menu */}
-        {this.state.showMenu &&
-          <View style={headerStyles.menuWrap}>
-            {/* render menu based on user status */}
-            <View style={headerStyles.border}>
-              {this.renderMenuOption()}
-            </View>
-            {/* set current location as home */}
-            <View style={headerStyles.border}>
-              <Button
-                title='Set current location to home'
-                onPress={this.handleHome.bind(this, [
-                  this.props.currentLat,
-                  this.props.currentLng,
-                  this.props.currentLocation
-                ])}
-                titleStyle={headerStyles.menuTextGreen}
-                type='clear' />
-            </View>
-            <View>
-              {/* saved locations list */}
-              {this.state.savedLocations.length > 0 ? (
-                <View style={headerStyles.listWrap}>
-                  <SavedLocations
-                    style={headerStyles.listItems}
-                    savedLocations={this.state.savedLocations}
-                    updateSkyData={this.updateSkyData}
-                    handleDelete={this.handleDelete} />
-                </View>
-              ) : (
-                  <View style={headerStyles.listWrap}>
-                    <Text style={headerStyles.menuTextYellow}>
-                      No saved locations
-                  </Text>
-                  </View>
-                )}
-            </View>
-          </View>
-        }
-      </View>
-    );
-  }
-  // END render Header
+	// handle signout
+	handleSignout = async () => {
+		try {
+			await this.props.firebase.signOut();
+			this.props.navigation.navigate('Auth');
+			console.log('User has been signed out...');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// handle login
+	handleLogin = () => this.props.navigation.navigate('Login');
+
+	// handle animation
+	handleAnimate = () => {
+		let mounted = true;
+		if (mounted) {
+			console.log('Inside handleAnimate from Header.js...');
+			if (this.state.progress === false) {
+				this.animation.play(20, 80);
+				this.setState({
+					progress: true,
+					showMenu: true,
+				});
+			} else {
+				console.log('Inside handleAnimate from Header.js...');
+				this.animation.play(110, 150);
+				this.setState({
+					progress: false,
+					showMenu: false,
+				});
+			}
+		}
+		return () => (mounted = false);
+	};
+
+	// START render Header
+	render() {
+		console.log('Inside render from Header.js...');
+		return (
+			// master wrap
+			<View>
+				{/* header wrap */}
+				<View style={headerStyles.headerWrap}>
+					{/* hamburger */}
+					<AnimatedTouchable
+						onPress={this.handleAnimate}
+						style={{
+							height: 35,
+							width: 35,
+						}}>
+						<LottieView
+							ref={(animation) => {
+								this.animation = animation;
+							}}
+							source={require('./../assets/animations/hamburger.json')}
+							loop={false}
+						/>
+					</AnimatedTouchable>
+					{/* brand wrap */}
+					<View style={{ flexDirection: 'row' }}>
+						{/* brand text */}
+						<Text style={headerStyles.simpleWeather}>SIMPLE WEATHER</Text>
+					</View>
+					{/* right icon for balance */}
+					<View
+						style={{
+							backgroundColor: colours.spotGreyMed,
+							height: 35,
+							width: 35,
+						}}
+					/>
+				</View>
+				{/* menu */}
+				{this.state.showMenu && (
+					<View style={headerStyles.menuWrap}>
+						{/* render menu based on user status */}
+						<View style={headerStyles.border}>{this.renderMenuOption()}</View>
+						{/* set current location as home */}
+						<View style={headerStyles.border}>
+							<Button
+								title='Set current location to home'
+								onPress={this.handleHome.bind(this, [
+									this.props.currentLat,
+									this.props.currentLng,
+									this.props.currentLocation,
+								])}
+								titleStyle={headerStyles.menuTextGreen}
+								type='clear'
+							/>
+						</View>
+						<View>
+							{/* saved locations list */}
+							{this.state.savedLocations.length > 0 ? (
+								<View style={headerStyles.listWrap}>
+									<SavedLocations
+										style={headerStyles.listItems}
+										savedLocations={this.state.savedLocations}
+										updateSkyData={this.updateSkyData}
+										handleDelete={this.handleDelete}
+									/>
+								</View>
+							) : (
+								<View style={headerStyles.listWrap}>
+									<Text style={headerStyles.menuTextYellow}>
+										No saved locations
+									</Text>
+								</View>
+							)}
+						</View>
+					</View>
+				)}
+			</View>
+		);
+	}
+	// END render Header
 }
 // END Header
 
@@ -335,76 +426,76 @@ export default withFirebaseHOC(Header);
 
 // style
 const headerStyles = StyleSheet.create({
-  flex: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  menuWrap: {
-    backgroundColor: colours.spotGreyDark,
-    borderBottomColor: colours.spotGrey,
-    borderBottomWidth: 1
-  },
-  listWrap: {
-    backgroundColor: colours.spotGreyDark
-  },
-  listItems: {
-    paddingTop: 4,
-    paddingBottom: 4
-  },
-  menuTitle: {
-    color: colours.white,
-    fontSize: 18,
-    fontFamily: 'allerRg',
-    textAlign: 'center',
-    padding: 8
-  },
-  border: {
-    borderBottomColor: colours.spotGrey,
-    borderBottomWidth: 1
-  },
-  menuTextYellow: {
-    color: colours.spotYellow,
-    fontSize: 18,
-    fontFamily: 'allerRg',
-    textAlign: 'center',
-    paddingRight: 8,
-    paddingLeft: 8,
-    paddingBottom: 10,
-    paddingTop: 10
-  },
-  menuTextGreen: {
-    color: colours.spotGreen,
-    fontSize: 18,
-    fontFamily: 'allerRg',
-    textAlign: 'center',
-    padding: 8
-  },
-  simpleWeather: {
-    color: colours.white,
-    fontSize: 22,
-    fontFamily: 'allerDisplay',
-    textAlign: 'center',
-    paddingTop: 4
-  },
-  saveLocationButton: {
-    padding: 8,
-    marginBottom: 8
-  },
-  brandIconSmall: {
-    alignSelf: 'center',
-    height: 35,
-    width: 35
-  },
-  headerWrap: {
-    paddingRight: 5,
-    paddingLeft: 5,
-    paddingBottom: 10,
-    paddingTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: colours.spotGreyMed,
-    borderBottomColor: colours.spotGrey,
-    borderBottomWidth: 1
-  }
+	flex: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	menuWrap: {
+		backgroundColor: colours.spotGreyDark,
+		borderBottomColor: colours.spotGrey,
+		borderBottomWidth: 1,
+	},
+	listWrap: {
+		backgroundColor: colours.spotGreyDark,
+	},
+	listItems: {
+		paddingTop: 4,
+		paddingBottom: 4,
+	},
+	menuTitle: {
+		color: colours.white,
+		fontSize: 18,
+		fontFamily: 'allerRg',
+		textAlign: 'center',
+		padding: 8,
+	},
+	border: {
+		borderBottomColor: colours.spotGrey,
+		borderBottomWidth: 1,
+	},
+	menuTextYellow: {
+		color: colours.spotYellow,
+		fontSize: 18,
+		fontFamily: 'allerRg',
+		textAlign: 'center',
+		paddingRight: 8,
+		paddingLeft: 8,
+		paddingBottom: 10,
+		paddingTop: 10,
+	},
+	menuTextGreen: {
+		color: colours.spotGreen,
+		fontSize: 18,
+		fontFamily: 'allerRg',
+		textAlign: 'center',
+		padding: 8,
+	},
+	simpleWeather: {
+		color: colours.white,
+		fontSize: 22,
+		fontFamily: 'allerDisplay',
+		textAlign: 'center',
+		paddingTop: 4,
+	},
+	saveLocationButton: {
+		padding: 8,
+		marginBottom: 8,
+	},
+	brandIconSmall: {
+		alignSelf: 'center',
+		height: 35,
+		width: 35,
+	},
+	headerWrap: {
+		paddingRight: 5,
+		paddingLeft: 5,
+		paddingBottom: 10,
+		paddingTop: 10,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		backgroundColor: colours.spotGreyMed,
+		borderBottomColor: colours.spotGrey,
+		borderBottomWidth: 1,
+	},
 });

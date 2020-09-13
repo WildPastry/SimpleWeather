@@ -556,7 +556,7 @@ class Current extends Component {
                   size={19}
                   color={colours.white}
                 /> {' '}Daily Summary
-              </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.desc}{' '}with{' '}{Math.round(this.props.wind)} km/h wind and{' '}{this.props.humidity}% humidity</Text>
+              </Text><Text style={currentStyles.currentDescSummary}>Feels like{' '}{Math.round(this.props.feelslike)}°,{' '}{this.props.desc}{' '}with{' '}{Math.round(this.props.wind)} km/h wind,{' '}{this.props.humidity}% humidity and an expected high of {this.props.high}°</Text>
               {/* sun details */}
               {this.renderSunDetails()}
             </View>

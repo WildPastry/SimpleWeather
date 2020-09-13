@@ -57,8 +57,6 @@ class App extends Component {
       // open weather current data array and id
       openWeather: [],
       openWeatherId: null,
-      // error message
-      errorMessage: null,
       // current weather and location data
       currentIcon: '',
       currentLat: null,
@@ -410,7 +408,6 @@ class App extends Component {
                   currentBg={this.state.weekBg}
                   currentBarBg={this.state.weekBarBg}
                   updateSkyData={this.updateSkyData}
-                  errorMessage={this.state.errorMessag}
                   currentLocation={this.state.currentLocation}
                   currentLat={this.state.currentLat}
                   currentLng={this.state.currentLng}

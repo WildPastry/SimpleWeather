@@ -10,7 +10,7 @@
     "accordion-collapse-react-native": "^0.2.10",
     "dot-prop": "^5.2.0",
     "expo": "^38.0.0",
-    "expo-cli": "^3.26.2",
+    "expo-cli": "^3.27.4",
     "expo-font": "~8.2.1",
     "firebase": "^7.17.2",
     "formik": "1.5.8",
