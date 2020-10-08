@@ -253,8 +253,10 @@ class Current extends Component {
     var currentDateTime = moment.utc(moment(currentDate * 1000)).format("dddd, MMMM Do, h:mm a");
 
     // set up colour bg variables
-    var colourBg = this.props.currentBg;
-    var colourBarBg = this.props.currentBarBg;
+    const colourBg = this.props.currentBg;
+    const colourBarBg = this.props.currentBarBg;
+    const colourBarBgDarkest = this.props.currentBarBgDarkest;
+    const colourBarBgDarker = this.props.currentBarBgDarker;
 
     // filter data for morning afternoon evening conditions
     let filterMorning = openData.filter(e => e.dt_txt.includes("09:00:00"));
@@ -490,22 +492,22 @@ class Current extends Component {
             <View style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              backgroundColor: colours.spotGreyDarkTrans,
+              backgroundColor: colourBarBgDarkest,
               padding: 15
             }}>
               <Text style={currentStyles.currentSecondaryInfoHeading}>
-                Morning</Text>
+                9am</Text>
               <Text style={currentStyles.currentSecondaryInfoHeading}>
-                Afternoon</Text>
+                Midday</Text>
               <Text style={currentStyles.currentSecondaryInfoHeading}>
-                Evening</Text>
+                6pm</Text>
             </View>
 
             {/* morning afternoon evening */}
             <View style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              backgroundColor: colours.spotGreyTrans,
+              backgroundColor: colourBarBgDarker,
               paddingLeft: 20,
               paddingRight: 20,
               paddingBottom: 15,

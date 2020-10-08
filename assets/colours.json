@@ -20,8 +20,10 @@
 	"night": "#35363d",
 	"nightDark": "#262833",
 
-	"clearSky": "#e6a441",
-	"clearSkyDark": "#e68a00",
+	"clearSky": "#fa9f15",
+	"clearSkyDark": "#ff9822",
+	"clearSkyDarker": "#ffae00",
+	"clearSkyDarkest": "#ffae00",
 
 	"scatteredClouds": "#6e859e",
 	"scatteredCloudsDark": "#5d6e80",

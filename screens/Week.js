@@ -41,6 +41,8 @@ class Week extends Component {
     // set up colour bg variables
     const colourBg = this.props.weekBg;
     const colourBarBg = this.props.weekBarBg;
+    const colourBarBgDarker = this.props.weekBarBgDarker;
+    const colourBarBgDarkest = this.props.weekBarBgDarkest;
 
     // set current weather icon based on weather
     return (
@@ -57,7 +59,7 @@ class Week extends Component {
             backgroundColor: colourBarBg,
             marginBottom: 10
           }}>
-            <View style={{ backgroundColor: colours.spotGreyDarkTrans }}>
+            <View style={{ backgroundColor: colourBarBgDarkest }}>
               <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
             </View>
           </View>

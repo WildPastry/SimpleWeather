@@ -212,7 +212,8 @@ class Header extends Component {
 				console.log('User email:', user.providerData[0].email);
 				// user is signed in
 				// load firebase data
-				const dbRT = firebase.database();
+        const dbRT = firebase.database();
+        console.log(this.state.savedLocations.length)
 				if (this.state.savedLocations.length < 5) {
 					const e = this.state.savedLocations.some(
 						(location) => options.currentSavedName === location.location
@@ -255,7 +256,8 @@ class Header extends Component {
 								console.log(error);
 							} else {
 								// no error and user is signed in so:
-								console.log('Home location saved...');
+                console.log('Home location saved...');
+                this.handleSuccess(options.currentSavedName);
 							}
 						}
 					);
@@ -268,39 +270,8 @@ class Header extends Component {
 				this.handleFail();
 			}
 		}
-		if (user) {
-			this.handleSuccess(options.currentSavedName);
-		}
 		return () => (mounted = false);
 	}
-
-	// async locationCheck(val) {
-	//   console.log('COMPARE: ' + val);
-	//   console.log(this.state.savedLocations);
-	//   try {
-	//     const response = await fetch(url);
-	//     console.log(await response.text());
-	//   }
-	//   catch (err) {
-	//     console.log('fetch failed', err);
-	//   }
-	// }
-
-	// location check
-	// locationCheck = (val) => {
-	//   let response;
-	//   console.log('COMPARE: ' + val);
-	//   console.log(this.state.savedLocations);
-	// 	// check location length to limit it to 5
-	// 	if (this.state.savedLocations.length < 5) {
-	//     console.log('Less than 5');
-	//     response = true;
-	// 	} else {
-	//     console.log('5...');
-	//     response = false;
-	//   }
-	//   return response;
-	// };
 
 	// handle signout
 	handleSignout = async () => {

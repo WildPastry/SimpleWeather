@@ -73,6 +73,8 @@ class App extends Component {
       // colour background
       weekBg: null,
       weekBarBg: null,
+      weekBarBgDarker: null,
+      weekBarBgDarkest: null,
       // night or day
       night: false
     };
@@ -266,7 +268,9 @@ class App extends Component {
     imageBg = colours.night;
     this.setState({
       weekBg: colours.night,
-      weekBarBg: colours.nightDark
+      weekBarBg: colours.nightDark,
+      weekBarBgDarker: colours.nightDark,
+      weekBarBgDarkest: colours.nightDark
     });
     // run app loaded function
     this.handleLoaded();
@@ -276,6 +280,9 @@ class App extends Component {
   setBgDay() {
     let currentBg;
     let currentBarBg;
+    let currentBarBgDarker;
+    let currentBarBgDarkest;
+
     var currentID = this.state.openWeatherId;
     console.log(currentID,'From day function');
 
@@ -329,6 +336,8 @@ class App extends Component {
       } else {
           currentBg = colours.clearSkyDark;
           currentBarBg = colours.clearSky;
+          currentBarBgDarker = colours.clearSkyDarker;
+          currentBarBgDarkest = colours.clearSkyDarkest;
       }
 
     imageBg = currentBg;
@@ -337,7 +346,9 @@ class App extends Component {
 
     this.setState({
       weekBg: currentBg,
-      weekBarBg: currentBarBg
+      weekBarBg: currentBarBg,
+      weekBarBgDarker: currentBarBgDarker,
+      weekBarBgDarkest: currentBarBgDarkest
     });
 
     // run app loaded function
@@ -407,6 +418,8 @@ class App extends Component {
                   weatherCode={this.state.openWeatherId}
                   currentBg={this.state.weekBg}
                   currentBarBg={this.state.weekBarBg}
+                  currentBarBgDarkest={this.state.weekBarBgDarkest}
+                  currentBarBgDarker={this.state.weekBarBgDarker}
                   updateSkyData={this.updateSkyData}
                   currentLocation={this.state.currentLocation}
                   currentLat={this.state.currentLat}
@@ -434,6 +447,8 @@ class App extends Component {
               style={{ backgroundColor: imageBg }}
               weekBg={this.state.weekBg}
               weekBarBg={this.state.weekBarBg}
+              weekBarBgDarkest={this.state.weekBarBgDarkest}
+              weekBarBgDarker={this.state.weekBarBgDarker}
               weatherCode={this.state.openWeatherId}
               weather={this.state.openWeekWeather.list}
               skyWeather={this.state.skyWeather.daily.data}
