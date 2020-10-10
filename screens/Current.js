@@ -501,7 +501,7 @@ class Current extends Component {
 								justifyContent: 'space-between',
 								paddingLeft: 25,
 								paddingRight: 25,
-								paddingBottom: 15,
+								paddingBottom: 10,
 								paddingTop: 5,
 							}}>
 							{/* Morning */}
@@ -567,7 +567,7 @@ class Current extends Component {
 						</View>
 
 						{/* border */}
-						<View style={currentStyles.border}></View>
+						{/* <View style={currentStyles.border}></View> */}
 
 						{/* daily summary */}
 						<View style={{ padding: 10 }}>

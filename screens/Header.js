@@ -128,41 +128,54 @@ class Header extends Component {
 
 	// handle location limit
 	handleLimit = () => {
-		console.log('Inside handleLimit from GlobalModal.js...');
-		// Alert
-		Alert.alert(
-			'Limit Reached',
-			'Cant set this location to home because its not a saved location and the maximum saved locations are reached, please remove a saved location to add this one.',
-			[{ text: 'OK', onPress: this.dismissModal, style: 'cancel' }],
-			{ cancelable: false }
-		);
+		let mounted = true;
+		if (mounted) {
+			console.log('Inside handleLimit from GlobalModal.js...');
+			// Alert
+			Alert.alert(
+				'Limit Reached',
+				'Cant set this location to home because its not a saved location and the maximum saved locations are reached, please remove a saved location to add this one.',
+				[{ text: 'OK', onPress: this.dismissModal, style: 'cancel' }],
+				{ cancelable: false }
+			);
+		}
+		return () => (mounted = false);
 	};
 
 	// handle alert fail
 	handleFail = () => {
-		console.log('Inside handleFail from Header.js...');
-		// Alert
-		Alert.alert(
-			'Not Logged In',
-			'Please login or signup to set a location as home',
-			[
-				{ text: 'Cancel', style: 'cancel' },
-				{ text: 'Login', onPress: this.handleLogin },
-			],
-			{ cancelable: false }
-		);
+		let mounted = true;
+		if (mounted) {
+			console.log('Inside handleFail from Header.js...');
+			// Alert
+			Alert.alert(
+				'Not Logged In',
+				'Please login or signup to set a location as home',
+				[
+					{ text: 'Cancel', style: 'cancel' },
+					{ text: 'Login', onPress: this.handleLogin },
+				],
+				{ cancelable: false }
+			);
+		}
+		return () => (mounted = false);
 	};
 
 	// handle alert success
 	handleSuccess = (val) => {
-		console.log('Inside handleSuccess from Header.js...');
-		// Alert
-		Alert.alert(
-			'Success',
-			val + ' is set as home',
-			[{ text: 'OK', style: 'cancel' }],
-			{ cancelable: false }
-		);
+		let mounted = true;
+		if (mounted) {
+			console.log('Inside handleSuccess from Header.js...');
+			console.log(val,'From handleSuccess in Header.js')
+			// Alert
+			Alert.alert(
+				'Success',
+				val + ' is set as home',
+				[{ text: 'OK', style: 'cancel' }],
+				{ cancelable: false }
+			);
+		}
+		return () => (mounted = false);
 	};
 
 	// handle delete
@@ -182,7 +195,7 @@ class Header extends Component {
 		let mounted = true;
 		if (mounted) {
 			console.log('Inside handleLocationChange from Header.js...');
-			console.log(val);
+			console.log(val,'From updateSkyData in Header.js');
 			var options = {
 				googleLat: val['currentSavedLat'],
 				googleLng: val['currentSavedLng'],
@@ -197,7 +210,6 @@ class Header extends Component {
 	handleHome(val) {
 		let mounted = true;
 		if (mounted) {
-			// this.handleAnimate();
 			console.log('Inside handleHome from Header.js...');
 			var options = {
 				currentSavedLat: val[0],
@@ -212,38 +224,37 @@ class Header extends Component {
 				console.log('User email:', user.providerData[0].email);
 				// user is signed in
 				// load firebase data
-        const dbRT = firebase.database();
-        console.log(this.state.savedLocations.length)
-				if (this.state.savedLocations.length < 5) {
-					const e = this.state.savedLocations.some(
-						(location) => options.currentSavedName === location.location
-					);
-					if (e != true) {
-						console.log('Must be false: ' + e);
-						const ref = dbRT.ref(user.uid);
-						const locationRef = ref.child('locations');
-						// get the unique key generated
-						var newLocationId = locationRef.push({}).key;
-						// save location details to database
-						dbRT.ref(user.uid + '/locations/' + newLocationId).set(
-							{
-								key: newLocationId,
-								lat: this.props.currentLat,
-								lng: this.props.currentLng,
-								location: this.props.currentLocation,
-							},
-							function (error) {
-								if (error) {
-									console.log(error);
-								} else {
-									// no error and user is signed in so:
-									console.log('Location details saved...');
-								}
-							}
-						);
-					} else {
-						console.log('Must be true: ' + e);
-					}
+				const dbRT = firebase.database();
+				console.log(this.state.savedLocations.length, 'locations saved...');
+				// if (this.state.savedLocations.length < 5) {
+				const e = this.state.savedLocations.some(
+					(location) => options.currentSavedName === location.location
+				);
+				if (e != true) {
+					console.log('Current location is saved?', e);
+					// const ref = dbRT.ref(user.uid);
+					// const locationRef = ref.child('locations');
+					// // get the unique key generated
+					// var newLocationId = locationRef.push({}).key;
+					// // save location details to database
+					// dbRT.ref(user.uid + '/locations/' + newLocationId).set(
+					// 	{
+					// 		key: newLocationId,
+					// 		lat: this.props.currentLat,
+					// 		lng: this.props.currentLng,
+					// 		location: this.props.currentLocation,
+					// 	},
+					// 	function (error) {
+					// 		if (error) {
+					// 			console.log(error);
+					// 		} else {
+					// 			// no error and user is signed in so:
+					// 			console.log('Location details saved...');
+					// 		}
+					// 	}
+					// );
+				} else {
+					console.log('Current location is saved?', e);
 					// save home location
 					dbRT.ref(user.uid + '/home').set(
 						{
@@ -256,14 +267,17 @@ class Header extends Component {
 								console.log(error);
 							} else {
 								// no error and user is signed in so:
-                console.log('Home location saved...');
-                this.handleSuccess(options.currentSavedName);
+								console.log('Home location saved...');
+								console.log(options.currentSavedName);
+								this.handleSuccess(options.currentSavedName);
 							}
 						}
 					);
-				} else {
-					this.handleLimit();
 				}
+
+				// } else {
+				// 	this.handleLimit();
+				// }
 			} else {
 				// no user is signed in
 				console.log('No user is logged in to save details...');

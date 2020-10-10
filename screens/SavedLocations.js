@@ -38,18 +38,22 @@ class SavedLocations extends Component {
 
 	// handle alert
 	handleAlert = (val) => {
-		console.log('Inside handleAlert from SavedLocations.js...');
-		console.log('Value is: ' + val);
-		// Alert
-		Alert.alert(
-			'Remove Location',
-			'Are you sure you want to remove this saved location?',
-			[
-				{ text: 'No', style: 'cancel' },
-				{ text: 'Yes', onPress: () => this.handleDelete(val) },
-			],
-			{ cancelable: false }
-		);
+		let mounted = true;
+		if (mounted) {
+			console.log('Inside handleAlert from SavedLocations.js...');
+			console.log('Value is: ',val),'from handleAlert in SavedLocations.js...';
+			// Alert
+			Alert.alert(
+				'Remove Location',
+				'Are you sure you want to remove this saved location?',
+				[
+					{ text: 'No', style: 'cancel' },
+					{ text: 'Yes', onPress: () => this.handleDelete(val) },
+				],
+				{ cancelable: false }
+			);
+		}
+		return () => (mounted = false);
 	};
 
 	// handle location change
@@ -68,37 +72,41 @@ class SavedLocations extends Component {
 
 	// START component mounted
 	componentDidMount() {
-		// set temporary array to check for a saved home location
-		var checkHome = this.props.savedLocations;
-		// check firebase for user
-		var user = firebase.auth().currentUser;
-		if (user) {
-			// user is signed in
-			// load firebase data
-			const dbRT = firebase.database();
-			const ref = dbRT.ref(user.uid);
-			const homeRef = ref.child('home');
-			// get signed in users saved data on load
-			homeRef.on('value', (snapshot) => {
-				if (snapshot.exists()) {
-					let home = snapshot.val();
-					// set the home location as the conditions to check the array
-					const conditions = [home.location];
-					// loop through and check each value
-					Array.from(checkHome).forEach((arg) => {
-						var checkVal = conditions.some((e) => arg.location.includes(e));
-						arg.icon = checkVal;
-					});
+		let mounted = true;
+		if (mounted) {
+			// set temporary array to check for a saved home location
+			var checkHome = this.props.savedLocations;
+			// check firebase for user
+			var user = firebase.auth().currentUser;
+			if (user) {
+				// user is signed in
+				// load firebase data
+				const dbRT = firebase.database();
+				const ref = dbRT.ref(user.uid);
+				const homeRef = ref.child('home');
+				// get signed in users saved data on load
+				homeRef.on('value', (snapshot) => {
+					if (snapshot.exists()) {
+						let home = snapshot.val();
+						// set the home location as the conditions to check the array
+						const conditions = [home.location];
+						// loop through and check each value
+						Array.from(checkHome).forEach((arg) => {
+							var checkVal = conditions.some((e) => arg.location.includes(e));
+							arg.icon = checkVal;
+						});
 
-					this.setState({
-						home: checkHome,
-					});
-				} else {
-					console.log('No home saved...');
-				}
-			});
-			// no user
+						this.setState({
+							home: checkHome,
+						});
+					} else {
+						console.log('No home saved...');
+					}
+				});
+				// no user
+			}
 		}
+		return () => (mounted = false);
 	}
 	// END component mounted
 

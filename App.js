@@ -121,7 +121,7 @@ class App extends Component {
 	// update sky data function
 	updateSkyData(val) {
 		console.log('Inside updateSkyData from App.js...');
-		console.log(val);
+		console.log(val,'From updateSkyData in App.js');
 		this.setState(
 			{
 				isLoaded: false,
@@ -154,56 +154,58 @@ class App extends Component {
 		console.log(
 			'Inside componentDidMount from App.js: Mounted = ' + this._isMounted
 		);
-		// check firebase for user
-		var user = firebase.auth().currentUser;
-		if (user) {
-			// user is signed in
-			// load firebase data
-			const db = firebase.firestore(),
-				dbRT = firebase.database(),
-				ref = dbRT.ref(user.uid),
-				homeRef = ref.child('home');
-			var docRef = db.collection('users').doc(user.uid);
-			// check if the signed in user has data saved
-			docRef
-				.get()
-				.then(function (doc) {
-					if (doc.exists) {
-						console.log('User', doc.data().name, 'is logged in');
+		if (this._isMounted) {
+			// check firebase for user
+			var user = firebase.auth().currentUser;
+			if (user) {
+				// user is signed in
+				// load firebase data
+				const db = firebase.firestore(),
+					dbRT = firebase.database(),
+					ref = dbRT.ref(user.uid),
+					homeRef = ref.child('home');
+				var docRef = db.collection('users').doc(user.uid);
+				// check if the signed in user has data saved
+				docRef
+					.get()
+					.then(function (doc) {
+						if (doc.exists) {
+							console.log('User', doc.data().name, 'is logged in');
+						} else {
+							console.log('No docs exist...');
+						}
+					})
+					.catch(function (error) {
+						console.log('Error getting document:', error);
+					});
+				// get signed in users saved data on load
+				homeRef.on('value', (snapshot) => {
+					if (snapshot.exists()) {
+						let home = snapshot.val();
+						console.log(home, 'From componentDidMount in App.js');
+						var homeLat = home.lat,
+							homeLng = home.lng,
+							homeLocation = home.location;
+						this.setState(
+							{
+								currentLat: homeLat,
+								currentLng: homeLng,
+								currentLocation: homeLocation,
+							},
+							this.getSkyData
+						);
 					} else {
-						console.log('No docs exist...');
+						console.log('No home saved...');
+						// run fallback function
+						this.fallback();
 					}
-				})
-				.catch(function (error) {
-					console.log('Error getting document:', error);
 				});
-			// get signed in users saved data on load
-			homeRef.on('value', (snapshot) => {
-				if (snapshot.exists()) {
-					let home = snapshot.val();
-					console.log(home);
-					var homeLat = home.lat,
-						homeLng = home.lng,
-						homeLocation = home.location;
-					this.setState(
-						{
-							currentLat: homeLat,
-							currentLng: homeLng,
-							currentLocation: homeLocation,
-						},
-						this.getSkyData
-					);
-				} else {
-					console.log('No home saved...');
-					// run fallback function
-					this.fallback();
-				}
-			});
-			// no user
-		} else {
-			console.log('No user is currently logged in...');
-			// run fallback function
-			this.fallback();
+				// no user
+			} else {
+				console.log('No user is currently logged in...');
+				// run fallback function
+				this.fallback();
+			}
 		}
 	}
 	// END component mounted
@@ -368,10 +370,12 @@ class App extends Component {
 		if (currentID >= 200 && currentID <= 232) {
 			currentBg = colours.thunderStormDark;
 			currentBarBg = colours.thunderStorm;
+			currentBarBgDarkest = colours.thunderStormDarkest;
 			// group 3xx: drizzle + group 5xx: rain
 		} else if (currentID >= 300 && currentID <= 531) {
 			currentBg = colours.rainDark;
 			currentBarBg = colours.rain;
+			currentBarBgDarkest = colours.rainDarkest;
 			// group 6xx: snow
 		} else if (currentID >= 600 && currentID <= 622) {
 			currentBg = colours.snowDark;
