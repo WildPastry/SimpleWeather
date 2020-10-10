@@ -30,8 +30,8 @@ const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 // START Header
 class Header extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			progress: false,
 			showMenu: false,
