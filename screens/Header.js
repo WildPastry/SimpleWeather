@@ -1,7 +1,6 @@
 // imports
 import React, { Component } from 'react';
 import {
-	Alert,
 	Animated,
 	StyleSheet,
 	Text,
@@ -35,159 +34,9 @@ class Header extends Component {
 		this.state = {
 			progress: false,
 			showMenu: false,
-			savedLocations: [],
 		};
 		this.handleAnimate = this.handleAnimate.bind(this);
-		this.handleHome = this.handleHome.bind(this);
-		this.handleFail = this.handleFail.bind(this);
-		this.handleSuccess = this.handleSuccess.bind(this);
 		this.updateSkyData = this.updateSkyData.bind(this);
-	}
-
-	renderMenuOption() {
-		// Change menu based on user status
-		let menuDisplay;
-		// load firebase data
-		var user = firebase.auth().currentUser;
-		if (user) {
-			console.log(
-				'Current signed in user email:  ' + user.providerData[0].email
-			);
-			menuDisplay = (
-				<Button
-					title='Signout'
-					onPress={this.handleSignout}
-					titleStyle={headerStyles.menuTitle}
-					type='clear'
-				/>
-			);
-		} else {
-			console.log('No user is logged in...');
-			menuDisplay = (
-				<Button
-					title='Login or create account'
-					onPress={this.handleLogin}
-					titleStyle={headerStyles.menuTitle}
-					type='clear'
-				/>
-			);
-		}
-		return menuDisplay;
-	}
-
-	// START componentDidMount
-	componentDidMount = async () => {
-		let mounted = true;
-		if (mounted) {
-			console.log('inside componentDidMount from Header.js');
-			// check firebase for user
-			var user = firebase.auth().currentUser;
-			if (user) {
-				// user is signed in
-				// load firebase data
-				const db = firebase.firestore();
-				const dbRT = firebase.database();
-				const ref = dbRT.ref(user.uid);
-				const locationRef = ref.child('locations');
-				var docRef = db.collection('users').doc(user.uid);
-				// check if the signed in user has data saved
-				docRef
-					.get()
-					.then(function (doc) {
-						if (doc.exists) {
-							console.log('User', doc.data().name, 'is logged in');
-						} else {
-							console.log('No docs exist...');
-						}
-					})
-					.catch(function (error) {
-						console.log('Error getting document:', error);
-					});
-				// get signed in users saved data on load
-				locationRef.on('value', (snapshot) => {
-					if (snapshot.exists()) {
-						let data = snapshot.val();
-						let locations = Object.values(data);
-						this.setState({ savedLocations: locations }, function () {
-							console.log('Locations loaded in Header.js...');
-						});
-					} else {
-						// if they have no locations saved set state to null
-						this.setState({
-							savedLocations: '',
-						});
-					}
-				});
-			} else {
-				console.log('No user is currently logged in...');
-			}
-		}
-		return () => (mounted = false);
-	};
-	// END componentDidMount
-
-	// handle location limit
-	handleLimit = () => {
-		let mounted = true;
-		if (mounted) {
-			console.log('Inside handleLimit from GlobalModal.js...');
-			// Alert
-			Alert.alert(
-				'Limit Reached',
-				'Cant set this location to home because its not a saved location and the maximum saved locations are reached, please remove a saved location to add this one.',
-				[{ text: 'OK', onPress: this.dismissModal, style: 'cancel' }],
-				{ cancelable: false }
-			);
-		}
-		return () => (mounted = false);
-	};
-
-	// handle alert fail
-	handleFail = () => {
-		let mounted = true;
-		if (mounted) {
-			console.log('Inside handleFail from Header.js...');
-			// Alert
-			Alert.alert(
-				'Not Logged In',
-				'Please login or signup to set a location as home',
-				[
-					{ text: 'Cancel', style: 'cancel' },
-					{ text: 'Login', onPress: this.handleLogin },
-				],
-				{ cancelable: false }
-			);
-		}
-		return () => (mounted = false);
-	};
-
-	// handle alert success
-	handleSuccess = (val) => {
-		let mounted = true;
-		if (mounted) {
-			console.log('Inside handleSuccess from Header.js...');
-			console.log(val,'From handleSuccess in Header.js')
-			// Alert
-			Alert.alert(
-				'Success',
-				val + ' is set as home',
-				[{ text: 'OK', style: 'cancel' }],
-				{ cancelable: false }
-			);
-		}
-		return () => (mounted = false);
-	};
-
-	// handle delete
-	handleDelete(val) {
-		var user = firebase.auth().currentUser;
-		const dbRT = firebase.database();
-		let mounted = true;
-		if (mounted) {
-			console.log(val);
-			dbRT.ref(user.uid + '/locations/' + val).remove();
-		}
-		return () => (mounted = false);
 	}
 
 	// update sky data function
@@ -195,94 +44,13 @@ class Header extends Component {
 		let mounted = true;
 		if (mounted) {
 			console.log('Inside handleLocationChange from Header.js...');
-			console.log(val,'From updateSkyData in Header.js');
+			console.log(val, 'From updateSkyData in Header.js');
 			var options = {
 				googleLat: val['currentSavedLat'],
 				googleLng: val['currentSavedLng'],
 				googleName: val['currentSavedName'],
 			};
 			this.props.updateSkyData(options);
-		}
-		return () => (mounted = false);
-	}
-
-	// handle home
-	handleHome(val) {
-		let mounted = true;
-		if (mounted) {
-			console.log('Inside handleHome from Header.js...');
-			var options = {
-				currentSavedLat: val[0],
-				currentSavedLng: val[1],
-				currentSavedName: val[2],
-			};
-			console.log(options);
-			// check firebase for user
-			var user = firebase.auth().currentUser;
-			if (user) {
-				console.log('User ID:', user.uid);
-				console.log('User email:', user.providerData[0].email);
-				// user is signed in
-				// load firebase data
-				const dbRT = firebase.database();
-				console.log(this.state.savedLocations.length, 'locations saved...');
-				// if (this.state.savedLocations.length < 5) {
-				const e = this.state.savedLocations.some(
-					(location) => options.currentSavedName === location.location
-				);
-				if (e != true) {
-					console.log('Current location is saved?', e);
-					// const ref = dbRT.ref(user.uid);
-					// const locationRef = ref.child('locations');
-					// // get the unique key generated
-					// var newLocationId = locationRef.push({}).key;
-					// // save location details to database
-					// dbRT.ref(user.uid + '/locations/' + newLocationId).set(
-					// 	{
-					// 		key: newLocationId,
-					// 		lat: this.props.currentLat,
-					// 		lng: this.props.currentLng,
-					// 		location: this.props.currentLocation,
-					// 	},
-					// 	function (error) {
-					// 		if (error) {
-					// 			console.log(error);
-					// 		} else {
-					// 			// no error and user is signed in so:
-					// 			console.log('Location details saved...');
-					// 		}
-					// 	}
-					// );
-				} else {
-					console.log('Current location is saved?', e);
-					// save home location
-					dbRT.ref(user.uid + '/home').set(
-						{
-							lat: options.currentSavedLat,
-							lng: options.currentSavedLng,
-							location: options.currentSavedName,
-						},
-						function (error) {
-							if (error) {
-								console.log(error);
-							} else {
-								// no error and user is signed in so:
-								console.log('Home location saved...');
-								console.log(options.currentSavedName);
-								this.handleSuccess(options.currentSavedName);
-							}
-						}
-					);
-				}
-
-				// } else {
-				// 	this.handleLimit();
-				// }
-			} else {
-				// no user is signed in
-				console.log('No user is logged in to save details...');
-				this.handleFail();
-			}
 		}
 		return () => (mounted = false);
 	}
@@ -323,6 +91,48 @@ class Header extends Component {
 		}
 		return () => (mounted = false);
 	};
+
+	// Menu options
+	renderMenuOption() {
+		// Change menu based on user status
+		let menuDisplay;
+		// load firebase data
+		var user = firebase.auth().currentUser;
+		if (user) {
+			console.log(
+				'Current signed in user email:  ' + user.providerData[0].email
+			);
+			menuDisplay = (
+				<Button
+					title='Signout'
+					onPress={this.handleSignout}
+					titleStyle={headerStyles.menuTitle}
+					type='clear'
+				/>
+			);
+		} else {
+			console.log('No user is logged in...');
+			menuDisplay = (
+				<Button
+					title='Login or create account'
+					onPress={this.handleLogin}
+					titleStyle={headerStyles.menuTitle}
+					type='clear'
+				/>
+			);
+		}
+		return menuDisplay;
+	}
+
+	// START componentDidMount
+	componentDidMount = async () => {
+		let isMounted = true;
+		if (isMounted) {
+			console.log('inside componentDidMount from Header.js');
+		}
+		return () => (isMounted = false);
+	};
+	// END componentDidMount
 
 	// START render Header
 	render() {
@@ -366,37 +176,16 @@ class Header extends Component {
 					<View style={headerStyles.menuWrap}>
 						{/* render menu based on user status */}
 						<View style={headerStyles.border}>{this.renderMenuOption()}</View>
-						{/* set current location as home */}
-						<View style={headerStyles.border}>
-							<Button
-								title='Set current location to home'
-								onPress={this.handleHome.bind(this, [
-									this.props.currentLat,
-									this.props.currentLng,
-									this.props.currentLocation,
-								])}
-								titleStyle={headerStyles.menuTextGreen}
-								type='clear'
+						{/* saved locations list */}
+						<View style={headerStyles.listWrap}>
+							<SavedLocations
+								style={headerStyles.listItems}
+								navigation={this.props.navigation}
+								currentLat={this.props.currentLat}
+								currentLng={this.props.currentLng}
+								currentLocation={this.props.currentLocation}
+								updateSkyData={this.updateSkyData}
 							/>
-						</View>
-						<View>
-							{/* saved locations list */}
-							{this.state.savedLocations.length > 0 ? (
-								<View style={headerStyles.listWrap}>
-									<SavedLocations
-										style={headerStyles.listItems}
-										savedLocations={this.state.savedLocations}
-										updateSkyData={this.updateSkyData}
-										handleDelete={this.handleDelete}
-									/>
-								</View>
-							) : (
-								<View style={headerStyles.listWrap}>
-									<Text style={headerStyles.menuTextYellow}>
-										No saved locations
-									</Text>
-								</View>
-							)}
 						</View>
 					</View>
 				)}
@@ -429,7 +218,7 @@ const headerStyles = StyleSheet.create({
 		paddingBottom: 4,
 	},
 	menuTitle: {
-		color: colours.white,
+		color: colours.spotYellow,
 		fontSize: 18,
 		fontFamily: 'allerRg',
 		textAlign: 'center',
@@ -439,38 +228,12 @@ const headerStyles = StyleSheet.create({
 		borderBottomColor: colours.spotGrey,
 		borderBottomWidth: 1,
 	},
-	menuTextYellow: {
-		color: colours.spotYellow,
-		fontSize: 18,
-		fontFamily: 'allerRg',
-		textAlign: 'center',
-		paddingRight: 8,
-		paddingLeft: 8,
-		paddingBottom: 10,
-		paddingTop: 10,
-	},
-	menuTextGreen: {
-		color: colours.spotGreen,
-		fontSize: 18,
-		fontFamily: 'allerRg',
-		textAlign: 'center',
-		padding: 8,
-	},
 	simpleWeather: {
 		color: colours.white,
 		fontSize: 22,
 		fontFamily: 'allerDisplay',
 		textAlign: 'center',
 		paddingTop: 4,
-	},
-	saveLocationButton: {
-		padding: 8,
-		marginBottom: 8,
-	},
-	brandIconSmall: {
-		alignSelf: 'center',
-		height: 35,
-		width: 35,
 	},
 	headerWrap: {
 		paddingRight: 5,

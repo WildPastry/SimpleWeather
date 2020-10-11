@@ -121,7 +121,7 @@ class App extends Component {
 	// update sky data function
 	updateSkyData(val) {
 		console.log('Inside updateSkyData from App.js...');
-		console.log(val,'From updateSkyData in App.js');
+		console.log(val, 'From updateSkyData in App.js');
 		this.setState(
 			{
 				isLoaded: false,
@@ -148,7 +148,7 @@ class App extends Component {
 	}
 
 	// START component mounted
-	componentDidMount() {
+	componentDidMount = async () => {
 		// set component mounted
 		this._isMounted = true;
 		console.log(
@@ -170,7 +170,7 @@ class App extends Component {
 					.get()
 					.then(function (doc) {
 						if (doc.exists) {
-							console.log('User', doc.data().name, 'is logged in');
+							console.log('User', doc.data().name, 'is logged in, From componentDidMount in App.js');
 						} else {
 							console.log('No docs exist...');
 						}
@@ -179,7 +179,7 @@ class App extends Component {
 						console.log('Error getting document:', error);
 					});
 				// get signed in users saved data on load
-				homeRef.on('value', (snapshot) => {
+				homeRef.once('value', (snapshot) => {
 					if (snapshot.exists()) {
 						let home = snapshot.val();
 						console.log(home, 'From componentDidMount in App.js');
@@ -380,10 +380,12 @@ class App extends Component {
 		} else if (currentID >= 600 && currentID <= 622) {
 			currentBg = colours.snowDark;
 			currentBarBg = colours.snow;
+			currentBarBgDarkest = colours.snowDarkest;
 			// group 7xx: atmosphere
 		} else if (currentID >= 701 && currentID <= 781) {
 			currentBg = colours.atmosphereDark;
 			currentBarBg = colours.atmosphere;
+			currentBarBgDarkest = colours.atmosphereDarkest;
 			// group 800: clear
 		} else if (currentID == 800) {
 			currentBg = colours.clearSkyDark;
@@ -464,10 +466,10 @@ class App extends Component {
 						<FirebaseProvider value={Firebase}>
 							<Header
 								navigation={this.props.navigation}
-								currentLocation={this.state.currentLocation}
-								updateSkyData={this.updateSkyData}
 								currentLat={this.state.currentLat}
 								currentLng={this.state.currentLng}
+								currentLocation={this.state.currentLocation}
+								updateSkyData={this.updateSkyData}
 							/>
 							{/* current */}
 							<View style={{ backgroundColor: imageBg }}>
@@ -478,10 +480,9 @@ class App extends Component {
 									currentBg={this.state.weekBg}
 									currentBarBg={this.state.weekBarBg}
 									currentBarBgDarkest={this.state.weekBarBgDarkest}
-									updateSkyData={this.updateSkyData}
-									currentLocation={this.state.currentLocation}
 									currentLat={this.state.currentLat}
 									currentLng={this.state.currentLng}
+									currentLocation={this.state.currentLocation}
 									wind={this.state.wind}
 									humidity={this.state.humidity}
 									temp={this.state.temp}
@@ -497,6 +498,7 @@ class App extends Component {
 									rawOffset={this.state.rawOffset}
 									timeZoneId={this.state.timeZoneId}
 									openWeather={this.state.openWeekWeather}
+									updateSkyData={this.updateSkyData}
 								/>
 							</View>
 						</FirebaseProvider>

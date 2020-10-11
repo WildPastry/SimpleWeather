@@ -19,8 +19,8 @@ import 'firebase/auth';
 
 // START GlobalModal
 class GlobalModal extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			modalVisible: false,
 			locationCheck: [],
@@ -31,11 +31,11 @@ class GlobalModal extends Component {
 		this.handleSuccess = this.handleSuccess.bind(this);
 		this.handleDuplicate = this.handleDuplicate.bind(this);
 		this.locationCheck = this.locationCheck.bind(this);
-	}
+	};
 
 	componentDidMount = async () => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('inside componentDidMount from GlobalModal.js');
 			// // check firebase for user
 			var user = firebase.auth().currentUser;
@@ -46,7 +46,7 @@ class GlobalModal extends Component {
 				const ref = dbRT.ref(user.uid);
 				const locationRef = ref.child('locations');
 				// get signed in users saved data on click
-				locationRef.on('value', (snapshot) => {
+				locationRef.once('value', (snapshot) => {
 					if (snapshot.exists()) {
 						let data = snapshot.val();
 						let locations = Object.values(data);
@@ -59,7 +59,7 @@ class GlobalModal extends Component {
 				console.log('No user is currently logged in...');
 			}
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// show/hide modal visibility
@@ -67,13 +67,13 @@ class GlobalModal extends Component {
 		this.setState({ modalVisible: visible }, () =>
 			console.log('Is modal visible? ' + this.state.modalVisible)
 		);
-	}
+	};
 
 	// dimiss modal
 	dismissModal() {
 		console.log('Inside dismissModal from GlobalModal.js...');
 		this.setModalVisible(false);
-	}
+	};
 
 	// handle login
 	handleLogin = () => this.props.navigation.navigate('Login');
@@ -172,8 +172,8 @@ class GlobalModal extends Component {
 
 	// handle location
 	handleLocation = () => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('Inside handleLocation from GlobalModal.js...');
 			// check firebase for user
 			var user = firebase.auth().currentUser;
@@ -213,7 +213,7 @@ class GlobalModal extends Component {
 		if (user) {
 			this.handleSuccess();
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// START render GlobalModal
@@ -271,7 +271,7 @@ class GlobalModal extends Component {
 		);
 	}
 	// END render GlobalModal
-}
+};
 // END GlobalModal
 
 export default withFirebaseHOC(GlobalModal);

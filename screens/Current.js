@@ -32,7 +32,7 @@ const geo = configData.GEO;
 var moment = require('moment');
 
 // group 2xx: thunderstorm
-const thunderStorm = require('./../assets/animations/weather/thunderStorm.json');
+const thunderStormRain = require('./../assets/animations/weather/thunderStormRain.json');
 // group 3xx: drizzle
 const lightDrizzle = require('./../assets/animations/weather/lightDrizzle.json');
 // group 5xx: rain
@@ -43,6 +43,9 @@ const heavyRain = require('./../assets/animations/weather/heavyRain.json');
 const snow = require('./../assets/animations/weather/snow.json');
 // group 7xx: atmosphere
 const mist = require('./../assets/animations/weather/mist.json');
+// group 800: clear
+const dayClear = require('./../assets/animations/weather/dayClear.json');
+const nightClear = require('./../assets/animations/weather/nightClear.json');
 // group 80x: clouds
 const fewClouds = require('./../assets/animations/weather/fewClouds.json');
 const fewCloudsNight = require('./../assets/animations/weather/fewCloudsNight.json');
@@ -52,9 +55,6 @@ const scatteredClouds = require('./../assets/animations/weather/scatteredClouds.
 const scatteredCloudsNight = require('./../assets/animations/weather/scatteredCloudsNight.json');
 const overcastClouds = require('./../assets/animations/weather/overcastClouds.json');
 const overcastCloudsNight = require('./../assets/animations/weather/overcastCloudsNight.json');
-// group 800: clear
-const dayClear = require('./../assets/animations/weather/dayClear.json');
-const nightClear = require('./../assets/animations/weather/nightClear.json');
 
 // capitalize first char
 String.prototype.capitalize = function () {
@@ -204,7 +204,7 @@ class Current extends Component {
 		// weather icon logic
 		// group 2xx: thunderstorm
 		if (weatherCode >= 200 && weatherCode <= 232) {
-			currentWeatherIcon = thunderStorm;
+			currentWeatherIcon = thunderStormRain;
 			// group 3xx: drizzle
 		} else if (weatherCode >= 300 && weatherCode <= 321) {
 			currentWeatherIcon = lightDrizzle;
@@ -404,12 +404,12 @@ class Current extends Component {
 					{/* globalmodal */}
 					<FirebaseProvider value={Firebase}>
 						<GlobalModal
+							navigation={this.props.navigation}
 							handleFail={this.handleFail}
 							handleSuccess={this.handleSuccess}
-							navigation={this.props.navigation}
-							currentLocation={this.props.currentLocation}
 							currentLat={this.props.currentLat}
 							currentLng={this.props.currentLng}
+							currentLocation={this.props.currentLocation}
 						/>
 					</FirebaseProvider>
 				</View>
@@ -686,8 +686,8 @@ const currentStyles = StyleSheet.create({
 	},
 	border: {
 		borderBottomColor: colours.spotYellow,
-    borderBottomWidth: 1,
-    marginLeft: 25,
-    marginRight: 25
+		borderBottomWidth: 1,
+		marginLeft: 25,
+		marginRight: 25,
 	},
 });
