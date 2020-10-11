@@ -1,6 +1,7 @@
 // imports
 import React, { Component } from 'react';
 import {
+	Alert,
 	Animated,
 	StyleSheet,
 	Text,
@@ -69,6 +70,28 @@ class Header extends Component {
 	// handle login
 	handleLogin = () => this.props.navigation.navigate('Login');
 
+	// handle signup
+	handleSignup = () => this.props.navigation.navigate('Signup');
+
+	// handle removal
+	handleRemoval = () => {
+		let isMounted = true;
+		if (isMounted) {
+			console.log('Inside handleRemoval from Header.js...');
+			// Alert
+			Alert.alert(
+				'Are you sure?',
+				'Once you confirm, your account will be removed',
+				[
+					{ text: 'Cancel', style: 'cancel' },
+					{ text: 'Confirm', style: 'cancel' },
+				],
+				{ cancelable: false }
+			);
+		}
+		return () => (isMounted = false);
+	};
+
 	// handle animation
 	handleAnimate = () => {
 		let mounted = true;
@@ -103,22 +126,40 @@ class Header extends Component {
 				'Current signed in user email:  ' + user.providerData[0].email
 			);
 			menuDisplay = (
-				<Button
-					title='Signout'
-					onPress={this.handleSignout}
-					titleStyle={headerStyles.menuTitle}
-					type='clear'
-				/>
+				<View>
+					<Button
+						title='Signout'
+						onPress={this.handleSignout}
+						titleStyle={headerStyles.menuTitleBlue}
+						type='clear'
+					/>
+					<View style={headerStyles.border} />
+					<Button
+						title='Remove account'
+						onPress={this.handleRemoval}
+						titleStyle={headerStyles.menuTitleRed}
+						type='clear'
+					/>
+				</View>
 			);
 		} else {
 			console.log('No user is logged in...');
 			menuDisplay = (
-				<Button
-					title='Login or create account'
-					onPress={this.handleLogin}
-					titleStyle={headerStyles.menuTitle}
-					type='clear'
-				/>
+				<View>
+					<Button
+						title='Login to the app'
+						onPress={this.handleLogin}
+						titleStyle={headerStyles.menuTitleGreen}
+						type='clear'
+					/>
+					<View style={headerStyles.border} />
+					<Button
+						title='Sign up for an account'
+						onPress={this.handleSignup}
+						titleStyle={headerStyles.menuTitleBlue}
+						type='clear'
+					/>
+				</View>
 			);
 		}
 		return menuDisplay;
@@ -217,10 +258,38 @@ const headerStyles = StyleSheet.create({
 		paddingTop: 4,
 		paddingBottom: 4,
 	},
-	menuTitle: {
+	menuTitleWhite: {
+		color: colours.spotWhite,
+		fontSize: 18,
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	menuTitleYellow: {
 		color: colours.spotYellow,
 		fontSize: 18,
-		fontFamily: 'allerRg',
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	menuTitleBlue: {
+		color: colours.spotBlue,
+		fontSize: 18,
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	menuTitleGreen: {
+		color: colours.spotGreen,
+		fontSize: 18,
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	menuTitleRed: {
+		color: colours.spotRed,
+		fontSize: 18,
+		fontFamily: 'allerLt',
 		textAlign: 'center',
 		padding: 8,
 	},

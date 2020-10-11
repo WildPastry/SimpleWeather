@@ -18,7 +18,7 @@ class SavedLocations extends Component {
 		this.state = {
 			home: [],
 			savedLocations: [],
-			refreshList: false,
+			isLoaded: true,
 		};
 		this.handleHome = this.handleHome.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
@@ -31,7 +31,7 @@ class SavedLocations extends Component {
 		let mounted = true;
 		if (mounted) {
 			// set temporary array to check for a saved home location
-			var checkHome = this.props.savedLocations;
+			var checkHome = this.state.savedLocations;
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -55,7 +55,12 @@ class SavedLocations extends Component {
 							home: checkHome,
 						});
 					} else {
-						console.log('No home saved...');
+						console.log(
+							'No home saved...from componentDidMount in SavedLocations.js'
+						);
+						this.setState({
+							home: checkHome,
+						});
 					}
 				});
 				// no user
@@ -109,13 +114,17 @@ class SavedLocations extends Component {
 						Array.from(checkHome).forEach((arg) => {
 							var checkVal = conditions.some((e) => arg.location.includes(e));
 							arg.icon = checkVal;
-							console.log(checkVal);
 						});
 						console.log(checkHome, 'From checkHome in SavedLocations.js');
 						// Save the new array to display the locations
 						this.setState({ home: checkHome });
 					} else {
-						console.log('No home saved...');
+						console.log(
+							'No home saved...from componentDidMount in SavedLocations.js'
+						);
+						this.setState({
+							home: checkHome,
+						});
 					}
 				});
 				// no user
@@ -132,9 +141,52 @@ class SavedLocations extends Component {
 		const dbRT = firebase.database();
 		let isMounted = true;
 		if (isMounted) {
-			console.log(val, 'From handleDelete in SavedLocations.js');
-			dbRT.ref(user.uid + '/locations/' + val).remove();
-			this.setState({ refreshList: true });
+			var options = {
+				currentID: val[0],
+				currentIcon: val[1],
+			};
+			console.log(options.currentID, 'From handleDelete in SavedLocations.js');
+			dbRT.ref(user.uid + '/locations/' + options.currentID).remove();
+			// load firebase data
+			const db = firebase.firestore();
+			const ref = dbRT.ref(user.uid);
+			// const homeRef = ref.child('home');
+			const locationRef = ref.child('locations');
+			const docRef = db.collection('users').doc(user.uid);
+			// check if the signed in user has data saved
+			docRef
+				.get()
+				.then(function (doc) {
+					if (doc.exists) {
+						console.log(
+							'User',
+							doc.data().name,
+							'is logged in, From handleDelete in SavedLocations.js'
+						);
+					} else {
+						console.log('No docs exist...');
+					}
+				})
+				.catch(function (error) {
+					console.log('Error getting document:', error);
+				});
+			// get signed in users saved data on load
+			locationRef.once('value', (snapshot) => {
+				if (snapshot.exists()) {
+					let data = snapshot.val();
+					let locations = Object.values(data);
+					this.setState({ savedLocations: locations }, () => {
+						console.log('Locations loaded in SavedLocations.js...');
+						console.log(this.state.savedLocations);
+						this.checkHome();
+					});
+				} else {
+					// if they have no locations saved set state to null
+					this.setState({
+						savedLocations: '',
+					});
+				}
+			});
 		}
 		return () => (isMounted = false);
 	}
@@ -149,7 +201,8 @@ class SavedLocations extends Component {
 				currentSavedLng: val[1],
 				currentSavedName: val[2],
 			};
-			console.log(options);
+			// set temporary array to check for a saved home location
+			var checkHome = this.state.savedLocations;
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -157,7 +210,11 @@ class SavedLocations extends Component {
 				console.log('User email:', user.providerData[0].email);
 				// user is signed in
 				// load firebase data
-				const dbRT = firebase.database();
+				const db = firebase.firestore(),
+					dbRT = firebase.database(),
+					ref = dbRT.ref(user.uid),
+					homeRef = ref.child('home');
+				var docRef = db.collection('users').doc(user.uid);
 				console.log(this.state.savedLocations.length, 'locations saved...');
 				// save home location
 				dbRT.ref(user.uid + '/home').set(
@@ -173,18 +230,50 @@ class SavedLocations extends Component {
 							// no error and user is signed in so:
 							console.log('Home location saved...');
 							console.log(options.currentSavedName);
-							// this.updateSkyData();
-							// Alert
-							// Alert.alert(
-							// 	'Home Location Set',
-							// 	'Location has been set to home',
-							// 	[{ text: 'Close', style: 'cancel' }],
-							// 	{ cancelable: false }
-							// );
 						}
-						this.setState({ refreshList: true });
 					}
 				);
+				// check if the signed in user has data saved
+				docRef
+					.get()
+					.then(function (doc) {
+						if (doc.exists) {
+							console.log(
+								'User',
+								doc.data().name,
+								'is logged in, From checkHome in SavedLocations.js'
+							);
+						} else {
+							console.log('No docs exist...');
+						}
+					})
+					.catch(function (error) {
+						console.log('Error getting document:', error);
+					});
+				// get signed in users saved data on load
+				homeRef.once('value', (snapshot) => {
+					if (snapshot.exists()) {
+						let home = snapshot.val();
+						// set the home location as the conditions to check the array
+						const conditions = [home.location];
+						// loop through and check each value
+						Array.from(checkHome).forEach((arg) => {
+							var checkVal = conditions.some((e) => arg.location.includes(e));
+							arg.icon = checkVal;
+							console.log(checkVal);
+						});
+						console.log(checkHome, 'From checkHome in SavedLocations.js');
+						// Save the new array to display the locations
+						this.setState({ home: checkHome });
+					} else {
+						console.log(
+							'No home saved...from componentDidMount in SavedLocations.js'
+						);
+						this.setState({
+							home: checkHome,
+						});
+					}
+				});
 			} else {
 				// no user is signed in
 				console.log('No user is logged in to save details...');
@@ -196,13 +285,19 @@ class SavedLocations extends Component {
 	// handle login
 	handleLogin = () => this.props.navigation.navigate('Login');
 
+	// handle signup
+	handleSignup = () => this.props.navigation.navigate('Signup');
+
 	// handle home alert
 	handleHomeAlert = (val) => {
 		let isMounted = true;
 		if (isMounted) {
 			console.log('Inside handleHomeAlert from SavedLocations.js...');
-			console.log('Value is: ', val),
-				'from handleHomeAlert in SavedLocations.js...';
+			console.log(
+				'Value is: ',
+				val,
+				'from handleHomeAlert in SavedLocations.js...'
+			);
 			// Alert
 			Alert.alert(
 				'Set Location as Home',
@@ -222,18 +317,35 @@ class SavedLocations extends Component {
 		let isMounted = true;
 		if (isMounted) {
 			console.log('Inside handleLocationAlert from SavedLocations.js...');
-			console.log('Value is: ', val),
-				'from handleLocationAlert in SavedLocations.js...';
-			// Alert
-			Alert.alert(
-				'Remove Location',
-				'Are you sure you want to remove this saved location?',
-				[
-					{ text: 'No', style: 'cancel' },
-					{ text: 'Yes', onPress: () => this.handleDelete(val) },
-				],
-				{ cancelable: false }
+			console.log(
+				'Value is: ',
+				val,
+				'from handleLocationAlert in SavedLocations.js...'
 			);
+			var options = {
+				currentID: val[0],
+				currentIcon: val[1],
+			};
+			if (options.currentIcon == true) {
+				// Alert 1
+				Alert.alert(
+					'Location is set to Home',
+					'Set another location to home to remove this location.',
+					[{ text: 'Confirm', style: 'cancel' }],
+					{ cancelable: false }
+				);
+			} else {
+				// Alert 2
+				Alert.alert(
+					'Remove Location',
+					'Are you sure you want to remove this saved location?',
+					[
+						{ text: 'No', style: 'cancel' },
+						{ text: 'Yes', onPress: () => this.handleDelete(val) },
+					],
+					{ cancelable: false }
+				);
+			}
 		}
 		return () => (isMounted = false);
 	};
@@ -250,6 +362,7 @@ class SavedLocations extends Component {
 				[
 					{ text: 'Cancel', style: 'cancel' },
 					{ text: 'Login', onPress: this.handleLogin },
+					{ text: 'Signup', onPress: this.handleSignup },
 				],
 				{ cancelable: false }
 			);
@@ -275,6 +388,7 @@ class SavedLocations extends Component {
 	componentDidMount = async () => {
 		let isMounted = true;
 		if (isMounted) {
+			console.log(this.state, 'From componentDidMount in SavedLocations');
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -331,6 +445,7 @@ class SavedLocations extends Component {
 	// START render SavedLocations
 	render() {
 		console.log('Inside render from SavedLocations.js...');
+		// console.log(this.state, 'From render in SavedLocations.js...');
 		return (
 			<View>
 				{this.state.savedLocations.length > 0 ? (
@@ -373,13 +488,13 @@ class SavedLocations extends Component {
 										)}
 										{/* remove location icon */}
 										<Ionicons
-											onPress={this.handleLocationAlert.bind(
-												this,
-												location.key
-											)}
+											onPress={this.handleLocationAlert.bind(this, [
+												location.key,
+												location.icon,
+											])}
 											name='ios-close-circle'
 											size={30}
-											color={colours.white}
+											color={colours.spotYellow}
 										/>
 									</View>
 								</View>
@@ -427,7 +542,7 @@ const savedLocationStyles = StyleSheet.create({
 	menuTextYellow: {
 		color: colours.spotYellow,
 		fontSize: 18,
-		fontFamily: 'allerRg',
+		fontFamily: 'allerLt',
 		textAlign: 'center',
 		paddingRight: 8,
 		paddingLeft: 8,

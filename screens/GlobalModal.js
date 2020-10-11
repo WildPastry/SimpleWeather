@@ -121,7 +121,7 @@ class GlobalModal extends Component {
 			// Alert
 			Alert.alert(
 				'Duplicate',
-				'This location has already been saved',
+				'This location has already been saved.',
 				[{ text: 'OK', onPress: this.dismissModal, style: 'cancel' }],
 				{ cancelable: false }
 			);
@@ -137,7 +137,7 @@ class GlobalModal extends Component {
 			// Alert
 			Alert.alert(
 				'Limit Reached',
-				'Maximum saved locations reached, please remove a saved location to add another.',
+				'Maximum saved locations reached, remove one to save another.',
 				[{ text: 'OK', onPress: this.dismissModal, style: 'cancel' }],
 				{ cancelable: false }
 			);
