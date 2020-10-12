@@ -31,13 +31,13 @@ class GlobalModal extends Component {
 		this.handleSuccess = this.handleSuccess.bind(this);
 		this.handleDuplicate = this.handleDuplicate.bind(this);
 		this.locationCheck = this.locationCheck.bind(this);
-	};
+	}
 
 	componentDidMount = async () => {
 		let isMounted = true;
 		if (isMounted) {
 			console.log('inside componentDidMount from GlobalModal.js');
-			// // check firebase for user
+			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
 				// user is signed in
@@ -67,21 +67,21 @@ class GlobalModal extends Component {
 		this.setState({ modalVisible: visible }, () =>
 			console.log('Is modal visible? ' + this.state.modalVisible)
 		);
-	};
+	}
 
 	// dimiss modal
 	dismissModal() {
 		console.log('Inside dismissModal from GlobalModal.js...');
 		this.setModalVisible(false);
-	};
+	}
 
 	// handle login
 	handleLogin = () => this.props.navigation.navigate('Login');
 
 	// handle alert fail
 	handleFail = () => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('Inside handleFail from GlobalModal.js...');
 			// Alert
 			Alert.alert(
@@ -94,13 +94,13 @@ class GlobalModal extends Component {
 				{ cancelable: false }
 			);
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// handle alert success
 	handleSuccess = () => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('Inside handleSuccess from GlobalModal.js...');
 			// Alert
 			Alert.alert(
@@ -110,13 +110,13 @@ class GlobalModal extends Component {
 				{ cancelable: false }
 			);
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// handle alert duplicate
 	handleDuplicate = () => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('Inside handleDuplicate from GlobalModal.js...');
 			// Alert
 			Alert.alert(
@@ -126,13 +126,13 @@ class GlobalModal extends Component {
 				{ cancelable: false }
 			);
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// handle location limit
 	handleLimit = () => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('Inside handleLimit from GlobalModal.js...');
 			// Alert
 			Alert.alert(
@@ -142,14 +142,35 @@ class GlobalModal extends Component {
 				{ cancelable: false }
 			);
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// location check
 	locationCheck = (val) => {
-		let mounted = true;
-		if (mounted) {
+		let isMounted = true;
+		if (isMounted) {
 			console.log('COMPARE: ' + val);
+			// check firebase for user
+			var user = firebase.auth().currentUser;
+			if (user) {
+				// user is signed in
+				// load firebase data
+				const dbRT = firebase.database();
+				const ref = dbRT.ref(user.uid);
+				const locationRef = ref.child('locations');
+				// get signed in users saved data on click
+				locationRef.once('value', (snapshot) => {
+					if (snapshot.exists()) {
+						let data = snapshot.val();
+						let locations = Object.values(data);
+						this.setState({ locationCheck: locations });
+					} else {
+						console.log('No snapshots exist...');
+					}
+				});
+			} else {
+				console.log('No user signed in...');
+			}
 			// check location length to limit it to 5
 			if (this.state.locationCheck.length < 5) {
 				// compare current location to the saved locations
@@ -167,7 +188,7 @@ class GlobalModal extends Component {
 				this.handleLimit();
 			}
 		}
-		return () => (mounted = false);
+		return () => (isMounted = false);
 	};
 
 	// handle location
@@ -271,7 +292,7 @@ class GlobalModal extends Component {
 		);
 	}
 	// END render GlobalModal
-};
+}
 // END GlobalModal
 
 export default withFirebaseHOC(GlobalModal);

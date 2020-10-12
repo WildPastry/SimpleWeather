@@ -15,17 +15,21 @@
 	"spotGreyMed": "#313136",
 	"spotGreyDark": "#2b2b2e",
 
-	"night": "#444253",
-	"nightDark": "#353150",
-	"nightDarkest": "#242038",
+	"night": "#223847",
+	"nightDark": "#09263b",
+	"nightDarkest": "#001c2e",
 
 	"thunderStorm": "#17577a",
 	"thunderStormDark": "#052c42",
 	"thunderStormDarkest": "#021c2b",
 
-	"rain": "#2485c7",
-	"rainDark": "#0b5a8f",
-	"rainDarkest": "#004472",
+	"drizzle": "#2485c7",
+	"drizzleDark": "#0b5a8f",
+	"drizzleDarkest": "#004472",
+
+	"rain": "#065d97",
+	"rainDark": "#013c63",
+	"rainDarkest": "#002842",
 
 	"snow": "#473f99",
 	"snowDark": "#2c2b66",
@@ -35,9 +39,9 @@
 	"atmosphereDark": "#05423a",
 	"atmosphereDarkest": "#00332b",
 
-	"clearSky": "#ff8331",
-	"clearSkyDark": "#ff7519",
-	"clearSkyDarkest": "#e95d00",
+	"clearSky": "#ffa622",
+	"clearSkyDark": "#e7821d",
+	"clearSkyDarkest": "#d8680d",
 
 	"clouds": "#6e859e",
 	"cloudsDark": "#546679",

@@ -371,8 +371,13 @@ class App extends Component {
 			currentBg = colours.thunderStormDark;
 			currentBarBg = colours.thunderStorm;
 			currentBarBgDarkest = colours.thunderStormDarkest;
-			// group 3xx: drizzle + group 5xx: rain
-		} else if (currentID >= 300 && currentID <= 531) {
+			// group 3xx: drizzle
+		} else if (currentID >= 300 && currentID <= 331) {
+			currentBg = colours.drizzleDark;
+			currentBarBg = colours.drizzle;
+			currentBarBgDarkest = colours.drizzleDarkest;
+			// group 5xx: rain
+		} else if (currentID >= 500 && currentID <= 531) {
 			currentBg = colours.rainDark;
 			currentBarBg = colours.rain;
 			currentBarBgDarkest = colours.rainDarkest;
