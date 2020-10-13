@@ -206,14 +206,22 @@ class Current extends Component {
 		if (weatherCode >= 200 && weatherCode <= 232) {
 			currentWeatherIcon = thunderStormRain;
 			// group 3xx: drizzle
-		} else if (weatherCode >= 300 && weatherCode <= 321) {
+		} else if (weatherCode >= 300 && weatherCode <= 321 && night) {
+			currentWeatherIcon = lightDrizzleNight;
+		} else if (weatherCode >= 300 && weatherCode <= 321 && !night) {
 			currentWeatherIcon = lightDrizzle;
 			// group 5xx: rain
-		} else if (weatherCode === 500) {
+		} else if (weatherCode == 500 && night) {
+			currentWeatherIcon = lightRainNight;
+		} else if (weatherCode == 500 && !night) {
 			currentWeatherIcon = lightRain;
-		} else if (weatherCode === 501) {
+		} else if (weatherCode == 501 && night) {
+			currentWeatherIcon = moderateRainNight;
+		} else if (weatherCode == 501 && !night) {
 			currentWeatherIcon = moderateRain;
-		} else if (weatherCode >= 502 && weatherCode <= 531) {
+		} else if (weatherCode >= 502 && weatherCode <= 531 && night) {
+			currentWeatherIcon = heavyRainNight;
+		} else if (weatherCode >= 502 && weatherCode <= 531 && !night) {
 			currentWeatherIcon = heavyRain;
 			// group 6xx: snow
 		} else if (weatherCode >= 600 && weatherCode <= 622) {
@@ -222,24 +230,24 @@ class Current extends Component {
 		} else if (weatherCode >= 701 && weatherCode <= 781) {
 			currentWeatherIcon = mist;
 			// group 80x: clouds
-		} else if (weatherCode === 801 && night) {
+		} else if (weatherCode == 801 && night) {
 			currentWeatherIcon = fewCloudsNight;
-		} else if (weatherCode === 801 && !night) {
+		} else if (weatherCode == 801 && !night) {
 			currentWeatherIcon = fewClouds;
-		} else if (weatherCode === 802 && night) {
+		} else if (weatherCode == 802 && night) {
 			currentWeatherIcon = scatteredCloudsNight;
-		} else if (weatherCode === 802 && !night) {
+		} else if (weatherCode == 802 && !night) {
 			currentWeatherIcon = scatteredClouds;
-		} else if (weatherCode === 803 && night) {
+		} else if (weatherCode == 803 && night) {
 			currentWeatherIcon = brokenCloudsNight;
-		} else if (weatherCode === 803 && !night) {
+		} else if (weatherCode == 803 && !night) {
 			currentWeatherIcon = brokenClouds;
-		} else if (weatherCode === 804 && night) {
+		} else if (weatherCode == 804 && night) {
 			currentWeatherIcon = overcastCloudsNight;
-		} else if (weatherCode === 804 && !night) {
+		} else if (weatherCode == 804 && !night) {
 			currentWeatherIcon = overcastClouds;
 			// group 800: clear
-		} else if (weatherCode === 800 && night) {
+		} else if (weatherCode == 800 && night) {
 			currentWeatherIcon = nightClear;
 		} else {
 			currentWeatherIcon = dayClear;

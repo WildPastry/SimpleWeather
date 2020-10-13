@@ -159,7 +159,7 @@ class GlobalModal extends Component {
 				const ref = dbRT.ref(user.uid);
 				const locationRef = ref.child('locations');
 				// get signed in users saved data on click
-				locationRef.once('value', (snapshot) => {
+				locationRef.on('value', (snapshot) => {
 					if (snapshot.exists()) {
 						let data = snapshot.val();
 						let locations = Object.values(data);
@@ -175,7 +175,7 @@ class GlobalModal extends Component {
 			if (this.state.locationCheck.length < 5) {
 				// compare current location to the saved locations
 				const e = this.state.locationCheck.some(
-					(location) => val === location.location
+					(location) => val == location.location
 				);
 				if (e != true) {
 					console.log('Must be false: ' + e);

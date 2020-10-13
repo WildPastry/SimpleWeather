@@ -5,7 +5,7 @@ import {
 	Text,
 	StyleSheet,
 	TouchableHighlight,
-	View
+	View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colours from './../assets/colours.json';
@@ -50,9 +50,69 @@ class Help extends Component {
 					transparent={true}
 					visible={this.state.modalVisible}>
 					<View style={helpStyles.modalWrapper}>
-						<View style={helpStyles.buttonsWrapper}>
-							{/* text */}
-							<Text style={helpStyles.text}>Help screen</Text>
+					<View
+							style={{
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								paddingLeft: 25,
+								paddingRight: 25,
+								paddingBottom: 10,
+								paddingTop: 5,
+							}}>
+							{/* Morning */}
+							<View
+								style={{
+									flexDirection: 'column',
+									justifyContent: 'center',
+								}}>
+								<Text
+									style={{
+										fontFamily: 'weatherfont',
+										fontSize: 45,
+										textAlign: 'center',
+										color: colours.white,
+									}}>
+								</Text>
+								<Text style={helpStyles.helpTextYellow}>
+									HELP
+								</Text>
+							</View>
+							{/* Afternoon */}
+							<View
+								style={{
+									flexDirection: 'column',
+									justifyContent: 'center',
+								}}>
+								<Text
+									style={{
+										fontFamily: 'weatherfont',
+										fontSize: 45,
+										textAlign: 'center',
+										color: colours.white,
+									}}>
+								</Text>
+								<Text style={helpStyles.helpTextWhite}>
+									SCREEN
+								</Text>
+							</View>
+							<View
+								style={{
+									flexDirection: 'column',
+									justifyContent: 'center',
+								}}>
+								{/* Evening */}
+								<Text
+									style={{
+										fontFamily: 'weatherfont',
+										fontSize: 45,
+										textAlign: 'center',
+										color: colours.white,
+									}}>
+								</Text>
+								<Text style={helpStyles.helpTextYellow}>
+									TEXT
+								</Text>
+							</View>
 						</View>
 						<View style={helpStyles.buttonsWrapper}>
 							{/* close modal buttons */}
@@ -89,7 +149,7 @@ class Help extends Component {
 					onPress={() => {
 						this.setModalVisible(true);
 					}}>
-					<Text style={helpStyles.helpText}>Help</Text>
+					<Text style={helpStyles.helpTextYellow}>Help</Text>
 				</TouchableHighlight>
 			</View>
 		);
@@ -112,14 +172,36 @@ const helpStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 	},
-	text: {
+	helpTextWhite: {
 		color: colours.white,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',
+		padding: 8,
 	},
-	helpText: {
-		color: colours.white,
+	helpTextYellow: {
+		color: colours.spotYellow,
+		fontSize: 18,
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	helpTextBlue: {
+		color: colours.spotBlue,
+		fontSize: 18,
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	helpTextGreen: {
+		color: colours.spotGreen,
+		fontSize: 18,
+		fontFamily: 'allerLt',
+		textAlign: 'center',
+		padding: 8,
+	},
+	helpTextRed: {
+		color: colours.spotRed,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',

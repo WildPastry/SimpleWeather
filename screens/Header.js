@@ -80,7 +80,7 @@ class Header extends Component {
 						console.log('Error getting document:', error);
 					});
 				// get signed in users saved data on load
-				locationRef.once('value', (snapshot) => {
+				locationRef.on('value', (snapshot) => {
 					if (snapshot.exists()) {
 						let data = snapshot.val();
 						let locations = Object.values(data);
@@ -706,7 +706,7 @@ const headerStyles = StyleSheet.create({
 		backgroundColor: colours.spotGreyMed,
 		borderBottomColor: colours.spotGrey,
 		borderBottomWidth: 1,
-	},
+	}
 });
 
 // style
@@ -738,5 +738,5 @@ const savedLocationStyles = StyleSheet.create({
 		paddingLeft: 8,
 		paddingBottom: 10,
 		paddingTop: 10,
-	},
+	}
 });
