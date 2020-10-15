@@ -28,7 +28,7 @@ const size = {
   fullScreen: scaledSize(375),
 };
 
-console.log(size);
+// console.log(size);
 
 // // iPhone 5s
 // { small: 22, oneThird: 107, fullScreen: 320 }

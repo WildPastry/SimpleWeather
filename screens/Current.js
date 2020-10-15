@@ -35,10 +35,14 @@ var moment = require('moment');
 const thunderStormRain = require('./../assets/animations/weather/thunderStormRain.json');
 // group 3xx: drizzle
 const lightDrizzle = require('./../assets/animations/weather/lightDrizzle.json');
+const lightDrizzleNight = require('./../assets/animations/weather/lightDrizzleNight.json');
 // group 5xx: rain
 const lightRain = require('./../assets/animations/weather/lightRain.json');
+const lightRainNight = require('./../assets/animations/weather/lightRainNight.json');
 const moderateRain = require('./../assets/animations/weather/moderateRain.json');
+const moderateRainNight = require('./../assets/animations/weather/moderateRainNight.json');
 const heavyRain = require('./../assets/animations/weather/heavyRain.json');
+const heavyRainNight = require('./../assets/animations/weather/heavyRainNight.json');
 // group 6xx: snow
 const snow = require('./../assets/animations/weather/snow.json');
 // group 7xx: atmosphere
