@@ -1,10 +1,13 @@
 // imports
 import React, { Component } from 'react';
 import {
+	Linking,
 	Modal,
 	Text,
 	StyleSheet,
+	ScrollView,
 	TouchableHighlight,
+	TouchableOpacity,
 	View
 } from 'react-native';
 import FormButton from '../components/FormButton';
@@ -53,69 +56,94 @@ class Help extends Component {
 					visible={this.state.modalVisible}>
 					{/* container */}
 					<View style={helpStyles.modalWrapper}>
-						{/* logo and heading */}
-						<View style={helpStyles.logoContainer}>
-							<AppLogo />
-						</View>
-						<Text style={helpStyles.simpleWeather}>SIMPLE WEATHER</Text>
-						{/* help text */}
-						<View style={helpStyles.textWrapper}>
-							{/* line break */}
-							<View style={helpStyles.border} />
-							<Text style={helpStyles.helpTextWhite}>
-								A basic weather app designed to give you fast and accurate data
-								to thousands of locations worldwide.
-							</Text>
-							<Text style={helpStyles.helpTextWhite}>
-								Once you sign up to the app you will have access to the features
-								below.
-							</Text>
-							{/* line break */}
-							<View style={helpStyles.border} />
-							{/* intro line */}
-							<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-								<Text style={helpStyles.helpTextWhite}>
-									Search for a location by tapping
-								</Text>
-								<Ionicons name='ios-search' size={30} color={colours.white} />
+						<ScrollView style={{ marginTop: 45 }}>
+							{/* logo and heading */}
+							<View style={helpStyles.logoContainer}>
+								<AppLogo />
 							</View>
-							{/* saved locations */}
-							{/* <Text style={helpStyles.helpTextYellowBold}>SAVED LOCATIONS</Text> */}
-							<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+							<Text style={helpStyles.simpleWeather}>SIMPLE WEATHER</Text>
+							{/* help text */}
+							<View style={helpStyles.textWrapper}>
+								{/* line break */}
+								<View style={helpStyles.border} />
 								<Text style={helpStyles.helpTextWhite}>
-									Save up to 5 locations by tapping
+									A basic weather app designed to give you fast and accurate
+									data to thousands of locations worldwide.
 								</Text>
-								<Ionicons
-									name='ios-add-circle'
-									size={30}
-									color={colours.white}
+								<Text style={helpStyles.helpTextWhite}>
+									Once you sign up to the app you will have access to the
+									features below.
+								</Text>
+								{/* line break */}
+								<View style={helpStyles.border} />
+								{/* intro line */}
+								<View
+									style={{
+										flexDirection: 'row',
+										justifyContent: 'space-between',
+										alignItems: 'center'
+									}}>
+									<Text style={helpStyles.helpTextWhite}>
+										Search for a location
+									</Text>
+									<Ionicons name='ios-search' size={30} color={colours.white} />
+								</View>
+								{/* saved locations */}
+								{/* <Text style={helpStyles.helpTextYellowBold}>SAVED LOCATIONS</Text> */}
+								<View
+									style={{
+										flexDirection: 'row',
+										justifyContent: 'space-between',
+										alignItems: 'center'
+									}}>
+									<Text style={helpStyles.helpTextWhite}>
+										Save up to 5 locations
+									</Text>
+									<Ionicons
+										name='ios-add-circle'
+										size={30}
+										color={colours.white}
+									/>
+								</View>
+								{/* set location as home */}
+								{/* <Text style={helpStyles.helpTextGreenBold}>HOME LOCATION</Text> */}
+								<View
+									style={{
+										flexDirection: 'row',
+										justifyContent: 'space-between',
+										alignItems: 'center'
+									}}>
+									<Text style={helpStyles.helpTextWhite}>
+										Set a location to home
+									</Text>
+									<Ionicons
+										name='ios-home'
+										size={30}
+										color={colours.spotGreen}
+									/>
+								</View>
+								{/* line break */}
+								<View style={helpStyles.border} />
+								{/* support the dev */}
+								<Text style={helpStyles.helpTextYellow}>
+									If you enjoy the app you can support the developer
+									<Text style={helpStyles.helpTextRedBold}> HERE</Text>
+								</Text>
+								{/* <TouchableOpacity
+									onPress={() => Linking.openURL('mailto:support@example.com')}>
+									<Text>support@example.com</Text>
+								</TouchableOpacity> */}
+							</View>
+							{/* confirm button */}
+							<View style={helpStyles.buttonContainer}>
+								<FormButton
+									onPress={() => {
+										this.setModalVisible(!this.state.modalVisible);
+									}}
+									title='BACK'
 								/>
 							</View>
-							{/* set location as home */}
-							{/* <Text style={helpStyles.helpTextGreenBold}>HOME LOCATION</Text> */}
-							<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-								<Text style={helpStyles.helpTextWhite}>
-									Set a location to home by tapping
-								</Text>
-								<Ionicons name='ios-home' size={30} color={colours.spotGreen} />
-							</View>
-							{/* line break */}
-							<View style={helpStyles.border} />
-							{/* support the dev */}
-							<Text style={helpStyles.helpTextYellow}>
-								If you enjoy the app you can support the developer
-								<Text style={helpStyles.helpTextRedBold}> HERE</Text>
-							</Text>
-						</View>
-						{/* confirm button */}
-						<View style={helpStyles.buttonContainer}>
-							<FormButton
-								onPress={() => {
-									this.setModalVisible(!this.state.modalVisible);
-								}}
-								title='BACK'
-							/>
-						</View>
+						</ScrollView>
 					</View>
 				</Modal>
 				{/* END modal */}
