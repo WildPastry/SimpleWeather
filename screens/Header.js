@@ -50,7 +50,6 @@ class Header extends Component {
 	componentDidMount = async () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log(this.state, 'From componentDidMount in Header');
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -86,7 +85,6 @@ class Header extends Component {
 						let locations = Object.values(data);
 						this.setState({ savedLocations: locations }, () => {
 							console.log('Locations loaded in Header.js...');
-							console.log(this.state.savedLocations);
 							this.checkHome();
 						});
 					} else {
@@ -181,7 +179,6 @@ class Header extends Component {
 							var checkVal = conditions.some((e) => arg.location.includes(e));
 							arg.icon = checkVal;
 						});
-						console.log(checkHome, 'From checkHome in Header.js');
 						// Save the new array to display the locations
 						this.setState({ home: checkHome });
 					} else {
@@ -343,7 +340,7 @@ class Header extends Component {
 		}
 		return () => (isMounted = false);
 	}
-	
+
 	// handle removal
 	handleRemoval = () => {
 		let isMounted = true;
@@ -433,7 +430,7 @@ class Header extends Component {
 				[
 					{ text: 'Cancel', style: 'cancel' },
 					{ text: 'Login', onPress: this.handleLogin },
-					{ text: 'Signup', onPress: this.handleSignup },
+					{ text: 'Signup', onPress: this.handleSignup }
 				],
 				{ cancelable: false }
 			);
@@ -477,9 +474,9 @@ class Header extends Component {
 			menuDisplay = (
 				<View>
 					<Button
-						title='Signout'
+						title='SIGNOUT'
 						onPress={this.handleSignout}
-						titleStyle={headerStyles.menuTitleBlue}
+						titleStyle={headerStyles.menuTitleYellow}
 						type='clear'
 					/>
 					<View style={headerStyles.border} />
@@ -491,16 +488,16 @@ class Header extends Component {
 			menuDisplay = (
 				<View>
 					<Button
-						title='Login to the app'
+						title='LOGIN'
 						onPress={this.handleLogin}
 						titleStyle={headerStyles.menuTitleGreen}
 						type='clear'
 					/>
 					<View style={headerStyles.border} />
 					<Button
-						title='Sign up for an account'
+						title='SIGNUP'
 						onPress={this.handleSignup}
-						titleStyle={headerStyles.menuTitleBlue}
+						titleStyle={headerStyles.menuTitleYellow}
 						type='clear'
 					/>
 					<View style={headerStyles.border} />
@@ -516,7 +513,7 @@ class Header extends Component {
 		console.log('Inside render from Header.js...');
 		return (
 			// master wrap
-			<View>				
+			<View>
 				{/* header wrap */}
 				<View style={headerStyles.headerWrap}>
 					{/* hamburger */}
@@ -550,11 +547,18 @@ class Header extends Component {
 				</View>
 				{/* menu */}
 				{this.state.showMenu && (
-					<View style={headerStyles.menuWrap}>
+					<View
+						style={{
+							backgroundColor: colours.black,
+							borderBottomColor: colours.spotGrey,
+							borderBottomWidth: 1
+						}}>
 						{/* render menu based on user status */}
 						<View style={headerStyles.border}>{this.renderMenuOption()}</View>
 						{/* saved locations list */}
-						<View style={headerStyles.listWrap}>
+						<View style={{
+							backgroundColor: this.props.currentBarBgDarkest
+						}}>
 							<View style={headerStyles.listItems}>
 								{this.state.savedLocations.length > 0 ? (
 									<View>
@@ -612,9 +616,9 @@ class Header extends Component {
 								) : (
 									<View>
 										<Text
-											style={savedLocationStyles.menuTextYellow}
+											style={savedLocationStyles.menuTextWhite}
 											onPress={this.handleLoginAlert}>
-											No saved locations
+											NO SAVED LOCATIONS
 										</Text>
 									</View>
 								)}
@@ -636,65 +640,64 @@ const headerStyles = StyleSheet.create({
 	flex: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignItems: 'center',
+		alignItems: 'center'
 	},
 	menuWrap: {
-		backgroundColor: colours.spotGreyDark,
 		borderBottomColor: colours.spotGrey,
-		borderBottomWidth: 1,
+		borderBottomWidth: 1
 	},
 	listWrap: {
-		backgroundColor: colours.spotGreyDark,
+		backgroundColor: colours.spotGreyDark
 	},
 	listItems: {
 		paddingTop: 4,
-		paddingBottom: 4,
+		paddingBottom: 4
 	},
 	menuTitleWhite: {
-		color: colours.spotWhite,
+		color: colours.white,
 		fontSize: 18,
-		fontFamily: 'allerLt',
+		fontFamily: 'allerBd',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	menuTitleYellow: {
 		color: colours.spotYellow,
 		fontSize: 18,
-		fontFamily: 'allerLt',
+		fontFamily: 'allerBd',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	menuTitleBlue: {
 		color: colours.spotBlue,
 		fontSize: 18,
-		fontFamily: 'allerLt',
+		fontFamily: 'allerBd',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	menuTitleGreen: {
 		color: colours.spotGreen,
 		fontSize: 18,
-		fontFamily: 'allerLt',
+		fontFamily: 'allerBd',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	menuTitleRed: {
 		color: colours.spotRed,
 		fontSize: 18,
-		fontFamily: 'allerLt',
+		fontFamily: 'allerBd',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	border: {
 		borderBottomColor: colours.spotGrey,
-		borderBottomWidth: 1,
+		borderBottomWidth: 1
 	},
 	simpleWeather: {
 		color: colours.white,
 		fontSize: 22,
 		fontFamily: 'allerDisplay',
 		textAlign: 'center',
-		paddingTop: 4,
+		paddingTop: 4
 	},
 	headerWrap: {
 		paddingRight: 5,
@@ -705,8 +708,8 @@ const headerStyles = StyleSheet.create({
 		justifyContent: 'space-between',
 		backgroundColor: colours.spotGreyMed,
 		borderBottomColor: colours.spotGrey,
-		borderBottomWidth: 1,
-	}
+		borderBottomWidth: 1
+	},
 });
 
 // style
@@ -716,27 +719,37 @@ const savedLocationStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		paddingLeft: 8,
-		paddingRight: 8,
+		paddingRight: 8
 	},
 	locationListText: {
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		color: colours.white,
 		padding: 9,
-		marginBottom: 3,
+		marginBottom: 3
 	},
 	locationIconWrapper: {
 		alignItems: 'flex-end',
-		flexDirection: 'row',
+		flexDirection: 'row'
 	},
 	menuTextYellow: {
 		color: colours.spotYellow,
 		fontSize: 18,
-		fontFamily: 'allerLt',
+		fontFamily: 'allerBd',
 		textAlign: 'center',
-		paddingRight: 8,
 		paddingLeft: 8,
-		paddingBottom: 10,
-		paddingTop: 10,
+		paddingRight: 8,
+		paddingBottom: 4,
+		paddingTop: 4
+	},
+	menuTextWhite: {
+		color: colours.white,
+		fontSize: 18,
+		fontFamily: 'allerBd',
+		textAlign: 'center',
+		paddingLeft: 8,
+		paddingRight: 8,
+		paddingBottom: 4,
+		paddingTop: 4
 	}
 });

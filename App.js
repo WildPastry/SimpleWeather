@@ -48,6 +48,7 @@ const window = Dimensions.get('window');
 // set up image display variables
 let imageBg;
 
+
 // START App
 class App extends Component {
 	// control requests
@@ -152,8 +153,7 @@ class App extends Component {
 		// set component mounted
 		this._isMounted = true;
 		console.log(
-			'Inside componentDidMount from App.js: Mounted = ' + this._isMounted
-		);
+			'Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
 		if (this._isMounted) {
 			// check firebase for user
 			var user = firebase.auth().currentUser;
@@ -474,6 +474,9 @@ class App extends Component {
 								currentLat={this.state.currentLat}
 								currentLng={this.state.currentLng}
 								currentLocation={this.state.currentLocation}
+								currentBg={this.state.weekBg}
+								currentBarBg={this.state.weekBarBg}
+								currentBarBgDarkest={this.state.weekBarBgDarkest}
 								updateSkyData={this.updateSkyData}
 							/>
 							{/* current */}
@@ -543,6 +546,6 @@ const appStyles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: colours.spotGreyMed,
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 });

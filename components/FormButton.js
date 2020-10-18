@@ -13,7 +13,7 @@ const FormButton = ({ title, buttonType, buttonColor, ...rest }) => (
       color: colours.white,
       fontSize: 18,
       fontFamily: 'allerRg',
-      textAlign: 'center',
+      textAlign: 'center'
     }}
     loadingProps={{
       color: colours.spotGreyMed

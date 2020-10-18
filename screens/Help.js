@@ -5,8 +5,10 @@ import {
 	Text,
 	StyleSheet,
 	TouchableHighlight,
-	View,
+	View
 } from 'react-native';
+import FormButton from '../components/FormButton';
+import AppLogo from '../components/AppLogo';
 import { Ionicons } from '@expo/vector-icons';
 import colours from './../assets/colours.json';
 
@@ -15,7 +17,7 @@ class Help extends Component {
 	constructor() {
 		super();
 		this.state = {
-			modalVisible: false,
+			modalVisible: false
 		};
 		this.setModalVisible = this.setModalVisible.bind(this);
 		this.dismissModal = this.dismissModal.bind(this);
@@ -49,97 +51,70 @@ class Help extends Component {
 					animationType='fade'
 					transparent={true}
 					visible={this.state.modalVisible}>
+					{/* container */}
 					<View style={helpStyles.modalWrapper}>
-					<View
-							style={{
-								flexDirection: 'row',
-								justifyContent: 'space-between',
-								paddingLeft: 25,
-								paddingRight: 25,
-								paddingBottom: 10,
-								paddingTop: 5,
-							}}>
-							{/* Morning */}
-							<View
-								style={{
-									flexDirection: 'column',
-									justifyContent: 'center',
-								}}>
-								<Text
-									style={{
-										fontFamily: 'weatherfont',
-										fontSize: 45,
-										textAlign: 'center',
-										color: colours.white,
-									}}>
-								</Text>
-								<Text style={helpStyles.helpTextYellow}>
-									HELP
-								</Text>
-							</View>
-							{/* Afternoon */}
-							<View
-								style={{
-									flexDirection: 'column',
-									justifyContent: 'center',
-								}}>
-								<Text
-									style={{
-										fontFamily: 'weatherfont',
-										fontSize: 45,
-										textAlign: 'center',
-										color: colours.white,
-									}}>
-								</Text>
-								<Text style={helpStyles.helpTextWhite}>
-									SCREEN
-								</Text>
-							</View>
-							<View
-								style={{
-									flexDirection: 'column',
-									justifyContent: 'center',
-								}}>
-								{/* Evening */}
-								<Text
-									style={{
-										fontFamily: 'weatherfont',
-										fontSize: 45,
-										textAlign: 'center',
-										color: colours.white,
-									}}>
-								</Text>
-								<Text style={helpStyles.helpTextYellow}>
-									TEXT
-								</Text>
-							</View>
+						{/* logo and heading */}
+						<View style={helpStyles.logoContainer}>
+							<AppLogo />
 						</View>
-						<View style={helpStyles.buttonsWrapper}>
-							{/* close modal buttons */}
-							<TouchableHighlight
-								style={{ padding: 12 }}
+						<Text style={helpStyles.simpleWeather}>SIMPLE WEATHER</Text>
+						{/* help text */}
+						<View style={helpStyles.textWrapper}>
+							{/* line break */}
+							<View style={helpStyles.border} />
+							<Text style={helpStyles.helpTextWhite}>
+								A basic weather app designed to give you fast and accurate data
+								to thousands of locations worldwide.
+							</Text>
+							<Text style={helpStyles.helpTextWhite}>
+								Once you sign up to the app you will have access to the features
+								below.
+							</Text>
+							{/* line break */}
+							<View style={helpStyles.border} />
+							{/* intro line */}
+							<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+								<Text style={helpStyles.helpTextWhite}>
+									Search for a location by tapping
+								</Text>
+								<Ionicons name='ios-search' size={30} color={colours.white} />
+							</View>
+							{/* saved locations */}
+							{/* <Text style={helpStyles.helpTextYellowBold}>SAVED LOCATIONS</Text> */}
+							<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+								<Text style={helpStyles.helpTextWhite}>
+									Save up to 5 locations by tapping
+								</Text>
+								<Ionicons
+									name='ios-add-circle'
+									size={30}
+									color={colours.white}
+								/>
+							</View>
+							{/* set location as home */}
+							{/* <Text style={helpStyles.helpTextGreenBold}>HOME LOCATION</Text> */}
+							<View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+								<Text style={helpStyles.helpTextWhite}>
+									Set a location to home by tapping
+								</Text>
+								<Ionicons name='ios-home' size={30} color={colours.spotGreen} />
+							</View>
+							{/* line break */}
+							<View style={helpStyles.border} />
+							{/* support the dev */}
+							<Text style={helpStyles.helpTextYellow}>
+								If you enjoy the app you can support the developer
+								<Text style={helpStyles.helpTextRedBold}> HERE</Text>
+							</Text>
+						</View>
+						{/* confirm button */}
+						<View style={helpStyles.buttonContainer}>
+							<FormButton
 								onPress={() => {
 									this.setModalVisible(!this.state.modalVisible);
-								}}>
-								{/* cancel */}
-								<Ionicons
-									name='ios-close-circle'
-									size={45}
-									color={colours.spotRed}
-								/>
-							</TouchableHighlight>
-							<TouchableHighlight
-								style={{ padding: 12 }}
-								onPress={() => {
-									this.setModalVisible(!this.state.modalVisible);
-								}}>
-								{/* save */}
-								<Ionicons
-									name='ios-checkmark-circle'
-									size={45}
-									color={colours.spotGreen}
-								/>
-							</TouchableHighlight>
+								}}
+								title='BACK'
+							/>
 						</View>
 					</View>
 				</Modal>
@@ -149,7 +124,7 @@ class Help extends Component {
 					onPress={() => {
 						this.setModalVisible(true);
 					}}>
-					<Text style={helpStyles.helpTextYellow}>Help</Text>
+					<Text style={helpStyles.helpTextYellowBold}>SUPPORT / HELP</Text>
 				</TouchableHighlight>
 			</View>
 		);
@@ -166,45 +141,95 @@ const helpStyles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: colours.spotGreyMed,
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'center'
+	},
+	textWrapper: {
+		marginLeft: 25,
+		marginRight: 25
 	},
 	buttonsWrapper: {
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'center'
+	},
+	border: {
+		marginTop: 10,
+		marginBottom: 10,
+		borderBottomColor: colours.spotGrey,
+		borderBottomWidth: 1
 	},
 	helpTextWhite: {
 		color: colours.white,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
+	},
+	helpTextYellowBold: {
+		color: colours.spotYellow,
+		fontSize: 18,
+		fontFamily: 'allerBd',
+		textAlign: 'center',
+		padding: 8
 	},
 	helpTextYellow: {
 		color: colours.spotYellow,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	helpTextBlue: {
 		color: colours.spotBlue,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
 	helpTextGreen: {
 		color: colours.spotGreen,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
+	},
+	helpTextGreenBold: {
+		color: colours.spotGreen,
+		fontSize: 18,
+		fontFamily: 'allerBd',
+		textAlign: 'center',
+		padding: 8
 	},
 	helpTextRed: {
 		color: colours.spotRed,
 		fontSize: 18,
 		fontFamily: 'allerLt',
 		textAlign: 'center',
-		padding: 8,
+		padding: 8
 	},
+	helpTextRedBold: {
+		color: colours.spotRed,
+		fontSize: 18,
+		fontFamily: 'allerBd',
+		textAlign: 'center',
+		padding: 8
+	},
+	buttonContainer: {
+		alignSelf: 'stretch',
+		marginLeft: 25,
+		marginRight: 25,
+		marginBottom: 10,
+		marginTop: 10
+	},
+	logoContainer: {
+		marginBottom: 10,
+		alignItems: 'center'
+	},
+	simpleWeather: {
+		color: colours.white,
+		fontSize: 20,
+		fontFamily: 'allerDisplay',
+		textAlign: 'center',
+		paddingTop: 4,
+		marginBottom: 10
+	}
 });

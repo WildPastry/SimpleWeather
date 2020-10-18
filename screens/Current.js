@@ -1,6 +1,7 @@
 // imports
 import React, { Component } from 'react';
 import {
+	Dimensions,
 	Text,
 	Keyboard,
 	Image,
@@ -59,6 +60,19 @@ const scatteredClouds = require('./../assets/animations/weather/scatteredClouds.
 const scatteredCloudsNight = require('./../assets/animations/weather/scatteredCloudsNight.json');
 const overcastClouds = require('./../assets/animations/weather/overcastClouds.json');
 const overcastCloudsNight = require('./../assets/animations/weather/overcastCloudsNight.json');
+
+// Size function for the main icon
+const { width, height } = Dimensions.get('window');
+
+var iconHeight, iconWidth;
+
+if (width < 300) {
+	iconHeight = 190;
+	iconWidth = 190;
+} else {
+	iconHeight = 215;
+	iconWidth = 215;
+}
 
 // capitalize first char
 String.prototype.capitalize = function () {
@@ -430,8 +444,8 @@ class Current extends Component {
 					{/* main icon */}
 					<LottieView
 						style={{
-							height: 215,
-							width: 215,
+							height: iconHeight,
+							width: iconWidth,
 						}}
 						ref={(animation) => {
 							this.animation = animation;
@@ -611,75 +625,75 @@ export default withFirebaseHOC(Current);
 const currentStyles = StyleSheet.create({
 	currentWrap: {
 		alignSelf: 'stretch',
-		flex: 1,
+		flex: 1
 	},
 	currentIconWrap: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		marginTop: 40,
+		marginTop: 40
 	},
 	currentIconSmall: {
 		alignSelf: 'center',
 		height: 30,
-		width: 30,
+		width: 30
 	},
 	currentTemp: {
 		color: colours.white,
 		fontSize: 70,
 		fontFamily: 'allerDisplay',
-		textAlign: 'center',
+		textAlign: 'center'
 	},
 	currentTempWrap: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		alignItems: 'baseline',
+		alignItems: 'baseline'
 	},
 	currentWindHumWrap: {
 		flexDirection: 'row',
-		justifyContent: 'space-around',
+		justifyContent: 'space-around'
 	},
 	currentDetailsWrap: {
 		flexDirection: 'row',
 		justifyContent: 'center',
-		paddingTop: 8,
+		paddingTop: 8
 	},
 	currentDetails: {
 		color: colours.white,
 		fontSize: 18,
-		fontFamily: 'allerRg',
+		fontFamily: 'allerRg'
 	},
 	currentTempHigh: {
 		color: colours.white,
 		fontSize: 30,
 		fontFamily: 'allerLt',
-		paddingBottom: 12,
+		paddingBottom: 12
 	},
 	currentTempLow: {
 		color: colours.white,
 		fontSize: 30,
 		fontFamily: 'allerLt',
-		paddingBottom: 12,
+		paddingBottom: 12
 	},
 	currentDesc: {
 		color: colours.white,
 		fontSize: 18,
 		fontFamily: 'allerBd',
 		padding: 10,
-		textAlign: 'center',
+		textAlign: 'center'
 	},
 	currentDescSummary: {
 		color: colours.white,
 		fontSize: 19,
 		lineHeight: 25,
 		fontFamily: 'allerLt',
-		textAlign: 'center',
+		textAlign: 'center'
 	},
 	currentDescSummaryBold: {
 		color: colours.white,
 		fontSize: 19,
 		fontFamily: 'allerBd',
 		textAlign: 'center',
-		paddingBottom: 10,
+		paddingBottom: 10
 	},
 	currentDateText: {
 		color: colours.white,
@@ -688,18 +702,18 @@ const currentStyles = StyleSheet.create({
 		padding: 10,
 		paddingBottom: 0,
 		textAlign: 'center',
-		marginTop: 10,
+		marginTop: 10
 	},
 	currentSecondaryInfoHeading: {
 		color: colours.white,
 		fontSize: 18,
 		fontFamily: 'allerRg',
-		textAlign: 'center',
+		textAlign: 'center'
 	},
 	border: {
 		borderBottomColor: colours.spotYellow,
 		borderBottomWidth: 1,
 		marginLeft: 25,
-		marginRight: 25,
-	},
+		marginRight: 25
+	}
 });

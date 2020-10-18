@@ -78,6 +78,9 @@ class GlobalModal extends Component {
 	// handle login
 	handleLogin = () => this.props.navigation.navigate('Login');
 
+	// handle signup
+	handleSignup = () => this.props.navigation.navigate('Signup');
+
 	// handle alert fail
 	handleFail = () => {
 		let isMounted = true;
@@ -90,6 +93,7 @@ class GlobalModal extends Component {
 				[
 					{ text: 'Cancel', onPress: this.dismissModal, style: 'cancel' },
 					{ text: 'Login', onPress: this.handleLogin },
+					{ text: 'Signup', onPress: this.handleSignup },
 				],
 				{ cancelable: false }
 			);
@@ -303,16 +307,16 @@ const globalModalStyles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: colours.spotGreyMed,
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	buttonsWrapper: {
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	text: {
 		color: colours.white,
 		fontSize: 18,
-		fontFamily: 'allerLt',
-		textAlign: 'center',
-	},
+		fontFamily: 'allerBd',
+		textAlign: 'center'
+	}
 });

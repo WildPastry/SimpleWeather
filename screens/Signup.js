@@ -277,7 +277,7 @@ const signupStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: colours.simpleWeather,
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	link: {
 		alignItems: 'center',
@@ -285,12 +285,12 @@ const signupStyles = StyleSheet.create({
 	buttonContainer: {
 		margin: 25,
 		marginBottom: 10,
-		marginTop: 10,
+		marginTop: 10
 	},
 	checkBoxContainer: {
 		backgroundColor: colours.simpleWeather,
-		borderColor: colours.simpleWeather,
-	},
+		borderColor: colours.simpleWeather
+	}
 });
 
 export default withFirebaseHOC(Signup);

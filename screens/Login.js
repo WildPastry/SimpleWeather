@@ -154,7 +154,7 @@ class Login extends Component {
 								fontFamily: 'allerLt',
 								fontSize: 18,
 							}}>
-							Don't have an account? Sign up
+							Don't have an account? Signup
 						</Text>
 					</TouchableOpacity>
 				</HideWithKeyboard>
@@ -182,29 +182,30 @@ const loginStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: colours.spotGreyMed,
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	link: {
 		alignItems: 'center',
-		margin: 8,
+		margin: 8
 	},
 	logoContainer: {
 		marginBottom: 10,
-		alignItems: 'center',
+		alignItems: 'center'
 	},
 	buttonContainer: {
-		margin: 25,
+		marginLeft: 25,
+		marginRight: 25,
 		marginBottom: 10,
-		marginTop: 10,
+		marginTop: 10
 	},
 	simpleWeather: {
 		color: colours.white,
-		fontSize: 22,
+		fontSize: 20,
 		fontFamily: 'allerDisplay',
 		textAlign: 'center',
 		paddingTop: 4,
-		paddingBottom: 30,
-	},
+		paddingBottom: 30
+	}
 });
 
 export default withFirebaseHOC(Login);

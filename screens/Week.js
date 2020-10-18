@@ -245,12 +245,12 @@ const weekStyles = StyleSheet.create({
   weekLowTemp: {
     color: colours.white,
     fontSize: 18,
-    fontFamily: 'allerLt',
+    fontFamily: 'allerLt'
   },
   weekHighTemp: {
     color: colours.white,
     fontSize: 18,
-    fontFamily: 'allerLt',
+    fontFamily: 'allerLt'
   },
   weekHeading: {
     color: colours.white,
@@ -284,16 +284,16 @@ const weekStyles = StyleSheet.create({
   },
   weekWindWrap: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   weekHumWrap: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   weekWindHumDetails: {
     color: colours.white,
     fontSize: 18,
     fontFamily: 'allerLt',
     paddingTop: 4
-  },
+  }
 });
