@@ -56,7 +56,7 @@ class Help extends Component {
 					visible={this.state.modalVisible}>
 					{/* container */}
 					<View style={helpStyles.modalWrapper}>
-						<ScrollView style={{ marginTop: 45 }}>
+						<ScrollView style={{ marginTop: 45, marginBottom: 45 }}>
 							{/* logo and heading */}
 							<View style={helpStyles.logoContainer}>
 								<AppLogo />
@@ -127,7 +127,12 @@ class Help extends Component {
 								{/* support the dev */}
 								<Text style={helpStyles.helpTextYellow}>
 									If you enjoy the app you can support the developer
-									<Text style={helpStyles.helpTextRedBold}> HERE</Text>
+									<Text
+										style={helpStyles.helpTextRedBold}
+										onPress={() => Linking.openURL('https://mikeparker.co.nz/')}>
+										{' '}
+										HERE
+									</Text>
 								</Text>
 								{/* <TouchableOpacity
 									onPress={() => Linking.openURL('mailto:support@example.com')}>
