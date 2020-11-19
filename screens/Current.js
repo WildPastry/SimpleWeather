@@ -7,7 +7,7 @@ import {
 	Image,
 	SafeAreaView,
 	StyleSheet,
-	View,
+	View
 } from 'react-native';
 import configData from './../data/config.json';
 import GlobalModal from '../screens/GlobalModal';
@@ -15,7 +15,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import {
 	Collapse,
 	CollapseHeader,
-	CollapseBody,
+	CollapseBody
 } from 'accordion-collapse-react-native';
 import colours from './../assets/colours.json';
 import LottieView from 'lottie-react-native';
@@ -34,6 +34,9 @@ var moment = require('moment');
 
 // group 2xx: thunderstorm
 const thunderStormRain = require('./../assets/animations/weather/thunderStormRain.json');
+const thunderStormRainNight = require('./../assets/animations/weather/thunderStormRainNight.json');
+const thunderStorm = require('./../assets/animations/weather/thunderStorm.json');
+const thunderStormNight = require('./../assets/animations/weather/thunderStormNight.json');
 // group 3xx: drizzle
 const lightDrizzle = require('./../assets/animations/weather/lightDrizzle.json');
 const lightDrizzleNight = require('./../assets/animations/weather/lightDrizzleNight.json');
@@ -46,8 +49,10 @@ const heavyRain = require('./../assets/animations/weather/heavyRain.json');
 const heavyRainNight = require('./../assets/animations/weather/heavyRainNight.json');
 // group 6xx: snow
 const snow = require('./../assets/animations/weather/snow.json');
+const snowNight = require('./../assets/animations/weather/snowNight.json');
 // group 7xx: atmosphere
 const mist = require('./../assets/animations/weather/mist.json');
+const mistNight = require('./../assets/animations/weather/mistNight.json');
 // group 800: clear
 const dayClear = require('./../assets/animations/weather/dayClear.json');
 const nightClear = require('./../assets/animations/weather/nightClear.json');
@@ -98,7 +103,7 @@ class Current extends Component {
 			// placeholder clear
 			placeholder: this.props.currentLocation,
 			// google places listview
-			listViewDisplayed: true,
+			listViewDisplayed: true
 		};
 		this.updateSkyData = this.updateSkyData.bind(this);
 		this._keyboardDidShow = this._keyboardDidShow.bind(this);
@@ -130,7 +135,7 @@ class Current extends Component {
 						style={{
 							fontFamily: 'weatherfont',
 							fontSize: 18,
-							color: colours.spotYellow,
+							color: colours.spotYellow
 						}}>
 						{weatherIcons.sunrise.code}
 					</Text>
@@ -146,7 +151,7 @@ class Current extends Component {
 						style={{
 							fontFamily: 'weatherfont',
 							fontSize: 18,
-							color: colours.spotYellow,
+							color: colours.spotYellow
 						}}>
 						{weatherIcons.sunset.code}
 					</Text>
@@ -181,7 +186,7 @@ class Current extends Component {
 	_keyboardDidShow() {
 		this.setState({
 			placeholder: 'Enter location . . .',
-			listViewDisplayed: true,
+			listViewDisplayed: true
 		});
 	}
 
@@ -189,7 +194,7 @@ class Current extends Component {
 	_keyboardDidHide() {
 		this.setState({
 			placeholder: this.props.currentLocation,
-			listViewDisplayed: false,
+			listViewDisplayed: false
 		});
 	}
 
@@ -199,7 +204,7 @@ class Current extends Component {
 		var options = {
 			googleLat: this.state.googleLat,
 			googleLng: this.state.googleLng,
-			googleName: this.state.googleName,
+			googleName: this.state.googleName
 		};
 		console.log(options);
 		this.props.updateSkyData(options);
@@ -221,8 +226,39 @@ class Current extends Component {
 
 		// weather icon logic
 		// group 2xx: thunderstorm
-		if (weatherCode >= 200 && weatherCode <= 232) {
+		if (weatherCode >= 200 && (weatherCode <= 202) & night) {
+			currentWeatherIcon = thunderStormRainNight;
+		} else if (weatherCode >= 200 && (weatherCode <= 202) & !night) {
 			currentWeatherIcon = thunderStormRain;
+		} else if (weatherCode >= 230 && (weatherCode <= 232) & night) {
+			currentWeatherIcon = thunderStormNight;
+		} else if (weatherCode >= 230 && (weatherCode <= 232) & !night) {
+			currentWeatherIcon = thunderStorm;
+		} else if (weatherCode >= 210 && (weatherCode <= 221) & night) {
+			currentWeatherIcon = thunderStormNight;
+		} else if (weatherCode >= 210 && (weatherCode <= 221) & !night) {
+			currentWeatherIcon = thunderStorm;
+		} else if (weatherCode == 200 && night) {
+			currentWeatherIcon = lightRainNight;
+		} else if (weatherCode == 201 && !night) {
+			currentWeatherIcon = lightRain;
+		} else if (weatherCode == 202 && night) {
+			currentWeatherIcon = moderateRainNight;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+		} else if (weatherCode == 230 && !night) {
+			currentWeatherIcon = moderateRain;
+
 			// group 3xx: drizzle
 		} else if (weatherCode >= 300 && weatherCode <= 321 && night) {
 			currentWeatherIcon = lightDrizzleNight;
@@ -242,10 +278,14 @@ class Current extends Component {
 		} else if (weatherCode >= 502 && weatherCode <= 531 && !night) {
 			currentWeatherIcon = heavyRain;
 			// group 6xx: snow
-		} else if (weatherCode >= 600 && weatherCode <= 622) {
+		} else if (weatherCode >= 600 && weatherCode <= 622 && night) {
+			currentWeatherIcon = snowNight;
+		} else if (weatherCode >= 600 && weatherCode <= 622 && !night) {
 			currentWeatherIcon = snow;
 			// group 7xx: atmosphere
-		} else if (weatherCode >= 701 && weatherCode <= 781) {
+		} else if (weatherCode >= 701 && weatherCode <= 781 && night) {
+			currentWeatherIcon = mistNight;
+		} else if (weatherCode >= 701 && weatherCode <= 781 && !night) {
 			currentWeatherIcon = mist;
 			// group 80x: clouds
 		} else if (weatherCode == 801 && night) {
@@ -305,7 +345,7 @@ class Current extends Component {
 						height: 50,
 						overflow: 'visible',
 						alignItems: 'center',
-						justifyContent: 'center',
+						justifyContent: 'center'
 					}}>
 					<Ionicons name='ios-search' size={30} color={colours.white} />
 				</View>
@@ -331,7 +371,7 @@ class Current extends Component {
 							// set state with google details
 							googleLat: details.geometry.location.lat.toFixed(5),
 							googleLng: details.geometry.location.lng.toFixed(5),
-							googleName: updatedAddress,
+							googleName: updatedAddress
 						});
 						// update sky data function
 						this.updateSkyData();
@@ -340,7 +380,7 @@ class Current extends Component {
 					query={{
 						key: geo,
 						language: 'en',
-						types: '(cities)',
+						types: '(cities)'
 					}}
 					// google styles
 					styles={{
@@ -350,13 +390,13 @@ class Current extends Component {
 							top: 0,
 							width: '100%',
 							height: '100%',
-							overflow: 'visible',
+							overflow: 'visible'
 						},
 						textInputContainer: {
 							alignContent: 'center',
 							backgroundColor: colourBarBg,
 							height: 50,
-							width: '100%',
+							width: '100%'
 						},
 						textInput: {
 							alignItems: 'center',
@@ -373,13 +413,13 @@ class Current extends Component {
 							fontFamily: 'allerLt',
 							fontSize: 18,
 							textAlign: 'center',
-							zIndex: 1,
+							zIndex: 1
 						},
 						description: {
 							alignItems: 'center',
 							color: colours.white,
 							fontFamily: 'allerLt',
-							textAlign: 'center',
+							textAlign: 'center'
 						},
 						listView: {
 							backgroundColor: colourBarBg,
@@ -388,28 +428,28 @@ class Current extends Component {
 							fontSize: 18,
 							position: 'absolute',
 							top: 50,
-							elevation: 1,
+							elevation: 1
 						},
 						predefinedPlacesDescription: {
 							color: colours.white,
 							fontFamily: 'allerLt',
-							fontSize: 18,
+							fontSize: 18
 						},
 						separator: {
 							backgroundColor: colourBg,
-							height: 2,
-						},
+							height: 2
+						}
 					}}
 					// google options
 					currentLocation={false}
 					currentLocationLabel='Current location'
 					nearbyPlacesAPI='GooglePlacesSearch'
 					GooglePlacesDetailsQuery={{
-						fields: 'geometry,formatted_address',
+						fields: 'geometry,formatted_address'
 					}}
 					filterReverseGeocodingByTypes={[
 						'locality',
-						'administrative_area_level_3',
+						'administrative_area_level_3'
 					]}
 					debounce={100}
 				/>
@@ -425,7 +465,7 @@ class Current extends Component {
 						height: 50,
 						overflow: 'visible',
 						alignItems: 'center',
-						justifyContent: 'center',
+						justifyContent: 'center'
 					}}>
 					{/* globalmodal */}
 					<FirebaseProvider value={Firebase}>
@@ -445,7 +485,7 @@ class Current extends Component {
 					<LottieView
 						style={{
 							height: iconHeight,
-							width: iconWidth,
+							width: iconWidth
 						}}
 						ref={(animation) => {
 							this.animation = animation;
@@ -502,7 +542,7 @@ class Current extends Component {
 									justifyContent: 'center',
 									fontSize: 18,
 									fontFamily: 'allerBd',
-									color: colours.spotYellow,
+									color: colours.spotYellow
 								}}>
 								<Ionicons
 									name='ios-arrow-down'
@@ -518,7 +558,7 @@ class Current extends Component {
 					<CollapseBody
 						style={{
 							backgroundColor: colourBarBgDarkest,
-							marginBottom: 15,
+							marginBottom: 15
 						}}>
 						{/* morning afternoon evening icons */}
 						<View
@@ -528,20 +568,20 @@ class Current extends Component {
 								paddingLeft: 25,
 								paddingRight: 25,
 								paddingBottom: 10,
-								paddingTop: 5,
+								paddingTop: 5
 							}}>
 							{/* Morning */}
 							<View
 								style={{
 									flexDirection: 'column',
-									justifyContent: 'center',
+									justifyContent: 'center'
 								}}>
 								<Text
 									style={{
 										fontFamily: 'weatherfont',
 										fontSize: 45,
 										textAlign: 'center',
-										color: colours.white,
+										color: colours.white
 									}}>
 									{/* 9am */}
 									{weatherIcons[filterMorning[0].weather[0].id].code}
@@ -554,14 +594,14 @@ class Current extends Component {
 							<View
 								style={{
 									flexDirection: 'column',
-									justifyContent: 'center',
+									justifyContent: 'center'
 								}}>
 								<Text
 									style={{
 										fontFamily: 'weatherfont',
 										fontSize: 45,
 										textAlign: 'center',
-										color: colours.white,
+										color: colours.white
 									}}>
 									{/* 12pm */}
 									{weatherIcons[filterAfternoon[0].weather[0].id].code}
@@ -573,7 +613,7 @@ class Current extends Component {
 							<View
 								style={{
 									flexDirection: 'column',
-									justifyContent: 'center',
+									justifyContent: 'center'
 								}}>
 								{/* Evening */}
 								<Text
@@ -581,7 +621,7 @@ class Current extends Component {
 										fontFamily: 'weatherfont',
 										fontSize: 45,
 										textAlign: 'center',
-										color: colours.white,
+										color: colours.white
 									}}>
 									{/* 6pm */}
 									{weatherIcons[filterEvening[0].weather[0].id].code}
