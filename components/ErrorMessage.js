@@ -1,19 +1,23 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import colours from '../assets/colours.json';
 
 const ErrorMessage = ({ errorValue }) => (
-  <View style={styles.container}>
-    <Text style={styles.errorText}>{errorValue}</Text>
+  <View style={errorStyles.container}>
+    <Text style={errorStyles.errorText}>{errorValue}</Text>
   </View>
-)
+);
 
-const styles = StyleSheet.create({
+const errorStyles = StyleSheet.create({
   container: {
-    marginLeft: 25
+    marginLeft: 25,
+    marginRight: 25
   },
   errorText: {
-    color: 'red'
+    color: colours.spotRed,
+    fontFamily: 'allerLt',
+    fontSize: 15
   }
-})
+});
 
-export default ErrorMessage
+export default ErrorMessage;

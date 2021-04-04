@@ -1,17 +1,13 @@
 // imports
 import React, { Component } from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { Text, ScrollView, StyleSheet, View } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import colours from './../assets/colours.json';
 import weatherIcons from './../assets/icons.json';
 import { Ionicons } from '@expo/vector-icons';
-import weather from './../assets/animations/weather.json';
 
 // moment set up
 var moment = require('moment');
-
-// stylesheet
-var styles = require('../styles.js');
 
 // START Week
 class Week extends Component {
@@ -20,59 +16,6 @@ class Week extends Component {
     console.log('Inside render from Week.js...');
     // new array for filtering
     var filteredWeather = [];
-
-    // set up weather code
-    var weatherCode = this.props.weatherCode;
-
-    // set up icon display
-    let currentWeatherIcon;
-
-    console.log('weatherCode from Week.js ' + weatherCode);
-
-    // weather icon logic
-    // group 2xx: thunderstorm
-    if (weatherCode >= 200 && weatherCode <= 232) {
-      currentWeatherIcon = weather.weatherStorm;
-      // group 3xx: drizzle
-    } else if (
-      (weatherCode) >= 300 &&
-      (weatherCode) <= 321
-    ) {
-      currentWeatherIcon = weather.weatherRainyNight;
-      // group 5xx: rain
-    } else if (
-      (weatherCode) >= 500 &&
-      (weatherCode) <= 531
-    ) {
-      currentWeatherIcon = weather.weatherRainyNight;
-      // group 6xx: snow
-    } else if (
-      (weatherCode) >= 600 &&
-      (weatherCode) <= 622
-    ) {
-      currentWeatherIcon = weather.weatherSnow;
-      // group 7xx: atmosphere
-    } else if (
-      (weatherCode) >= 701 &&
-      (weatherCode) <= 781
-    ) {
-      currentWeatherIcon = weather.weatherFoggy;
-      // group 80x: scattered clouds
-    } else if (
-      (weatherCode) >= 801 &&
-      (weatherCode) <= 802
-    ) {
-      currentWeatherIcon = weather.weatherPartlyCloudy;
-      // group 80x: broken clouds
-    } else if (
-      (weatherCode) >= 803 &&
-      (weatherCode) <= 804
-    ) {
-      currentWeatherIcon = weather.weatherPartlyCloudy;
-      // group 800: clear
-    } else {
-      currentWeatherIcon = weather.weatherSunny;
-    }
 
     // first filter function
     for (var i = 0; i < this.props.weather.length; i++) {
@@ -96,8 +39,9 @@ class Week extends Component {
     }
 
     // set up colour bg variables
-    var colourBg = this.props.weekBg;
-    var colourBarBg = this.props.weekBarBg;
+    const colourBg = this.props.weekBg;
+    const colourBarBg = this.props.weekBarBg;
+    const colourBarBgDarkest = this.props.weekBarBgDarkest;
 
     // set current weather icon based on weather
     return (
@@ -110,10 +54,16 @@ class Week extends Component {
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
-          <Text style={styles.weekHeading}>Next 5 Days forecast</Text>
-
+          <View style={{
+            backgroundColor: colourBarBg,
+            marginBottom: 10
+          }}>
+            <View style={{ backgroundColor: colourBarBgDarkest }}>
+              <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
+            </View>
+          </View>
           {/* START map */}
-          <View>
+          <View style={{ marginBottom: 3 }}>
             {filteredWeather.map((dailyWeather) => {
               // set up date variables
               var today = moment.unix(dailyWeather.dt);
@@ -133,6 +83,9 @@ class Week extends Component {
                 );
               }
 
+              // convert mps to kmph
+              var windSpeed = dailyWeather.wind.speed * 3.6
+
               return (
                 // START week display
                 <View key={dailyWeather.dt}>
@@ -145,27 +98,27 @@ class Week extends Component {
                     }}>
                     {/* collapse header */}
                     <CollapseHeader>
-                      <View style={styles.weekIconTempWrap}>
+                      <View style={weekStyles.weekIconTempWrap}>
                         {/* day */}
-                        <View style={styles.weekColWrapLeft}>
+                        <View style={weekStyles.weekColWrapLeft}>
                           <Text
                             style={{
                               justifyContent: 'center',
-                              fontSize: 19,
+                              fontSize: 18,
                               fontFamily: 'allerRg',
                               color: colours.white
                             }}>
                             {/* chevron icon */}
                             <Ionicons
                               name='ios-arrow-down'
-                              size={19}
+                              size={18}
                               color={colours.white}
                             />{' '}{' '}
                             {day}
                           </Text>
                         </View>
                         {/* daily icon */}
-                        <View style={styles.weekColWrap}>
+                        <View style={weekStyles.weekColWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
@@ -175,35 +128,24 @@ class Week extends Component {
                             }}>
                             {weatherIcons[dailyWeather.weather[0].id].code}
                           </Text>
-                          {/* <LottieView
-                            style={{
-                              height: 30,
-                              width: 30
-                            }}
-                            ref={animation => {
-                              this.animation = animation;
-                            }}
-                            source={currentWeatherIcon}
-                            autoPlay={true}
-                          /> */}
                         </View>
                         {/* daily low temp */}
-                        <View style={styles.weekColWrap}>
-                          <Text style={styles.weekLowTemp}>
+                        <View style={weekStyles.weekColWrap}>
+                          <Text style={weekStyles.weekLowTemp}>
                             <Ionicons
                               name='ios-arrow-round-down'
-                              size={19}
+                              size={18}
                               color={colours.white}
                             />{' '}
                             {Math.round(dailyWeather.main[0])}°
                           </Text>
                         </View>
                         {/* daily high temp */}
-                        <View style={styles.weekColWrap}>
-                          <Text style={styles.weekHighTemp}>
+                        <View style={weekStyles.weekColWrap}>
+                          <Text style={weekStyles.weekHighTemp}>
                             <Ionicons
                               name='ios-arrow-round-up'
-                              size={19}
+                              size={18}
                               color={colours.white}
                             />{' '}
                             {Math.round(dailyWeather.main[1])}°
@@ -215,46 +157,45 @@ class Week extends Component {
                     {/* collapse body */}
                     <CollapseBody>
                       {/* START description */}
-                      <Text style={styles.weekDesc}>
+                      <Text style={weekStyles.weekDesc}>
                         {dailySummary} with a high of{' '}
                         {Math.round(dailyWeather.main[1])}°
                       </Text>
                       {/* END description */}
 
                       {/* START wind and humidity */}
-                      <View style={styles.currentWindHumWrap}>
+                      <View style={weekStyles.weekWindHumWrap}>
+
                         {/* START wind speed */}
-                        <View style={styles.currentWindWrap}>
+                        <View style={weekStyles.weekWindWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
-                              fontSize: 24,
-                              textAlign: 'center',
+                              fontSize: 18,
                               color: colours.white
                             }}>
                             {weatherIcons.windSpeed.code}
                           </Text>
-                          <Text style={styles.currentWindHumDetails}>
+                          <Text style={weekStyles.weekWindHumDetails}>
                             {'  '}
-                            {Math.round(dailyWeather.wind.speed)} km/h
+                            {Math.round(windSpeed)} km/h
                           </Text>
                         </View>
                         {/* END wind speed */}
 
                         {/* START humidity */}
-                        <View style={styles.currentHumWrap}>
+                        <View style={weekStyles.weekHumWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
-                              fontSize: 24,
-                              textAlign: 'center',
+                              fontSize: 18,
                               color: colours.white
                             }}>
                             {weatherIcons.humidity.code}
                           </Text>
-                          <Text style={styles.currentWindHumDetails}>
+                          <Text style={weekStyles.weekWindHumDetails}>
                             {'  '}
-                            {dailyWeather.main.humidity}
+                            {dailyWeather.main.humidity}%
                           </Text>
                         </View>
                         {/* END humidity */}
@@ -268,8 +209,8 @@ class Week extends Component {
             })}
             {/* END map */}
           </View>
-        </ScrollView>
-      </View>
+        </ScrollView >
+      </View >
     );
   }
   // END Week render
@@ -277,3 +218,82 @@ class Week extends Component {
 // END Week
 
 export default Week;
+
+// style
+const weekStyles = StyleSheet.create({
+  weekIconTempWrap: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 45,
+    justifyContent: 'space-between'
+  },
+  weekColWrap: {
+    width: 50,
+    height: 45,
+    justifyContent: 'center'
+  },
+  weekColWrapLeft: {
+    width: 75,
+    height: 45,
+    justifyContent: 'center'
+  },
+  weekIcon: {
+    alignSelf: 'flex-start',
+    height: 30,
+    width: 30
+  },
+  weekLowTemp: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerLt'
+  },
+  weekHighTemp: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerLt'
+  },
+  weekHeading: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerBd',
+    padding: 12,
+    textAlign: 'center'
+  },
+  weekText: {
+    color: colours.white,
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  weekTextBot: {
+    color: colours.white,
+    fontSize: 18,
+    textAlign: 'left',
+    marginBottom: 12
+  },
+  weekDesc: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerRg',
+    padding: 10,
+    textAlign: 'center'
+  },
+  weekWindHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 4
+  },
+  weekWindWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  weekHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  weekWindHumDetails: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerLt',
+    paddingTop: 4
+  }
+});

@@ -5,7 +5,7 @@ import { registerRootComponent } from 'expo';
 import React, { useState } from 'react';
 import AppContainer from './navigation';
 import Firebase, { FirebaseProvider } from './config/Firebase';
-import { StatusBar } from 'react-native';
+import { StatusBar, Dimensions } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
