@@ -1,0 +1,49 @@
+{
+	"simpleWeather": "#313136",
+
+	"black": "#000",
+	"white": "#fff",
+
+	"spotYellow": "#ffc82e",
+	"spotBlue": "#1faadb",
+	"spotOrange": "#fa774f",
+	"spotGreen": "#37d493",
+	"spotRed": "#ff6b6b",
+
+	"spotGrey": "#c9c9c9",
+	"spotLightGrey": "#e0e0e0",
+	"spotGreyMed": "#313136",
+	"spotGreyDark": "#2b2b2e",
+
+	"night": "#083a5e",
+	"nightDark": "#092d46",
+	"nightDarkest": "#001c2e",
+
+	"thunderStorm": "#17577a",
+	"thunderStormDark": "#052c42",
+	"thunderStormDarkest": "#021c2b",
+
+	"drizzle": "#2485c7",
+	"drizzleDark": "#0b5a8f",
+	"drizzleDarkest": "#004472",
+
+	"rain": "#065d97",
+	"rainDark": "#013c63",
+	"rainDarkest": "#002842",
+
+	"snow": "#473f99",
+	"snowDark": "#2c2b66",
+	"snowDarkest": "#21204c",
+
+	"atmosphere": "#007982",
+	"atmosphereDark": "#006168",
+	"atmosphereDarkest": "#004c52",
+
+	"clearSky": "#f5a03e",
+	"clearSkyDark": "#e98330",
+	"clearSkyDarkest": "#d8721f",
+
+	"clouds": "#6e859e",
+	"cloudsDark": "#546679",
+	"cloudsDarkest": "#3e5063"
+}
