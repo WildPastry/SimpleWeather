@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { AppLoading } from 'expo';
-import { withFirebaseHOC } from '../config/Firebase';
+/** @format */
+
+import React, {Component} from 'react';
+import {AppLoading} from 'expo';
+import {withFirebaseHOC} from '../config/Firebase';
 
 // START Initial
 class Initial extends Component {
-
   componentDidMount = async () => {
     try {
-      await this.props.firebase.checkUserAuth(user => {
+      await this.props.firebase.checkUserAuth((user) => {
         if (user) {
           // save details if recently logged in
           this.props.navigation.navigate('App');
@@ -15,20 +16,18 @@ class Initial extends Component {
           // if logged out show the login screen
           this.props.navigation.navigate('Auth');
         }
-      })
+      });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // START Initial
   render() {
     console.log('Inside render from Initial.js...');
-    return (
-      <AppLoading />
-    );
+    return <AppLoading />;
   }
-   // END render Initial
+  // END render Initial
 }
 // END render Initial
 

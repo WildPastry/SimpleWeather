@@ -1,35 +1,38 @@
+/** @format */
+
 // imports
-import React, { Component, Fragment } from 'react'
-import { Text, TouchableOpacity, SafeAreaView, View, StyleSheet } from 'react-native'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
-import FormInput from '../components/FormInput'
-import FormButton from '../components/FormButton'
-import ErrorMessage from '../components/ErrorMessage'
-import { withFirebaseHOC } from '../config/Firebase'
+import React, {Component, Fragment} from 'react';
+import {Text, TouchableOpacity, SafeAreaView, View, StyleSheet} from 'react-native';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import ErrorMessage from '../components/ErrorMessage';
+import {withFirebaseHOC} from '../config/Firebase';
 import colours from '../assets/colours.json';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .label('Email')
     .email('Enter a valid email')
-    .required('Please enter a registered email')
-})
+    .required('Please enter a registered email'),
+});
 
 // START ForgotPassword
 class ForgotPassword extends Component {
+  // password reset function
   handlePasswordReset = async (values, actions) => {
-    
-    const { email } = values
+    const {email} = values;
     try {
-      await this.props.firebase.passwordReset(email)
-      console.log('Password reset email sent successfully')
-      this.props.navigation.navigate('Login')
+      await this.props.firebase.passwordReset(email);
+      console.log('Password reset email sent successfully');
+      this.props.navigation.navigate('Login');
     } catch (error) {
-      actions.setFieldError('general', error.message)
+      actions.setFieldError('general', error.message);
     }
-  }
+  };
 
+  // navigation function
   goToSignup = () => this.props.navigation.navigate('Login');
 
   // START render ForgotPassword
@@ -38,9 +41,9 @@ class ForgotPassword extends Component {
     return (
       <SafeAreaView style={forgotPasswordStyles.container}>
         <Formik
-          initialValues={{ email: '' }}
+          initialValues={{email: ''}}
           onSubmit={(values, actions) => {
-            this.handlePasswordReset(values, actions)
+            this.handlePasswordReset(values, actions);
           }}
           validationSchema={validationSchema}>
           {({
@@ -51,43 +54,43 @@ class ForgotPassword extends Component {
             isValid,
             touched,
             handleBlur,
-            isSubmitting
+            isSubmitting,
           }) => (
-              <Fragment>
-                <FormInput
-                  name='email'
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  placeholder='Enter email'
-                  autoCapitalize='none'
-                  iconName='ios-mail'
-                  iconColor={colours.white}
-                  onBlur={handleBlur('email')} />
-                <ErrorMessage errorValue={touched.email && errors.email} />
-                <View style={forgotPasswordStyles.buttonContainer}>
-                  <FormButton
-                    onPress={handleSubmit}
-                    title='SEND EMAIL'
-                    disabled={!isValid || isSubmitting} />
-                </View>
-                <ErrorMessage errorValue={errors.general} />
-              </Fragment>
-            )}
+            <Fragment>
+              <FormInput
+                name='email'
+                value={values.email}
+                onChangeText={handleChange('email')}
+                placeholder='Enter email'
+                autoCapitalize='none'
+                iconName='ios-mail'
+                iconColor={colours.white}
+                onBlur={handleBlur('email')}
+              />
+              <ErrorMessage errorValue={touched.email && errors.email} />
+              <View style={forgotPasswordStyles.buttonContainer}>
+                <FormButton
+                  onPress={handleSubmit}
+                  title='SEND EMAIL'
+                  disabled={!isValid || isSubmitting}
+                />
+              </View>
+              <ErrorMessage errorValue={errors.general} />
+            </Fragment>
+          )}
         </Formik>
-        <TouchableOpacity
-          style={forgotPasswordStyles.link}
-          onPress={this.goToSignup}>
+        <TouchableOpacity style={forgotPasswordStyles.link} onPress={this.goToSignup}>
           <Text
             style={{
               color: colours.spotYellow,
               fontFamily: 'allerLt',
-              fontSize: 18
+              fontSize: 18,
             }}>
             Back to login
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
-    )
+    );
   }
   // END render ForgotPassword
 }
@@ -98,17 +101,17 @@ const forgotPasswordStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colours.spotGreyMed,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   link: {
     alignItems: 'center',
-    margin: 8
+    margin: 8,
   },
   buttonContainer: {
     margin: 25,
     marginBottom: 10,
-    marginTop: 10
-  }
-})
+    marginTop: 10,
+  },
+});
 
 export default withFirebaseHOC(ForgotPassword);

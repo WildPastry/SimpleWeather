@@ -1,10 +1,12 @@
+/** @format */
+
 // imports
-import React, { Component } from 'react';
-import { Text, ScrollView, StyleSheet, View } from 'react-native';
-import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
+import React, {Component} from 'react';
+import {Text, ScrollView, StyleSheet, View} from 'react-native';
+import {Collapse, CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
 import colours from './../assets/colours.json';
 import weatherIcons from './../assets/icons.json';
-import { Ionicons } from '@expo/vector-icons';
+import {Ionicons} from '@expo/vector-icons';
 
 // moment set up
 var moment = require('moment');
@@ -28,13 +30,13 @@ class Week extends Component {
     // add new data to filtered array
     for (i = 0; i < 5; i++) {
       Array.prototype.push.apply(filteredWeather[i].main, [
-        this.props.skyWeather[i].temperatureMin
+        this.props.skyWeather[i].temperatureMin,
       ]);
       Array.prototype.push.apply(filteredWeather[i].main, [
-        this.props.skyWeather[i].temperatureMax
+        this.props.skyWeather[i].temperatureMax,
       ]);
       Array.prototype.push.apply(filteredWeather[i].sys, [
-        this.props.skyWeather[i].summary
+        this.props.skyWeather[i].summary,
       ]);
     }
 
@@ -50,20 +52,21 @@ class Week extends Component {
           alignSelf: 'stretch',
           backgroundColor: colourBg,
           flex: 4,
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}>
         <ScrollView>
           {/* weekly weather heading and description */}
-          <View style={{
-            backgroundColor: colourBarBg,
-            marginBottom: 10
-          }}>
-            <View style={{ backgroundColor: colourBarBgDarkest }}>
+          <View
+            style={{
+              backgroundColor: colourBarBg,
+              marginBottom: 10,
+            }}>
+            <View style={{backgroundColor: colourBarBgDarkest}}>
               <Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
             </View>
           </View>
           {/* START map */}
-          <View style={{ marginBottom: 3 }}>
+          <View style={{marginBottom: 3}}>
             {filteredWeather.map((dailyWeather) => {
               // set up date variables
               var today = moment.unix(dailyWeather.dt);
@@ -78,13 +81,11 @@ class Week extends Component {
               if (dailySummaryRaw === undefined) {
                 console.log('Not loaded yet . . .');
               } else {
-                var dailySummary = dailySummaryRaw.replace(/^\w/, (c) =>
-                  c.toUpperCase()
-                );
+                var dailySummary = dailySummaryRaw.replace(/^\w/, (c) => c.toUpperCase());
               }
 
               // convert mps to kmph
-              var windSpeed = dailyWeather.wind.speed * 3.6
+              var windSpeed = dailyWeather.wind.speed * 3.6;
 
               return (
                 // START week display
@@ -94,7 +95,7 @@ class Week extends Component {
                       backgroundColor: colourBarBg,
                       marginTop: 3,
                       marginBottom: 3,
-                      padding: 10
+                      padding: 10,
                     }}>
                     {/* collapse header */}
                     <CollapseHeader>
@@ -106,14 +107,14 @@ class Week extends Component {
                               justifyContent: 'center',
                               fontSize: 18,
                               fontFamily: 'allerRg',
-                              color: colours.white
+                              color: colours.white,
                             }}>
                             {/* chevron icon */}
                             <Ionicons
                               name='ios-arrow-down'
                               size={18}
                               color={colours.white}
-                            />{' '}{' '}
+                            />{' '}
                             {day}
                           </Text>
                         </View>
@@ -124,7 +125,7 @@ class Week extends Component {
                               fontFamily: 'weatherfont',
                               fontSize: 24,
                               textAlign: 'center',
-                              color: colours.white
+                              color: colours.white,
                             }}>
                             {weatherIcons[dailyWeather.weather[0].id].code}
                           </Text>
@@ -158,21 +159,19 @@ class Week extends Component {
                     <CollapseBody>
                       {/* START description */}
                       <Text style={weekStyles.weekDesc}>
-                        {dailySummary} with a high of{' '}
-                        {Math.round(dailyWeather.main[1])}°
+                        {dailySummary} with a high of {Math.round(dailyWeather.main[1])}°
                       </Text>
                       {/* END description */}
 
                       {/* START wind and humidity */}
                       <View style={weekStyles.weekWindHumWrap}>
-
                         {/* START wind speed */}
                         <View style={weekStyles.weekWindWrap}>
                           <Text
                             style={{
                               fontFamily: 'weatherfont',
                               fontSize: 18,
-                              color: colours.white
+                              color: colours.white,
                             }}>
                             {weatherIcons.windSpeed.code}
                           </Text>
@@ -189,7 +188,7 @@ class Week extends Component {
                             style={{
                               fontFamily: 'weatherfont',
                               fontSize: 18,
-                              color: colours.white
+                              color: colours.white,
                             }}>
                             {weatherIcons.humidity.code}
                           </Text>
@@ -209,8 +208,8 @@ class Week extends Component {
             })}
             {/* END map */}
           </View>
-        </ScrollView >
-      </View >
+        </ScrollView>
+      </View>
     );
   }
   // END Week render
@@ -225,75 +224,75 @@ const weekStyles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     height: 45,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   weekColWrap: {
     width: 50,
     height: 45,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   weekColWrapLeft: {
     width: 75,
     height: 45,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   weekIcon: {
     alignSelf: 'flex-start',
     height: 30,
-    width: 30
+    width: 30,
   },
   weekLowTemp: {
     color: colours.white,
     fontSize: 18,
-    fontFamily: 'allerLt'
+    fontFamily: 'allerLt',
   },
   weekHighTemp: {
     color: colours.white,
     fontSize: 18,
-    fontFamily: 'allerLt'
+    fontFamily: 'allerLt',
   },
   weekHeading: {
     color: colours.white,
     fontSize: 18,
     fontFamily: 'allerBd',
     padding: 12,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   weekText: {
     color: colours.white,
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   weekTextBot: {
     color: colours.white,
     fontSize: 18,
     textAlign: 'left',
-    marginBottom: 12
+    marginBottom: 12,
   },
   weekDesc: {
     color: colours.white,
     fontSize: 18,
     fontFamily: 'allerRg',
     padding: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   weekWindHumWrap: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 4
+    marginBottom: 4,
   },
   weekWindWrap: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   weekHumWrap: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   weekWindHumDetails: {
     color: colours.white,
     fontSize: 18,
     fontFamily: 'allerLt',
-    paddingTop: 4
-  }
+    paddingTop: 4,
+  },
 });
