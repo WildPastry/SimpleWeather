@@ -1,7 +1,7 @@
 /** @format */
 
 // imports
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import configData from './../data/config.json';
 import {
   Text,
@@ -11,12 +11,11 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import FormInput from '../components/FormInput';
+import {Dimensions} from 'react-native';
 import FormButton from '../components/FormButton';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {withFirebaseHOC} from '../config/Firebase';
 import colours from '../assets/colours.json';
-import {Ionicons} from '@expo/vector-icons';
 
 // set up auth key for google data
 const geo = configData.GEO;
@@ -31,7 +30,7 @@ class SelectLocation extends Component {
       googleLng: '',
       googleName: '',
       // placeholder clear
-      placeholder: 'Enter Location . . .',
+      placeholder: 'Enter Location',
       // google places listview
       listViewDisplayed: true,
       // button display
@@ -41,8 +40,9 @@ class SelectLocation extends Component {
     this._keyboardDidHide = this._keyboardDidHide.bind(this);
   }
 
-  // navigation function
+  // navigation functions
   goToSignup = () => this.props.navigation.navigate('Login');
+  goToApp = (options) => this.props.navigation.navigate('App', { options: options });
 
   // select location if not signing in
   selectLocation = () => {
@@ -53,6 +53,7 @@ class SelectLocation extends Component {
       googleName: this.state.googleName,
     };
     console.log(options);
+    this.goToApp(options);
   };
 
   // keyboard did mount function
@@ -76,7 +77,6 @@ class SelectLocation extends Component {
   // keyboard shown
   _keyboardDidShow() {
     this.setState({
-      placeholder: '',
       listViewDisplayed: true,
     });
   }
@@ -91,36 +91,12 @@ class SelectLocation extends Component {
   // START render SelectLocation
   render() {
     console.log('Inside render from SelectLocation...');
+    var width = Dimensions.get('window').width;
     return (
       <SafeAreaView
         keyboardShouldPersistTaps='handled'
         style={SelectLocationStyles.container}>
-        <View style={SelectLocationStyles.currentWrap} />
-        {/* <Fragment>
-          <FormInput
-            iconName='ios-search'
-            iconColor={colours.white}
-          />
-        </Fragment> */}
-        {/* search button */}
-        {/* <View
-          pointerEvents='none'
-          style={{
-            zIndex: 2,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '10%',
-            height: 50,
-            overflow: 'visible',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Ionicons name='ios-search' size={30} color={colours.white} />
-        </View> */}
-
         {/* autocomplete input */}
-        <View style={SelectLocationStyles.currentWrap}>
         <GooglePlacesAutocomplete
           keyboardShouldPersistTaps='handled'
           placeholder={this.state.placeholder}
@@ -152,23 +128,25 @@ class SelectLocation extends Component {
           // google styles
           styles={{
             container: {
-              zIndex: 1,
-              position: 'relative',
-              width: '100%',
               overflow: 'visible',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 1,
             },
             textInputContainer: {
               alignContent: 'center',
+              alignItems: 'center',
               backgroundColor: colours.spotGreyMed,
               height: 50,
-              width: '100%',
+              marginBottom: 35,
+              width: '85%',
             },
             textInput: {
               alignItems: 'center',
               backgroundColor: colours.spotGreyMed,
               borderRadius: 0,
-              borderBottomColor: colours.white,
-              borderBottomWidth: 1,
+              borderBottomColor: colours.spotGrey,
+              borderBottomWidth: 0.8,
               borderTopColor: colours.spotGreyMed,
               borderTopWidth: 1,
               color: colours.white,
@@ -194,7 +172,8 @@ class SelectLocation extends Component {
               fontFamily: 'allerLt',
               fontSize: 18,
               position: 'absolute',
-              top: 50,
+              marginTop: 50,
+              bottom: 0,
               elevation: 1,
             },
             predefinedPlacesDescription: {
@@ -215,29 +194,32 @@ class SelectLocation extends Component {
             fields: 'geometry,formatted_address',
           }}
           filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
-          debounce={100}
-        />
-        {/* login button */}
-        <View style={SelectLocationStyles.buttonContainer}>
-          <FormButton
-            onPress={this.selectLocation}
-            title='GO'
-            disabled={!this.state.isValid}
-          />
-        </View>
-        {/* back to login */}
-        <TouchableOpacity style={SelectLocationStyles.link} onPress={this.goToSignup}>
-          <Text
+          debounce={100}>
+          {/* login button */}
+          <View
             style={{
-              color: colours.spotYellow,
-              fontFamily: 'allerLt',
-              fontSize: 18,
+              width: width * 0.85,
+              marginBottom: 25,
+              marginTop: 10,
             }}>
-            Back to login
-          </Text>
-        </TouchableOpacity>
-        </View>
-        <View style={SelectLocationStyles.currentWrap} />
+            <FormButton
+              onPress={this.selectLocation}
+              title='GO'
+              disabled={!this.state.isValid}
+            />
+          </View>
+          {/* back to login */}
+          <TouchableOpacity style={SelectLocationStyles.link} onPress={this.goToSignup}>
+            <Text
+              style={{
+                color: colours.spotYellow,
+                fontFamily: 'allerLt',
+                fontSize: 18,
+              }}>
+              Back to login
+            </Text>
+          </TouchableOpacity>
+        </GooglePlacesAutocomplete>
       </SafeAreaView>
     );
   }
@@ -253,17 +235,14 @@ const SelectLocationStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   currentWrap: {
-    flex: 1
+    flex: 1,
+  },
+  masterWrap: {
+    flex: 1,
   },
   link: {
     alignItems: 'center',
     margin: 8,
-  },
-  buttonContainer: {
-    marginLeft: 25,
-    marginRight: 25,
-    marginBottom: 10,
-    marginTop: 10,
   },
 });
 

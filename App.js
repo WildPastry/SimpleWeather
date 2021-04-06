@@ -8,6 +8,7 @@ import Header from './screens/Header';
 import Current from './screens/Current';
 import Week from './screens/Week';
 import Footer from './screens/Footer';
+import SelectLocation from './screens/SelectLocation';
 import colours from './assets/colours.json';
 import LottieView from 'lottie-react-native';
 
@@ -502,6 +503,7 @@ class App extends Component {
             />
             {/* footer */}
             <Footer />
+            {/* <SelectLocation /> */}
           </ScrollView>
         </View>
         // END main container
