@@ -7,6 +7,7 @@ import Header from '../screens/Header';
 import GlobalModal from '../screens/GlobalModal';
 import App from '../App';
 
+// AppNavigation
 const AppNavigation = createStackNavigator(
   {
     App: {

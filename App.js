@@ -150,6 +150,13 @@ class App extends Component {
     this._isMounted = true;
     console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
     if (this._isMounted) {
+      console.log(
+        this.props.skipLogin,
+        this.props.googleLat,
+        this.props.googleLng,
+        this.props.googleName,
+        'Inside APP - data from HOME...'
+        );
       // check firebase for user
       var user = firebase.auth().currentUser;
       if (user) {

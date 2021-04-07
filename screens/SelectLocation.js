@@ -42,7 +42,12 @@ class SelectLocation extends Component {
 
   // navigation functions
   goToSignup = () => this.props.navigation.navigate('Login');
-  goToApp = (options) => this.props.navigation.navigate('App', { options: options });
+  goToHome = (options) =>
+    this.props.navigation.navigate('Home', {
+      type: 'Navigate',
+      routeName: 'Home',
+      params: {options: options},
+    });
 
   // select location if not signing in
   selectLocation = () => {
@@ -53,7 +58,7 @@ class SelectLocation extends Component {
       googleName: this.state.googleName,
     };
     console.log(options);
-    this.goToApp(options);
+    this.goToHome(options);
   };
 
   // keyboard did mount function
