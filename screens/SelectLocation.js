@@ -51,13 +51,11 @@ class SelectLocation extends Component {
 
   // select location if not signing in
   selectLocation = () => {
-    console.log('Ready to load location...');
     var options = {
       googleLat: this.state.googleLat,
       googleLng: this.state.googleLng,
       googleName: this.state.googleName,
     };
-    console.log(options);
     this.goToHome(options);
   };
 

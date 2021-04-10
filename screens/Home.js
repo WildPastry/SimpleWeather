@@ -2,57 +2,32 @@
 
 // imports
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
 import {withFirebaseHOC} from '../config/Firebase';
 import Firebase, {FirebaseProvider} from '../config/Firebase';
 import App from './../App';
 
 // START Home
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // skip login data
-      googleLat: '',
-      googleLng: '',
-      googleName: '',
-    };
-  }
-
-  // componentDidMount
-  componentDidMount = async () => {
-    const {params} = this.props.navigation.state;
-    const skipLogin = params.params.options;
-    if (skipLogin) {
-      this.setState(
-        {
-          skipLogin: skipLogin,
-          googleLat: skipLogin['googleLat'],
-          googleLng: skipLogin['googleLng'],
-          googleName: skipLogin['googleName'],
-        },
-        () => {
-          console.log(skipLogin, this.state, 'From Home.js...');
-        }
-      );
-    }
-  };
-
   // START render Home
   render() {
     console.log('Inside render from Home.js...');
+    // check for data from the skip login screen
+    let currentData;
+    const params = this.props.navigation.state;
+    console.log(params, 'from Home.js...');
+    if (params.params !== undefined) {
+      currentData = params.params.params.options;
+    } else {
+      currentData = {
+        googleName: 'Wellington, New Zealand',
+        googleLat: '-41.2865',
+        googleLng: '174.7762',
+      };
+    }
+    // send it through and load the main APP
     return (
-      // <View>
-      //   <Text>DATA</Text>
-      // </View>
       <FirebaseProvider value={Firebase}>
-        <App 
-        navigation={this.props.navigation} 
-        skipLogin={this.state.skipLogin}
-        currentLat={this.state.googleLat}
-        currentLng={this.state.googleLng}
-        currentLocation={this.state.googleName}
-        />
+        <App navigation={this.props.navigation} currentData={currentData} />
       </FirebaseProvider>
     );
   }

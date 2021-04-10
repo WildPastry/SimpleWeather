@@ -2,8 +2,6 @@
 
 import React, {Component, Fragment} from 'react';
 import {
-  Alert,
-  Linking,
   StyleSheet,
   View,
   TouchableOpacity,
@@ -12,6 +10,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+import Conditions from '../screens/Conditions';
 import {CheckBox} from 'react-native-elements';
 import {Ionicons} from '@expo/vector-icons';
 import {Formik} from 'formik';
@@ -55,7 +54,7 @@ class Signup extends Component {
   // navigation function
   goToLogin = () => this.props.navigation.navigate('Login');
 
-    // hide password function
+  // hide password function
   handlePasswordVisibility = () => {
     this.setState((prevState) => ({
       passwordIcon: prevState.passwordIcon === 'ios-eye' ? 'ios-eye-off' : 'ios-eye',
@@ -63,7 +62,7 @@ class Signup extends Component {
     }));
   };
 
-    // confirm password function
+  // confirm password function
   handleConfirmPasswordVisibility = () => {
     this.setState((prevState) => ({
       confirmPasswordIcon:
@@ -72,7 +71,7 @@ class Signup extends Component {
     }));
   };
 
-    // sign up function
+  // sign up function
   handleOnSignup = async (values, actions) => {
     const {name, email, password} = values;
 
@@ -98,13 +97,6 @@ class Signup extends Component {
             console.log(error);
           });
       }
-      // Alert
-      // Alert.alert(
-      // 	'Account successfully created',
-      // 	'You can now sign into the app with your credentials',
-      // 	[{ text: 'Confirm', onPress: () => this.goToLogin }],
-      // 	{ cancelable: false }
-      // );
     } catch (error) {
       console.log(error);
       actions.setFieldError('general', error.message);
@@ -233,7 +225,9 @@ class Signup extends Component {
                     }}
                     onPress={() => setFieldValue('check', !values.check)}
                   />
-                  {/* checkbox */}
+                  {/* read */}
+                  <Conditions />
+                  {/* signup button */}
                   <View style={signupStyles.buttonContainer}>
                     <FormButton
                       onPress={handleSubmit}
@@ -274,11 +268,12 @@ const signupStyles = StyleSheet.create({
   },
   link: {
     alignItems: 'center',
+    marginBottom: 8,
   },
   buttonContainer: {
     margin: 25,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 35,
   },
   checkBoxContainer: {
     backgroundColor: colours.simpleWeather,

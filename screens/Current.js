@@ -6,7 +6,6 @@ import {
   Dimensions,
   Text,
   Keyboard,
-  Image,
   SafeAreaView,
   StyleSheet,
   View,
@@ -608,10 +607,6 @@ class Current extends Component {
                 <Text style={currentStyles.currentSecondaryInfoHeading}>6pm</Text>
               </View>
             </View>
-
-            {/* border */}
-            {/* <View style={currentStyles.border}></View> */}
-
             {/* daily summary */}
             <View style={{padding: 10}}>
               <Text style={currentStyles.currentDescSummaryBold}>

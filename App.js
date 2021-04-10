@@ -2,13 +2,12 @@
 
 // imports
 import React, {Component} from 'react';
-import {AppRegistry, Dimensions, ScrollView, StyleSheet, View} from 'react-native';
+import {AppRegistry, Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import configData from './data/config.json';
 import Header from './screens/Header';
 import Current from './screens/Current';
 import Week from './screens/Week';
 import Footer from './screens/Footer';
-import SelectLocation from './screens/SelectLocation';
 import colours from './assets/colours.json';
 import LottieView from 'lottie-react-native';
 
@@ -135,10 +134,9 @@ class App extends Component {
   fallback() {
     this.setState(
       {
-        // fallback
-        currentLocation: 'Wellington, New Zealand',
-        currentLat: -41.2865,
-        currentLng: 174.7762,
+        currentLocation: this.props.currentData.googleName,
+        currentLat: this.props.currentData.googleLat,
+        currentLng: this.props.currentData.googleLng,
       },
       this.getSkyData
     );
@@ -150,13 +148,8 @@ class App extends Component {
     this._isMounted = true;
     console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
     if (this._isMounted) {
-      console.log(
-        this.props.skipLogin,
-        this.props.googleLat,
-        this.props.googleLng,
-        this.props.googleName,
-        'Inside APP - data from HOME...'
-        );
+      // check for data from the skip login screen
+      console.log(this.props.currentData, 'from componentDidMount App.js');
       // check firebase for user
       var user = firebase.auth().currentUser;
       if (user) {
@@ -510,12 +503,12 @@ class App extends Component {
             />
             {/* footer */}
             <Footer />
-            {/* <SelectLocation /> */}
           </ScrollView>
         </View>
         // END main container
       );
     }
+    // }
   }
   // END render App
 }

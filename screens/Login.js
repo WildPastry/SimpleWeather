@@ -37,7 +37,12 @@ class Login extends Component {
   goToSignup = () => this.props.navigation.navigate('Signup');
   goToForgotPassword = () => this.props.navigation.navigate('ForgotPassword');
   goToLocation = () => this.props.navigation.navigate('SelectLocation');
-  goToApp = () => this.props.navigation.navigate('App');
+  goToHome = (options) =>
+    this.props.navigation.navigate('Home', {
+      type: 'Navigate',
+      routeName: 'Home',
+      params: {options: options},
+    });
 
   // password visibility function
   handlePasswordVisibility = () => {
@@ -49,11 +54,17 @@ class Login extends Component {
 
   // check if a user is logged in with firebase
   handleOnLogin = async (values, actions) => {
+    var options = {
+      googleName: 'Wellington, New Zealand',
+      googleLat: '-41.2865',
+      googleLng: '174.7762',
+    };
     const {email, password} = values;
     try {
       const response = await this.props.firebase.loginWithEmail(email, password);
       if (response.user) {
-        this.props.navigation.navigate('App');
+        // this.props.navigation.navigate('App');
+        this.goToHome(options);
       }
     } catch (error) {
       console.log(error);

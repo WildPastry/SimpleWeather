@@ -16,8 +16,8 @@ import AppLogo from '../components/AppLogo';
 import {Ionicons} from '@expo/vector-icons';
 import colours from './../assets/colours.json';
 
-// START Help
-class Help extends Component {
+// START Conditions
+class Conditions extends Component {
   constructor() {
     super();
     this.state = {
@@ -29,7 +29,7 @@ class Help extends Component {
 
   // componentDidMount
   componentDidMount = async () => {
-    console.log('Inside componentDidMount from Help.js...');
+    console.log('Inside componentDidMount from Conditions.js...');
   };
 
   // show/hide modal visibility
@@ -41,83 +41,44 @@ class Help extends Component {
 
   // dimiss modal
   dismissModal() {
-    console.log('Inside dismissModal from Help.js...');
+    console.log('Inside dismissModal from Conditions.js...');
     this.setModalVisible(false);
   }
 
-  // START Help
+  // START Conditions
   render() {
-    console.log('Inside render from Help.js...');
+    console.log('Inside render from Conditions.js...');
     return (
       <View>
         {/* START modal */}
         <Modal animationType='fade' transparent={true} visible={this.state.modalVisible}>
           {/* container */}
-          <View style={helpStyles.modalWrapper}>
+          <View style={conditionStyles.modalWrapper}>
             <ScrollView style={{marginTop: 45, marginBottom: 45}}>
               {/* logo and heading */}
-              <View style={helpStyles.logoContainer}>
+              <View style={conditionStyles.logoContainer}>
                 <AppLogo />
               </View>
-              <Text style={helpStyles.simpleWeather}>SIMPLE WEATHER</Text>
-              {/* help text */}
-              <View style={helpStyles.textWrapper}>
+              <Text style={conditionStyles.simpleWeather}>SIMPLE WEATHER</Text>
+              {/* text wrapper */}
+              <View style={conditionStyles.textWrapper}>
                 {/* line break */}
-                <View style={helpStyles.border} />
-                <Text style={helpStyles.helpTextWhite}>
+                <View style={conditionStyles.border} />
+                {/* support the dev */}
+                <Text style={conditionStyles.helpTextYellow}>Terms and conditions</Text>
+                {/* terms and conditions */}
+                <Text style={conditionStyles.helpTextWhite}>
                   A basic weather app designed to give you fast and accurate data to
                   thousands of locations worldwide.
                 </Text>
-                <Text style={helpStyles.helpTextWhite}>
+                <Text style={conditionStyles.helpTextWhite}>
                   Once you sign up to the app you will have access to the features below.
                 </Text>
                 {/* line break */}
-                <View style={helpStyles.border} />
-                {/* search for a location */}
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={helpStyles.helpTextWhite}>Search for a location</Text>
-                  <Ionicons name='ios-search' size={30} color={colours.white} />
-                </View>
-                {/* saved locations */}
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={helpStyles.helpTextWhite}>Save up to 5 locations</Text>
-                  <Ionicons name='ios-add-circle' size={30} color={colours.white} />
-                </View>
-                {/* set location as home */}
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={helpStyles.helpTextWhite}>Set a location to home</Text>
-                  <Ionicons name='ios-home' size={30} color={colours.spotGreen} />
-                </View>
-                {/* line break */}
-                <View style={helpStyles.border} />
-                {/* support the dev */}
-                <Text style={helpStyles.helpTextYellow}>
-                  If you enjoy the app you can support the developer
-                  <Text
-                    style={helpStyles.helpTextRedBold}
-                    onPress={() => Linking.openURL('https://mikeparker.co.nz/')}>
-                    {' '}
-                    HERE
-                  </Text>
-                </Text>
+                <View style={conditionStyles.border} />
               </View>
               {/* confirm button */}
-              <View style={helpStyles.buttonContainer}>
+              <View style={conditionStyles.buttonContainer}>
                 <FormButton
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
@@ -134,19 +95,27 @@ class Help extends Component {
           onPress={() => {
             this.setModalVisible(true);
           }}>
-          <Text style={helpStyles.helpTextYellowBold}>SUPPORT / HELP</Text>
+          <Text
+            style={{
+              color: colours.spotRed,
+              textAlign: 'center',
+              fontFamily: 'allerLt',
+              fontSize: 15,
+            }}>
+            Read terms and conditions
+          </Text>
         </TouchableHighlight>
       </View>
     );
   }
-  // END render Help
+  // END render Conditions
 }
-// END render Help
+// END render Conditions
 
-export default Help;
+export default Conditions;
 
 // style
-const helpStyles = StyleSheet.create({
+const conditionStyles = StyleSheet.create({
   modalWrapper: {
     alignItems: 'center',
     backgroundColor: colours.spotGreyMed,
@@ -228,7 +197,7 @@ const helpStyles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 25,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 20,
   },
   logoContainer: {
     marginBottom: 10,
