@@ -221,7 +221,7 @@ class Signup extends Component {
                     textStyle={{
                       color: colours.spotGrey,
                       fontWeight: 'normal',
-                      fontSize: 15,
+                      fontSize: 16,
                     }}
                     onPress={() => setFieldValue('check', !values.check)}
                   />
