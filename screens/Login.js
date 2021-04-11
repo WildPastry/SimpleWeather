@@ -176,7 +176,7 @@ class Login extends Component {
               fontFamily: 'allerLt',
               fontSize: 18,
             }}>
-            Forgotton password?
+            Forgotten password?
           </Text>
         </TouchableOpacity>
       </SafeAreaView>

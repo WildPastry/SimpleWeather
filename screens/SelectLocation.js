@@ -14,6 +14,7 @@ import {
 import {Dimensions} from 'react-native';
 import FormButton from '../components/FormButton';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {HideWithKeyboard} from 'react-native-hide-with-keyboard';
 import {withFirebaseHOC} from '../config/Firebase';
 import colours from '../assets/colours.json';
 
@@ -175,8 +176,7 @@ class SelectLocation extends Component {
               fontFamily: 'allerLt',
               fontSize: 18,
               position: 'absolute',
-              marginTop: 50,
-              bottom: 0,
+              top: 22,
               elevation: 1,
             },
             predefinedPlacesDescription: {
@@ -205,11 +205,13 @@ class SelectLocation extends Component {
               marginBottom: 25,
               marginTop: 10,
             }}>
-            <FormButton
-              onPress={this.selectLocation}
-              title='GO'
-              disabled={!this.state.isValid}
-            />
+            <HideWithKeyboard>
+              <FormButton
+                onPress={this.selectLocation}
+                title='GO'
+                disabled={!this.state.isValid}
+              />
+            </HideWithKeyboard>
           </View>
           {/* back to login */}
           <TouchableOpacity style={SelectLocationStyles.link} onPress={this.goToSignup}>
