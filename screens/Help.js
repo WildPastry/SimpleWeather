@@ -107,10 +107,10 @@ class Help extends Component {
                 <View style={helpStyles.border} />
                 {/* support the dev */}
                 <Text style={helpStyles.helpTextYellow}>
-                  If you enjoy the app you can support the developer
+                  You can send feedback, comments or suggestions to the developer 
                   <Text
                     style={helpStyles.helpTextRedBold}
-                    onPress={() => Linking.openURL('https://mikeparker.co.nz/')}>
+                    onPress={() => Linking.openURL('mailto:ykdsn@gmail.com?subject=SendMail&body=Description')}>
                     {' '}
                     HERE
                   </Text>
