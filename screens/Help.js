@@ -110,7 +110,7 @@ class Help extends Component {
                   You can send feedback, comments or suggestions to the developer 
                   <Text
                     style={helpStyles.helpTextRedBold}
-                    onPress={() => Linking.openURL('mailto:ykdsn@gmail.com?subject=SendMail&body=Description')}>
+                    onPress={() => Linking.openURL('mailto:mykdsn@gmail.com?subject=SendMail&body=Description')}>
                     {' '}
                     HERE
                   </Text>
