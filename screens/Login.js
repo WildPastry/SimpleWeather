@@ -212,16 +212,17 @@ const loginStyles = StyleSheet.create({
 	},
 	simpleWeatherWrapper: {
 		fontSize: 22,
-		fontFamily: 'allerDisplay',
 		textAlign: 'center',
 		paddingTop: 4,
 		paddingBottom: 30
 	},
 	simpleWeather: {
-		color: colours.white
+		color: colours.white,
+		fontFamily: 'merriWeatherLt'
 	},
 	simpleWeatherBlue: {
-		color: colours.spotBlue
+		color: colours.spotBlue,
+		fontFamily: 'merriWeatherBd'
 	}
 });
 
