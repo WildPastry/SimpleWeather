@@ -1,2 +1,2 @@
 # SimpleWeather
-Simplistic and functional weather app designed for iOS and Android
+Fast, accurate, and intuitive weather app designed for iOS and Android.
