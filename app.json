@@ -25,14 +25,14 @@
     "ios": {
       "supportsTablet": true,
       "buildNumber": "1.0.0",
-      "bundleIdentifier": "com.mp.simpleweather"
+      "bundleIdentifier": "nz.co.mikeparker.sw"
     },
     "android": {
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
       ],
-      "package": "com.mp.simpleweather",
+      "package": "nz.co.mikeparker.sw",
       "versionCode": 1
     },
     "description": "Simplistic and functional weather app designed for iOS and Android",
