@@ -3,12 +3,11 @@ import AppLoading from 'expo-app-loading';
 import { registerRootComponent } from 'expo';
 import { Asset } from 'expo-asset';
 import React, { Component } from 'react';
-// import AppContainer from './navigation';
+import AppContainer from './navigation';
 import Firebase, { FirebaseProvider } from './config/Firebase';
 import { StatusBar } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import Login from './screens/Login';
 
 // set status bar text colour
 StatusBar.setBarStyle('light-content', true);
@@ -58,7 +57,7 @@ class Index extends Component {
 
 		return (
 			<FirebaseProvider value={Firebase}>
-				<Login />
+				<AppContainer />
 			</FirebaseProvider>
 		);
 	}

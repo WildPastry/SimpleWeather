@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import { withFirebaseHOC } from '../config/Firebase';
 
 // START Initial
