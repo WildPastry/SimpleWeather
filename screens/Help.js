@@ -143,7 +143,7 @@ class Help extends Component {
 	}
 	// END render Help
 }
-// END render Help
+// END Help
 
 export default Help;
 

@@ -1,5 +1,5 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./Index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,25 +9,23 @@
   "dependencies": {
     "accordion-collapse-react-native": "^0.2.10",
     "dot-prop": "^5.2.0",
-    "expo": "^38.0.0",
+    "expo": "^42.0.1",
     "expo-cli": "^4.7.3",
-    "expo-font": "~8.2.1",
-    "firebase": "^7.23.0",
-    "formik": "1.5.8",
-    "lottie-react-native": "~2.6.1",
+    "expo-font": "^9.2.1",
+    "firebase": "^8.2.3",
+    "formik": "^1.5.8",
+    "lottie-react-native": "^4.0.2",
     "moment": "^2.25.3",
     "native-base": "^2.13.12",
-    "react": "16.11.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-elements": "1.2.0",
-    "react-native-geolocation-service": "^3.1.0",
-    "react-native-gesture-handler": "~1.6.0",
+    "react": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-elements": "^3.4.2",
     "react-native-google-places-autocomplete": "^1.4.2",
-    "react-native-hide-with-keyboard": "1.2.1",
-    "react-native-screens": "~2.9.0",
+    "react-native-hide-with-keyboard": "^1.2.1",
+    "react-native-screens": "^3.4.0",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.5.1",
-    "yup": "0.27.0"
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "base-64": "^0.1.0",
