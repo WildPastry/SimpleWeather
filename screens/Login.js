@@ -124,7 +124,7 @@ class Login extends Component {
 								onChangeText={handleChange('password')}
 								placeholder='Enter password'
 								secureTextEntry={passwordVisibility}
-								iconName='ios-lock'
+								iconName='ios-lock-closed'
 								iconColor={colours.white}
 								onBlur={handleBlur('password')}
 								rightIcon={
