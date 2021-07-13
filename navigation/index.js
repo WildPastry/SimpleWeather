@@ -8,7 +8,7 @@ import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 const SwitchNavigator = createSwitchNavigator({
 	Initial: Initial,
 	Auth: AuthNavigation,
-	App: AppNavigation
+	Main: AppNavigation
 });
 
 // create appcontainer
