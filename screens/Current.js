@@ -515,7 +515,7 @@ class Current extends Component {
 									fontFamily: 'allerBd',
 									color: colours.spotYellow
 								}}>
-								<Ionicons name='arrow-down-outline' 
+								<Ionicons name='chevron-down-outline' 
 								size={19} 
 								color={colours.spotYellow} />{' '}
 								More Details

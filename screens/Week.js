@@ -108,7 +108,7 @@ class Week extends Component {
 														}}>
 														{/* chevron icon */}
 														<Ionicons
-															name='arrow-down-outline'
+															name='chevron-down-outline'
 															size={18}
 															color={colours.white}
 														/>{' '}
