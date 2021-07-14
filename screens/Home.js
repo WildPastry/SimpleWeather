@@ -8,11 +8,9 @@ import App from './../App';
 class Home extends Component {
 	// START render Home
 	render() {
-		console.log('Inside render from Home.js...');
 		// check for data from the skip login screen
 		let currentData;
 		const params = this.props.navigation.state;
-		console.log(params, 'from Home.js...');
 		if (params.params !== undefined) {
 			currentData = params.params.params.options;
 		} else {

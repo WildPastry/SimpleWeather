@@ -101,21 +101,11 @@ class App extends Component {
 
 	// handle loading
 	handleLoaded = () => {
-		console.log('Inside handleLoaded from App.js...');
-		this.setState(
-			{
-				isLoaded: true
-			},
-			() => {
-				console.log('App loaded: ' + this.state.isLoaded);
-			}
-		);
+		this.setState({ isLoaded: true });
 	};
 
 	// update sky data function
 	updateSkyData(val) {
-		console.log('Inside updateSkyData from App.js...');
-		console.log(val, 'From updateSkyData in App.js');
 		this.setState(
 			{
 				isLoaded: false,
@@ -144,10 +134,7 @@ class App extends Component {
 	componentDidMount = async () => {
 		// set component mounted
 		this._isMounted = true;
-		console.log('Inside componentDidMount from App.js: Mounted = ' + this._isMounted);
 		if (this._isMounted) {
-			// check for data from the skip login screen
-			console.log(this.props.currentData, 'from componentDidMount App.js');
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -168,8 +155,6 @@ class App extends Component {
 								doc.data().name,
 								'is logged in, From componentDidMount in App.js'
 							);
-						} else {
-							console.log('No docs exist...');
 						}
 					})
 					.catch(function (error) {
@@ -179,7 +164,6 @@ class App extends Component {
 				homeRef.once('value', (snapshot) => {
 					if (snapshot.exists()) {
 						let home = snapshot.val();
-						console.log(home, 'From componentDidMount in App.js');
 						var homeLat = home.lat,
 							homeLng = home.lng,
 							homeLocation = home.location;
@@ -192,14 +176,12 @@ class App extends Component {
 							this.getSkyData
 						);
 					} else {
-						console.log('No home saved...');
 						// run fallback function
 						this.fallback();
 					}
 				});
 				// no user
 			} else {
-				console.log('No user is currently logged in...');
 				// run fallback function
 				this.fallback();
 			}
@@ -310,13 +292,10 @@ class App extends Component {
 
 	// check night or day
 	nightOrDay() {
-		console.log('Icon = ' + this.state.icon + ' from App.js');
-		console.log('Code = ' + this.state.openWeatherId + ' from App.js');
 		// night icon conditions
 		var conditions = ['01n', '02n', '03n', '04n', '09n', '10n', '11n', '13n', '50n'];
 		// loop conditions
 		var checkNight = conditions.some((e) => this.state.icon.includes(e));
-		console.log('Night = ' + checkNight + ' from App.js');
 		// apply function based on result
 		checkNight
 			? (this.setState({ night: true }), this.setBgNight())
@@ -325,7 +304,6 @@ class App extends Component {
 
 	// night colour bg logic
 	setBgNight() {
-		console.log('Night function running...');
 		imageBg = colours.night;
 		this.setState({
 			weekBg: colours.night,
@@ -343,7 +321,6 @@ class App extends Component {
 		let currentBarBgDarkest;
 
 		var currentID = this.state.openWeatherId;
-		console.log(currentID, 'From day function');
 
 		// group 2xx: thunderstorm
 		if (currentID >= 200 && currentID <= 232) {
@@ -384,8 +361,6 @@ class App extends Component {
 
 		imageBg = currentBg;
 
-		console.log(imageBg, 'From day function');
-
 		this.setState({
 			weekBg: currentBg,
 			weekBarBg: currentBarBg,
@@ -407,7 +382,6 @@ class App extends Component {
 
 		// START loading function
 		if (!isLoaded) {
-			console.log('Inside RENDER NOT COMPLETE from App.js...');
 			return (
 				// START loading display
 				<View style={appStyles.loader}>
@@ -427,7 +401,6 @@ class App extends Component {
 			);
 			// END loading function
 		} else {
-			console.log('Inside RENDER COMPLETE from App.js...');
 			return (
 				// START main container
 				<View

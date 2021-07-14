@@ -29,7 +29,6 @@ class GlobalModal extends Component {
 	componentDidMount = async () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('inside componentDidMount from GlobalModal.js');
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -44,12 +43,8 @@ class GlobalModal extends Component {
 						let data = snapshot.val();
 						let locations = Object.values(data);
 						this.setState({ locationCheck: locations });
-					} else {
-						console.log('No snapshots exist...');
 					}
 				});
-			} else {
-				console.log('No user is currently logged in...');
 			}
 		}
 		return () => (isMounted = false);
@@ -57,14 +52,11 @@ class GlobalModal extends Component {
 
 	// show/hide modal visibility
 	setModalVisible(visible) {
-		this.setState({ modalVisible: visible }, () =>
-			console.log('Is modal visible? ' + this.state.modalVisible)
-		);
+		this.setState({ modalVisible: visible });
 	}
 
 	// dimiss modal
 	dismissModal() {
-		console.log('Inside dismissModal from GlobalModal.js...');
 		this.setModalVisible(false);
 	}
 
@@ -78,7 +70,6 @@ class GlobalModal extends Component {
 	handleFail = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleFail from GlobalModal.js...');
 			// Alert
 			Alert.alert(
 				'Not Logged In',
@@ -98,7 +89,6 @@ class GlobalModal extends Component {
 	handleSuccess = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleSuccess from GlobalModal.js...');
 			// Alert
 			Alert.alert(
 				'Success',
@@ -114,7 +104,6 @@ class GlobalModal extends Component {
 	handleDuplicate = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleDuplicate from GlobalModal.js...');
 			// Alert
 			Alert.alert(
 				'Duplicate',
@@ -130,7 +119,6 @@ class GlobalModal extends Component {
 	handleLimit = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleLimit from GlobalModal.js...');
 			// Alert
 			Alert.alert(
 				'Limit Reached',
@@ -146,7 +134,6 @@ class GlobalModal extends Component {
 	locationCheck = (val) => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('COMPARE: ' + val);
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
@@ -161,22 +148,16 @@ class GlobalModal extends Component {
 						let data = snapshot.val();
 						let locations = Object.values(data);
 						this.setState({ locationCheck: locations });
-					} else {
-						console.log('No snapshots exist...');
 					}
 				});
-			} else {
-				console.log('No user signed in...');
 			}
 			// check location length to limit it to 5
 			if (this.state.locationCheck.length < 5) {
 				// compare current location to the saved locations
 				const e = this.state.locationCheck.some((location) => val == location.location);
 				if (e != true) {
-					console.log('Must be false: ' + e);
 					this.handleLocation();
 				} else {
-					console.log('Must be true: ' + e);
 					this.handleDuplicate();
 				}
 			} else {
@@ -190,12 +171,9 @@ class GlobalModal extends Component {
 	handleLocation = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleLocation from GlobalModal.js...');
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
-				console.log('User ID:  ' + user.uid);
-				console.log('User email:  ' + user.providerData[0].email);
 				// user is signed in
 				// load firebase data
 				const dbRT = firebase.database();
@@ -214,15 +192,11 @@ class GlobalModal extends Component {
 					function (error) {
 						if (error) {
 							console.log(error);
-						} else {
-							// no error and user is signed in so:
-							console.log('Location details saved...');
 						}
 					}
 				);
 			} else {
 				// no user is signed in
-				console.log('No user is logged in to save details...');
 				this.handleFail();
 			}
 		}
@@ -234,7 +208,6 @@ class GlobalModal extends Component {
 
 	// START render GlobalModal
 	render() {
-		console.log('Inside render from GlobalModal.js...');
 		var currentLocation = this.props.currentLocation;
 		return (
 			<View>

@@ -64,8 +64,6 @@ class Header extends Component {
 								doc.data().name,
 								'is logged in, From componentDidMount in Header.js'
 							);
-						} else {
-							console.log('No docs exist...');
 						}
 					})
 					.catch(function (error) {
@@ -77,7 +75,6 @@ class Header extends Component {
 						let data = snapshot.val();
 						let locations = Object.values(data);
 						this.setState({ savedLocations: locations }, () => {
-							console.log('Locations loaded in Header.js...');
 							this.checkHome();
 						});
 					} else {
@@ -99,7 +96,6 @@ class Header extends Component {
 	updateSkyData(val) {
 		let mounted = true;
 		if (mounted) {
-			console.log(val, 'From updateSkyData in Header.js');
 			var options = {
 				googleLat: val[0],
 				googleLng: val[1],
@@ -115,7 +111,6 @@ class Header extends Component {
 		try {
 			await this.props.firebase.signOut();
 			this.props.navigation.navigate('Auth');
-			console.log('User has been signed out...');
 		} catch (error) {
 			console.log(error);
 		}
@@ -131,7 +126,6 @@ class Header extends Component {
 	checkHome = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside checkHome from Header.js...');
 			// set temporary array to check for a saved home location
 			var checkHome = this.state.savedLocations;
 			// check firebase for user
@@ -154,8 +148,6 @@ class Header extends Component {
 								doc.data().name,
 								'is logged in, From checkHome in Header.js'
 							);
-						} else {
-							console.log('No docs exist...');
 						}
 					})
 					.catch(function (error) {
@@ -175,7 +167,6 @@ class Header extends Component {
 						// Save the new array to display the locations
 						this.setState({ home: checkHome });
 					} else {
-						console.log('No home saved...from checkHome in Header.js');
 						this.setState({
 							home: checkHome
 						});
@@ -199,7 +190,6 @@ class Header extends Component {
 				currentID: val[0],
 				currentIcon: val[1]
 			};
-			console.log(options.currentID, 'From handleDelete in Header.js');
 			dbRT.ref(user.uid + '/locations/' + options.currentID).remove();
 			// load firebase data
 			const db = firebase.firestore();
@@ -217,9 +207,7 @@ class Header extends Component {
 							doc.data().name,
 							'is logged in, From handleDelete in Header.js'
 						);
-					} else {
-						console.log('No docs exist...');
-					}
+					}						
 				})
 				.catch(function (error) {
 					console.log('Error getting document:', error);
@@ -230,8 +218,6 @@ class Header extends Component {
 					let data = snapshot.val();
 					let locations = Object.values(data);
 					this.setState({ savedLocations: locations }, () => {
-						console.log('Locations loaded in Header.js...');
-						console.log(this.state.savedLocations);
 						this.checkHome();
 					});
 				} else {
@@ -249,7 +235,6 @@ class Header extends Component {
 	handleHome(val) {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleHome from Header.js...');
 			var options = {
 				currentSavedLat: val[0],
 				currentSavedLng: val[1],
@@ -260,8 +245,6 @@ class Header extends Component {
 			// check firebase for user
 			var user = firebase.auth().currentUser;
 			if (user) {
-				console.log('User ID:', user.uid);
-				console.log('User email:', user.providerData[0].email);
 				// user is signed in
 				// load firebase data
 				const db = firebase.firestore(),
@@ -269,7 +252,6 @@ class Header extends Component {
 					ref = dbRT.ref(user.uid),
 					homeRef = ref.child('home');
 				var docRef = db.collection('users').doc(user.uid);
-				console.log(this.state.savedLocations.length, 'locations saved...');
 				// save home location
 				dbRT.ref(user.uid + '/home').set(
 					{
@@ -280,10 +262,6 @@ class Header extends Component {
 					function (error) {
 						if (error) {
 							console.log(error);
-						} else {
-							// no error and user is signed in so:
-							console.log('Home location saved...');
-							console.log(options.currentSavedName);
 						}
 					}
 				);
@@ -314,13 +292,10 @@ class Header extends Component {
 						Array.from(checkHome).forEach((arg) => {
 							var checkVal = conditions.some((e) => arg.location.includes(e));
 							arg.icon = checkVal;
-							console.log(checkVal);
 						});
-						console.log(checkHome, 'From handleHome in Header.js');
 						// Save the new array to display the locations
 						this.setState({ home: checkHome });
 					} else {
-						console.log('No home saved...from handleHome in Header.js');
 						this.setState({
 							home: checkHome
 						});
@@ -338,7 +313,6 @@ class Header extends Component {
 	handleRemoval = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleRemoval from Header.js...');
 			// Alert
 			Alert.alert(
 				'Are you sure?',
@@ -357,8 +331,6 @@ class Header extends Component {
 	handleHomeAlert = (val) => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleHomeAlert from Header.js...');
-			console.log('Value is: ', val, 'from handleHomeAlert in Header.js...');
 			// Alert
 			Alert.alert(
 				'Set Location as Home',
@@ -377,8 +349,6 @@ class Header extends Component {
 	handleLocationAlert = (val) => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleLocationAlert from Header.js...');
-			console.log('Value is: ', val, 'from handleLocationAlert in Header.js...');
 			var options = {
 				currentID: val[0],
 				currentIcon: val[1]
@@ -411,7 +381,6 @@ class Header extends Component {
 	handleLoginAlert = () => {
 		let isMounted = true;
 		if (isMounted) {
-			console.log('Inside handleLoginAlert from Header.js...');
 			// Alert
 			Alert.alert(
 				'Not Logged In',
@@ -431,7 +400,6 @@ class Header extends Component {
 	handleAnimate = () => {
 		let mounted = true;
 		if (mounted) {
-			console.log('Inside handleAnimate from Header.js...');
 			if (this.state.progress === false) {
 				this.animation.play(20, 80);
 				this.setState({
@@ -439,7 +407,6 @@ class Header extends Component {
 					showMenu: true
 				});
 			} else {
-				console.log('Inside handleAnimate from Header.js...');
 				this.animation.play(110, 150);
 				this.setState({
 					progress: false,
@@ -457,7 +424,6 @@ class Header extends Component {
 		// load firebase data
 		var user = firebase.auth().currentUser;
 		if (user) {
-			console.log('Current signed in user email:  ' + user.providerData[0].email);
 			menuDisplay = (
 				<View>
 					<Button
@@ -471,7 +437,6 @@ class Header extends Component {
 				</View>
 			);
 		} else {
-			console.log('No user is logged in...');
 			menuDisplay = (
 				<View>
 					<Button
@@ -497,7 +462,6 @@ class Header extends Component {
 
 	// START render Header
 	render() {
-		console.log('Inside render from Header.js...');
 		return (
 			// master wrap
 			<View>

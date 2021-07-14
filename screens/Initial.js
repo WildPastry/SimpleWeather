@@ -22,7 +22,6 @@ class Initial extends Component {
 
 	// START Initial
 	render() {
-		console.log('Inside render from Initial.js...');
 		return <AppLoading />;
 	}
 	// END render Initial

@@ -25,27 +25,18 @@ class Help extends Component {
 		this.dismissModal = this.dismissModal.bind(this);
 	}
 
-	// componentDidMount
-	componentDidMount = async () => {
-		console.log('Inside componentDidMount from Help.js...');
-	};
-
 	// show/hide modal visibility
 	setModalVisible(visible) {
-		this.setState({ modalVisible: visible }, () =>
-			console.log('Is modal visible? ' + this.state.modalVisible)
-		);
+		this.setState({ modalVisible: visible });
 	}
 
 	// dimiss modal
 	dismissModal() {
-		console.log('Inside dismissModal from Help.js...');
 		this.setModalVisible(false);
 	}
 
 	// START Help
 	render() {
-		console.log('Inside render from Help.js...');
 		return (
 			<View>
 				{/* START modal */}

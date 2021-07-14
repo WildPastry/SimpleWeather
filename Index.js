@@ -24,7 +24,6 @@ class Index extends Component {
 
 	// load resources
 	async loadResourcesAsync() {
-		console.log('Inside loadResourcesAsync from Index');
 		await Promise.all([
 			Asset.loadAsync([require('./assets/brand.png'), require('./assets/icon.png')]),
 			Font.loadAsync({
@@ -43,8 +42,6 @@ class Index extends Component {
 
 	// START render Index
 	render() {
-		console.log('Inside render from Index...');
-
 		if (!this.state.isReady) {
 			return (
 				<AppLoading
@@ -54,7 +51,6 @@ class Index extends Component {
 				/>
 			);
 		}
-
 		return (
 			<FirebaseProvider value={Firebase}>
 				<AppContainer />

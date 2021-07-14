@@ -23,7 +23,6 @@ class ForgotPassword extends Component {
 		const { email } = values;
 		try {
 			await this.props.firebase.passwordReset(email);
-			console.log('Password reset email sent successfully');
 			this.props.navigation.navigate('Login');
 		} catch (error) {
 			actions.setFieldError('general', error.message);
@@ -35,7 +34,6 @@ class ForgotPassword extends Component {
 
 	// START render ForgotPassword
 	render() {
-		console.log('Inside render from ForgotPassword...');
 		return (
 			<SafeAreaView style={forgotPasswordStyles.container}>
 				<Formik

@@ -13,7 +13,6 @@ var moment = require('moment');
 class Week extends Component {
 	// START Week render
 	render() {
-		console.log('Inside render from Week.js...');
 		// new array for filtering
 		var filteredWeather = [];
 
@@ -77,7 +76,7 @@ class Week extends Component {
 
 							// function to render daily summary while the component is still loading
 							if (dailySummaryRaw === undefined) {
-								console.log('Not loaded yet . . .');
+								console.log('Not loaded yet...');
 							} else {
 								var dailySummary = dailySummaryRaw.replace(/^\w/, (c) => c.toUpperCase());
 							}

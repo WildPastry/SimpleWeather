@@ -67,7 +67,6 @@ class Login extends Component {
 				this.goToHome(options);
 			}
 		} catch (error) {
-			console.log(error);
 			actions.setFieldError('general', error.message);
 		} finally {
 			actions.setSubmitting(false);
@@ -76,7 +75,6 @@ class Login extends Component {
 
 	// START render Login
 	render() {
-		console.log('Inside render from Login.js...');
 		const { passwordVisibility, rightIcon } = this.state;
 		return (
 			<SafeAreaView style={loginStyles.container}>

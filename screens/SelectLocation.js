@@ -92,7 +92,6 @@ class SelectLocation extends Component {
 
 	// START render SelectLocation
 	render() {
-		console.log('Inside render from SelectLocation...');
 		var width = Dimensions.get('window').width;
 		return (
 			<SafeAreaView

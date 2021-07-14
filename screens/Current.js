@@ -109,8 +109,6 @@ class Current extends Component {
 		var sunsetTime = sunsetTimeStamp + daylightOffset + rawOffset;
 		var sunriseTime = sunriseTimeStamp + daylightOffset + rawOffset;
 
-		console.log(this.props.timeZoneId);
-
 		var sunrise = moment.utc(moment(sunriseTime * 1000)).format('h:mm a');
 		var sunset = moment.utc(moment(sunsetTime * 1000)).format('h:mm a');
 
@@ -189,26 +187,20 @@ class Current extends Component {
 
 	// update sky data function
 	updateSkyData() {
-		console.log('Inside updateSkyData from Current.js...');
 		var options = {
 			googleLat: this.state.googleLat,
 			googleLng: this.state.googleLng,
 			googleName: this.state.googleName
 		};
-		console.log(options);
 		this.props.updateSkyData(options);
 	}
 
 	// START render Current
 	render() {
-		console.log('Inside render from Current.js...');
-
 		// set up weather code and data
 		var weatherCode = this.props.weatherCode;
 		const openData = this.props.openWeather.list;
 		const night = this.props.night;
-
-		console.log('weatherCode from Current.js ' + weatherCode);
 
 		// set up icon display
 		let currentWeatherIcon;
