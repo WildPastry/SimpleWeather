@@ -110,7 +110,7 @@ class Login extends Component {
 								onChangeText={handleChange('email')}
 								placeholder='Enter email'
 								autoCapitalize='none'
-								iconName='ios-mail'
+								iconName='mail-outline'
 								iconColor={colours.white}
 								onBlur={handleBlur('email')}
 							/>
@@ -122,7 +122,7 @@ class Login extends Component {
 								onChangeText={handleChange('password')}
 								placeholder='Enter password'
 								secureTextEntry={passwordVisibility}
-								iconName='ios-lock-closed'
+								iconName='lock-closed-outline'
 								iconColor={colours.white}
 								onBlur={handleBlur('password')}
 								rightIcon={

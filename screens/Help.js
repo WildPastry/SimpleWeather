@@ -48,7 +48,10 @@ class Help extends Component {
 							<View style={helpStyles.logoContainer}>
 								<AppLogo />
 							</View>
-							<Text style={helpStyles.simpleWeather}>SIMPLE WEATHER</Text>
+							<Text style={helpStyles.simpleWeatherWrapper}>
+								<Text style={helpStyles.simpleWeather}>SIMPLE </Text>
+								<Text style={helpStyles.simpleWeatherBlue}>WEATHER</Text>
+							</Text>
 							{/* help text */}
 							<View style={helpStyles.textWrapper}>
 								{/* line break */}
@@ -227,12 +230,18 @@ const helpStyles = StyleSheet.create({
 		marginBottom: 10,
 		alignItems: 'center'
 	},
-	simpleWeather: {
-		color: colours.white,
-		fontSize: 20,
-		fontFamily: 'allerDisplay',
+	simpleWeatherWrapper: {
+		fontSize: 22,
 		textAlign: 'center',
 		paddingTop: 4,
-		marginBottom: 10
+		paddingBottom: 30
+	},
+	simpleWeather: {
+		color: colours.white,
+		fontFamily: 'merriWeatherLt'
+	},
+	simpleWeatherBlue: {
+		color: colours.spotBlue,
+		fontFamily: 'merriWeatherBd'
 	}
 });

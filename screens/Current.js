@@ -474,7 +474,7 @@ class Current extends Component {
 						<Text style={currentStyles.currentTempLow}>
 							{/* down arrow */}
 							<Ionicons
-								name='ios-arrow-round-down'
+								name='arrow-down-outline'
 								size={30}
 								color={colours.white}
 							/>{' '}
@@ -487,7 +487,9 @@ class Current extends Component {
 					<View>
 						<Text style={currentStyles.currentTempHigh}>
 							{/* up arrow */}
-							<Ionicons name='ios-arrow-round-up' size={30} color={colours.white} />{' '}
+							<Ionicons name='arrow-up-outline' 
+							size={30} 
+							color={colours.white} />{' '}
 							{this.props.high}°
 						</Text>
 					</View>
@@ -513,7 +515,9 @@ class Current extends Component {
 									fontFamily: 'allerBd',
 									color: colours.spotYellow
 								}}>
-								<Ionicons name='ios-arrow-down' size={19} color={colours.spotYellow} />{' '}
+								<Ionicons name='arrow-down-outline' 
+								size={19} 
+								color={colours.spotYellow} />{' '}
 								More Details
 							</Text>
 						</View>

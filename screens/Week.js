@@ -108,7 +108,7 @@ class Week extends Component {
 														}}>
 														{/* chevron icon */}
 														<Ionicons
-															name='ios-arrow-down'
+															name='arrow-down-outline'
 															size={18}
 															color={colours.white}
 														/>{' '}
@@ -131,8 +131,8 @@ class Week extends Component {
 												<View style={weekStyles.weekColWrap}>
 													<Text style={weekStyles.weekLowTemp}>
 														<Ionicons
-															name='ios-arrow-round-down'
-															size={18}
+															name='arrow-down-outline'
+															size={16}
 															color={colours.white}
 														/>{' '}
 														{Math.round(dailyWeather.main[0])}°
@@ -142,8 +142,8 @@ class Week extends Component {
 												<View style={weekStyles.weekColWrap}>
 													<Text style={weekStyles.weekHighTemp}>
 														<Ionicons
-															name='ios-arrow-round-up'
-															size={18}
+															name='arrow-up-outline'
+															size={16}
 															color={colours.white}
 														/>{' '}
 														{Math.round(dailyWeather.main[1])}°
