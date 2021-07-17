@@ -73,7 +73,6 @@ class Signup extends Component {
 	// sign up function
 	handleOnSignup = async (values, actions) => {
 		const { name, email, password } = values;
-
 		try {
 			const response = await this.props.firebase.signupWithEmail(email, password);
 			if (response.user.uid) {
@@ -142,69 +141,89 @@ class Signup extends Component {
 								setFieldValue
 							}) => (
 								<Fragment>
-									<FormInput
-										name='name'
-										value={values.name}
-										onChangeText={handleChange('name')}
-										placeholder='Enter name'
-										iconName='md-person'
-										iconColor={colours.white}
-										onBlur={handleBlur('name')}
-									/>
-									<ErrorMessage errorValue={touched.name && errors.name} />
-									<FormInput
-										name='email'
-										value={values.email}
-										onChangeText={handleChange('email')}
-										placeholder='Enter email'
-										autoCapitalize='none'
-										iconName='ios-mail'
-										iconColor={colours.white}
-										onBlur={handleBlur('email')}
-									/>
-									<ErrorMessage errorValue={touched.email && errors.email} />
-									<FormInput
-										name='password'
-										value={values.password}
-										onChangeText={handleChange('password')}
-										placeholder='Enter password'
-										iconName='ios-lock'
-										iconColor={colours.white}
-										onBlur={handleBlur('password')}
-										secureTextEntry={passwordVisibility}
-										rightIcon={
-											<TouchableOpacity onPress={this.handlePasswordVisibility}>
-												<Ionicons
-													name={passwordIcon}
-													size={28}
-													color={colours.spotGrey}
-												/>
-											</TouchableOpacity>
-										}
-									/>
-									<ErrorMessage errorValue={touched.password && errors.password} />
-									<FormInput
-										name='password'
-										value={values.confirmPassword}
-										onChangeText={handleChange('confirmPassword')}
-										placeholder='Confirm password'
-										iconName='ios-lock'
-										iconColor={colours.white}
-										onBlur={handleBlur('confirmPassword')}
-										secureTextEntry={confirmPasswordVisibility}
-										rightIcon={
-											<TouchableOpacity onPress={this.handleConfirmPasswordVisibility}>
-												<Ionicons
-													name={confirmPasswordIcon}
-													size={28}
-													color={colours.spotGrey}
-												/>
-											</TouchableOpacity>
-										}
-									/>
-									<ErrorMessage
-										errorValue={touched.confirmPassword && errors.confirmPassword}
-									/>
+									{/* enter name */}
+									<View style={{ height: 90 }}>
+										<FormInput
+											name='name'
+											value={values.name}
+											onChangeText={handleChange('name')}
+											placeholder='Enter name'
+											iconName='md-person'
+											iconColor={colours.white}
+											onBlur={handleBlur('name')}
+										/>
+										<View style={{ position: 'absolute', top: 75 }}>
+											<ErrorMessage errorValue={touched.name && errors.name} />
+										</View>
+									</View>
+									{/* enter email */}
+									<View style={{ height: 90 }}>
+										<FormInput
+											name='email'
+											value={values.email}
+											onChangeText={handleChange('email')}
+											placeholder='Enter email'
+											autoCapitalize='none'
+											iconName='mail-outline'
+											iconColor={colours.white}
+											onBlur={handleBlur('email')}
+										/>
+										<View style={{ position: 'absolute', top: 75 }}>
+											<ErrorMessage errorValue={touched.email && errors.email} />
+										</View>
+									</View>
+									{/* enter password */}
+									<View style={{ height: 90 }}>
+										<FormInput
+											name='password'
+											value={values.password}
+											onChangeText={handleChange('password')}
+											placeholder='Enter password'
+											iconName='lock-closed-outline'
+											iconColor={colours.white}
+											onBlur={handleBlur('password')}
+											secureTextEntry={passwordVisibility}
+											rightIcon={
+												<TouchableOpacity onPress={this.handlePasswordVisibility}>
+													<Ionicons
+														name={passwordIcon}
+														size={28}
+														color={colours.spotGrey}
+													/>
+												</TouchableOpacity>
+											}
+										/>
+										<View style={{ position: 'absolute', top: 75 }}>
+											<ErrorMessage errorValue={touched.password && errors.password} />
+										</View>
+									</View>
+									{/* confirm password */}
+									<View style={{ height: 90 }}>
+										<FormInput
+											name='password'
+											value={values.confirmPassword}
+											onChangeText={handleChange('confirmPassword')}
+											placeholder='Confirm password'
+											iconName='lock-closed-outline'
+											iconColor={colours.white}
+											onBlur={handleBlur('confirmPassword')}
+											secureTextEntry={confirmPasswordVisibility}
+											rightIcon={
+												<TouchableOpacity onPress={this.handleConfirmPasswordVisibility}>
+													<Ionicons
+														name={confirmPasswordIcon}
+														size={28}
+														color={colours.spotGrey}
+													/>
+												</TouchableOpacity>
+											}
+										/>
+										<View style={{ position: 'absolute', top: 75 }}>
+											<ErrorMessage
+												errorValue={touched.confirmPassword && errors.confirmPassword}
+											/>
+										</View>
+									</View>
 									{/* checkbox */}
 									<CheckBox
 										center={true}

@@ -1,7 +1,7 @@
 /** @format */
 
 // imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
@@ -105,44 +105,42 @@ class Login extends Component {
 					}) => (
 						<>
 							{/* email */}
-							<View style={{height: 90}}>
-							<FormInput
-								name='email'
-								value={values.email}
-								onChangeText={handleChange('email')}
-								placeholder='Enter email'
-								autoCapitalize='none'
-								iconName='mail-outline'
-								iconColor={colours.white}
-								onBlur={handleBlur('email')}
-							/>
-							<View style={{position:'absolute', top: 75}}>	
-							<ErrorMessage errorValue={touched.email && errors.email} />
+							<View style={{ height: 90 }}>
+								<FormInput
+									name='email'
+									value={values.email}
+									onChangeText={handleChange('email')}
+									placeholder='Enter email'
+									autoCapitalize='none'
+									iconName='mail-outline'
+									iconColor={colours.white}
+									onBlur={handleBlur('email')}
+								/>
+								<View style={{ position: 'absolute', top: 75 }}>
+									<ErrorMessage errorValue={touched.email && errors.email} />
+								</View>
 							</View>
-							</View>
-
 							{/* password */}
-							<View style={{justifyContents:'space-around', height: 90}}>
-							<FormInput
-								name='password'
-								value={values.password}
-								onChangeText={handleChange('password')}
-								placeholder='Enter password'
-								secureTextEntry={passwordVisibility}
-								iconName='lock-closed-outline'
-								iconColor={colours.white}
-								onBlur={handleBlur('password')}
-								rightIcon={
-									<TouchableOpacity onPress={this.handlePasswordVisibility}>
-										<Ionicons name={rightIcon} size={28} color='grey' />
-									</TouchableOpacity>
-								}
-							/>
-							<View style={{position:'absolute', top: 75}}>	
-							<ErrorMessage errorValue={touched.password && errors.password} />
+							<View style={{ height: 90 }}>
+								<FormInput
+									name='password'
+									value={values.password}
+									onChangeText={handleChange('password')}
+									placeholder='Enter password'
+									secureTextEntry={passwordVisibility}
+									iconName='lock-closed-outline'
+									iconColor={colours.white}
+									onBlur={handleBlur('password')}
+									rightIcon={
+										<TouchableOpacity onPress={this.handlePasswordVisibility}>
+											<Ionicons name={rightIcon} size={28} color='grey' />
+										</TouchableOpacity>
+									}
+								/>
+								<View style={{ position: 'absolute', top: 75 }}>
+									<ErrorMessage errorValue={touched.password && errors.password} />
+								</View>
 							</View>
-							</View>
-
 							{/* login button */}
 							<View style={loginStyles.buttonContainer}>
 								<FormButton

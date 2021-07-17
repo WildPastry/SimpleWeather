@@ -1,5 +1,5 @@
 // imports
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Text, TouchableOpacity, SafeAreaView, View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -52,18 +52,22 @@ class ForgotPassword extends Component {
 						handleBlur,
 						isSubmitting
 					}) => (
-						<Fragment>
-							<FormInput
-								name='email'
-								value={values.email}
-								onChangeText={handleChange('email')}
-								placeholder='Enter email'
-								autoCapitalize='none'
-								iconName='ios-mail'
-								iconColor={colours.white}
-								onBlur={handleBlur('email')}
-							/>
-							<ErrorMessage errorValue={touched.email && errors.email} />
+						<>
+							<View style={{ height: 90 }}>
+								<FormInput
+									name='email'
+									value={values.email}
+									onChangeText={handleChange('email')}
+									placeholder='Enter email'
+									autoCapitalize='none'
+									iconName='mail-outline'
+									iconColor={colours.white}
+									onBlur={handleBlur('email')}
+								/>
+								<View style={{ position: 'absolute', top: 75 }}>
+									<ErrorMessage errorValue={touched.email && errors.email} />
+								</View>
+							</View>
 							<View style={forgotPasswordStyles.buttonContainer}>
 								<FormButton
 									onPress={handleSubmit}
@@ -72,7 +76,7 @@ class ForgotPassword extends Component {
 								/>
 							</View>
 							<ErrorMessage errorValue={errors.general} />
-						</Fragment>
+						</>
 					)}
 				</Formik>
 				<TouchableOpacity style={forgotPasswordStyles.link} onPress={this.goToSignup}>
@@ -106,7 +110,7 @@ const forgotPasswordStyles = StyleSheet.create({
 	buttonContainer: {
 		margin: 25,
 		marginBottom: 10,
-		marginTop: 10
+		marginTop: 20
 	}
 });
 

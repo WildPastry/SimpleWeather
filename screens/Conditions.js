@@ -480,7 +480,7 @@ class Conditions extends Component {
 					}}>
 					<Text
 						style={{
-							color: colours.spotRed,
+							color: colours.spotBlue,
 							textAlign: 'center',
 							fontFamily: 'allerLt',
 							fontSize: 16
