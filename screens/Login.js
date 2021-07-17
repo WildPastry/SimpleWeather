@@ -103,7 +103,9 @@ class Login extends Component {
 						handleBlur,
 						isSubmitting
 					}) => (
-						<Fragment>
+						<>
+							{/* email */}
+							<View style={{height: 90}}>
 							<FormInput
 								name='email'
 								value={values.email}
@@ -114,8 +116,13 @@ class Login extends Component {
 								iconColor={colours.white}
 								onBlur={handleBlur('email')}
 							/>
-							{/* password */}
+							<View style={{position:'absolute', top: 75}}>	
 							<ErrorMessage errorValue={touched.email && errors.email} />
+							</View>
+							</View>
+
+							{/* password */}
+							<View style={{justifyContents:'space-around', height: 90}}>
 							<FormInput
 								name='password'
 								value={values.password}
@@ -131,8 +138,12 @@ class Login extends Component {
 									</TouchableOpacity>
 								}
 							/>
-							{/* login button */}
+							<View style={{position:'absolute', top: 75}}>	
 							<ErrorMessage errorValue={touched.password && errors.password} />
+							</View>
+							</View>
+
+							{/* login button */}
 							<View style={loginStyles.buttonContainer}>
 								<FormButton
 									onPress={handleSubmit}
@@ -142,7 +153,7 @@ class Login extends Component {
 								/>
 							</View>
 							<ErrorMessage errorValue={errors.general} />
-						</Fragment>
+						</>
 					)}
 				</Formik>
 				<HideWithKeyboard>
@@ -206,7 +217,7 @@ const loginStyles = StyleSheet.create({
 		marginLeft: 25,
 		marginRight: 25,
 		marginBottom: 10,
-		marginTop: 10
+		marginTop: 20
 	},
 	simpleWeatherWrapper: {
 		fontSize: 22,
