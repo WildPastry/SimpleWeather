@@ -326,7 +326,7 @@ class Current extends Component {
 						alignItems: 'center',
 						justifyContent: 'center'
 					}}>
-					<Ionicons name='ios-search' size={30} color={colours.white} />
+					<Ionicons name='search' size={30} color={colours.white} />
 				</View>
 
 				{/* autocomplete input */}

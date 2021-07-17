@@ -46,8 +46,8 @@ class Signup extends Component {
 	state = {
 		passwordVisibility: true,
 		confirmPasswordVisibility: true,
-		passwordIcon: 'ios-eye',
-		confirmPasswordIcon: 'ios-eye'
+		passwordIcon: 'eye',
+		confirmPasswordIcon: 'eye'
 	};
 
 	// navigation function
@@ -56,7 +56,7 @@ class Signup extends Component {
 	// hide password function
 	handlePasswordVisibility = () => {
 		this.setState((prevState) => ({
-			passwordIcon: prevState.passwordIcon === 'ios-eye' ? 'ios-eye-off' : 'ios-eye',
+			passwordIcon: prevState.passwordIcon === 'eye' ? 'eye-off' : 'eye',
 			passwordVisibility: !prevState.passwordVisibility
 		}));
 	};
@@ -65,7 +65,7 @@ class Signup extends Component {
 	handleConfirmPasswordVisibility = () => {
 		this.setState((prevState) => ({
 			confirmPasswordIcon:
-				prevState.confirmPasswordIcon === 'ios-eye' ? 'ios-eye-off' : 'ios-eye',
+				prevState.confirmPasswordIcon === 'eye' ? 'eye-off' : 'eye',
 			confirmPasswordVisibility: !prevState.confirmPasswordVisibility
 		}));
 	};

@@ -73,7 +73,7 @@ class Help extends Component {
 										alignItems: 'center'
 									}}>
 									<Text style={helpStyles.helpTextWhite}>Search for a location</Text>
-									<Ionicons name='ios-search' size={30} color={colours.white} />
+									<Ionicons name='search' size={30} color={colours.white} />
 								</View>
 								{/* saved locations */}
 								<View
@@ -83,7 +83,7 @@ class Help extends Component {
 										alignItems: 'center'
 									}}>
 									<Text style={helpStyles.helpTextWhite}>Save up to 5 locations</Text>
-									<Ionicons name='ios-add-circle' size={30} color={colours.white} />
+									<Ionicons name='add-circle' size={30} color={colours.white} />
 								</View>
 								{/* set location as home */}
 								<View
@@ -93,15 +93,15 @@ class Help extends Component {
 										alignItems: 'center'
 									}}>
 									<Text style={helpStyles.helpTextWhite}>Set a location to home</Text>
-									<Ionicons name='ios-home' size={30} color={colours.spotGreen} />
+									<Ionicons name='home' size={30} color={colours.spotGreen} />
 								</View>
 								{/* line break */}
 								<View style={helpStyles.border} />
 								{/* support the dev */}
-								<Text style={helpStyles.helpTextYellow}>
+								<Text style={helpStyles.helpTextBlue}>
 									You can send feedback, comments or suggestions to the developer
 									<Text
-										style={helpStyles.helpTextRedBold}
+										style={helpStyles.helpTextYellow}
 										onPress={() =>
 											Linking.openURL(
 												'mailto:mykdsn@gmail.com?subject=SendMail&body=Description'
@@ -130,7 +130,7 @@ class Help extends Component {
 					onPress={() => {
 						this.setModalVisible(true);
 					}}>
-					<Text style={helpStyles.helpTextYellowBold}>SUPPORT / HELP</Text>
+					<Text style={helpStyles.helpTextYellowBold}>HELP</Text>
 				</TouchableHighlight>
 			</View>
 		);
