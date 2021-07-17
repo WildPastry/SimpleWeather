@@ -226,14 +226,14 @@ class GlobalModal extends Component {
 									this.setModalVisible(!this.state.modalVisible);
 								}}>
 								{/* cancel */}
-								<Ionicons name='ios-close-circle' size={45} color={colours.spotRed} />
+								<Ionicons name='close-circle' size={45} color={colours.spotRed} />
 							</TouchableHighlight>
 							<TouchableHighlight
 								style={{ padding: 12 }}
 								onPress={this.locationCheck.bind(this, currentLocation)}>
 								{/* save */}
 								<Ionicons
-									name='ios-checkmark-circle'
+									name='checkmark-circle'
 									size={45}
 									color={colours.spotGreen}
 								/>
@@ -247,7 +247,7 @@ class GlobalModal extends Component {
 					onPress={() => {
 						this.setModalVisible(true);
 					}}>
-					<Ionicons name='ios-add-circle' size={30} color={colours.white} />
+					<Ionicons name='add-circle' size={30} color={colours.white} />
 				</TouchableHighlight>
 			</View>
 		);

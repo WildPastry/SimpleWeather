@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
 class Login extends Component {
 	state = {
 		passwordVisibility: true,
-		rightIcon: 'ios-eye'
+		rightIcon: 'eye'
 	};
 
 	// navigation functions
@@ -47,7 +47,7 @@ class Login extends Component {
 	// password visibility function
 	handlePasswordVisibility = () => {
 		this.setState((prevState) => ({
-			rightIcon: prevState.rightIcon === 'ios-eye' ? 'ios-eye-off' : 'ios-eye',
+			rightIcon: prevState.rightIcon === 'eye' ? 'eye-off' : 'eye',
 			passwordVisibility: !prevState.passwordVisibility
 		}));
 	};

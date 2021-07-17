@@ -534,14 +534,14 @@ class Header extends Component {
 														{location.icon ? (
 															<Ionicons
 																style={{ marginRight: 15 }}
-																name='ios-home'
+																name='home'
 																size={30}
 																color={colours.spotGreen}
 															/>
 														) : (
 															<Ionicons
 																style={{ marginRight: 15 }}
-																name='ios-home'
+																name='home'
 																size={30}
 																color={colours.spotGrey}
 																onPress={this.handleHomeAlert.bind(this, [
@@ -557,7 +557,7 @@ class Header extends Component {
 																location.key,
 																location.icon
 															])}
-															name='ios-close-circle'
+															name='close-circle'
 															size={30}
 															color={colours.white}
 														/>
@@ -677,8 +677,8 @@ const savedLocationStyles = StyleSheet.create({
 		alignItems: 'center',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		paddingLeft: 8,
-		paddingRight: 8
+		paddingLeft: 2,
+		paddingRight: 4
 	},
 	locationListText: {
 		fontSize: 18,
