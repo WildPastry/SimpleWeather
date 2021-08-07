@@ -22,20 +22,7 @@ class Footer extends Component {
             style={{
               fontFamily: 'allerLt',
             }}>
-            Powered by{' '}
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'allerBd',
-            }}
-            onPress={() => Linking.openURL('https://darksky.net/')}>
-            DarkSky{' '}
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'allerLt',
-            }}>
-            and{' '}
+            Data from{' '}
           </Text>
           <Text
             style={{
