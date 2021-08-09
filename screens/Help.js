@@ -104,7 +104,7 @@ class Help extends Component {
 										style={helpStyles.helpTextYellow}
 										onPress={() =>
 											Linking.openURL(
-												'mailto:mykdsn@gmail.com?subject=SendMail&body=Description'
+												'mailto:mike@mikeparker.co.nz?subject=SendMail&body=Description'
 											)
 										}>
 										{' '}
