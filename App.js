@@ -27,12 +27,10 @@ if (!global.atob) {
 
 // set up auth keys
 const open = configData.OPEN,
-	sky = configData.SKY,
 	geo = configData.GEO;
 
 // set up URLS
-const darkURL = configData.DARKURL,
-	openWeekURL = configData.OPENWEEKURL,
+const openWeekURL = configData.OPENWEEKURL,
 	openCurrentURL = configData.OPENCURRENTURL,
 	timezoneURL = configData.TIMEZONEURL;
 
@@ -53,8 +51,6 @@ class App extends Component {
 			isLoaded: false,
 			// fonts
 			fontLoaded: false,
-			// sky weather
-			skyWeather: [],
 			// open weather weekly data array
 			openWeekWeather: [],
 			// open weather current data array and id
@@ -195,25 +191,22 @@ class App extends Component {
 			myLng = this.state.currentLng;
 		// promise all data
 		Promise.all([
-			fetch(darkURL + sky + '/' + myLat + ',' + myLng + '?units=ca'),
 			fetch(openCurrentURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open),
 			fetch(openWeekURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open)
 		])
 			// set json
-			.then(([skyData, openCurrentData, openWeekData]) => {
-				return Promise.all([skyData.json(), openCurrentData.json(), openWeekData.json()]);
+			.then(([openCurrentData, openWeekData]) => {
+				return Promise.all([openCurrentData.json(), openWeekData.json()]);
 			})
 			// set state
-			.then(([skyData, openCurrentData, openWeekData]) => {
+			.then(([openCurrentData, openWeekData]) => {
 				if (this._isMounted) {
 					this.setState(
 						{
-							// skyData
-							skyWeather: skyData,
-							temp: Math.round(skyData.currently.temperature),
-							high: Math.round(skyData.daily.data[0].temperatureMax),
-							low: Math.round(skyData.daily.data[0].temperatureMin),
-							// openCurrentData
+							// daily data
+							temp: Math.round(openCurrentData.main.temp),
+							high: Math.round(openCurrentData.main.temp_max),
+							low: Math.round(openCurrentData.main.temp_min),
 							openWeather: openCurrentData,
 							openWeatherId: openCurrentData.weather[0].id,
 							desc: openCurrentData.weather[0].description,
@@ -223,7 +216,7 @@ class App extends Component {
 							sunset: openCurrentData.sys.sunset,
 							sunrise: openCurrentData.sys.sunrise,
 							feelslike: openCurrentData.main.feels_like,
-							// openWeekData
+							// weekly data
 							openWeekWeather: openWeekData
 						},
 						this.findUserLocalTime
@@ -470,7 +463,6 @@ class App extends Component {
 							weekBarBgDarkest={this.state.weekBarBgDarkest}
 							weatherCode={this.state.openWeatherId}
 							weather={this.state.openWeekWeather.list}
-							skyWeather={this.state.skyWeather.daily.data}
 						/>
 						{/* footer */}
 						<Footer />

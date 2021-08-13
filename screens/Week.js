@@ -27,13 +27,13 @@ class Week extends Component {
 		// add new data to filtered array
 		for (i = 0; i < 5; i++) {
 			Array.prototype.push.apply(filteredWeather[i].main, [
-				this.props.skyWeather[i].temperatureMin
+				this.props.weather[i].main.temp_min
 			]);
 			Array.prototype.push.apply(filteredWeather[i].main, [
-				this.props.skyWeather[i].temperatureMax
+				this.props.weather[i].main.temp_max
 			]);
 			Array.prototype.push.apply(filteredWeather[i].sys, [
-				this.props.skyWeather[i].summary
+				this.props.weather[i].weather[0].description
 			]);
 		}
 
