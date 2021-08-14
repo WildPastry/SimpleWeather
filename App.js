@@ -53,8 +53,7 @@ class App extends Component {
 			fontLoaded: false,
 			// open weather weekly data array
 			openWeekWeather: [],
-			// open weather current data array and id
-			openWeather: [],
+			// open weather id
 			openWeatherId: null,
 			// current weather and location data
 			currentIcon: '',
@@ -207,7 +206,6 @@ class App extends Component {
 							temp: Math.round(openCurrentData.main.temp),
 							high: Math.round(openCurrentData.main.temp_max),
 							low: Math.round(openCurrentData.main.temp_min),
-							openWeather: openCurrentData,
 							openWeatherId: openCurrentData.weather[0].id,
 							desc: openCurrentData.weather[0].description,
 							humidity: openCurrentData.main.humidity,
@@ -370,6 +368,7 @@ class App extends Component {
 
 	// START render App
 	render() {
+		console.log(this.props.width);
 		// declare loading variables in current state
 		var { isLoaded } = this.state;
 
