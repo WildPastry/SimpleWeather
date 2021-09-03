@@ -187,26 +187,28 @@ class App extends Component {
 			fetch(openURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open)
 		])
 			// set json
-			.then(([openCurrentData]) => {
-				return Promise.all([openCurrentData.json()]);
+			.then(([weatherData]) => {
+				return Promise.all([weatherData.json()]);
 			})
 			// set state
-			.then(([openCurrentData]) => {
+			.then(([weatherData]) => {
 				if (this._isMounted) {
 					this.setState(
 						{
 							// weather data
-							temp: Math.round(openCurrentData.main.temp),
-							high: Math.round(openCurrentData.main.temp_max),
-							low: Math.round(openCurrentData.main.temp_min),
-							openWeatherId: openCurrentData.weather[0].id,
-							desc: openCurrentData.weather[0].description,
-							humidity: openCurrentData.main.humidity,
-							wind: openCurrentData.wind.speed * 3.6,
-							icon: openCurrentData.weather[0].icon,
-							sunset: openCurrentData.sys.sunset,
-							sunrise: openCurrentData.sys.sunrise,
-							feelslike: openCurrentData.main.feels_like,
+							temp: Math.round(weatherData.current.temp),
+							high: Math.round(weatherData.daily[0].temp.max),
+							low: Math.round(weatherData.daily[0].temp.min),
+							openWeatherId: weatherData.current.weather[0].id,
+							desc: weatherData.current.weather[0].description,
+							humidity: weatherData.current.humidity,
+							wind: weatherData.current.wind_speed * 3.6,
+							icon: weatherData.current.weather[0].icon,
+							sunset: weatherData.current.sunset,
+							sunrise: weatherData.current.sunrise,
+							feelslike: weatherData.current.feels_like,
+							hourly: weatherData.hourly,
+							daily: weatherData.daily
 						},
 						this.findUserLocalTime
 					);
@@ -440,7 +442,7 @@ class App extends Component {
 									dstOffset={this.state.dstOffset}
 									rawOffset={this.state.rawOffset}
 									timeZoneId={this.state.timeZoneId}
-									openWeather={this.state.openWeekWeather}
+									hourly={this.state.hourly}
 									updateSkyData={this.updateSkyData}
 								/>
 							</View>
@@ -452,7 +454,7 @@ class App extends Component {
 							weekBarBg={this.state.weekBarBg}
 							weekBarBgDarkest={this.state.weekBarBgDarkest}
 							weatherCode={this.state.openWeatherId}
-							weather={this.state.openWeekWeather.list}
+							daily={this.state.daily}
 						/>
 						{/* footer */}
 						<Footer />

@@ -199,7 +199,6 @@ class Current extends Component {
 	render() {
 		// set up weather code and data
 		var weatherCode = this.props.weatherCode;
-		const openData = this.props.openWeather.list;
 		const night = this.props.night;
 
 		// set up icon display
@@ -304,11 +303,6 @@ class Current extends Component {
 		const colourBg = this.props.currentBg;
 		const colourBarBg = this.props.currentBarBg;
 		const colourBarBgDarkest = this.props.currentBarBgDarkest;
-
-		// filter data for morning afternoon evening conditions
-		let filterMorning = openData.filter((e) => e.dt_txt.includes('09:00:00'));
-		let filterAfternoon = openData.filter((e) => e.dt_txt.includes('12:00:00'));
-		let filterEvening = openData.filter((e) => e.dt_txt.includes('18:00:00'));
 
 		return (
 			<SafeAreaView keyboardShouldPersistTaps='handled' style={currentStyles.currentWrap}>
@@ -553,9 +547,9 @@ class Current extends Component {
 										color: colours.white
 									}}>
 									{/* 9am */}
-									{weatherIcons[filterMorning[0].weather[0].id].code}
+									{weatherIcons[this.props.hourly[9].weather[0].id].code}
 								</Text>
-								<Text style={currentStyles.currentSecondaryInfoHeading}>9am</Text>
+								<Text style={currentStyles.currentSecondaryInfoHeading}>7am</Text>
 							</View>
 							{/* Afternoon */}
 							<View
@@ -571,7 +565,7 @@ class Current extends Component {
 										color: colours.white
 									}}>
 									{/* 12pm */}
-									{weatherIcons[filterAfternoon[0].weather[0].id].code}
+									{weatherIcons[this.props.hourly[14].weather[0].id].code}
 								</Text>
 								<Text style={currentStyles.currentSecondaryInfoHeading}>mid-day</Text>
 							</View>
@@ -589,9 +583,9 @@ class Current extends Component {
 										color: colours.white
 									}}>
 									{/* 6pm */}
-									{weatherIcons[filterEvening[0].weather[0].id].code}
+									{weatherIcons[this.props.hourly[19].weather[0].id].code}
 								</Text>
-								<Text style={currentStyles.currentSecondaryInfoHeading}>6pm</Text>
+								<Text style={currentStyles.currentSecondaryInfoHeading}>5pm</Text>
 							</View>
 						</View>
 						{/* daily summary */}

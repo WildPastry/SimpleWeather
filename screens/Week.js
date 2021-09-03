@@ -13,6 +13,8 @@ var moment = require('moment');
 class Week extends Component {
 	// START Week render
 	render() {
+		// grab six days worth of forecast
+		const sixDays = this.props.daily.slice(1);
 
 		// set up colour bg variables
 		const colourBg = this.props.weekBg;
@@ -36,20 +38,20 @@ class Week extends Component {
 							marginBottom: 10
 						}}>
 						<View style={{ backgroundColor: colourBarBgDarkest }}>
-							<Text style={weekStyles.weekHeading}>Five Day Forecast</Text>
+							<Text style={weekStyles.weekHeading}>Six Day Forecast</Text>
 						</View>
 					</View>
 					{/* START map */}
 					<View style={{ marginBottom: 3 }}>
-						{filteredWeather.map((dailyWeather) => {
+						{sixDays.map((daily) => {
 							// set up date variables
-							var today = moment.unix(dailyWeather.dt);
+							var today = moment.unix(daily.dt);
 							var day = moment(today).format('ddd');
 
 							// set up daily summary conversion
 							let dailySummaryRaw;
 
-							dailySummaryRaw = dailyWeather.weather[0].description;
+							dailySummaryRaw = daily.weather[0].description;
 
 							// function to render daily summary while the component is still loading
 							if (dailySummaryRaw === undefined) {
@@ -59,11 +61,11 @@ class Week extends Component {
 							}
 
 							// convert mps to kmph
-							var windSpeed = dailyWeather.wind.speed * 3.6;
+							var windSpeed = daily.wind_speed * 3.6;
 
 							return (
 								// START week display
-								<View key={dailyWeather.dt}>
+								<View key={daily.dt}>
 									<Collapse
 										style={{
 											backgroundColor: colourBarBg,
@@ -101,7 +103,7 @@ class Week extends Component {
 															textAlign: 'center',
 															color: colours.white
 														}}>
-														{weatherIcons[dailyWeather.weather[0].id].code}
+														{weatherIcons[daily.weather[0].id].code}
 													</Text>
 												</View>
 												{/* daily low temp */}
@@ -112,7 +114,7 @@ class Week extends Component {
 															size={16}
 															color={colours.white}
 														/>{' '}
-														{Math.round(dailyWeather.main[0])}°
+														{Math.round(daily.temp.min)}°
 													</Text>
 												</View>
 												{/* daily high temp */}
@@ -123,7 +125,7 @@ class Week extends Component {
 															size={16}
 															color={colours.white}
 														/>{' '}
-														{Math.round(dailyWeather.main[1])}°
+														{Math.round(daily.temp.max)}°
 													</Text>
 												</View>
 											</View>
@@ -133,7 +135,7 @@ class Week extends Component {
 										<CollapseBody>
 											{/* START description */}
 											<Text style={weekStyles.weekDesc}>
-												{dailySummary} with a high of {Math.round(dailyWeather.main[1])}°
+												{dailySummary} with a high of {Math.round(daily.temp.max)}°
 											</Text>
 											{/* END description */}
 
@@ -168,7 +170,7 @@ class Week extends Component {
 													</Text>
 													<Text style={weekStyles.weekWindHumDetails}>
 														{'  '}
-														{dailyWeather.main.humidity}%
+														{daily.humidity}%
 													</Text>
 												</View>
 												{/* END humidity */}
