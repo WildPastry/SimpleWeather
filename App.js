@@ -26,13 +26,10 @@ if (!global.atob) {
 }
 
 // set up auth keys
-const open = configData.OPEN,
-	geo = configData.GEO;
+const open = configData.OPEN, geo = configData.GEO;
 
 // set up URLS
-const openWeekURL = configData.OPENWEEKURL,
-	openCurrentURL = configData.OPENCURRENTURL,
-	timezoneURL = configData.TIMEZONEURL;
+const openURL = configData.OPENURL, timezoneURL = configData.TIMEZONEURL;
 
 // get device width
 const window = Dimensions.get('window');
@@ -51,8 +48,6 @@ class App extends Component {
 			isLoaded: false,
 			// fonts
 			fontLoaded: false,
-			// open weather weekly data array
-			openWeekWeather: [],
 			// open weather id
 			openWeatherId: null,
 			// current weather and location data
@@ -186,23 +181,21 @@ class App extends Component {
 
 	// START sky data function
 	getSkyData() {
-		var myLat = this.state.currentLat,
-			myLng = this.state.currentLng;
+		const myLat = this.state.currentLat, myLng = this.state.currentLng;
 		// promise all data
 		Promise.all([
-			fetch(openCurrentURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open),
-			fetch(openWeekURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open)
+			fetch(openURL + myLat + '&lon=' + myLng + '&units=metric&APPID=' + open)
 		])
 			// set json
-			.then(([openCurrentData, openWeekData]) => {
-				return Promise.all([openCurrentData.json(), openWeekData.json()]);
+			.then(([openCurrentData]) => {
+				return Promise.all([openCurrentData.json()]);
 			})
 			// set state
-			.then(([openCurrentData, openWeekData]) => {
+			.then(([openCurrentData]) => {
 				if (this._isMounted) {
 					this.setState(
 						{
-							// daily data
+							// weather data
 							temp: Math.round(openCurrentData.main.temp),
 							high: Math.round(openCurrentData.main.temp_max),
 							low: Math.round(openCurrentData.main.temp_min),
@@ -214,8 +207,6 @@ class App extends Component {
 							sunset: openCurrentData.sys.sunset,
 							sunrise: openCurrentData.sys.sunrise,
 							feelslike: openCurrentData.main.feels_like,
-							// weekly data
-							openWeekWeather: openWeekData
 						},
 						this.findUserLocalTime
 					);

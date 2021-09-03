@@ -13,29 +13,6 @@ var moment = require('moment');
 class Week extends Component {
 	// START Week render
 	render() {
-		// new array for filtering
-		var filteredWeather = [];
-
-		// first filter function
-		for (var i = 0; i < this.props.weather.length; i++) {
-			var checkArray = this.props.weather[i].dt_txt.includes('12:00:00');
-			if (checkArray === true) {
-				filteredWeather.push(this.props.weather[i]);
-			}
-		}
-
-		// add new data to filtered array
-		for (i = 0; i < 5; i++) {
-			Array.prototype.push.apply(filteredWeather[i].main, [
-				this.props.weather[i].main.temp_min
-			]);
-			Array.prototype.push.apply(filteredWeather[i].main, [
-				this.props.weather[i].main.temp_max
-			]);
-			Array.prototype.push.apply(filteredWeather[i].sys, [
-				this.props.weather[i].weather[0].description
-			]);
-		}
 
 		// set up colour bg variables
 		const colourBg = this.props.weekBg;
