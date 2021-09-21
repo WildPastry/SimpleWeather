@@ -111,6 +111,7 @@ class App extends Component {
 	// fallback function
 	fallback() {
 		if (this.props.currentData !== undefined){
+			// if current data exists - set the state and load it
 		this.setState(
 			{
 				currentLocation: this.props.currentData.googleName,
@@ -119,15 +120,8 @@ class App extends Component {
 			},
 			this.getSkyData
 		)} else {
+			// otherwise navigate to the select location screen
 			this.props.navigation.navigate('SelectLocation');
-			// this.setState(
-			// 	{
-			// 		currentLocation: 'Wellington, New Zealand',
-			// 		currentLat: '-41.2865',
-			// 		currentLng: '174.7762'
-			// 	},
-			// 	this.getSkyData
-			// );
 		}
 	}
 

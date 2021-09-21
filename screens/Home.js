@@ -13,10 +13,10 @@ class Home extends Component {
 		// check for data from the skip login screen
 		let currentData;
 		const params = this.props.navigation.state;
-
 		if (params.params !== undefined) {
 			currentData = params.params.params.options;
 		} else {
+			// final fallback in case of errors
 			currentData = {
 				googleName: 'Wellington, New Zealand',
 				googleLat: '-41.2865',
