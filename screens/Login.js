@@ -75,6 +75,7 @@ class Login extends Component {
 
 	// START render Login
 	render() {
+		console.log('Inside Login RENDER');
 		const { passwordVisibility, rightIcon } = this.state;
 		return (
 			<SafeAreaView style={loginStyles.container}>

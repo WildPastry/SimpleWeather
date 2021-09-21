@@ -41,6 +41,7 @@ class Header extends Component {
 
 	// START component mounted
 	componentDidMount = async () => {
+		console.log('Inside Header MOUNT');
 		let isMounted = true;
 		if (isMounted) {
 			// check firebase for user
@@ -112,7 +113,7 @@ class Header extends Component {
 			await this.props.firebase.signOut();
 			this.props.navigation.navigate('Auth');
 		} catch (error) {
-			console.log(error);
+			console.log(error, 'ERROR');
 		}
 	};
 
@@ -261,7 +262,7 @@ class Header extends Component {
 					},
 					function (error) {
 						if (error) {
-							console.log(error);
+							console.log(error, 'ERROR');
 						}
 					}
 				);
@@ -462,6 +463,7 @@ class Header extends Component {
 
 	// START render Header
 	render() {
+		console.log('Inside Header RENDER');
 		return (
 			// master wrap
 			<View>

@@ -5,6 +5,7 @@ import { withFirebaseHOC } from '../config/Firebase';
 // START Initial
 class Initial extends Component {
 	componentDidMount = async () => {
+		console.log('Inside Initial MOUNT');
 		try {
 			await this.props.firebase.checkUserAuth((user) => {
 				if (user) {
@@ -16,12 +17,13 @@ class Initial extends Component {
 				}
 			});
 		} catch (error) {
-			console.log(error);
+			console.log(error, 'ERROR');
 		}
 	};
 
 	// START Initial
 	render() {
+		console.log('Inside Initial RENDER');
 		return <AppLoading />;
 	}
 	// END render Initial

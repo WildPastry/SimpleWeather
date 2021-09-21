@@ -88,15 +88,15 @@ class Signup extends Component {
 								console.log('Success in sending email');
 							})
 							.catch(function (error) {
-								console.log(error);
+								console.log(error, 'ERROR');
 							});
 					})
 					.catch(function (error) {
-						console.log(error);
+						console.log(error, 'ERROR');
 					});
 			}
 		} catch (error) {
-			console.log(error);
+			console.log(error, 'ERROR');
 			actions.setFieldError('general', error.message);
 		} finally {
 			actions.setSubmitting(false);
