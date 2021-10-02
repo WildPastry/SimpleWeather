@@ -52,7 +52,6 @@ class Header extends Component {
 				const db = firebase.firestore();
 				const dbRT = firebase.database();
 				const ref = dbRT.ref(user.uid);
-				// const homeRef = ref.child('home');
 				const locationRef = ref.child('locations');
 				const docRef = db.collection('users').doc(user.uid);
 				// check if the signed in user has data saved
@@ -195,7 +194,6 @@ class Header extends Component {
 			// load firebase data
 			const db = firebase.firestore();
 			const ref = dbRT.ref(user.uid);
-			// const homeRef = ref.child('home');
 			const locationRef = ref.child('locations');
 			const docRef = db.collection('users').doc(user.uid);
 			// check if the signed in user has data saved
@@ -208,7 +206,7 @@ class Header extends Component {
 							doc.data().name,
 							'is logged in, From handleDelete in Header.js'
 						);
-					}						
+					}
 				})
 				.catch(function (error) {
 					console.log('Error getting document:', error);
@@ -382,17 +380,31 @@ class Header extends Component {
 	handleLoginAlert = () => {
 		let isMounted = true;
 		if (isMounted) {
-			// Alert
-			Alert.alert(
-				'Not Logged In',
-				'Please login or signup to save locations',
-				[
-					{ text: 'Cancel', style: 'cancel' },
-					{ text: 'Login', onPress: this.handleLogin },
-					{ text: 'Signup', onPress: this.handleSignup }
-				],
-				{ cancelable: false }
-			);
+			// check firebase for user
+			var user = firebase.auth().currentUser;
+			if (user) {
+				// Alert 1
+				Alert.alert(
+					'No Saved Locations',
+					'Save a location by pressing the plus circle below',
+					[
+						{ text: 'OK', style: 'cancel' }
+					],
+					{ cancelable: false }
+				);
+			} else {
+				// Alert 2
+				Alert.alert(
+					'Not Logged In',
+					'Please login or signup to save locations',
+					[
+						{ text: 'Cancel', style: 'cancel' },
+						{ text: 'Login', onPress: this.handleLogin },
+						{ text: 'Signup', onPress: this.handleSignup }
+					],
+					{ cancelable: false }
+				);
+			}
 		}
 		return () => (isMounted = false);
 	};

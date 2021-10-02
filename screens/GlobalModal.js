@@ -195,6 +195,21 @@ class GlobalModal extends Component {
 						}
 					}
 				);
+				// save home location
+				if (this.state.locationCheck.length === 0) {
+				dbRT.ref(user.uid + '/home').set(
+					{
+						lat: this.props.currentLat,
+						lng: this.props.currentLng,
+						location: this.props.currentLocation
+					},
+					function (error) {
+						if (error) {
+							console.log(error, 'ERROR');
+						}
+					}
+				);
+				}
 			} else {
 				// no user is signed in
 				this.handleFail();
@@ -232,11 +247,7 @@ class GlobalModal extends Component {
 								style={{ padding: 12 }}
 								onPress={this.locationCheck.bind(this, currentLocation)}>
 								{/* save */}
-								<Ionicons
-									name='checkmark-circle'
-									size={45}
-									color={colours.spotGreen}
-								/>
+								<Ionicons name='checkmark-circle' size={45} color={colours.spotGreen} />
 							</TouchableHighlight>
 						</View>
 					</View>
