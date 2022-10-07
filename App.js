@@ -110,6 +110,8 @@ class App extends Component {
 
 	// fallback function
 	fallback() {
+		if (this.props.currentData !== undefined){
+			// if current data exists - set the state and load it
 		this.setState(
 			{
 				currentLocation: this.props.currentData.googleName,
@@ -117,11 +119,15 @@ class App extends Component {
 				currentLng: this.props.currentData.googleLng
 			},
 			this.getSkyData
-		);
+		)} else {
+			// otherwise navigate to the select location screen
+			this.props.navigation.navigate('SelectLocation');
+		}
 	}
 
 	// START component mounted
 	componentDidMount = async () => {
+		console.log('Inside APP MOUNT');
 		// set component mounted
 		this._isMounted = true;
 		if (this._isMounted) {
@@ -217,11 +223,11 @@ class App extends Component {
 			.catch((error) => {
 				if (error.res) {
 				} else if (error.request) {
-					console.log(error.request);
+					console.log(error.request, 'ERROR REQUEST');
 				} else {
 					console.log('error ', error.message);
 				}
-				console.log(error.config);
+				console.log(error.config, 'ERROR CONFIG');
 			});
 	}
 	// END sky data function
@@ -266,11 +272,11 @@ class App extends Component {
 			.catch((error) => {
 				if (error.res) {
 				} else if (error.request) {
-					console.log(error.request);
+					console.log(error.request, 'ERROR REQUEST');
 				} else {
 					console.log('error ', error.message);
 				}
-				console.log(error.config);
+				console.log(error.config, 'ERROR CONFIG');
 			});
 	}
 
@@ -361,7 +367,7 @@ class App extends Component {
 
 	// START render App
 	render() {
-		console.log(this.props.width);
+		console.log('Inside APP RENDER');
 		// declare loading variables in current state
 		var { isLoaded } = this.state;
 

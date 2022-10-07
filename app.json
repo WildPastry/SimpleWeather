@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "4.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1.0.0",
+      "buildNumber": "4.0.0",
       "bundleIdentifier": "nz.co.mikeparker.sw"
     },
     "android": {
@@ -33,7 +33,7 @@
         "ACCESS_COARSE_LOCATION"
       ],
       "package": "nz.co.mikeparker.sw",
-      "versionCode": 1
+      "versionCode": 4
     },
     "description": "Simplistic and functional weather app designed for iOS and Android",
     "githubUrl": "https://github.com/WildPastry/SimpleWeather"

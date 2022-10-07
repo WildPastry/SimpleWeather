@@ -60,6 +60,7 @@ class SelectLocation extends Component {
 
 	// keyboard did mount function
 	componentDidMount() {
+		console.log('Inside SelectLocation MOUNT');
 		this.keyboardDidShowListener = Keyboard.addListener(
 			'keyboardDidShow',
 			this._keyboardDidShow
@@ -92,6 +93,7 @@ class SelectLocation extends Component {
 
 	// START render SelectLocation
 	render() {
+		console.log('Inside SelectLocation RENDER');
 		var width = Dimensions.get('window').width;
 		return (
 			<SafeAreaView

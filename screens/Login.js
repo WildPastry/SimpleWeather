@@ -36,7 +36,16 @@ class Login extends Component {
 	// navigation functions
 	goToSignup = () => this.props.navigation.navigate('Signup');
 	goToForgotPassword = () => this.props.navigation.navigate('ForgotPassword');
-	goToLocation = () => this.props.navigation.navigate('SelectLocation');
+
+	goToLocation = async () => {
+		try {
+			await this.props.firebase.signOut();
+			this.props.navigation.navigate('SelectLocation');
+		} catch (error) {
+			console.log(error, 'ERROR');
+		}
+	};
+
 	goToHome = (options) =>
 		this.props.navigation.navigate('Home', {
 			type: 'Navigate',
@@ -63,7 +72,6 @@ class Login extends Component {
 		try {
 			const response = await this.props.firebase.loginWithEmail(email, password);
 			if (response.user) {
-				// this.props.navigation.navigate('App');
 				this.goToHome(options);
 			}
 		} catch (error) {
@@ -75,6 +83,7 @@ class Login extends Component {
 
 	// START render Login
 	render() {
+		console.log('Inside Login RENDER');
 		const { passwordVisibility, rightIcon } = this.state;
 		return (
 			<SafeAreaView style={loginStyles.container}>

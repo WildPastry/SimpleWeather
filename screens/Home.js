@@ -6,20 +6,26 @@ import App from './../App';
 
 // START Home
 class Home extends Component {
+
 	// START render Home
 	render() {
+		console.log('Inside Home RENDER');
 		// check for data from the skip login screen
 		let currentData;
 		const params = this.props.navigation.state;
 		if (params.params !== undefined) {
 			currentData = params.params.params.options;
 		} else {
+			// final fallback in case of errors
 			currentData = {
 				googleName: 'Wellington, New Zealand',
 				googleLat: '-41.2865',
 				googleLng: '174.7762'
 			};
 		}
+
+		console.log(currentData, 'from HOME');
+
 		// send it through and load the main APP
 		return (
 			<FirebaseProvider value={Firebase}>
