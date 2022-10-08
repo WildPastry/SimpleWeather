@@ -27,7 +27,7 @@
     "react-native-screens": "^3.4.0",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.5.1",
-    "yup": "^0.27.0"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "base-64": "^0.1.0",
