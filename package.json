@@ -7,7 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "accordion-collapse-react-native": "^0.2.10",
+    "accordion-collapse-react-native": "^1.1.1",
     "dot-prop": "^7.2.0",
     "expo": "^42.0.1",
     "expo-app-loading": "^1.1.2",
