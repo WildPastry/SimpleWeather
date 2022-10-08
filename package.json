@@ -9,7 +9,7 @@
   "dependencies": {
     "accordion-collapse-react-native": "^0.2.10",
     "dot-prop": "^5.2.0",
-    "expo": "^42.0.1",
+    "expo": "^46.0.15",
     "expo-app-loading": "^1.1.2",
     "expo-cli": "^6.0.6",
     "expo-font": "^9.2.1",
