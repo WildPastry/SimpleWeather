@@ -13,7 +13,7 @@
     "expo-app-loading": "^1.1.2",
     "expo-cli": "^4.11.0",
     "expo-font": "^9.2.1",
-    "firebase": "8.2.3",
+    "firebase": "9.11.0",
     "formik": "^2.2.9",
     "lottie-react-native": "^5.1.4",
     "moment": "^2.29.4",
