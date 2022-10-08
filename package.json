@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "base-64": "^0.1.0",
-    "metro": "^0.59.0"
+    "metro": "^0.73.1"
   },
   "private": true
 }
