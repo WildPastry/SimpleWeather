@@ -28,7 +28,7 @@
     "react-native-hide-with-keyboard": "^1.2.1",
     "react-native-screens": "^3.4.0",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^1.5.1",
+    "react-navigation-stack": "^2.10.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {
