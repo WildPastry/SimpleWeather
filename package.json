@@ -13,7 +13,7 @@
     "dot-prop": "^7.2.0",
     "expo": "^46.0.15",
     "expo-app-loading": "^1.1.2",
-    "expo-cli": "^4.11.0",
+    "expo-cli": "^6.0.6",
     "expo-font": "^9.2.1",
     "firebase": "9.11.0",
     "formik": "^2.2.9",
