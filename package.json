@@ -32,7 +32,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "base-64": "^0.1.0",
+    "base-64": "^1.0.0",
     "metro": "^0.73.1"
   },
   "private": true
