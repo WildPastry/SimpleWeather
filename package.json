@@ -7,31 +7,31 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "accordion-collapse-react-native": "^0.2.10",
-    "dot-prop": "^5.2.0",
-    "expo": "^46.0.0",
-    "expo-app-loading": "^1.1.2",
-    "expo-cli": "^4.11.0",
-    "expo-font": "^9.2.1",
-    "firebase": "8.2.3",
+    "accordion-collapse-react-native": "^1.1.1",
+    "dot-prop": "^7.2.0",
+    "expo": "^46.0.16",
+    "expo-app-loading": "~2.1.0",
+    "expo-cli": "^6.0.6",
+    "expo-font": "~10.2.1",
+    "firebase": "^8.2.3",
     "formik": "^2.2.9",
-    "lottie-react-native": "^4.0.2",
-    "moment": "^2.25.3",
-    "native-base": "^2.13.12",
-    "react": "16.13.1",
-    "react-native": "^0.70.3",
+    "lottie-react-native": "5.1.4",
+    "moment": "^2.29.4",
+    "native-base": "^3.4.19",
+    "react": "18.2.0",
+    "react-native": "0.70.3",
     "react-native-elements": "^3.4.2",
-    "react-native-gesture-handler": "^1.10.3",
-    "react-native-google-places-autocomplete": "^1.4.2",
+    "react-native-gesture-handler": "~2.8.0",
+    "react-native-google-places-autocomplete": "^2.4.1",
     "react-native-hide-with-keyboard": "^1.2.1",
-    "react-native-screens": "^3.4.0",
-    "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^1.5.1",
-    "yup": "^0.27.0"
+    "react-native-screens": "~3.18.2",
+    "react-navigation": "^4.4.4",
+    "react-navigation-stack": "^2.10.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
-    "base-64": "^0.1.0",
-    "metro": "^0.59.0"
+    "base-64": "^1.0.0",
+    "metro": "^0.73.2"
   },
   "private": true
 }
