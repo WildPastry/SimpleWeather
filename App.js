@@ -127,7 +127,6 @@ class App extends Component {
 
 	// START component mounted
 	componentDidMount = async () => {
-		console.log('Inside APP MOUNT');
 		// set component mounted
 		this._isMounted = true;
 		if (this._isMounted) {
@@ -367,7 +366,6 @@ class App extends Component {
 
 	// START render App
 	render() {
-		console.log('Inside APP RENDER');
 		// declare loading variables in current state
 		var { isLoaded } = this.state;
 

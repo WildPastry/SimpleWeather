@@ -55,7 +55,7 @@ const overcastClouds = require('./../assets/animations/weather/overcastClouds.js
 const overcastCloudsNight = require('./../assets/animations/weather/overcastCloudsNight.json');
 
 // Size function for the main icon
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 var iconHeight, iconWidth;
 
@@ -76,8 +76,6 @@ String.prototype.capitalize = function () {
 String.prototype.cutString = function () {
 	return this.substring(0, this.length - 1);
 };
-
-var night;
 
 // START Current
 class Current extends Component {
