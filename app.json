@@ -17,7 +17,8 @@
       "backgroundColor": "#313136"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -36,6 +37,14 @@
       "versionCode": 4
     },
     "description": "Simplistic and functional weather app designed for iOS and Android",
-    "githubUrl": "https://github.com/WildPastry/SimpleWeather"
+    "githubUrl": "https://github.com/WildPastry/SimpleWeather",
+    "extra": {
+      "eas": {
+        "projectId": "f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }
