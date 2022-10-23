@@ -1,8 +1,16 @@
 {
   "build": {
-    "development": {
+    "develop": {
+      "channel": "develop",
       "developmentClient": true,
       "distribution": "internal"
+    },
+    "preview": {
+      "channel": "develop",
+      "distribution": "internal"
+    },
+    "production": {
+      "channel": "production"
     }
   }
 }
