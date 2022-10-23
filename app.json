@@ -45,6 +45,7 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    }
+    },
+    "sdkVersion": "46.0.16"
   }
 }
