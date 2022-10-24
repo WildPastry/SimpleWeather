@@ -20,7 +20,7 @@
     "expo-font": "~10.2.1",
     "expo-modules-autolinking": "^0.10.3",
     "expo-updates": "~0.14.6",
-    "firebase": "^8.2.3",
+    "firebase": "^9.12.1",
     "formik": "^2.2.9",
     "lottie-react-native": "5.1.4",
     "moment": "^2.29.4",
