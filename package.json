@@ -26,7 +26,7 @@
     "moment": "^2.29.4",
     "native-base": "^3.4.19",
     "react": "18.2.0",
-    "react-native": "0.69.6",
+    "react-native": "0.70.3",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-google-places-autocomplete": "^1.4.2",
