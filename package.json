@@ -12,7 +12,7 @@
     "@expo/config-plugins": "^6.0.2",
     "@expo/prebuild-config": "^6.0.1",
     "accordion-collapse-react-native": "^1.1.1",
-    "dot-prop": "^8.0.0",
+    "dot-prop": "^8.0.1",
     "expo": "^48.0.19",
     "expo-app-loading": "~2.1.1",
     "expo-cli": "^6.3.8",
