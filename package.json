@@ -15,7 +15,7 @@
     "dot-prop": "^8.0.1",
     "expo": "^49.0.2",
     "expo-app-loading": "~2.1.1",
-    "expo-cli": "^6.3.8",
+    "expo-cli": "^6.3.10",
     "expo-dev-client": "^2.4.5",
     "expo-font": "~11.4.0",
     "expo-modules-autolinking": "^1.5.0",
