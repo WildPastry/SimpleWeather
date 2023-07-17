@@ -16,7 +16,7 @@
     "expo": "^49.0.2",
     "expo-app-loading": "~2.1.1",
     "expo-cli": "^6.3.8",
-    "expo-dev-client": "^2.4.5",
+    "expo-dev-client": "^2.4.6",
     "expo-font": "~11.4.0",
     "expo-modules-autolinking": "^1.5.0",
     "expo-updates": "~0.18.9",
