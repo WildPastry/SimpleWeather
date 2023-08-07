@@ -21,7 +21,7 @@
     "expo-modules-autolinking": "^1.5.0",
     "expo-updates": "~0.18.11",
     "firebase": "^10.1.0",
-    "formik": "^2.4.2",
+    "formik": "^2.4.3",
     "lottie-react-native": "6.0.1",
     "moment": "^2.29.4",
     "native-base": "^3.4.28",
