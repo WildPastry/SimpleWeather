@@ -29,7 +29,7 @@
     "react-native": "0.72.4",
     "react-native-elements": "^3.4.3",
     "react-native-gesture-handler": "~2.12.1",
-    "react-native-google-places-autocomplete": "^2.5.1",
+    "react-native-google-places-autocomplete": "^2.5.2",
     "react-native-hide-with-keyboard": "^1.2.1",
     "react-native-screens": "~3.25.0",
     "react-navigation": "^4.4.4",
