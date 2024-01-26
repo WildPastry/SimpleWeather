@@ -1,50 +1,30 @@
 {
   "expo": {
-    "name": "SimpleWeather",
-    "slug": "simple-weather",
-    "privacy": "public",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "4.0.0",
+    "name": "my-app",
+    "slug": "my-app",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#313136"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a"
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "buildNumber": "4.0.0",
-      "bundleIdentifier": "nz.co.mikeparker.sw"
+      "supportsTablet": true
     },
     "android": {
-      "permissions": [
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
-      ],
-      "package": "nz.co.mikeparker.sw",
-      "versionCode": 4
-    },
-    "description": "Simplistic and functional weather app designed for iOS and Android",
-    "githubUrl": "https://github.com/WildPastry/SimpleWeather",
-    "extra": {
-      "eas": {
-        "projectId": "f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       }
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "sdkVersion": "46.0.0"
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
   }
 }
