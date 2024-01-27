@@ -1,4 +1,10 @@
-export interface IWeatherData {
+export interface IData {
+  weather: IWeather;
+  loading: boolean;
+  error: boolean;
+}
+
+export interface IWeather {
   temp: number;
   high: number;
   low: number;
