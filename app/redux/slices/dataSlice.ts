@@ -74,11 +74,11 @@ const dataSlice = createSlice({
   },
 });
 
-/**
- * Fetch from the openWeather API
- *
- * @returns {Promise<string>} JSON
- */
+// /**
+//  * Fetch from the openWeather API
+//  *
+//  * @returns {Promise<string>} JSON
+//  */
 export const fetchWeatherFromAPI = createAsyncThunk(
   "fetchWeatherFromAPI",
   async () => {
@@ -88,72 +88,29 @@ export const fetchWeatherFromAPI = createAsyncThunk(
   },
 );
 
-// Fetch weather data
-export const setData = () => async (dispatch: any) => {
-  const apiKey: string | undefined = process.env.EXPO_PUBLIC_API_KEY;
-  const apiUrl: string | undefined = process.env.EXPO_PUBLIC_API_URL;
-  const currentLat: string = "-41.2924";
-  const currentLng: string = "174.7787";
+// // Fetch weather data
+// export const setData = () => async (dispatch: any) => {
+//   console.log('setData');
+//   try {
+//     // Dispatch in parallel
+//     await Promise.all([dispatch(fetchWeatherFromAPI())]);
+//   } catch (error) {
+//     console.log('slice', error);
+//     // Set error screen if failed
+//     dispatch(setError(true));
+//   }
+// };
 
-  // const [weatherData, setWeatherData] = useState<IWeather>({
-  //   temp: 0,
-  //   high: 0,
-  //   low: 0,
-  //   openWeatherId: "",
-  //   desc: "",
-  //   humidity: "",
-  //   wind: 0,
-  //   icon: "",
-  //   sunset: "",
-  //   sunrise: "",
-  //   feelsLike: "",
-  //   hourly: "",
-  //   daily: "",
-  // });
-
-  // Fetch data
-  Promise.all([
-    fetch(
-      `${apiUrl + currentLat}
-          &lon=${currentLng}
-          &units=metric
-          &APPID=${apiKey}`
-    ),
-  ])
-    .then(([response]) => {
-      // Convert response to JSON
-      return Promise.all([response.json()]);
-    })
-    .then(([responseJSON]) => {
-      // Set response locally
-      const weatherData: IWeather = {
-        temp: Math.round(responseJSON.current.temp),
-        high: Math.round(responseJSON.daily[0].temp.max),
-        low: Math.round(responseJSON.daily[0].temp.min),
-        openWeatherId: responseJSON.current.weather[0].id,
-        desc: responseJSON.current.weather[0].description,
-        humidity: responseJSON.current.humidity,
-        wind: responseJSON.current.wind_speed * 3.6,
-        icon: responseJSON.current.weather[0].icon,
-        sunset: responseJSON.current.sunset,
-        sunrise: responseJSON.current.sunrise,
-        feelsLike: responseJSON.current.feels_like,
-        hourly: responseJSON.hourly,
-        daily: responseJSON.daily,
-      };
-      // setWeatherData(weatherData);
-    });
-
-  // console.log('setData');
-  // try {
-  //   // Dispatch in parallel
-  //   await Promise.all([dispatch(fetchWeatherFromAPI())]);
-  // } catch (error) {
-  //   console.log('slice', error);
-  //   // Set error screen if failed
-  //   dispatch(setError(true));
-  // }
-};
+export const setData = createAsyncThunk("setData", async (_, thunkAPI) => {
+  try {
+    const response = await thunkAPI.dispatch(fetchWeatherFromAPI());
+    return response.payload;
+  } catch (error) {
+    console.log('slice', error);
+    // Set error screen if failed
+    throw error;
+  }
+});
 
 // Export error and loading actions
 export const { setLoading, setError } = dataSlice.actions;

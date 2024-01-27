@@ -49,7 +49,7 @@ const Home: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   text: {
-    backgroundColor: "#ffc82e",
+    backgroundColor: "#2485c7",
   },
 });
 

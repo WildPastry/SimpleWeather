@@ -18,17 +18,17 @@ export default function useCachedResources(): boolean {
       try {
         SplashScreen.preventAutoHideAsync();
         // Load fonts
-        await Font.loadAsync({
-          // ...Ionicons.font,
-          // merriWeatherLt: require("../assets/fonts/MerriweatherSans-Light.ttf"),
-          // merriWeatherRg: require("../assets/fonts/MerriweatherSans-Regular.ttf"),
-          // merriWeatherBd: require("../assets/fonts/MerriweatherSans-Bold.ttf"),
-          // allerLt: require("../assets/fonts/Aller_Lt.ttf"),
-          // allerRg: require("../assets/fonts/Aller_Rg.ttf"),
-          // allerBd: require("../assets/fonts/Aller_Bd.ttf"),
-          // allerDisplay: require("../assets/fonts/AllerDisplay.ttf"),
-          // weatherfont: require("../assets/fonts/weathericons-regular-webfont.ttf"),
-        });
+        // await Font.loadAsync({
+        //   ...Ionicons.font,
+        //   merriWeatherLt: require("../assets/fonts/MerriweatherSans-Light.ttf"),
+        //   merriWeatherRg: require("../assets/fonts/MerriweatherSans-Regular.ttf"),
+        //   merriWeatherBd: require("../assets/fonts/MerriweatherSans-Bold.ttf"),
+        //   allerLt: require("../assets/fonts/Aller_Lt.ttf"),
+        //   allerRg: require("../assets/fonts/Aller_Rg.ttf"),
+        //   allerBd: require("../assets/fonts/Aller_Bd.ttf"),
+        //   allerDisplay: require("../assets/fonts/AllerDisplay.ttf"),
+        //   weatherfont: require("../assets/fonts/weathericons-regular-webfont.ttf"),
+        // });
         // Load data
         await dispatch(setData());
       } catch (error) {

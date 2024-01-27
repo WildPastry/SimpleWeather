@@ -24,10 +24,16 @@ const App: React.FC = (): JSX.Element | null => {
   return (
     <SafeAreaView>
       <StatusBar />
-      <Text>APP</Text>
+      <Text style={styles.text}>APP</Text>
       <Home />
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    backgroundColor: "#6e859e",
+  },
+});
 
 export default registerRootComponent(AppWithProvider);
