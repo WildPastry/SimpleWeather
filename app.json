@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "cover",
@@ -25,12 +25,16 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "description": "Simplistic and functional weather app designed for iOS and Android",
+    "description": "Simple, fast, powerful and intuitive mobile weather APP designed for iOS and Adroid.",
     "githubUrl": "https://github.com/WildPastry/SimpleWeather",
     "extra": {
       "eas": {
         "projectId": "f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a"
       }
+    },
+    "owner": "wildpastry",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
