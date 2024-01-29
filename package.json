@@ -18,7 +18,7 @@
     "expo-cli": "^6.3.12",
     "expo-dev-client": "^2.4.11",
     "expo-font": "~11.6.0",
-    "expo-modules-autolinking": "^1.5.1",
+    "expo-modules-autolinking": "^1.10.2",
     "expo-updates": "~0.18.16",
     "firebase": "^10.5.0",
     "formik": "^2.4.5",
