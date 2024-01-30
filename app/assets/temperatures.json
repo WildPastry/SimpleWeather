@@ -1,0 +1,127 @@
+{
+  "tempBelowM15": "#2b3c6b",
+  "tempBelowM15d": "#263651",
+
+  "tempM6toM15": "#2b4063",
+  "tempM6toM15d": "#253854",
+
+  "tempM1toM5": "#294367",
+  "tempM1toM5d": "#243c59",
+
+  "temp0": "#27476a",
+  "temp0d": "#22405b",
+
+  "temp1": "#254a6e",
+  "temp1d": "#214360",
+
+  "temp2": "#234e71",
+  "temp2d": "#1f4763",
+  
+  "temp3": "#205275",
+  "temp3d": "#1d4a66",
+    
+  "temp4": "#1d5578",
+  "temp4d": "#1b506b",
+    
+  "temp5": "#1a597b",
+  "temp5d": "#18536d",
+    
+  "temp6": "#165d7d",
+  "temp6d": "#145870",
+    
+  "temp7": "#126080",
+  "temp7d": "#115b72",
+    
+  "temp8": "#0d6483",
+  "temp8d": "#0d5f75",
+    
+  "temp9": "#086885",
+  "temp9d": "#086277",
+    
+  "temp10": "#046c87",
+  "temp10d": "#056277",
+    
+  "temp11": "#006f89",
+  "temp11d": "#00697a",
+    
+  "temp12": "#00738b",
+  "temp12d": "#006d7c",
+    
+  "temp13": "#00778c",
+  "temp13d": "#00707c",
+    
+  "temp14": "#007a8e",
+  "temp14d": "#00737f",
+    
+  "temp15": "#007e8f",
+  "temp15d": "#007982",
+    
+  "temp16": "#e08a18",
+  "temp16d": "#d17d18",
+    
+  "temp17": "#de8518",
+  "temp17d": "#d17818",
+    
+  "temp18": "#dc8018",
+  "temp18d": "#ce7317",
+    
+  "temp19": "#d97b18",
+  "temp19d": "#cc6e19",
+    
+  "temp20": "#d77618",
+  "temp20d": "#c96818",
+    
+  "temp21": "#d47218",
+  "temp21d": "#c66618",
+
+  "temp22": "#d26d18",
+  "temp22d": "#c46218",
+    
+  "temp23": "#cf6819",
+  "temp23d": "#c15d1a",
+    
+  "temp24": "#cc6319",
+  "temp24d": "#bf5c19",
+    
+  "temp25": "#c95e1a",
+  "temp25d": "#ba5219",
+    
+  "temp26": "#c65a1a",
+  "temp26d": "#b74e1a",
+    
+  "temp27": "#c3551a",
+  "temp27d": "#b5491a",
+    
+  "temp28": "#c0501b",
+  "temp28d": "#b2461b",
+    
+  "temp29": "#bd4b1b",
+  "temp29d": "#af411b",
+    
+  "temp30": "#ba461b",
+  "temp30d": "#aa3c1a",
+
+  "temp31": "#b7421c",
+  "temp31d": "#a8391b",
+
+  "temp32": "#b33d1c",
+  "temp32d": "#a5341b",
+
+  "temp33": "#b0381c",
+  "temp33d": "#a3321c",
+
+  "temp34": "#ad331d",
+  "temp34d": "#9e2b1b",
+
+  "temp35": "#a92e1d",
+  "temp35d": "#9b281c",
+
+  "temp36to40": "#a5281d",
+  "temp36to40d": "#96211b",
+
+  "temp41to50": "#a2231d",
+  "temp41to50d": "#931c1c",
+
+  "tempAbove50": "#9e1d1d",
+  "tempAbove50d": "#8e1b1b"
+}

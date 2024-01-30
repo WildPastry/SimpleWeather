@@ -3,7 +3,6 @@ Fast, accurate, and intuitive weather app designed for iOS and Android
 
 ## Development
 
-* **JavaScript** <br>
-* **FireBase** <br>
+* **TypeScript** <br>
 * **Expo** <br>
 * **React Native** <br>
