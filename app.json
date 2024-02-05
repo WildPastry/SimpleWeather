@@ -2,7 +2,7 @@
   "expo": {
     "name": "SimpleWeather",
     "slug": "simple-weather",
-    "privacy": "private",
+    "privacy": "public",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -25,7 +25,7 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "description": "Simple, fast, powerful and intuitive mobile weather APP designed for iOS and Adroid.",
+    "description": "Simple, fast, and intuitive weather.",
     "githubUrl": "https://github.com/WildPastry/SimpleWeather",
     "extra": {
       "eas": {

@@ -1,0 +1,64 @@
+name: EAS update
+run-name: EAS update | ${{ github.run_id }} | ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        default: "develop"
+        description: "Branch: [ develop | staging | production ]"
+        type: string
+        required: true
+
+jobs:
+  eas-update:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Check branch
+        run: |
+          if  [ ${{ github.event.inputs.branch }} == 'develop' ] ||
+              [ ${{ github.event.inputs.branch }} == 'staging' ] ||
+              [ ${{ github.event.inputs.branch }} == 'production' ]
+          then
+            echo "Proceed..."
+          else
+            echo "Invalid branch"
+            exit 1
+          fi
+
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret"
+            exit 1
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          npm install -g expo-cli
+          npm install
+
+      - name: Create ${{ github.event.inputs.branch }} preview
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --branch ${{ github.event.inputs.branch }} --message "EAS ${{ github.event.inputs.branch }} preview from ${{ github.actor }} | branch - ${{ github.ref_name }}"
