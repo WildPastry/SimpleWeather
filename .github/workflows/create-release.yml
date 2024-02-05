@@ -1,0 +1,44 @@
+name: Create release
+run-name: Create release | ${{ github.run_id }} | branch - ${{ github.head_ref }}
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && (startsWith(github.head_ref, 'release/major') || startsWith(github.head_ref, 'release/minor') || startsWith(github.head_ref, 'release/patch'))
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get version
+        run: |
+          echo "version=$(cat package.json| grep 'version'| awk '{print $2}'| tr -d \",)" >> $GITHUB_OUTPUT
+        id: version
+
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: JustForToday ${{ steps.version.outputs.version }}
+          body: |
+            Built from ${{ github.sha }}
+          draft: false
+          prerelease: false
+
+  skip-release-creation:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == false || (!startsWith(github.head_ref, 'release/major') || !startsWith(github.head_ref, 'release/minor') || !startsWith(github.head_ref, 'release/patch'))
+
+    steps:
+      - run: |
+          echo Skip release creation
