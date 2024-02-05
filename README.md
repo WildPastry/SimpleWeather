@@ -1,8 +1,9 @@
 # SimpleWeather
-Fast, accurate, and intuitive weather app designed for iOS and Android
+Simple, fast, and intuitive weather.
 
 ## Development
 
 * **TypeScript** <br>
 * **Expo** <br>
+* **OpenWeather** <br>
 * **React Native** <br>

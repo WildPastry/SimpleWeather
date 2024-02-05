@@ -1,0 +1,55 @@
+name: Prepare release
+run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref_name }}
+
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - "release/*"
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Git config
+        run: |
+          git config --global user.email "${{ secrets.GH_ADMIN_EMAIL }}"
+          git config --global user.name "${{ secrets.GH_ADMIN_USERNAME }}"
+
+      - name: Apply version bump (major)
+        if: startsWith(github.ref_name, 'release/major')
+        run: npm version major
+
+      - name: Apply version bump (minor)
+        if: startsWith(github.ref_name, 'release/minor')
+        run: npm version minor
+
+      - name: Apply version bump (patch)
+        if: startsWith(github.ref_name, 'release/patch')
+        run: npm version patch
+
+      - name: Update app.json version
+        if: startsWith(github.ref_name, 'release/')
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          npx json -I -f app.json -e "this.expo.version='$VERSION'"
+          git commit -m "Update app.json version to $VERSION" app.json
+
+      - name: Git push version bump
+        run: git push origin ${{ github.ref_name }}
+      - id: set-version
+
+        name: Output version change
+        run: npm pkg get version

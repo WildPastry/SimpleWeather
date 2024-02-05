@@ -1,16 +1,32 @@
 {
+  "cli": {
+    "version": ">= 3.10.0",
+    "requireCommit": true
+  },
   "build": {
     "develop": {
       "channel": "develop",
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
     },
     "preview": {
-      "channel": "develop",
-      "distribution": "internal"
+      "channel": "staging",
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
     }
+  },
+  "submit": {
+    "production": {}
   }
 }

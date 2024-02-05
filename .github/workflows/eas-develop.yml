@@ -1,0 +1,48 @@
+name: EAS develop
+run-name: EAS develop | ${{ github.run_id }} | branch - ${{ github.ref_name }}
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  eas-develop:
+    if: startsWith(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret"
+            exit 1
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          npm install -g expo-cli
+          npm install
+
+      - name: Create develop preview
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --branch develop --message "EAS develop preview from ${{ github.actor }} | branch - ${{ github.ref_name }}"
