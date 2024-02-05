@@ -1,9 +1,9 @@
-import { Text, StyleSheet, View } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { AppState } from "../redux/store";
 import ErrorScreen from "./ErrorScreen";
-import React, { useEffect } from "react";
-import { useAppSelector } from "../redux/hooks";
 import { IWeather } from "../types/data.types";
+import { useAppSelector } from "../redux/hooks";
 
 const Home: React.FC = (): JSX.Element => {
   // Data from store
