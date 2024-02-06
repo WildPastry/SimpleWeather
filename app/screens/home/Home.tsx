@@ -40,7 +40,7 @@ const Home: React.FC = (): JSX.Element => {
       'appData',
       appData.sunset
     );
-  }, []);
+  }, [appData]);
 
   // Render home page
   const renderHome = () => {

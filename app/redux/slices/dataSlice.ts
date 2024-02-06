@@ -67,7 +67,8 @@ const dataSlice = createSlice({
       })
       .addCase(setData.fulfilled, (state, action) => {
         state.loading = false;
-        state.weather = action.payload as IWeather;
+        state.weather = action.payload.data as IWeather;
+        state.error.errorMessage = undefined;
         state.error.errorState = false;
       })
       .addCase(setData.rejected, (state, action) => {
@@ -86,10 +87,7 @@ export const setData = createAsyncThunk<
     const response: IWeather = await getWeather();
     return { data: response };
   } catch (error: any) {
-    // Use rejectWithValue to pass additional information in the rejected action payload
-    return rejectWithValue(
-      (error.message as string) || 'Unknown error occurred'
-    );
+    return rejectWithValue(error.message as string);
   }
 });
 
