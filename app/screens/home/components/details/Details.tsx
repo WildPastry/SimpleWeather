@@ -14,8 +14,9 @@ const Details: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     backgroundColor: '#052c42',
-    alignItems: 'center'
+    flex: 1
   },
   title: {
     color: 'white'

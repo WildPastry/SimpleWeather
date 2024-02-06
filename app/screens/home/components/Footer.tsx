@@ -1,20 +1,37 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Linking, StyleSheet, Text, View } from 'react-native';
+import colours from '../../../assets/colours.json';
 
 const Footer: React.FC = (): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Footer</Text>
+      <Text style={styles.text}>
+        {' '}
+        <Text style={styles.textLt}>Data from </Text>
+        <Text
+          style={styles.textBd}
+          onPress={() => Linking.openURL('https://openweathermap.org/')}>
+          OpenWeather
+        </Text>
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#17577a',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: colours.spotGreyMed
   },
-  title: {
-    color: 'white'
+  text: {
+    color: colours.white,
+    fontSize: 16,
+    padding: 14
+  },
+  textBd: {
+    fontFamily: 'allerBd'
+  },
+  textLt: {
+    fontFamily: 'allerLt'
   }
 });
 

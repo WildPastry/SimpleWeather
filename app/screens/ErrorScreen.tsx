@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: '#ff6b6b',
-    justifyContent: 'center',
-    flex: 1
+    flex: 1,
+    justifyContent: 'center'
   },
   title: {
     color: 'white'

@@ -10,8 +10,8 @@ const Icons: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#17577a',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#17577a'
   },
   title: {
     color: 'white'
