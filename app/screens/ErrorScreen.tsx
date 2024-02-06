@@ -9,11 +9,8 @@ interface ErrorScreenProps {
 const ErrorScreen: React.FC<ErrorScreenProps> = (
   props: ErrorScreenProps
 ): JSX.Element => {
-  const appName: string | undefined = process.env.EXPO_PUBLIC_APP_NAME;
-
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{appName}</Text>
       <Text style={styles.title}>Error</Text>
       <Text style={styles.text}>{props.errorInfo.errorMessage}</Text>
     </View>
