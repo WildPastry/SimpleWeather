@@ -22,7 +22,6 @@ const ErrorScreen: React.FC<ErrorScreenProps> = (
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     backgroundColor: colours.spotGreyDark,
     flex: 1,
     justifyContent: 'center'
@@ -32,11 +31,13 @@ const styles = StyleSheet.create({
     fontFamily: 'allerBd',
     fontSize: 30,
     letterSpacing: 2,
-    marginBottom: 10
+    marginBottom: 10,
+    textAlign: 'center'
   },
   text: {
     color: colours.white,
-    fontSize: 16
+    fontSize: 16,
+    textAlign: 'center'
   }
 });
 
