@@ -1,7 +1,7 @@
 export interface IData {
   weather: IWeather;
   loading: boolean;
-  error: boolean;
+  error: IError;
 }
 
 export interface IWeather {
@@ -18,4 +18,9 @@ export interface IWeather {
   feelsLike: string;
   hourly: string;
   daily: string;
+}
+
+export interface IError {
+  errorMessage?: string;
+  errorState: boolean;
 }

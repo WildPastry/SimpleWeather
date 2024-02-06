@@ -1,9 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { IError } from '../types/data.types';
+import colours from '../assets/colours.json';
 
-const ErrorScreen: React.FC = (): JSX.Element => {
+interface ErrorScreenProps {
+  errorInfo: IError;
+}
+
+const ErrorScreen: React.FC<ErrorScreenProps> = (
+  props: ErrorScreenProps
+): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Error with API call</Text>
+      <Text style={styles.title}>Error</Text>
+      <Text style={styles.text}>{props.errorInfo.errorMessage}</Text>
     </View>
   );
 };
@@ -11,12 +20,20 @@ const ErrorScreen: React.FC = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#ff6b6b',
+    backgroundColor: colours.spotGreyDark,
     flex: 1,
     justifyContent: 'center'
   },
   title: {
-    color: 'white'
+    color: colours.white,
+    fontFamily: 'allerBd',
+    fontSize: 30,
+    letterSpacing: 2,
+    marginBottom: 10
+  },
+  text: {
+    color: colours.white,
+    fontSize: 16
   }
 });
 

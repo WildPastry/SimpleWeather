@@ -4,7 +4,7 @@ import {
   createAsyncThunk,
   createSlice
 } from '@reduxjs/toolkit';
-import { IData, IWeather } from '../../types/data.types';
+import { IData, IError, IWeather } from '../../types/data.types';
 import getWeather from '../../api/getWeather';
 
 // Set initialState
@@ -25,7 +25,9 @@ const initialState: IData = {
     daily: ''
   },
   loading: true,
-  error: false
+  error: {
+    errorState: false
+  }
 };
 
 /*
@@ -41,7 +43,7 @@ const dataSlice = createSlice({
       state.loading = action.payload;
     },
     setError(state, action: PayloadAction<boolean>) {
-      state.error = action.payload;
+      state.error.errorState = action.payload;
     }
   },
 
@@ -56,7 +58,7 @@ const dataSlice = createSlice({
     builder: ActionReducerMapBuilder<{
       weather: IWeather;
       loading: boolean;
-      error: boolean;
+      error: IError;
     }>
   ) => {
     builder
@@ -65,22 +67,31 @@ const dataSlice = createSlice({
       })
       .addCase(setData.fulfilled, (state, action) => {
         state.loading = false;
-        state.weather = action.payload;
+        state.weather = action.payload as IWeather;
+        state.error.errorState = false;
       })
-      .addCase(setData.rejected, (state) => {
+      .addCase(setData.rejected, (state, action) => {
         state.loading = false;
-        state.error = true;
+        state.error.errorMessage = action.payload as string;
+        state.error.errorState = true;
       });
   }
 });
 
-export const setData = createAsyncThunk<IWeather, void>(
-  'setData',
-  async (): Promise<IWeather> => {
+export const setData = createAsyncThunk<
+  { data?: IWeather; error?: string },
+  void
+>('setData', async (_, { rejectWithValue }) => {
+  try {
     const response: IWeather = await getWeather();
-    return response;
+    return { data: response };
+  } catch (error: any) {
+    // Use rejectWithValue to pass additional information in the rejected action payload
+    return rejectWithValue(
+      (error.message as string) || 'Unknown error occurred'
+    );
   }
-);
+});
 
 // Export error and loading actions
 export const { setLoading, setError } = dataSlice.actions;

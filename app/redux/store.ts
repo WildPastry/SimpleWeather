@@ -1,10 +1,10 @@
-import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducers/rootReducer";
+import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
+import rootReducer from './reducers/rootReducer';
 
 // Configure store
 export function makeStore() {
   return configureStore({
-    reducer: rootReducer,
+    reducer: rootReducer
   });
 }
 
