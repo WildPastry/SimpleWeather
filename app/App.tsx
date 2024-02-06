@@ -1,11 +1,11 @@
-import Home from "./screens/Home";
-import { Provider } from "react-redux";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
-import { registerRootComponent } from "expo";
-import store from "./redux/store";
-import useCachedResources from "./hooks/useCachedResources";
-import { Text, StyleSheet, View } from "react-native";
+import Home from './screens/home/Home';
+import { Provider } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
+import { registerRootComponent } from 'expo';
+import store from './redux/store';
+import useCachedResources from './hooks/useCachedResources';
 
 const AppWithProvider: React.FC = (): JSX.Element => {
   return (
@@ -22,18 +22,17 @@ const App: React.FC = (): JSX.Element | null => {
     return null;
   }
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <StatusBar />
-      <Text style={styles.text}>APP</Text>
       <Home />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    backgroundColor: "#6e859e",
-  },
+  container: {
+    flex: 1
+  }
 });
 
 export default registerRootComponent(AppWithProvider);

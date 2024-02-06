@@ -1,9 +1,15 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { AppState } from "../redux/store";
-import ErrorScreen from "./ErrorScreen";
-import { IWeather } from "../types/data.types";
-import { useAppSelector } from "../redux/hooks";
+/* eslint-disable no-console */
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { AppState } from '../../redux/store';
+import Details from './components/details/Details';
+import ErrorScreen from '../ErrorScreen';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import { IWeather } from '../../types/data.types';
+import Icon from './components/Icon';
+import Overview from './components/Overview';
+import { useAppSelector } from '../../redux/hooks';
 
 const Home: React.FC = (): JSX.Element => {
   // Data from store
@@ -26,20 +32,24 @@ const Home: React.FC = (): JSX.Element => {
 
   useEffect((): void => {
     console.log(
-      "appLoading",
+      'appLoading',
       appLoading,
-      "appError",
+      'appError',
       appError,
-      "appData",
-      appData,
+      'appData',
+      appData
     );
   }, []);
 
   // Render home page
   const renderHome = () => {
     return (
-      <View>
-        <Text style={styles.text}>HOME</Text>
+      <View style={styles.container}>
+        <Header />
+        <Icon />
+        <Overview />
+        <Details />
+        <Footer />
       </View>
     );
   };
@@ -48,9 +58,13 @@ const Home: React.FC = (): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  text: {
-    backgroundColor: "#2485c7",
+  container: {
+    backgroundColor: '#2485c7',
+    flex: 1
   },
+  text: {
+    color: 'white'
+  }
 });
 
 export default Home;
