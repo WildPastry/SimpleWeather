@@ -3,7 +3,6 @@ import 'dotenv/config';
 const apiKey = process.env.EXPO_PUBLIC_API_KEY;
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 const appName = process.env.EXPO_PUBLIC_APP_NAME;
-const appID = process.env.EXPO_PUBLIC_APP_ID;
 
 export default {
   expo: {
@@ -39,11 +38,11 @@ export default {
       apiUrl: apiUrl,
       appName: appName,
       eas: {
-        projectId: appID
+        projectId: 'f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a'
       }
     },
     updates: {
-      url: 'https://u.expo.dev/${appID}'
+      url: 'https://u.expo.dev/f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a'
     },
     owner: 'wildpastry',
     runtimeVersion: {
