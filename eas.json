@@ -4,6 +4,9 @@
       "channel": "develop",
       "developmentClient": true,
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_NAME": "SIMPLE WEATHER"
+      },
       "ios": {
         "resourceClass": "m-medium"
       }
@@ -11,12 +14,18 @@
     "preview": {
       "channel": "staging",
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_NAME": "SIMPLE WEATHER"
+      },
       "ios": {
         "resourceClass": "m-medium"
       }
     },
     "production": {
       "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_APP_NAME": "SIMPLE WEATHER"
+      },
       "ios": {
         "resourceClass": "m-medium"
       }

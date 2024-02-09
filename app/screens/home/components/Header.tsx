@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
 
 const Header: React.FC = (): JSX.Element => {
-  const appName: string | undefined = Constants?.expoConfig?.extra?.appName;
+  const appName: string | undefined = process.env.EXPO_PUBLIC_APP_NAME;
 
   return (
     <View style={styles.container}>
