@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -61,4 +61,4 @@ jobs:
       - name: Create ${{ github.event.inputs.branch }} preview
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update dotenv -e .env -- --branch ${{ github.event.inputs.branch }} --message "EAS ${{ github.event.inputs.branch }} preview from ${{ github.actor }} | branch - ${{ github.ref_name }}"
+          command: eas update dotenv -e .env --branch ${{ github.event.inputs.branch }} --message "EAS ${{ github.event.inputs.branch }} preview from ${{ github.actor }} | branch - ${{ github.ref_name }}"
