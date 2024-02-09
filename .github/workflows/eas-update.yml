@@ -61,4 +61,4 @@ jobs:
       - name: Create ${{ github.event.inputs.branch }} preview
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update --branch ${{ github.event.inputs.branch }} --message "EAS ${{ github.event.inputs.branch }} preview from ${{ github.actor }} | branch - ${{ github.ref_name }}"
+          command: dotenv -e .env -- eas update --branch ${{ github.event.inputs.branch }} --message "EAS ${{ github.event.inputs.branch }} preview from ${{ github.actor }} | branch - ${{ github.ref_name }}"
