@@ -19,7 +19,6 @@ const Footer: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     backgroundColor: colours.spotGreyMed
   },
   text: {

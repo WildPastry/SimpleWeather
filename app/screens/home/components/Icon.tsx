@@ -15,8 +15,8 @@ const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: colours.thunderStormDark
+    backgroundColor: colours.thunderStormDark,
+    alignItems: 'center'
   },
   title: {
     color: colours.white

@@ -3,7 +3,7 @@ import { IError, IWeather } from '../../types/data.types';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AppState } from '../../redux/store';
-import Details from './components/details/Details';
+import Details from './components/Details';
 import ErrorScreen from '../ErrorScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';

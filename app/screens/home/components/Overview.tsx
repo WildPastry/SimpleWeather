@@ -13,10 +13,10 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
     <View style={styles.container}>
       <View style={styles.temps}>
         <Text style={styles.tempLow}>{props.low}</Text>
-        <Text style={styles.temp}>{props.temp}°</Text>
+        <Text style={styles.tempCurrent}>{props.temp}°</Text>
         <Text style={styles.tempHigh}>{props.high}</Text>
       </View>
-      <Text style={styles.title}>
+      <Text style={styles.desc}>
         Currently {props.temp.toString()}° with {props.desc}
       </Text>
     </View>
@@ -25,7 +25,6 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     backgroundColor: colours.thunderStorm
   },
   temps: {
@@ -38,18 +37,21 @@ const styles = StyleSheet.create({
     fontFamily: 'allerLt',
     fontSize: 30
   },
-  temp: {
+  tempCurrent: {
     color: colours.white,
     fontFamily: 'allerDisplay',
-    fontSize: 70,
-    textAlign: 'center'
+    fontSize: 70
   },
   tempHigh: {
     color: colours.white,
     fontFamily: 'allerLt',
     fontSize: 30
   },
-  title: {
+  desc: {
+    fontFamily: 'allerBd',
+    fontSize: 18,
+    padding: 10,
+    textAlign: 'center',
     color: colours.white
   }
 });
