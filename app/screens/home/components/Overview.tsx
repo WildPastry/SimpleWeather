@@ -1,9 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
+import colours from '../../../assets/colours.json';
 
-const Overview: React.FC = (): JSX.Element => {
+interface IOverview {
+  desc: string;
+  low: number;
+  high: number;
+  temp: number;
+}
+
+const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Overview</Text>
+      <View style={styles.temps}>
+        <Text style={styles.tempLow}>{props.low}</Text>
+        <Text style={styles.temp}>{props.temp}°</Text>
+        <Text style={styles.tempHigh}>{props.high}</Text>
+      </View>
+      <Text style={styles.title}>
+        Currently {props.temp.toString()}° with {props.desc}
+      </Text>
     </View>
   );
 };
@@ -11,10 +26,31 @@ const Overview: React.FC = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#17577a'
+    backgroundColor: colours.thunderStorm
+  },
+  temps: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  tempLow: {
+    color: colours.white,
+    fontFamily: 'allerLt',
+    fontSize: 30
+  },
+  temp: {
+    color: colours.white,
+    fontFamily: 'allerDisplay',
+    fontSize: 70,
+    textAlign: 'center'
+  },
+  tempHigh: {
+    color: colours.white,
+    fontFamily: 'allerLt',
+    fontSize: 30
   },
   title: {
-    color: 'white'
+    color: colours.white
   }
 });
 

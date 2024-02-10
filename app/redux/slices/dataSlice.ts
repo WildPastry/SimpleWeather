@@ -21,7 +21,7 @@ const initialState: IData = {
     sunset: '',
     sunrise: '',
     feelsLike: '',
-    hourly: '',
+    hourly: [],
     daily: ''
   },
   loading: true,

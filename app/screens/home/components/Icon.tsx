@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
 import colours from '../../../assets/colours.json';
 
-interface ILocalData {
-  data: string;
+interface IIcon {
+  icon: string;
 }
 
-const Icon: React.FC<ILocalData> = (props: ILocalData): JSX.Element => {
+const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{props.data}</Text>
+      <Text style={styles.title}>{props.icon}</Text>
     </View>
   );
 };

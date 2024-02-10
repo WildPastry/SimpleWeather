@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { IError, IWeather } from '../../types/data.types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AppState } from '../../redux/store';
 import Details from './components/details/Details';
@@ -26,19 +26,23 @@ const Home: React.FC = (): JSX.Element => {
     return state.data.weather;
   });
 
+  // Local data states
+  const [night, setNight] = useState(false);
+
   // Error screen
   const errorScreen = (): JSX.Element => {
     return <ErrorScreen errorInfo={appError} />;
   };
 
   useEffect((): void => {
+    setNight(false);
     console.log(
       'appLoading',
       appLoading,
       'appError',
       appError,
       'appData',
-      appData
+      appData.hourly
     );
   }, [appData]);
 
@@ -47,9 +51,22 @@ const Home: React.FC = (): JSX.Element => {
     return (
       <View style={styles.container}>
         <Header />
-        <Icon data={appData.icon} />
-        <Overview />
-        <Details />
+        <Icon icon={appData.icon} />
+        <Overview
+          desc={appData.desc}
+          low={appData.low}
+          high={appData.high}
+          temp={appData.temp}
+        />
+        <Details
+          desc={appData.desc}
+          feelsLike={appData.feelsLike}
+          high={appData.high}
+          hourly={appData.hourly}
+          humidity={appData.humidity}
+          night={night}
+          wind={appData.wind}
+        />
         <Footer />
       </View>
     );

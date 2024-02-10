@@ -15,9 +15,33 @@ export interface IWeather {
   icon: string;
   sunset: string;
   sunrise: string;
-  feelsLike: string;
-  hourly: string;
+  feelsLike: number;
+  hourly: IHourly[];
   daily: string;
+}
+
+export interface IHourly {
+  dt: number;
+  temp: number;
+  feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  uvi: number;
+  clouds: number;
+  visibility: number;
+  wind_speed: number;
+  wind_deg: number;
+  wind_gust: number;
+  weather: IHourlyWeather[];
+  pop: number;
+}
+
+export interface IHourlyWeather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
 }
 
 export interface IError {
