@@ -38,7 +38,7 @@ const Home: React.FC = (): JSX.Element => {
       'appError',
       appError,
       'appData',
-      appData.sunset
+      appData
     );
   }, [appData]);
 
