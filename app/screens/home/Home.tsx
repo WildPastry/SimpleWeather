@@ -47,7 +47,7 @@ const Home: React.FC = (): JSX.Element => {
     return (
       <View style={styles.container}>
         <Header />
-        <Icon />
+        <Icon data={appData.icon} />
         <Overview />
         <Details />
         <Footer />

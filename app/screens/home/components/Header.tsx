@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import colours from '../../../assets/colours.json';
 
 const Header: React.FC = (): JSX.Element => {
   const appName: string | undefined = process.env.EXPO_PUBLIC_APP_NAME;
@@ -13,10 +14,10 @@ const Header: React.FC = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#17577a'
+    backgroundColor: colours.thunderStorm
   },
   title: {
-    color: 'white'
+    color: colours.white
   }
 });
 

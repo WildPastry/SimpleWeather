@@ -1,9 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
+import colours from '../../../assets/colours.json';
 
-const Icon: React.FC = (): JSX.Element => {
+interface ILocalData {
+  data: string;
+}
+
+const Icon: React.FC<ILocalData> = (props: ILocalData): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Icon</Text>
+      <Text style={styles.title}>{props.data}</Text>
     </View>
   );
 };
@@ -11,10 +16,10 @@ const Icon: React.FC = (): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#052c42'
+    backgroundColor: colours.thunderStormDark
   },
   title: {
-    color: 'white'
+    color: colours.white
   }
 });
 
