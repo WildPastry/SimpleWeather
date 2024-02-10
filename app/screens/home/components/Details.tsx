@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { IHourly } from '../../../types/data.types';
 import { Ionicons } from '@expo/vector-icons';
 import colours from '../../../assets/colours.json';
-import weatherIcons from '../../../assets/icons.json';
+import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IDetails {
   desc: string;
@@ -23,7 +23,6 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
         {/* Morning */}
         <View style={styles.weatherIconWrapper}>
           <Text style={styles.weatherIcon}>
-            {/* 9am */}
             {weatherIcons[props.hourly[9].weather[0].id].code}
           </Text>
           <Text style={styles.infoHeading}>7am</Text>
@@ -31,7 +30,6 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
         {/* Afternoon */}
         <View style={styles.weatherIconWrapper}>
           <Text style={styles.weatherIcon}>
-            {/* 12pm */}
             {weatherIcons[props.hourly[14].weather[0].id].code}
           </Text>
           <Text style={styles.infoHeading}>mid-day</Text>
@@ -39,7 +37,6 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
         <View style={styles.weatherIconWrapper}>
           {/* Evening */}
           <Text style={styles.weatherIcon}>
-            {/* 6pm */}
             {weatherIcons[props.hourly[19].weather[0].id].code}
           </Text>
           <Text style={styles.infoHeading}>5pm</Text>
