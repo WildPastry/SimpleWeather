@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import { StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import colours from '../../../assets/colours.json';
 
 interface IOverview {
@@ -12,9 +14,15 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
   return (
     <View style={styles.container}>
       <View style={styles.temps}>
-        <Text style={styles.tempLow}>{props.low}</Text>
+        <Text style={styles.tempLow}>
+          <Ionicons name='arrow-down-outline' size={30} color={colours.white} />{' '}
+          {props.low}°
+        </Text>
         <Text style={styles.tempCurrent}>{props.temp}°</Text>
-        <Text style={styles.tempHigh}>{props.high}</Text>
+        <Text style={styles.tempHigh}>
+          <Ionicons name='arrow-up-outline' size={30} color={colours.white} />{' '}
+          {props.high}°
+        </Text>
       </View>
       <Text style={styles.desc}>
         Currently {props.temp.toString()}° with {props.desc}
@@ -25,7 +33,8 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.thunderStorm
+    backgroundColor: colours.thunderStormDark,
+    padding: 10
   },
   temps: {
     flexDirection: 'row',

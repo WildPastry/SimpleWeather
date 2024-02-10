@@ -19,7 +19,9 @@ const Footer: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.spotGreyDark
+    backgroundColor: colours.thunderStorm,
+    borderTopColor: colours.white,
+    borderTopWidth: 0.5
   },
   text: {
     color: colours.white,

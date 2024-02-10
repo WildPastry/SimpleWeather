@@ -59,7 +59,7 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.thunderStormDark,
+    backgroundColor: colours.thunderStormDarkest,
     flex: 1
   },
   descWrapper: {
