@@ -1,9 +1,3 @@
-import 'dotenv/config';
-
-const apiKey = process.env.EXPO_PUBLIC_API_KEY;
-const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-const appName = process.env.EXPO_PUBLIC_APP_NAME;
-
 export default {
   expo: {
     name: 'SimpleWeather',
@@ -34,9 +28,6 @@ export default {
     description: 'Simple, fast, and intuitive weather.',
     githubUrl: 'https://github.com/WildPastry/SimpleWeather',
     extra: {
-      apiKey: apiKey,
-      apiUrl: apiUrl,
-      appName: appName,
       eas: {
         projectId: 'f5567fc0-bbcc-11e9-8d3b-272b0d7f7b9a'
       }

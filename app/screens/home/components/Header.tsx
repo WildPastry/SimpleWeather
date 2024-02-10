@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 const Header: React.FC = (): JSX.Element => {
-  const appName: string | undefined = process.env.SW_APP_NAME;
+  const appName: string | undefined = process.env.EXPO_PUBLIC_APP_NAME;
 
   return (
     <View style={styles.container}>

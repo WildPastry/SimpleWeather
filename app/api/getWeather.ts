@@ -1,10 +1,9 @@
-import Constants from 'expo-constants';
 import { IWeather } from '../types/data.types';
 
 const getWeather = async (): Promise<IWeather> => {
   // Set up auth config
-  const apiKey: string | undefined = Constants?.expoConfig?.extra?.apiKey;
-  const apiUrl: string | undefined = Constants?.expoConfig?.extra?.apiUrl;
+  const apiKey: string | undefined = process.env.EXPO_PUBLIC_API_KEY;
+  const apiUrl: string | undefined = process.env.EXPO_PUBLIC_API_URL;
   const currentLat: string = '-41.2924';
   const currentLng: string = '174.7787';
 

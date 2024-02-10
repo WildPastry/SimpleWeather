@@ -3,15 +3,14 @@
   "version": "1.0.0",
   "main": "./app/App.tsx",
   "scripts": {
-    "start": "expo start",
+    "start": "NODE_ENV=development expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx}\"",
     "format": "npx prettier --check \"**/*.{js,jsx,ts,tsx}\"",
     "format:fix": "npx prettier --write \"**/*.{js,jsx,ts,tsx}\"",
-    "clean": "npx prettier --write \"**/*.{js,jsx,ts,tsx}\" && npm run lint:fix",
-    "eas-update": "dotenv -e .env -- eas update"
+    "clean": "npx prettier --write \"**/*.{js,jsx,ts,tsx}\" && npm run lint:fix"
   },
   "dependencies": {
     "dotenv": "^16.4.1",
