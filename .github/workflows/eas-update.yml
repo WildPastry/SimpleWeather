@@ -48,7 +48,7 @@ jobs:
           cache: npm
 
       - name: Setup Secrets
-        run: echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
+        run: echo "SW_APP_NAME=${{ secrets.SW_APP_NAME }}" >> .env
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
