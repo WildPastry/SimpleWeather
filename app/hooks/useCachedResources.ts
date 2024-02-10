@@ -29,7 +29,7 @@ export default function useCachedResources(): boolean {
           weatherfont: require('../assets/fonts/weathericons-regular-webfont.ttf')
         });
         // Load data
-        // await dispatch(setData());
+        await dispatch(setData());
       } catch (error) {
         // Set error screen if failed
         dispatch(setError(true));

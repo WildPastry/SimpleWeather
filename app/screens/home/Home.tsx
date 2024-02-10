@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { IError, IWeather } from '../../types/data.types';
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { AppState } from '../../redux/store';
 import Details from './components/details/Details';
 import ErrorScreen from '../ErrorScreen';
@@ -47,6 +47,7 @@ const Home: React.FC = (): JSX.Element => {
     return (
       <View style={styles.container}>
         <Header />
+        <Text>{appData.sunset}</Text>
         <Icon />
         <Overview />
         <Details />
