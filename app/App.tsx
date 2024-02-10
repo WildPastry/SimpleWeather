@@ -1,8 +1,8 @@
 import Home from './screens/home/Home';
 import { Provider } from 'react-redux';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { registerRootComponent } from 'expo';
 import store from './redux/store';
 import useCachedResources from './hooks/useCachedResources';
@@ -22,10 +22,10 @@ const App: React.FC = (): JSX.Element | null => {
     return null;
   }
   return (
-    <SafeAreaProvider style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar />
       <Home />
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 };
 
