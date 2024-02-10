@@ -1,0 +1,33 @@
+# Config file for creating labels.
+# The attributes below will have labels created when the criteria are met.
+# Labels are created when a PR is created.
+
+repo:
+  - "*"
+
+workflow:
+  - .github/**/*.yml
+
+documentation:
+  - README.md
+
+packages:
+  - package.json
+
+frontend:
+  - any: ["app/**/*.tsx"]
+
+assets:
+  - any: ["app/assets/**/*"]
+
+api:
+  - any: ["app/api/**/*"]
+
+screens:
+  - any: ["app/screens/**/*"]
+
+components:
+  - any: ["app/components/**/*"]
+
+test:
+  - app/**/*.spec.tsx
