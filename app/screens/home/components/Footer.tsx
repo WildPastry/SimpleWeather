@@ -19,12 +19,13 @@ const Footer: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.spotGreyMed
+    backgroundColor: colours.spotGreyDark
   },
   text: {
     color: colours.white,
     fontSize: 16,
-    padding: 14
+    padding: 14,
+    textAlign: 'center'
   },
   textBd: {
     fontFamily: 'allerBd'

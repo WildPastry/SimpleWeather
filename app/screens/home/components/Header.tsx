@@ -2,22 +2,32 @@ import { StyleSheet, Text, View } from 'react-native';
 import colours from '../../../assets/colours.json';
 
 const Header: React.FC = (): JSX.Element => {
-  const appName: string | undefined = process.env.EXPO_PUBLIC_APP_NAME;
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{appName}</Text>
+      <Text style={styles.brandWrapper}>
+        <Text style={styles.brand}>SIMPLE </Text>
+        <Text style={styles.brandBlue}>WEATHER</Text>
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: colours.thunderStorm
+    backgroundColor: colours.spotGreyDark
   },
-  title: {
-    color: colours.white
+  brandWrapper: {
+    fontSize: 22,
+    padding: 14,
+    textAlign: 'center'
+  },
+  brand: {
+    color: colours.white,
+    fontFamily: 'merriWeatherLt'
+  },
+  brandBlue: {
+    color: colours.spotBlue,
+    fontFamily: 'merriWeatherBd'
   }
 });
 
