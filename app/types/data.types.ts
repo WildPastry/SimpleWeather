@@ -8,7 +8,7 @@ export interface IWeather {
   temp: number;
   high: number;
   low: number;
-  openWeatherId: string;
+  id: number;
   desc: string;
   humidity: string;
   wind: number;

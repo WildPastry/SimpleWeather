@@ -51,7 +51,7 @@ const Home: React.FC = (): JSX.Element => {
     return (
       <View style={styles.container}>
         <Header />
-        <Icon icon={appData.icon} />
+        <Icon id={appData.id} night={night} />
         <Overview
           desc={appData.desc}
           low={appData.low}

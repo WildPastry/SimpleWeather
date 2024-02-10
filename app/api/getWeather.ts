@@ -19,7 +19,7 @@ const getWeather = async (): Promise<IWeather> => {
     temp: Math.round(responseJSON.current.temp),
     high: Math.round(responseJSON.daily[0].temp.max),
     low: Math.round(responseJSON.daily[0].temp.min),
-    openWeatherId: responseJSON.current.weather[0].id,
+    id: responseJSON.current.weather[0].id,
     desc: responseJSON.current.weather[0].description,
     humidity: responseJSON.current.humidity,
     wind: responseJSON.current.wind_speed * 3.6,
