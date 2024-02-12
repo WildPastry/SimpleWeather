@@ -26,7 +26,7 @@
     "@reduxjs/toolkit": "^2.1.0",
     "@types/react-redux": "^7.1.33",
     "@types/react": "~18.2.48",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@wildpastry/eslint-config": "^1.6.4",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.33.2",
