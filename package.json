@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
-    "dotenv": "^16.4.1",
+    "dotenv": "^16.4.4",
     "expo": "~50.0.6",
     "expo-dev-client": "~3.3.8",
     "expo-splash-screen": "^0.26.4",
@@ -27,10 +27,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
-    "@reduxjs/toolkit": "^2.1.0",
-    "@types/react": "~18.2.54",
+    "@reduxjs/toolkit": "^2.2.0",
+    "@types/react": "~18.2.55",
     "@types/react-redux": "^7.1.33",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@wildpastry/eslint-config": "^1.6.4",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "eslint": "^8.56.0",
