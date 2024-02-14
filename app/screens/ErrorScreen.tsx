@@ -1,23 +1,41 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from 'react-native';
+import { IError } from '../types/data.types';
+import colours from '../assets/colours.json';
 
-const ErrorScreen: React.FC = (): JSX.Element => {
+interface ErrorScreenProps {
+  errorInfo: IError;
+}
+
+const ErrorScreen: React.FC<ErrorScreenProps> = (
+  props: ErrorScreenProps
+): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ErrorScreen</Text>
+      <Text style={styles.title}>Error</Text>
+      <Text style={styles.text}>{props.errorInfo.errorMessage}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    backgroundColor: colours.spotGreyDark,
     flex: 1,
-    justifyContent: "center",
-    padding: 15,
+    justifyContent: 'center'
   },
   title: {
-    fontSize: 20,
+    color: colours.white,
+    fontFamily: 'allerBd',
+    fontSize: 30,
+    letterSpacing: 2,
+    marginBottom: 10,
+    textAlign: 'center'
   },
+  text: {
+    color: colours.white,
+    fontSize: 16,
+    textAlign: 'center'
+  }
 });
 
 export default ErrorScreen;

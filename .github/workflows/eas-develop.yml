@@ -21,7 +21,7 @@ jobs:
           fi
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -30,6 +30,12 @@ jobs:
         with:
           node-version: 20
           cache: npm
+
+      - name: Setup Secrets
+        run: |
+          echo "EXPO_PUBLIC_API_KEY=${{ secrets.EXPO_PUBLIC_API_KEY }}" >> .env
+          echo "EXPO_PUBLIC_API_URL=${{ secrets.EXPO_PUBLIC_API_URL }}" >> .env
+          echo "EXPO_PUBLIC_APP_NAME=${{ secrets.EXPO_PUBLIC_APP_NAME }}" >> .env
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
