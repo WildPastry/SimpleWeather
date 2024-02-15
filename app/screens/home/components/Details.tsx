@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: colours.thunderStormDarkest,
     borderTopColor: colours.white,
     borderTopWidth: 0.5,
+    flex: 1,
     padding: 15,
     paddingBottom: 20
   },

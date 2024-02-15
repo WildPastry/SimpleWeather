@@ -149,31 +149,26 @@ const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.icon}>
-        <LottieView
-          style={{
-            height: iconHeight,
-            width: iconWidth
-          }}
-          ref={(animation) => {
-            animation;
-          }}
-          source={currentWeatherIcon}
-          autoPlay={true}
-        />
-      </View>
+      <LottieView
+        style={{
+          height: iconHeight,
+          width: iconWidth
+        }}
+        ref={(animation) => {
+          animation;
+        }}
+        source={currentWeatherIcon}
+        autoPlay={true}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     backgroundColor: colours.thunderStormDark,
-    alignItems: 'center'
-  },
-  icon: {
-    flexDirection: 'row',
-    justifyContent: 'center'
+    flex: 1
   }
 });
 
