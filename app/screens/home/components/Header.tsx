@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5
   },
   brandWrapper: {
-    fontSize: 22,
+    fontSize: 18,
     padding: 14,
     textAlign: 'center'
   },

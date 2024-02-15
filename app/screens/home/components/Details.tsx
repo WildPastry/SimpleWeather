@@ -43,7 +43,7 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
         </View>
       </View>
       {/* Description */}
-      <View style={styles.descWrapper}>
+      <View>
         <Text style={styles.descTitle}>
           <Ionicons name='time' size={19} color={colours.white} /> Daily Summary
         </Text>
@@ -60,16 +60,16 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colours.thunderStormDarkest,
-    flex: 1
-  },
-  descWrapper: {
-    padding: 10
+    borderTopColor: colours.white,
+    borderTopWidth: 0.5,
+    padding: 15,
+    paddingBottom: 20
   },
   descTitle: {
     color: colours.white,
     fontFamily: 'allerBd',
     fontSize: 19,
-    paddingBottom: 10,
+    paddingBottom: 20,
     textAlign: 'center'
   },
   descSummary: {
@@ -82,10 +82,7 @@ const styles = StyleSheet.create({
   iconsWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 10,
-    paddingLeft: 25,
-    paddingRight: 25,
-    paddingTop: 5
+    paddingBottom: 20
   },
   infoHeading: {
     color: colours.white,

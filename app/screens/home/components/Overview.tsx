@@ -25,7 +25,8 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
         </Text>
       </View>
       <Text style={styles.desc}>
-        Currently {props.temp.toString()}° with {props.desc}
+        Currently {props.temp.toString()}° with{' '}
+        <Text style={styles.spotDesc}>{props.desc}</Text>
       </Text>
     </View>
   );
@@ -34,7 +35,8 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colours.thunderStormDark,
-    padding: 10
+    padding: 15,
+    paddingBottom: 20
   },
   temps: {
     flexDirection: 'row',
@@ -44,7 +46,8 @@ const styles = StyleSheet.create({
   tempLow: {
     color: colours.white,
     fontFamily: 'allerLt',
-    fontSize: 30
+    fontSize: 30,
+    textAlignVertical: 'center'
   },
   tempCurrent: {
     color: colours.white,
@@ -54,14 +57,17 @@ const styles = StyleSheet.create({
   tempHigh: {
     color: colours.white,
     fontFamily: 'allerLt',
-    fontSize: 30
+    fontSize: 30,
+    textAlignVertical: 'center'
   },
   desc: {
     fontFamily: 'allerBd',
     fontSize: 18,
-    padding: 10,
     textAlign: 'center',
     color: colours.white
+  },
+  spotDesc: {
+    color: colours.spotGrey
   }
 });
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { IError, IWeather } from '../../types/data.types';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { AppState } from '../../redux/store';
 import Details from './components/Details';
 import ErrorScreen from '../ErrorScreen';
@@ -51,23 +51,25 @@ const Home: React.FC = (): JSX.Element => {
     return (
       <View style={styles.container}>
         <Header />
-        <Icon id={appData.id} night={night} />
-        <Overview
-          desc={appData.desc}
-          low={appData.low}
-          high={appData.high}
-          temp={appData.temp}
-        />
-        <Details
-          desc={appData.desc}
-          feelsLike={appData.feelsLike}
-          high={appData.high}
-          hourly={appData.hourly}
-          humidity={appData.humidity}
-          night={night}
-          wind={appData.wind}
-        />
-        <Footer />
+        <ScrollView keyboardShouldPersistTaps='handled' horizontal={false}>
+          <Icon id={appData.id} night={night} />
+          <Overview
+            desc={appData.desc}
+            low={appData.low}
+            high={appData.high}
+            temp={appData.temp}
+          />
+          <Details
+            desc={appData.desc}
+            feelsLike={appData.feelsLike}
+            high={appData.high}
+            hourly={appData.hourly}
+            humidity={appData.humidity}
+            night={night}
+            wind={appData.wind}
+          />
+          <Footer />
+        </ScrollView>
       </View>
     );
   };
@@ -77,7 +79,7 @@ const Home: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.spotBlue,
+    backgroundColor: colours.spotGreyDark,
     flex: 1
   }
 });

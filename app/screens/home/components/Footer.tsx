@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textBd: {
+    color: colours.spotYellow,
     fontFamily: 'allerBd'
   },
   textLt: {
