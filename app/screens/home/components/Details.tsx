@@ -42,11 +42,18 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
           <Text style={styles.infoHeading}>5pm</Text>
         </View>
       </View>
-      {/* Description */}
       <View>
-        <Text style={styles.descTitle}>
-          <Ionicons name='time' size={19} color={colours.white} /> Daily Summary
+        {/* Daily Summary */}
+        <Text style={styles.descTitleWrapper}>
+          <Ionicons
+            name='time'
+            size={22}
+            color={colours.white}
+            style={styles.descIcon}
+          />{' '}
+          <Text style={styles.descTitle}>Daily Summary</Text>
         </Text>
+        {/* Description */}
         <Text style={styles.descSummary}>
           Feels like {Math.round(props.feelsLike)}°, {props.desc} with{' '}
           {Math.round(props.wind)} km/h wind, {props.humidity}% humidity and an
@@ -65,12 +72,14 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingBottom: 20
   },
+  descTitleWrapper: {
+    paddingBottom: 20,
+    textAlign: 'center'
+  },
   descTitle: {
     color: colours.white,
     fontFamily: 'allerBd',
-    fontSize: 19,
-    paddingBottom: 20,
-    textAlign: 'center'
+    fontSize: 19
   },
   descSummary: {
     fontFamily: 'allerLt',
@@ -78,6 +87,9 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     textAlign: 'center',
     color: colours.white
+  },
+  descIcon: {
+    paddingTop: 15
   },
   iconsWrapper: {
     flexDirection: 'row',

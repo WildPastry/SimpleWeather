@@ -5,6 +5,7 @@ import LottieView, { AnimationObject } from 'lottie-react-native';
 import colours from '../../../assets/colours.json';
 
 interface IIcon {
+  bg: string;
   id: number;
   night: boolean;
 }

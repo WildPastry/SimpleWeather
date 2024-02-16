@@ -1,5 +1,6 @@
+/* eslint-disable max-statements */
 /* eslint-disable no-console */
-import { IError, IWeather } from '../../types/data.types';
+import { IError, IWeather, IWeatherBg } from '../../types/data.types';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { AppState } from '../../redux/store';
@@ -28,22 +29,103 @@ const Home: React.FC = (): JSX.Element => {
 
   // Local data states
   const [night, setNight] = useState(false);
+  const [weatherBg, setWeatherBg] = useState<IWeatherBg>({
+    weatherBg: '',
+    weatherBgDark: '',
+    weatherBgDarkest: ''
+  });
 
   // Error screen
   const errorScreen = (): JSX.Element => {
     return <ErrorScreen errorInfo={appError} />;
   };
 
-  useEffect((): void => {
-    setNight(false);
-    console.log(
-      'appLoading',
-      appLoading,
-      'appError',
-      appError,
-      'appData',
-      appData.hourly
+  // Logic for setting colours
+  const setColours = (): void => {
+    // Night icon conditions
+    const conditions: string[] = [
+      '01n',
+      '02n',
+      '03n',
+      '04n',
+      '09n',
+      '10n',
+      '11n',
+      '13n',
+      '50n'
+    ];
+    // Loop conditions
+    const checkNight: boolean = conditions.some((e) =>
+      appData.icon.includes(e)
     );
+    // Apply function based on result
+    checkNight ? (setNight(true), setBgNight()) : (setNight(false), setBgDay());
+  };
+
+  // Night colour bg logic
+  const setBgNight = (): void => {
+    setWeatherBg({
+      weatherBg: colours.night,
+      weatherBgDark: colours.nightDark,
+      weatherBgDarkest: colours.nightDarkest
+    });
+  };
+
+  // Day colour bg logic
+  const setBgDay = (): void => {
+    let currentBg: string = '';
+    let currentBgDark: string = '';
+    let currentBgDarkest: string = '';
+
+    const currentID: number = appData.id;
+
+    // Group 2xx: thunderstorm
+    if (currentID >= 200 && currentID <= 232) {
+      currentBg = colours.thunderStormDark;
+      currentBgDark = colours.thunderStorm;
+      currentBgDarkest = colours.thunderStormDarkest;
+      // Group 3xx: drizzle
+    } else if (currentID >= 300 && currentID <= 331) {
+      currentBg = colours.drizzleDark;
+      currentBgDark = colours.drizzle;
+      currentBgDarkest = colours.drizzleDarkest;
+      // Group 5xx: rain
+    } else if (currentID >= 500 && currentID <= 531) {
+      currentBg = colours.rainDark;
+      currentBgDark = colours.rain;
+      currentBgDarkest = colours.rainDarkest;
+      // Group 6xx: snow
+    } else if (currentID >= 600 && currentID <= 622) {
+      currentBg = colours.snowDark;
+      currentBgDark = colours.snow;
+      currentBgDarkest = colours.snowDarkest;
+      // Group 7xx: atmosphere
+    } else if (currentID >= 701 && currentID <= 781) {
+      currentBg = colours.atmosphereDark;
+      currentBgDark = colours.atmosphere;
+      currentBgDarkest = colours.atmosphereDarkest;
+      // Group 800: clear
+    } else if (currentID === 800) {
+      currentBg = colours.clearSkyDark;
+      currentBgDark = colours.clearSky;
+      currentBgDarkest = colours.clearSkyDarkest;
+      // Group 80x: clouds
+    } else {
+      currentBg = colours.cloudsDark;
+      currentBgDark = colours.clouds;
+      currentBgDarkest = colours.cloudsDarkest;
+    }
+
+    setWeatherBg({
+      weatherBg: currentBg,
+      weatherBgDark: currentBgDark,
+      weatherBgDarkest: currentBgDarkest
+    });
+  };
+
+  useEffect((): void => {
+    setColours();
+    console.log('appLoading', appLoading, 'appError', appError);
   }, [appData]);
 
   // Render home page
@@ -52,11 +134,11 @@ const Home: React.FC = (): JSX.Element => {
       <View style={styles.container}>
         <Header />
         <ScrollView keyboardShouldPersistTaps='handled' horizontal={false}>
-          <Icon id={appData.id} night={night} />
+          <Icon bg={weatherBg.weatherBgDark} id={appData.id} night={night} />
           <Overview
             desc={appData.desc}
-            low={appData.low}
             high={appData.high}
+            low={appData.low}
             temp={appData.temp}
           />
           <Details

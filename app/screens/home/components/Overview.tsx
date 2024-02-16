@@ -5,8 +5,8 @@ import colours from '../../../assets/colours.json';
 
 interface IOverview {
   desc: string;
-  low: number;
   high: number;
+  low: number;
   temp: number;
 }
 
@@ -35,8 +35,9 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colours.thunderStormDark,
+    paddingBottom: 30,
     paddingHorizontal: 15,
-    paddingBottom: 30
+    paddingTop: 10
   },
   temps: {
     flexDirection: 'row',
@@ -61,10 +62,10 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center'
   },
   desc: {
+    color: colours.white,
     fontFamily: 'allerBd',
     fontSize: 18,
-    textAlign: 'center',
-    color: colours.white
+    textAlign: 'center'
   },
   spotDesc: {
     color: colours.spotGrey
