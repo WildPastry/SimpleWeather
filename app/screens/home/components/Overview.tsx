@@ -35,9 +35,8 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colours.thunderStormDark,
-    flex: 1,
-    padding: 15,
-    paddingBottom: 20
+    paddingHorizontal: 15,
+    paddingBottom: 30
   },
   temps: {
     flexDirection: 'row',

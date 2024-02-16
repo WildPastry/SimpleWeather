@@ -79,7 +79,7 @@ const Home: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.spotGreyDark,
+    backgroundColor: colours.thunderStorm,
     flex: 1
   }
 });

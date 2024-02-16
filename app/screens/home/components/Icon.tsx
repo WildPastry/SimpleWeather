@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable max-statements */
 import { Dimensions, StyleSheet, View } from 'react-native';
-import LottieView from 'lottie-react-native';
+import LottieView, { AnimationObject } from 'lottie-react-native';
 import colours from '../../../assets/colours.json';
 
 interface IIcon {
@@ -57,7 +57,13 @@ const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
   }
 
   // Set up icon display
-  let currentWeatherIcon;
+  let currentWeatherIcon:
+    | string
+    | AnimationObject
+    | {
+        uri: string;
+      }
+    | undefined;
 
   /*
    * Weather icon logic
@@ -168,7 +174,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: colours.thunderStormDark,
-    flex: 1
+    paddingTop: 15
   }
 });
 

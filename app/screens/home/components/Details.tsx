@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     backgroundColor: colours.thunderStormDarkest,
     borderTopColor: colours.white,
     borderTopWidth: 0.5,
-    flex: 1,
     padding: 15,
     paddingBottom: 20
   },
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
   },
   descSummary: {
     fontFamily: 'allerLt',
-    fontSize: 19,
+    fontSize: 18,
     lineHeight: 25,
     textAlign: 'center',
     color: colours.white
@@ -83,6 +82,7 @@ const styles = StyleSheet.create({
   iconsWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginHorizontal: 10,
     paddingBottom: 20
   },
   infoHeading: {
