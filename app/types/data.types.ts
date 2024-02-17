@@ -1,7 +1,24 @@
 export interface IData {
   error: IError;
   loading: boolean;
+  location: ILocation;
   weather: IWeather;
+}
+
+export interface ILocation {
+  coords: ICoords;
+  mocked: boolean;
+  timestamp: number;
+}
+
+export interface ICoords {
+  accuracy: number;
+  altitude: number;
+  altitudeAccuracy: number;
+  heading: number;
+  latitude: string;
+  longitude: string;
+  speed: number;
 }
 
 export interface IWeather {

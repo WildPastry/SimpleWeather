@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { setData, setError } from '../redux/slices/dataSlice';
+import { setData, setLocation } from '../redux/slices/dataSlice';
 import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useAppDispatch } from '../redux/hooks';
@@ -28,14 +28,13 @@ export default function useCachedResources(): boolean {
           allerDisplay: require('../assets/fonts/AllerDisplay.ttf'),
           weatherfont: require('../assets/fonts/weathericons-regular-webfont.ttf')
         });
-        // Load data
+        // Set location
+        await dispatch(setLocation());
+        // Set data
         await dispatch(setData());
-      } catch (error) {
-        // Set error screen if failed
-        dispatch(setError(true));
       } finally {
+        // Hide splash and set loading complete
         setLoadingComplete(true);
-        // Hide splash
         SplashScreen.hideAsync();
       }
     }

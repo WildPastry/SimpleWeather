@@ -1,6 +1,11 @@
 /* eslint-disable max-statements */
 /* eslint-disable no-console */
-import { IError, IWeather, IWeatherBg } from '../../types/data.types';
+import {
+  IError,
+  ILocation,
+  IWeather,
+  IWeatherBg
+} from '../../types/data.types';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { AppState } from '../../redux/store';
@@ -23,6 +28,12 @@ const Home: React.FC = (): JSX.Element => {
   const appLoading: boolean = useAppSelector((state: AppState): boolean => {
     return state.data.loading;
   });
+
+  const appLocation: ILocation = useAppSelector(
+    (state: AppState): ILocation => {
+      return state.data.location;
+    }
+  );
 
   const appData: IWeather = useAppSelector((state: AppState): IWeather => {
     return state.data.weather;
@@ -126,16 +137,28 @@ const Home: React.FC = (): JSX.Element => {
 
   useEffect((): void => {
     setColours();
-    console.log('appLoading', appLoading, 'appError', appError);
+    console.log(
+      'appLoading',
+      appLoading,
+      'appError',
+      appError,
+      'appLocation',
+      appLocation
+    );
   }, [appData]);
 
   // Render home page
   const renderHome = () => {
     return (
-      <View style={styles.container}>
+      <View
+        style={[styles.container, { backgroundColor: weatherBg.weatherBg }]}>
         <Header />
         <ScrollView keyboardShouldPersistTaps='handled' horizontal={false}>
-          <Location bg={weatherBg.weatherBg} />
+          <Location
+            bg={weatherBg.weatherBg}
+            latitude={appLocation.coords.latitude}
+            longitude={appLocation.coords.longitude}
+          />
           <Icon bg={weatherBg.weatherBgDark} id={appData.id} night={night} />
           <Overview
             bg={weatherBg.weatherBgDark}
@@ -166,7 +189,6 @@ const Home: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.thunderStorm,
     flex: 1
   }
 });

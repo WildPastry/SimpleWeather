@@ -4,11 +4,29 @@ import {
   createAsyncThunk,
   createSlice
 } from '@reduxjs/toolkit';
-import { IData, IError, IWeather } from '../../types/data.types';
+import { IData, IError, ILocation, IWeather } from '../../types/data.types';
+import getLocation from '../../api/getLocation';
 import getWeather from '../../api/getWeather';
 
 // Set initialState
 const initialState: IData = {
+  error: {
+    errorState: false
+  },
+  loading: true,
+  location: {
+    coords: {
+      accuracy: 0,
+      altitude: 0,
+      altitudeAccuracy: 0,
+      heading: 0,
+      latitude: '',
+      longitude: '',
+      speed: 0
+    },
+    mocked: false,
+    timestamp: 0
+  },
   weather: {
     daily: [],
     desc: '',
@@ -23,10 +41,6 @@ const initialState: IData = {
     sunset: 0,
     temp: 0,
     wind: 0
-  },
-  loading: true,
-  error: {
-    errorState: false
   }
 };
 
@@ -56,12 +70,14 @@ const dataSlice = createSlice({
    */
   extraReducers: (
     builder: ActionReducerMapBuilder<{
-      weather: IWeather;
-      loading: boolean;
       error: IError;
+      loading: boolean;
+      location: ILocation;
+      weather: IWeather;
     }>
   ) => {
     builder
+      // SetData
       .addCase(setData.pending, (state) => {
         state.loading = true;
       })
@@ -75,10 +91,39 @@ const dataSlice = createSlice({
         state.loading = false;
         state.error.errorMessage = action.payload as string;
         state.error.errorState = true;
+      })
+      // SetLocation
+      .addCase(setLocation.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(setLocation.fulfilled, (state, action) => {
+        state.loading = false;
+        state.location = action.payload.data as ILocation;
+        state.error.errorMessage = undefined;
+        state.error.errorState = false;
+      })
+      .addCase(setLocation.rejected, (state, action) => {
+        state.loading = false;
+        state.error.errorMessage = action.payload as string;
+        state.error.errorState = true;
       });
   }
 });
 
+// Set location data
+export const setLocation = createAsyncThunk<
+  { data?: ILocation; error?: string },
+  void
+>('setLocation', async (_, { rejectWithValue }) => {
+  try {
+    const response: ILocation = await getLocation();
+    return { data: response };
+  } catch (error: any) {
+    return rejectWithValue(error.message as string);
+  }
+});
+
+// Set weather data
 export const setData = createAsyncThunk<
   { data?: IWeather; error?: string },
   void
