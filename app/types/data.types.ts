@@ -14,8 +14,8 @@ export interface IWeather {
   icon: string;
   id: number;
   low: number;
-  sunrise: string;
-  sunset: string;
+  sunrise: number;
+  sunset: number;
   temp: number;
   wind: number;
 }

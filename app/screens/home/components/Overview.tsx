@@ -10,12 +10,17 @@ interface IOverview {
   desc: string;
   high: number;
   low: number;
+  sunrise: number;
+  sunset: number;
   temp: number;
 }
 
 const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
   // Set up date
-  const date = format(new Date(), 'EEEE, MMMM do, h:mmaaa');
+  const date: string = format(new Date(), 'EEEE, MMMM do, h:mmaaa');
+
+  // Set up sun details
+  const sunDetails = format(new Date(props.sunset), 'h:mmaaa');
 
   return (
     <View style={[styles.container, { backgroundColor: props.bg }]}>
@@ -59,7 +64,7 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
           }}>
           {weatherIcons[105].code}
         </Text>
-        <Text style={styles.sunText}>{'  '}Sunset at 8:30 pm</Text>
+        <Text style={styles.sunText}>Sunset at {sunDetails}</Text>
       </View>
     </View>
   );
@@ -80,7 +85,8 @@ const styles = StyleSheet.create({
     color: colours.white,
     fontFamily: 'allerRg',
     fontSize: 18,
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
+    marginLeft: 8
   },
   text: {
     color: colours.white,

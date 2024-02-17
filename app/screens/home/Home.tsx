@@ -142,6 +142,8 @@ const Home: React.FC = (): JSX.Element => {
             desc={appData.desc}
             high={appData.high}
             low={appData.low}
+            sunrise={appData.sunrise}
+            sunset={appData.sunset}
             temp={appData.temp}
           />
           <Details

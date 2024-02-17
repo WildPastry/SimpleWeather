@@ -19,8 +19,8 @@ const initialState: IData = {
     icon: '',
     id: 0,
     low: 0,
-    sunrise: '',
-    sunset: '',
+    sunrise: 0,
+    sunset: 0,
     temp: 0,
     wind: 0
   },
