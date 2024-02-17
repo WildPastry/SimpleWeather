@@ -10,7 +10,7 @@ export interface IWeather {
   feelsLike: number;
   high: number;
   hourly: IHourly[];
-  humidity: string;
+  humidity: number;
   icon: string;
   id: number;
   low: number;

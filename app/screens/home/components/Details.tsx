@@ -1,18 +1,17 @@
 /* eslint-disable max-len */
-import { IDaily, IHourly } from '../../../types/data.types';
 import { StyleSheet, Text, View } from 'react-native';
+import { IHourly } from '../../../types/data.types';
 import { Ionicons } from '@expo/vector-icons';
 import colours from '../../../assets/colours.json';
 import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IDetails {
   bg: string;
-  daily: IDaily[];
   desc: string;
   feelsLike: number;
   high: number;
   hourly: IHourly[];
-  humidity: string;
+  humidity: number;
   night: boolean;
   wind: number;
 }
@@ -46,9 +45,9 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
       </View>
       <View>
         {/* Wind speed and humidity */}
-        <View style={styles.weekWindHumWrap}>
+        <View style={styles.windHumidityWrap}>
           {/* Wind speed */}
-          <View style={styles.weekWindWrap}>
+          <View style={styles.windWrapper}>
             <Text
               style={{
                 fontFamily: 'weatherfont',
@@ -57,13 +56,12 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
               }}>
               {weatherIcons[103].code}
             </Text>
-            <Text style={styles.weekWindHumDetails}>
-              {'  '}
-              {Math.round(props.daily[0].wind_speed * 3.6)} km/h
+            <Text style={styles.windHumidityDetails}>
+              {Math.round(props.wind)} km/h
             </Text>
           </View>
           {/* Humidity */}
-          <View style={styles.weekHumWrap}>
+          <View style={styles.humidityWrapper}>
             <Text
               style={{
                 fontFamily: 'weatherfont',
@@ -72,17 +70,16 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
               }}>
               {weatherIcons[102].code}
             </Text>
-            <Text style={styles.weekWindHumDetails}>
-              {'  '}
-              {props.daily[0].humidity}%
-            </Text>
+            <Text style={styles.windHumidityDetails}>{props.humidity}%</Text>
           </View>
         </View>
         {/* Daily Summary */}
-        <Text style={styles.descTitleWrapper}>
-          <Ionicons name='time' size={22} color={colours.white} />{' '}
+        <View style={styles.descTitleWrapper}>
+          <Text>
+            <Ionicons name='time' size={22} color={colours.white} />
+          </Text>
           <Text style={styles.descTitle}>Daily Summary</Text>
-        </Text>
+        </View>
         {/* Description */}
         <Text style={styles.descSummary}>
           Feels like {Math.round(props.feelsLike)}°, {props.desc} with{' '}
@@ -100,14 +97,16 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   descTitleWrapper: {
-    paddingBottom: 10,
-    textAlign: 'center'
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 10
   },
   descTitle: {
     color: colours.white,
     fontFamily: 'allerBd',
     fontSize: 19,
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
+    marginLeft: 8
   },
   descSummary: {
     color: colours.white,
@@ -140,23 +139,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'weatherfont'
   },
-  weekWindHumWrap: {
+  windHumidityWrap: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 10
   },
-  weekWindWrap: {
+  windWrapper: {
     flexDirection: 'row',
     justifyContent: 'center'
   },
-  weekHumWrap: {
+  humidityWrapper: {
     flexDirection: 'row',
     justifyContent: 'center'
   },
-  weekWindHumDetails: {
+  windHumidityDetails: {
     color: colours.white,
     fontSize: 18,
     fontFamily: 'allerLt',
+    letterSpacing: 0.5,
+    marginLeft: 8,
     paddingTop: 2
   }
 });

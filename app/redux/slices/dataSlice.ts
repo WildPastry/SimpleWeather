@@ -10,12 +10,12 @@ import getWeather from '../../api/getWeather';
 // Set initialState
 const initialState: IData = {
   weather: {
-    daily: '',
+    daily: [],
     desc: '',
     feelsLike: 0,
     high: 0,
     hourly: [],
-    humidity: '',
+    humidity: 0,
     icon: '',
     id: 0,
     low: 0,

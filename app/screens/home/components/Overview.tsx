@@ -18,17 +18,25 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
       {/* 3 temps */}
       <View style={styles.temps}>
         {/* Low */}
-        <Text style={styles.tempLow}>
-          <Ionicons name='arrow-down-outline' size={30} color={colours.white} />{' '}
-          {props.low}°
-        </Text>
+        <View style={styles.tempIconWrapper}>
+          <Text style={styles.tempLowIcon}>
+            <Ionicons
+              name='arrow-down-outline'
+              size={30}
+              color={colours.white}
+            />
+          </Text>
+          <Text style={styles.tempLowText}>{props.low}°</Text>
+        </View>
         {/* Current */}
         <Text style={styles.tempCurrent}>{props.temp}°</Text>
         {/* High */}
-        <Text style={styles.tempHigh}>
-          <Ionicons name='arrow-up-outline' size={30} color={colours.white} />{' '}
-          {props.high}°
-        </Text>
+        <View style={styles.tempIconWrapper}>
+          <Text style={styles.tempHighIcon}>
+            <Ionicons name='arrow-up-outline' size={30} color={colours.white} />
+          </Text>
+          <Text style={styles.tempHighText}>{props.high}°</Text>
+        </View>
       </View>
       {/* Date */}
       <Text style={styles.text}>Saturday, September 4th, 2:00 pm</Text>
@@ -82,22 +90,37 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%'
   },
-  tempLow: {
+  tempIconWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  tempLowIcon: {
+    color: colours.white,
+    fontFamily: 'allerLt',
+    fontSize: 30
+  },
+  tempLowText: {
     color: colours.white,
     fontFamily: 'allerLt',
     fontSize: 30,
-    textAlignVertical: 'center'
+    marginLeft: 5
   },
   tempCurrent: {
     color: colours.white,
     fontFamily: 'allerDisplay',
     fontSize: 70
   },
-  tempHigh: {
+  tempHighIcon: {
+    color: colours.white,
+    fontFamily: 'allerLt',
+    fontSize: 30
+  },
+  tempHighText: {
     color: colours.white,
     fontFamily: 'allerLt',
     fontSize: 30,
-    textAlignVertical: 'center'
+    marginLeft: 5
   },
   desc: {
     color: colours.white,
