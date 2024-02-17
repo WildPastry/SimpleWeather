@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
+import { IDaily, IHourly } from '../../../types/data.types';
 import { StyleSheet, Text, View } from 'react-native';
-import { IHourly } from '../../../types/data.types';
 import { Ionicons } from '@expo/vector-icons';
 import colours from '../../../assets/colours.json';
 import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IDetails {
   bg: string;
+  daily: IDaily[];
   desc: string;
   feelsLike: number;
   high: number;
@@ -44,6 +45,39 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
         </View>
       </View>
       <View>
+        {/* Wind speed and humidity */}
+        <View style={styles.weekWindHumWrap}>
+          {/* Wind speed */}
+          <View style={styles.weekWindWrap}>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 18,
+                color: colours.white
+              }}>
+              {weatherIcons[103].code}
+            </Text>
+            <Text style={styles.weekWindHumDetails}>
+              {'  '}
+              {Math.round(props.daily[0].wind_speed * 3.6)} km/h
+            </Text>
+          </View>
+          {/* Humidity */}
+          <View style={styles.weekHumWrap}>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 18,
+                color: colours.white
+              }}>
+              {weatherIcons[102].code}
+            </Text>
+            <Text style={styles.weekWindHumDetails}>
+              {'  '}
+              {props.daily[0].humidity}%
+            </Text>
+          </View>
+        </View>
         {/* Daily Summary */}
         <Text style={styles.descTitleWrapper}>
           <Ionicons name='time' size={22} color={colours.white} />{' '}
@@ -55,7 +89,6 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
           {Math.round(props.wind)} km/h wind, {props.humidity}% humidity and an
           expected high of {props.high}°
         </Text>
-        {/* Wind speed and humidity */}
       </View>
     </View>
   );
@@ -106,6 +139,25 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     fontFamily: 'weatherfont'
+  },
+  weekWindHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10
+  },
+  weekWindWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  weekHumWrap: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  weekWindHumDetails: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerLt',
+    paddingTop: 2
   }
 });
 

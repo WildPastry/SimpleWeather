@@ -5,7 +5,7 @@ export interface IData {
 }
 
 export interface IWeather {
-  daily: string;
+  daily: IDaily[];
   desc: string;
   feelsLike: number;
   high: number;
@@ -20,6 +20,45 @@ export interface IWeather {
   wind: number;
 }
 
+export interface IDaily {
+  clouds: number;
+  dew_point: number;
+  dt: number;
+  feels_like: IDailyFeelsLike;
+  humidity: number;
+  moon_phase: number;
+  moonrise: number;
+  moonset: number;
+  pop: number;
+  pressure: number;
+  rain: number;
+  summary: number;
+  sunrise: number;
+  sunset: number;
+  temp: IDailyTemp;
+  uvi: number;
+  weather: IWeatherDetails;
+  wind_deg: number;
+  wind_gust: number;
+  wind_speed: number;
+}
+
+export interface IDailyTemp {
+  day: number;
+  eve: number;
+  max: number;
+  min: number;
+  morn: number;
+  night: number;
+}
+
+export interface IDailyFeelsLike {
+  day: number;
+  eve: number;
+  morn: number;
+  night: number;
+}
+
 export interface IHourly {
   clouds: number;
   dew_point: number;
@@ -31,13 +70,13 @@ export interface IHourly {
   temp: number;
   uvi: number;
   visibility: number;
-  weather: IHourlyWeather[];
+  weather: IWeatherDetails[];
   wind_deg: number;
   wind_gust: number;
   wind_speed: number;
 }
 
-export interface IHourlyWeather {
+export interface IWeatherDetails {
   description: string;
   icon: string;
   id: number;

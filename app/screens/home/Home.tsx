@@ -146,6 +146,7 @@ const Home: React.FC = (): JSX.Element => {
           />
           <Details
             bg={weatherBg.weatherBgDarkest}
+            daily={appData.daily}
             desc={appData.desc}
             feelsLike={appData.feelsLike}
             high={appData.high}
