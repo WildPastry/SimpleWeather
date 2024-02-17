@@ -16,7 +16,7 @@
     "@expo/vector-icons": "^14.0.0",
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.4",
-    "expo": "~50.0.6",
+    "expo": "~50.0.7",
     "expo-dev-client": "~3.3.8",
     "expo-splash-screen": "^0.26.4",
     "expo-status-bar": "~1.11.1",
@@ -25,12 +25,13 @@
     "react-native": "0.73.4",
     "react-native-safe-area-context": "^4.9.0",
     "react-redux": "^9.1.0",
-    "expo-location": "~16.5.3"
+    "expo-location": "~16.5.3",
+    "expo-updates": "~0.24.11"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@reduxjs/toolkit": "^2.2.1",
-    "@types/react": "~18.2.55",
+    "@types/react": "~18.2.56",
     "@types/react-redux": "^7.1.33",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@wildpastry/eslint-config": "^1.6.4",
