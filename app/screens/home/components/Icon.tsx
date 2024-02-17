@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 /* eslint-disable max-statements */
-import { StyleSheet, View } from 'react-native';
-import LottieView from 'lottie-react-native';
-import colours from '../../../assets/colours.json';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import LottieView, { AnimationObject } from 'lottie-react-native';
 
 interface IIcon {
+  bg: string;
   id: number;
   night: boolean;
 }
@@ -44,8 +44,27 @@ const overcastClouds = require('../../../assets/animations/weather/overcastCloud
 const overcastCloudsNight = require('../../../assets/animations/weather/overcastCloudsNight.json');
 
 const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
+  const { width } = Dimensions.get('window');
+
+  let iconHeight: number = 0,
+    iconWidth: number = 0;
+
+  if (width < 300) {
+    iconHeight = 190;
+    iconWidth = 190;
+  } else {
+    iconHeight = 215;
+    iconWidth = 215;
+  }
+
   // Set up icon display
-  let currentWeatherIcon;
+  let currentWeatherIcon:
+    | string
+    | AnimationObject
+    | {
+        uri: string;
+      }
+    | undefined;
 
   /*
    * Weather icon logic
@@ -136,32 +155,25 @@ const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.icon}>
-        <LottieView
-          style={{
-            height: 215,
-            width: 215
-          }}
-          ref={(animation) => {
-            animation;
-          }}
-          source={currentWeatherIcon}
-          autoPlay={true}
-        />
-      </View>
+    <View style={[styles.container, { backgroundColor: props.bg }]}>
+      <LottieView
+        style={{
+          height: iconHeight,
+          width: iconWidth
+        }}
+        ref={(animation) => {
+          animation;
+        }}
+        source={currentWeatherIcon}
+        autoPlay={true}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.thunderStormDark,
     alignItems: 'center'
-  },
-  icon: {
-    flexDirection: 'row',
-    justifyContent: 'center'
   }
 });
 
