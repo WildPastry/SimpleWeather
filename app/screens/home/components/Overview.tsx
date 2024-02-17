@@ -2,6 +2,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colours from '../../../assets/colours.json';
+import { format } from 'date-fns';
 import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IOverview {
@@ -13,6 +14,9 @@ interface IOverview {
 }
 
 const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
+  // Set up date
+  const date = format(new Date(), 'EEEE, MMMM do, h:mmaaa');
+
   return (
     <View style={[styles.container, { backgroundColor: props.bg }]}>
       {/* 3 temps */}
@@ -39,7 +43,7 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
         </View>
       </View>
       {/* Date */}
-      <Text style={styles.text}>Saturday, September 4th, 2:00 pm</Text>
+      <Text style={styles.text}>{date}</Text>
       {/* Overview description */}
       <Text style={styles.desc}>
         Currently {props.temp.toString()}° with{' '}
