@@ -6,6 +6,7 @@ import colours from '../../../assets/colours.json';
 import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IDetails {
+  bg: string;
   desc: string;
   feelsLike: number;
   high: number;
@@ -17,7 +18,7 @@ interface IDetails {
 
 const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: props.bg }]}>
       {/* Icons */}
       <View style={styles.iconsWrapper}>
         {/* Morning */}
@@ -45,12 +46,7 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
       <View>
         {/* Daily Summary */}
         <Text style={styles.descTitleWrapper}>
-          <Ionicons
-            name='time'
-            size={22}
-            color={colours.white}
-            style={styles.descIcon}
-          />{' '}
+          <Ionicons name='time' size={22} color={colours.white} />{' '}
           <Text style={styles.descTitle}>Daily Summary</Text>
         </Text>
         {/* Description */}
@@ -59,6 +55,7 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
           {Math.round(props.wind)} km/h wind, {props.humidity}% humidity and an
           expected high of {props.high}°
         </Text>
+        {/* Wind speed and humidity */}
       </View>
     </View>
   );
@@ -66,30 +63,26 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.thunderStormDarkest,
-    borderTopColor: colours.white,
-    borderTopWidth: 0.5,
     padding: 15,
     paddingBottom: 20
   },
   descTitleWrapper: {
-    paddingBottom: 20,
+    paddingBottom: 10,
     textAlign: 'center'
   },
   descTitle: {
     color: colours.white,
     fontFamily: 'allerBd',
-    fontSize: 19
+    fontSize: 19,
+    letterSpacing: 0.5
   },
   descSummary: {
+    color: colours.white,
     fontFamily: 'allerLt',
     fontSize: 18,
+    letterSpacing: 0.5,
     lineHeight: 25,
-    textAlign: 'center',
-    color: colours.white
-  },
-  descIcon: {
-    paddingTop: 15
+    textAlign: 'center'
   },
   iconsWrapper: {
     flexDirection: 'row',
@@ -101,6 +94,7 @@ const styles = StyleSheet.create({
     color: colours.white,
     fontFamily: 'allerRg',
     fontSize: 18,
+    letterSpacing: 0.5,
     textAlign: 'center'
   },
   weatherIconWrapper: {
@@ -109,7 +103,7 @@ const styles = StyleSheet.create({
   },
   weatherIcon: {
     color: colours.white,
-    fontSize: 45,
+    fontSize: 50,
     textAlign: 'center',
     fontFamily: 'weatherfont'
   }

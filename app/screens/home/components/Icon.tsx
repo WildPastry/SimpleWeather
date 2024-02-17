@@ -2,7 +2,6 @@
 /* eslint-disable max-statements */
 import { Dimensions, StyleSheet, View } from 'react-native';
 import LottieView, { AnimationObject } from 'lottie-react-native';
-import colours from '../../../assets/colours.json';
 
 interface IIcon {
   bg: string;
@@ -47,7 +46,8 @@ const overcastCloudsNight = require('../../../assets/animations/weather/overcast
 const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
   const { width } = Dimensions.get('window');
 
-  let iconHeight: number, iconWidth: number;
+  let iconHeight: number = 0,
+    iconWidth: number = 0;
 
   if (width < 300) {
     iconHeight = 190;
@@ -155,7 +155,7 @@ const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: props.bg }]}>
       <LottieView
         style={{
           height: iconHeight,
@@ -173,9 +173,7 @@ const Icon: React.FC<IIcon> = (props: IIcon): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: colours.thunderStormDark,
-    paddingTop: 15
+    alignItems: 'center'
   }
 });
 

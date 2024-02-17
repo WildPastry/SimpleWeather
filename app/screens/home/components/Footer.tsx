@@ -1,9 +1,13 @@
 import { Linking, StyleSheet, Text, View } from 'react-native';
 import colours from '../../../assets/colours.json';
 
-const Footer: React.FC = (): JSX.Element => {
+interface IFooter {
+  bg: string;
+}
+
+const Footer: React.FC<IFooter> = (props: IFooter): JSX.Element => {
   return (
-    <View style={styles.container}>
+    <View style={{ backgroundColor: props.bg }}>
       <Text style={styles.text}>
         {' '}
         <Text style={styles.textLt}>Data from </Text>
@@ -18,14 +22,9 @@ const Footer: React.FC = (): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colours.thunderStorm,
-    borderTopColor: colours.white,
-    borderTopWidth: 0.5
-  },
   text: {
     color: colours.white,
-    fontSize: 16,
+    fontSize: 18,
     padding: 14,
     textAlign: 'center'
   },

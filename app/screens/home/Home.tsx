@@ -9,6 +9,7 @@ import ErrorScreen from '../ErrorScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Icon from './components/Icon';
+import Location from './components/Location';
 import Overview from './components/Overview';
 import colours from '../../assets/colours.json';
 import { useAppSelector } from '../../redux/hooks';
@@ -81,38 +82,38 @@ const Home: React.FC = (): JSX.Element => {
 
     // Group 2xx: thunderstorm
     if (currentID >= 200 && currentID <= 232) {
-      currentBg = colours.thunderStormDark;
-      currentBgDark = colours.thunderStorm;
+      currentBg = colours.thunderStorm;
+      currentBgDark = colours.thunderStormDark;
       currentBgDarkest = colours.thunderStormDarkest;
       // Group 3xx: drizzle
     } else if (currentID >= 300 && currentID <= 331) {
-      currentBg = colours.drizzleDark;
-      currentBgDark = colours.drizzle;
+      currentBg = colours.drizzle;
+      currentBgDark = colours.drizzleDark;
       currentBgDarkest = colours.drizzleDarkest;
       // Group 5xx: rain
     } else if (currentID >= 500 && currentID <= 531) {
-      currentBg = colours.rainDark;
-      currentBgDark = colours.rain;
+      currentBg = colours.rain;
+      currentBgDark = colours.rainDark;
       currentBgDarkest = colours.rainDarkest;
       // Group 6xx: snow
     } else if (currentID >= 600 && currentID <= 622) {
-      currentBg = colours.snowDark;
-      currentBgDark = colours.snow;
+      currentBg = colours.snow;
+      currentBgDark = colours.snowDark;
       currentBgDarkest = colours.snowDarkest;
       // Group 7xx: atmosphere
     } else if (currentID >= 701 && currentID <= 781) {
-      currentBg = colours.atmosphereDark;
-      currentBgDark = colours.atmosphere;
+      currentBg = colours.atmosphere;
+      currentBgDark = colours.atmosphereDark;
       currentBgDarkest = colours.atmosphereDarkest;
       // Group 800: clear
     } else if (currentID === 800) {
-      currentBg = colours.clearSkyDark;
-      currentBgDark = colours.clearSky;
+      currentBg = colours.clearSky;
+      currentBgDark = colours.clearSkyDark;
       currentBgDarkest = colours.clearSkyDarkest;
       // Group 80x: clouds
     } else {
-      currentBg = colours.cloudsDark;
-      currentBgDark = colours.clouds;
+      currentBg = colours.clouds;
+      currentBgDark = colours.cloudsDark;
       currentBgDarkest = colours.cloudsDarkest;
     }
 
@@ -134,14 +135,17 @@ const Home: React.FC = (): JSX.Element => {
       <View style={styles.container}>
         <Header />
         <ScrollView keyboardShouldPersistTaps='handled' horizontal={false}>
+          <Location bg={weatherBg.weatherBg} />
           <Icon bg={weatherBg.weatherBgDark} id={appData.id} night={night} />
           <Overview
+            bg={weatherBg.weatherBgDark}
             desc={appData.desc}
             high={appData.high}
             low={appData.low}
             temp={appData.temp}
           />
           <Details
+            bg={weatherBg.weatherBgDarkest}
             desc={appData.desc}
             feelsLike={appData.feelsLike}
             high={appData.high}
@@ -150,7 +154,7 @@ const Home: React.FC = (): JSX.Element => {
             night={night}
             wind={appData.wind}
           />
-          <Footer />
+          <Footer bg={weatherBg.weatherBg} />
         </ScrollView>
       </View>
     );
