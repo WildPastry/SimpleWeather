@@ -12,7 +12,6 @@ interface IDetails {
   high: number;
   hourly: IHourly[];
   humidity: number;
-  night: boolean;
   wind: number;
 }
 
@@ -83,8 +82,8 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
         {/* Description */}
         <Text style={styles.descSummary}>
           Feels like {Math.round(props.feelsLike)}°, {props.desc} with{' '}
-          {Math.round(props.wind)} km/h wind, {props.humidity}% humidity and an
-          expected high of {props.high}°
+          {Math.round(props.wind)} kilometer per hour wind, {props.humidity}%
+          humidity and an expected high of {props.high}°
         </Text>
       </View>
     </View>

@@ -151,7 +151,6 @@ const Home: React.FC = (): JSX.Element => {
             high={appData.high}
             hourly={appData.hourly}
             humidity={appData.humidity}
-            night={night}
             wind={appData.wind}
           />
           <Footer bg={weatherBg.weatherBg} />
