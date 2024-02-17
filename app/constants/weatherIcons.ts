@@ -299,5 +299,45 @@ export const weatherIcons: { [key: number]: { label: string; code: string } } =
     962: {
       label: 'hurricane',
       code: ''
+    },
+
+    100: {
+      label: 'up',
+      code: ''
+    },
+
+    101: {
+      label: 'down',
+      code: ''
+    },
+
+    102: {
+      label: 'humidity',
+      code: ''
+    },
+
+    103: {
+      label: 'windSpeed',
+      code: ''
+    },
+
+    104: {
+      label: 'thermal',
+      code: ''
+    },
+
+    105: {
+      label: 'sunset',
+      code: ''
+    },
+
+    106: {
+      label: 'sunrise',
+      code: ''
+    },
+
+    107: {
+      label: 'snowflake',
+      code: ''
     }
   };

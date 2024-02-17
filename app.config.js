@@ -21,7 +21,7 @@ export default {
       permissions: ['ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION'],
       package: 'nz.co.mikeparker.sw',
       adaptiveIcon: {
-        foregroundImage: './app/assets/adaptive-icon.png',
+        foregroundImage: './app/assets/icon.png',
         backgroundColor: '#313136'
       }
     },

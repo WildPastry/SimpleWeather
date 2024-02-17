@@ -6,18 +6,18 @@ import colours from '../../../assets/colours.json';
 import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IDetails {
+  bg: string;
   desc: string;
   feelsLike: number;
   high: number;
   hourly: IHourly[];
-  humidity: string;
-  night: boolean;
+  humidity: number;
   wind: number;
 }
 
 const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: props.bg }]}>
       {/* Icons */}
       <View style={styles.iconsWrapper}>
         {/* Morning */}
@@ -42,15 +42,48 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
           <Text style={styles.infoHeading}>5pm</Text>
         </View>
       </View>
-      {/* Description */}
-      <View style={styles.descWrapper}>
-        <Text style={styles.descTitle}>
-          <Ionicons name='time' size={19} color={colours.white} /> Daily Summary
-        </Text>
+      <View>
+        {/* Wind speed and humidity */}
+        <View style={styles.windHumidityWrap}>
+          {/* Wind speed */}
+          <View style={styles.windWrapper}>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 18,
+                color: colours.white
+              }}>
+              {weatherIcons[103].code}
+            </Text>
+            <Text style={styles.windHumidityDetails}>
+              {Math.round(props.wind)} km/h
+            </Text>
+          </View>
+          {/* Humidity */}
+          <View style={styles.humidityWrapper}>
+            <Text
+              style={{
+                fontFamily: 'weatherfont',
+                fontSize: 18,
+                color: colours.white
+              }}>
+              {weatherIcons[102].code}
+            </Text>
+            <Text style={styles.windHumidityDetails}>{props.humidity}%</Text>
+          </View>
+        </View>
+        {/* Daily Summary */}
+        <View style={styles.descTitleWrapper}>
+          <Text>
+            <Ionicons name='time' size={22} color={colours.white} />
+          </Text>
+          <Text style={styles.descTitle}>Daily Summary</Text>
+        </View>
+        {/* Description */}
         <Text style={styles.descSummary}>
           Feels like {Math.round(props.feelsLike)}°, {props.desc} with{' '}
-          {Math.round(props.wind)} km/h wind, {props.humidity}% humidity and an
-          expected high of {props.high}°
+          {Math.round(props.wind)} kilometer per hour wind, {props.humidity}%
+          humidity and an expected high of {props.high}°
         </Text>
       </View>
     </View>
@@ -59,38 +92,40 @@ const Details: React.FC<IDetails> = (props: IDetails): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.thunderStormDarkest,
-    flex: 1
+    padding: 15,
+    paddingBottom: 20
   },
-  descWrapper: {
-    padding: 10
+  descTitleWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 10
   },
   descTitle: {
     color: colours.white,
     fontFamily: 'allerBd',
     fontSize: 19,
-    paddingBottom: 10,
-    textAlign: 'center'
+    letterSpacing: 0.5,
+    marginLeft: 8
   },
   descSummary: {
+    color: colours.white,
     fontFamily: 'allerLt',
-    fontSize: 19,
+    fontSize: 18,
+    letterSpacing: 0.5,
     lineHeight: 25,
-    textAlign: 'center',
-    color: colours.white
+    textAlign: 'center'
   },
   iconsWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 10,
-    paddingLeft: 25,
-    paddingRight: 25,
-    paddingTop: 5
+    marginHorizontal: 10,
+    paddingBottom: 20
   },
   infoHeading: {
     color: colours.white,
     fontFamily: 'allerRg',
     fontSize: 18,
+    letterSpacing: 0.5,
     textAlign: 'center'
   },
   weatherIconWrapper: {
@@ -99,9 +134,30 @@ const styles = StyleSheet.create({
   },
   weatherIcon: {
     color: colours.white,
-    fontSize: 45,
+    fontSize: 50,
     textAlign: 'center',
     fontFamily: 'weatherfont'
+  },
+  windHumidityWrap: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10
+  },
+  windWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  humidityWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  windHumidityDetails: {
+    color: colours.white,
+    fontSize: 18,
+    fontFamily: 'allerLt',
+    letterSpacing: 0.5,
+    marginLeft: 8,
+    paddingTop: 2
   }
 });
 

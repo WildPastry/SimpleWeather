@@ -4,29 +4,44 @@ import {
   createAsyncThunk,
   createSlice
 } from '@reduxjs/toolkit';
-import { IData, IError, IWeather } from '../../types/data.types';
+import { IData, IError, ILocation, IWeather } from '../../types/data.types';
+import getLocation from '../../api/getLocation';
 import getWeather from '../../api/getWeather';
 
 // Set initialState
 const initialState: IData = {
-  weather: {
-    temp: 0,
-    high: 0,
-    low: 0,
-    openWeatherId: '',
-    desc: '',
-    humidity: '',
-    wind: 0,
-    icon: '',
-    sunset: '',
-    sunrise: '',
-    feelsLike: '',
-    hourly: [],
-    daily: ''
-  },
-  loading: true,
   error: {
     errorState: false
+  },
+  loading: true,
+  location: {
+    coords: {
+      accuracy: 0,
+      altitude: 0,
+      altitudeAccuracy: 0,
+      heading: 0,
+      latitude: '',
+      longitude: '',
+      speed: 0
+    },
+    location: '',
+    mocked: false,
+    timestamp: 0
+  },
+  weather: {
+    daily: [],
+    desc: '',
+    feelsLike: 0,
+    high: 0,
+    hourly: [],
+    humidity: 0,
+    icon: '',
+    id: 0,
+    low: 0,
+    sunrise: 0,
+    sunset: 0,
+    temp: 0,
+    wind: 0
   }
 };
 
@@ -56,22 +71,39 @@ const dataSlice = createSlice({
    */
   extraReducers: (
     builder: ActionReducerMapBuilder<{
-      weather: IWeather;
-      loading: boolean;
       error: IError;
+      loading: boolean;
+      location: ILocation;
+      weather: IWeather;
     }>
   ) => {
     builder
-      .addCase(setData.pending, (state) => {
+      // Set Weather
+      .addCase(fetchWeatherFromAPI.pending, (state) => {
         state.loading = true;
       })
-      .addCase(setData.fulfilled, (state, action) => {
+      .addCase(fetchWeatherFromAPI.fulfilled, (state, action) => {
         state.loading = false;
-        state.weather = action.payload.data as IWeather;
+        state.weather = action.payload as IWeather;
         state.error.errorMessage = undefined;
         state.error.errorState = false;
       })
-      .addCase(setData.rejected, (state, action) => {
+      .addCase(fetchWeatherFromAPI.rejected, (state, action) => {
+        state.loading = false;
+        state.error.errorMessage = action.payload as string;
+        state.error.errorState = true;
+      })
+      // Set Location
+      .addCase(fetchLocationFromAPI.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchLocationFromAPI.fulfilled, (state, action) => {
+        state.loading = false;
+        state.location = action.payload as ILocation;
+        state.error.errorMessage = undefined;
+        state.error.errorState = false;
+      })
+      .addCase(fetchLocationFromAPI.rejected, (state, action) => {
         state.loading = false;
         state.error.errorMessage = action.payload as string;
         state.error.errorState = true;
@@ -79,17 +111,53 @@ const dataSlice = createSlice({
   }
 });
 
-export const setData = createAsyncThunk<
-  { data?: IWeather; error?: string },
-  void
->('setData', async (_, { rejectWithValue }) => {
+// Fetch location
+export const fetchLocationFromAPI = createAsyncThunk<
+  ILocation,
+  void,
+  { rejectValue: string }
+>('dataSlice/fetchLocationFromAPI', async (_, { rejectWithValue }) => {
   try {
-    const response: IWeather = await getWeather();
-    return { data: response };
+    const response = await getLocation();
+    return response;
   } catch (error: any) {
-    return rejectWithValue(error.message as string);
+    // Dispatch setError action if failed
+    setError(true);
+    // Return custom error message
+    return rejectWithValue(error.message);
   }
 });
+
+// Fetch weather
+export const fetchWeatherFromAPI = createAsyncThunk<
+  IWeather,
+  void,
+  { rejectValue: string }
+>('dataSlice/fetchWeatherFromAPI', async (_, { rejectWithValue }) => {
+  try {
+    const response = await getWeather();
+    return response;
+  } catch (error: any) {
+    // Dispatch setError action if failed
+    setError(true);
+    // Return custom error message
+    return rejectWithValue(error.message);
+  }
+});
+
+// Fetch all data
+export const setData = () => async (dispatch: any) => {
+  try {
+    // Dispatch both thunks in parallel
+    await Promise.all([
+      dispatch(fetchLocationFromAPI()),
+      dispatch(fetchWeatherFromAPI())
+    ]);
+  } catch (error) {
+    // Set error screen if failed
+    dispatch(setError(true));
+  }
+};
 
 // Export error and loading actions
 export const { setLoading, setError } = dataSlice.actions;
