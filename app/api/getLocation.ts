@@ -30,12 +30,12 @@ const getLocation = async (): Promise<ILocation> => {
       altitude: location.coords.altitude ?? 0,
       altitudeAccuracy: location.coords.altitudeAccuracy ?? 0,
       heading: location.coords.heading ?? 0,
-      latitude: location.coords.latitude.toString(),
-      longitude: location.coords.longitude.toString(),
+      latitude: location.coords.latitude.toString() ?? '-41.2924',
+      longitude: location.coords.longitude.toString() ?? '174.7787',
       speed: location.coords.speed ?? 0
     },
     mocked: location.mocked ?? false,
-    timestamp: location.timestamp
+    timestamp: location.timestamp ?? 0
   };
 
   return locationData;
