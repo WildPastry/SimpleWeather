@@ -51,8 +51,7 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
       <Text style={styles.text}>{date}</Text>
       {/* Overview description */}
       <Text style={styles.desc}>
-        Currently {props.temp.toString()}° with{' '}
-        <Text style={styles.spotDesc}>{props.desc}</Text>
+        Currently {props.temp.toString()}° with {props.desc}
       </Text>
       {/* Sunrise/sunset */}
       <View style={styles.sunWrapper}>
@@ -139,9 +138,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     paddingTop: 10,
     textAlign: 'center'
-  },
-  spotDesc: {
-    color: colours.spotGrey
   }
 });
 
