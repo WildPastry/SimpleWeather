@@ -6,6 +6,7 @@ export interface IData {
 }
 
 export interface ILocation {
+  location: string;
   coords: ICoords;
   mocked: boolean;
   timestamp: number;

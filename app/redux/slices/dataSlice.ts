@@ -24,6 +24,7 @@ const initialState: IData = {
       longitude: '',
       speed: 0
     },
+    location: '',
     mocked: false,
     timestamp: 0
   },

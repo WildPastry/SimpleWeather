@@ -1,9 +1,10 @@
+/* eslint-disable */
 /* eslint-disable max-len */
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colours from '../../../assets/colours.json';
 import { format } from 'date-fns';
-import { weatherIcons } from '../../../constants/weatherIcons';
+// import { weatherIcons } from '../../../constants/weatherIcons';
 
 interface IOverview {
   bg: string;
@@ -20,7 +21,7 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
   const date: string = format(new Date(), 'EEEE, MMMM do, h:mmaaa');
 
   // Set up sun details
-  const sunDetails = format(new Date(props.sunset), 'h:mmaaa');
+  // const sunDetails = format(new Date(props.sunset), 'h:mmaaa');
 
   return (
     <View style={[styles.container, { backgroundColor: props.bg }]}>
@@ -54,7 +55,7 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
         Currently {props.temp.toString()}° with {props.desc}
       </Text>
       {/* Sunrise/sunset */}
-      <View style={styles.sunWrapper}>
+      {/* <View style={styles.sunWrapper}>
         <Text
           style={{
             fontFamily: 'weatherfont',
@@ -64,7 +65,7 @@ const Overview: React.FC<IOverview> = (props: IOverview): JSX.Element => {
           {weatherIcons[105].code}
         </Text>
         <Text style={styles.sunText}>Sunset at {sunDetails}</Text>
-      </View>
+      </View> */}
     </View>
   );
 };

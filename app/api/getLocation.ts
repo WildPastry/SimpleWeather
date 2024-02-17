@@ -12,6 +12,7 @@ const getLocation = async (): Promise<ILocation> => {
       longitude: '174.7787',
       speed: 0
     },
+    location: 'Wellington, New Zealand',
     mocked: false,
     timestamp: 0
   };
@@ -34,6 +35,7 @@ const getLocation = async (): Promise<ILocation> => {
       longitude: location.coords.longitude.toString() ?? '174.7787',
       speed: location.coords.speed ?? 0
     },
+    location: '',
     mocked: location.mocked ?? false,
     timestamp: location.timestamp ?? 0
   };

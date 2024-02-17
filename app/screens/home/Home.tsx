@@ -1,11 +1,6 @@
+/* eslint-disable */
 /* eslint-disable max-statements */
-/* eslint-disable no-console */
-import {
-  IError,
-  ILocation,
-  IWeather,
-  IWeatherBg
-} from '../../types/data.types';
+import { IError, IWeather, IWeatherBg } from '../../types/data.types';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { AppState } from '../../redux/store';
@@ -14,7 +9,6 @@ import ErrorScreen from '../ErrorScreen';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Icon from './components/Icon';
-import Location from './components/Location';
 import Overview from './components/Overview';
 import colours from '../../assets/colours.json';
 import { useAppSelector } from '../../redux/hooks';
@@ -25,15 +19,9 @@ const Home: React.FC = (): JSX.Element => {
     return state.data.error;
   });
 
-  const appLoading: boolean = useAppSelector((state: AppState): boolean => {
-    return state.data.loading;
-  });
-
-  const appLocation: ILocation = useAppSelector(
-    (state: AppState): ILocation => {
-      return state.data.location;
-    }
-  );
+  // const appLoading: boolean = useAppSelector((state: AppState): boolean => {
+  //   return state.data.loading;
+  // });
 
   const appData: IWeather = useAppSelector((state: AppState): IWeather => {
     return state.data.weather;
@@ -137,14 +125,6 @@ const Home: React.FC = (): JSX.Element => {
 
   useEffect((): void => {
     setColours();
-    console.log(
-      'appLoading',
-      appLoading,
-      'appError',
-      appError,
-      'appLocation',
-      appLocation
-    );
   }, [appData]);
 
   // Render home page
@@ -154,11 +134,7 @@ const Home: React.FC = (): JSX.Element => {
         style={[styles.container, { backgroundColor: weatherBg.weatherBg }]}>
         <Header />
         <ScrollView keyboardShouldPersistTaps='handled' horizontal={false}>
-          <Location
-            bg={weatherBg.weatherBg}
-            latitude={appLocation.coords.latitude}
-            longitude={appLocation.coords.longitude}
-          />
+          {/* <Location bg={weatherBg.weatherBg} location={appLocation.location} /> */}
           <Icon bg={weatherBg.weatherBgDark} id={appData.id} night={night} />
           <Overview
             bg={weatherBg.weatherBgDark}

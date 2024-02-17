@@ -3,17 +3,13 @@ import colours from '../../../assets/colours.json';
 
 interface ILocation {
   bg: string;
-  latitude: string;
-  longitude: string;
+  location: string;
 }
 
 const Location: React.FC<ILocation> = (props: ILocation): JSX.Element => {
   return (
     <View style={{ backgroundColor: props.bg }}>
-      <Text style={styles.text}>
-        {props.latitude}
-        {props.longitude}
-      </Text>
+      <Text style={styles.text}>{props.location}</Text>
     </View>
   );
 };

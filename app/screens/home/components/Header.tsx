@@ -14,9 +14,7 @@ const Header: React.FC = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.spotGreyDark,
-    borderBottomColor: colours.white,
-    borderBottomWidth: 0.5
+    backgroundColor: colours.spotGreyMed
   },
   brandWrapper: {
     fontSize: 18,
