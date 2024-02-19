@@ -29,7 +29,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.version.outputs.version }}
-          release_name: JustForToday ${{ steps.version.outputs.version }}
+          release_name: SimpleWeather ${{ steps.version.outputs.version }}
           body: |
             Built from ${{ github.sha }}
           draft: false
