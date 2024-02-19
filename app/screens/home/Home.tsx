@@ -19,10 +19,6 @@ const Home: React.FC = (): JSX.Element => {
     return state.data.error;
   });
 
-  // const appLoading: boolean = useAppSelector((state: AppState): boolean => {
-  //   return state.data.loading;
-  // });
-
   const appData: IWeather = useAppSelector((state: AppState): IWeather => {
     return state.data.weather;
   });
