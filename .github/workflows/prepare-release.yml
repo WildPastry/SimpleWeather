@@ -4,12 +4,13 @@ run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref_name 
 on:
   pull_request:
     types: [opened]
-    branches:
-      - "release/*"
 
 jobs:
   prepare-release:
+    if: startsWith(github.head_ref, 'release/')
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
 
     steps:
       - name: Checkout code
