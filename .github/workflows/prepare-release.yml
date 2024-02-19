@@ -49,7 +49,7 @@ jobs:
           git commit -m "Update app.json version to $VERSION" app.json
 
       - name: Git push version bump
-        run: git push origin ${{ github.event.pull_request.head.ref }}
+        run: git push -u origin ${{ github.event.pull_request.head.ref }}
       - id: set-version
 
         name: Output version change
