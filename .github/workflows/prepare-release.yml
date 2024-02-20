@@ -50,7 +50,7 @@ jobs:
         run: |
           git add package.json
           git add package-lock.json
-          gitpush
+          git push
 
       - id: set-version
         name: Output version change
