@@ -1,13 +1,11 @@
 name: Prepare release
-run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.event.pull_request.head.ref }}
+run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref_name }}
 
-on:
-  pull_request:
-    types: [opened]
+on: create
 
 jobs:
   prepare-release:
-    if: startsWith(github.head_ref, 'release/')
+    if: startsWith(github.ref_name, 'release/')
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -17,6 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
 
       - name: Use Node.js 20
         uses: actions/setup-node@v4
@@ -30,27 +29,29 @@ jobs:
           git config --global user.name "${{ secrets.GH_ADMIN_USERNAME }}"
 
       - name: Apply version bump (major)
-        if: startsWith(github.event.pull_request.head.ref, 'release/major')
+        if: startsWith(github.ref_name, 'release/major')
         run: npm version major
 
       - name: Apply version bump (minor)
-        if: startsWith(github.event.pull_request.head.ref, 'release/minor')
+        if: startsWith(github.ref_name, 'release/minor')
         run: npm version minor
 
       - name: Apply version bump (patch)
-        if: startsWith(github.event.pull_request.head.ref, 'release/patch')
+        if: startsWith(github.ref_name, 'release/patch')
         run: npm version patch
 
       - name: Update app.json version
-        if: startsWith(github.event.pull_request.head.ref, 'release/')
         run: |
           VERSION=$(node -p "require('./package.json').version")
           npx json -I -f app.json -e "this.expo.version='$VERSION'"
           git commit -m "Update app.json version to $VERSION" app.json
 
       - name: Git push version bump
-        run: git push -u origin ${{ github.event.pull_request.head.ref }}
-      - id: set-version
+        run: |
+          git add package.json
+          git add package-lock.json
+          gitpush
 
+      - id: set-version
         name: Output version change
         run: npm pkg get version
