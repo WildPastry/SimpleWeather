@@ -47,8 +47,10 @@ jobs:
           git add package.json
           git add package-lock.json
           git commit -m "Update app.json version to $VERSION" app.json
-
-      - name: Git push version bump
-        run: |
           git status
-          git push
+          # git push
+
+      # - name: Git push version bump
+      #   run: |
+      #     git status
+      #     git push
