@@ -5,10 +5,7 @@ on: create
 
 jobs:
   prepare-release:
-    if: startsWith(github.ref_name, 'release/')
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -44,13 +41,11 @@ jobs:
         run: |
           VERSION=$(node -p "require('./package.json').version")
           npx json -I -f app.json -e "this.expo.version='$VERSION'"
-          git add package.json
-          git add package-lock.json
           git commit -m "Update app.json version to $VERSION" app.json
-          git status
-          # git push
 
-      # - name: Git push version bump
-      #   run: |
-      #     git status
-      #     git push
+      - name: Git push version bump
+        run: git push origin ${{ github.ref_name }}
+      - id: set-version
+
+        name: Output version change
+        run: npm pkg get version
