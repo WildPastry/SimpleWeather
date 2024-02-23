@@ -3,7 +3,7 @@
     "name": "SimpleWeather",
     "slug": "simple-weather",
     "privacy": "public",
-    "version": "2.1.0",
+    "version": "4.1.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "automatic",
