@@ -3,7 +3,7 @@
     "name": "SimpleWeather",
     "slug": "simple-weather",
     "privacy": "public",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -12,13 +12,18 @@
       "resizeMode": "cover",
       "backgroundColor": "#313136"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "nz.co.mikeparker.sw"
     },
     "android": {
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
       "package": "nz.co.mikeparker.sw",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/icon.png",
