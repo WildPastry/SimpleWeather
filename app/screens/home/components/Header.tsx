@@ -5,8 +5,7 @@ const Header: React.FC = (): JSX.Element => {
   return (
     <View style={styles.container}>
       <Text style={styles.brandWrapper}>
-        <Text style={styles.brand}>SIMPLE </Text>
-        <Text style={styles.brandBlue}>WEATHER</Text>
+        <Text style={styles.brand}>SIMPLE&nbsp;&nbsp;WEATHER</Text>
       </Text>
     </View>
   );
@@ -24,10 +23,6 @@ const styles = StyleSheet.create({
   brand: {
     color: colours.white,
     fontFamily: 'merriWeatherLt'
-  },
-  brandBlue: {
-    color: colours.spotBlue,
-    fontFamily: 'merriWeatherBd'
   }
 });
 

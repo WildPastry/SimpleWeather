@@ -20,8 +20,6 @@ export default function useCachedResources(): boolean {
         await Font.loadAsync({
           ...Ionicons.font,
           merriWeatherLt: require('../assets/fonts/MerriweatherSans-Light.ttf'),
-          merriWeatherRg: require('../assets/fonts/MerriweatherSans-Regular.ttf'),
-          merriWeatherBd: require('../assets/fonts/MerriweatherSans-Bold.ttf'),
           allerLt: require('../assets/fonts/Aller_Lt.ttf'),
           allerRg: require('../assets/fonts/Aller_Rg.ttf'),
           allerBd: require('../assets/fonts/Aller_Bd.ttf'),
