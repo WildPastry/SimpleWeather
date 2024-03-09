@@ -47,6 +47,7 @@
     "owner": "wildpastry",
     "runtimeVersion": {
       "policy": "sdkVersion"
-    }
+    },
+    "versionCode": "1"
   }
 }
