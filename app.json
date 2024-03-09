@@ -25,6 +25,9 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
       ],
+      "blockedPermissions": [
+        "FOREGROUND_SERVICE_LOCATION"
+      ],
       "package": "nz.co.mikeparker.sw",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/icon.png",
