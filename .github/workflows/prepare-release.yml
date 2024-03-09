@@ -2,8 +2,7 @@ name: Prepare release
 run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.head_ref }}
 
 on:
-  pull_request:
-    types: [opened]
+  create:
     branches:
       - "release/*"
 
