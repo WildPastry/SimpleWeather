@@ -46,14 +46,9 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/release/patch')
         run: npm version patch
 
-      - name: Update package.json version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          npx json -I -f package.json -e "version='$VERSION'"
-          git commit -m "Update package.json version to $VERSION" app.json
-
       - name: Update app.json version
         run: |
+          VERSION=$(node -p "require('./package.json').version")
           npx json -I -f app.json -e "this.expo.version='$VERSION'"
           git commit -m "Update app.json version to $VERSION" app.json
 
