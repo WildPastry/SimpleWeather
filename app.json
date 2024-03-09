@@ -20,7 +20,7 @@
       "bundleIdentifier": "nz.co.mikeparker.sw"
     },
     "android": {
-      "versionCode": "6",
+      "versionCode": 6,
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
