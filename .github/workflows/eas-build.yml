@@ -2,7 +2,8 @@ name: EAS build
 run-name: EAS build | ${{ github.run_id }} | ${{ github.ref_name }}
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
 
