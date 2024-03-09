@@ -1,5 +1,5 @@
 name: Prepare release
-run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref_name }}
+run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.head_ref }}
 
 on:
   pull_request:
@@ -53,7 +53,7 @@ jobs:
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
 
       - name: Git push version bump
-        run: git push origin ${{ github.ref_name }}
+        run: git push origin ${{ github.head_ref }}
       - id: set-version
 
         name: Output version change
