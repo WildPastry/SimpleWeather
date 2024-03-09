@@ -48,7 +48,7 @@ jobs:
 
       - name: Update app.json versionCode
         run: |
-          CURRENT_VERSION_CODE=$(node -p "require('./app.json').expo.versionCode")
+          CURRENT_VERSION_CODE=$(node -p "require('./app.json').expo.android.versionCode")
           NEW_VERSION_CODE=$((CURRENT_VERSION_CODE + 1))
           npx json -I -f app.json -e "this.expo.android.versionCode='$NEW_VERSION_CODE'"
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
