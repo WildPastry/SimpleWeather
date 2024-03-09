@@ -2,13 +2,15 @@ name: Prepare release
 run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref }}
 
 on:
-  push:
+  pull_request:
+    types: [opened]
     branches:
-      - release/*
+      - main
 
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
+    if: (startsWith(github.head_ref, 'release/major') || startsWith(github.head_ref, 'release/minor') || startsWith(github.head_ref, 'release/patch'))
 
     steps:
       - name: Checkout code

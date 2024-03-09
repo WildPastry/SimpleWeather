@@ -10,6 +10,7 @@ on:
 jobs:
   eas-build:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && (startsWith(github.head_ref, 'release/major') || startsWith(github.head_ref, 'release/minor') || startsWith(github.head_ref, 'release/patch'))
 
     steps:
       - name: Check for EXPO_TOKEN
