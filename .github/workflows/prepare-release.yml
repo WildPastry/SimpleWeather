@@ -1,11 +1,10 @@
 name: Prepare release
-run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.head_ref }}
+run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref }}
 
 on:
-  pull_request:
-    types: [opened]
+  push:
     branches:
-      - main
+      - "release*"
 
 jobs:
   prepare-release:
@@ -29,15 +28,15 @@ jobs:
           git config --global user.name "${{ secrets.GH_ADMIN_USERNAME }}"
 
       - name: Apply version bump (major)
-        if: startsWith(github.ref_name, 'release/major')
+        if: startsWith(github.ref, 'refs/heads/release/major')
         run: npm version major
 
       - name: Apply version bump (minor)
-        if: startsWith(github.ref_name, 'release/minor')
+        if: startsWith(github.ref, 'refs/heads/release/minor')
         run: npm version minor
 
       - name: Apply version bump (patch)
-        if: startsWith(github.ref_name, 'release/patch')
+        if: startsWith(github.ref, 'refs/heads/release/patch')
         run: npm version patch
 
       - name: Update app.json version
@@ -53,8 +52,4 @@ jobs:
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
 
       - name: Git push version bump
-        run: git push origin ${{ github.head_ref }}
-      - id: set-version
-
-        name: Output version change
-        run: npm pkg get version
+        run: git push origin ${{ github.ref }}
