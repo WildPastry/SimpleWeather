@@ -1,22 +1,22 @@
 name: Prepare release
-run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref_name }}
+run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.head_ref }}
 
 on:
   pull_request:
     types: [opened]
     branches:
-      - main
+      - "release/*"
 
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
-    if: (startsWith(github.ref_name, 'release/major') || startsWith(github.ref_name, 'release/minor') || startsWith(github.ref_name, 'release/patch'))
+    if: (startsWith(github.ref, 'release/major') || startsWith(github.ref, 'release/minor') || startsWith(github.ref, 'release/patch'))
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Use Node.js 20
         uses: actions/setup-node@v4
@@ -30,15 +30,15 @@ jobs:
           git config --global user.name "${{ secrets.GH_ADMIN_USERNAME }}"
 
       - name: Apply version bump (major)
-        if: startsWith(github.ref_name, 'refs/heads/release/major')
+        if: startsWith(github.ref, 'release/major')
         run: npm version major
 
       - name: Apply version bump (minor)
-        if: startsWith(github.ref_name, 'refs/heads/release/minor')
+        if: startsWith(github.ref, 'release/minor')
         run: npm version minor
 
       - name: Apply version bump (patch)
-        if: startsWith(github.ref_name, 'refs/heads/release/patch')
+        if: startsWith(github.ref, 'release/patch')
         run: npm version patch
 
       - name: Update app.json version
