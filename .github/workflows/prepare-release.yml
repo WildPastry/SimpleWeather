@@ -54,4 +54,7 @@ jobs:
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
 
       - name: Git push version bump
-        run: git push origin HEAD:${{ github.event.pull_request.head.ref }}
+        run: |
+          git fetch
+          git checkout ${{ github.event.pull_request.head.ref }}
+          git push
