@@ -46,18 +46,23 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/release/patch')
         run: npm version patch
 
-      - name: Update app.json version
+      - name: Update package.json version
         run: |
           VERSION=$(node -p "require('./package.json').version")
+          npx json -I -f package.json -e "version='$VERSION'"
+          git commit -m "Update package.json version to $VERSION" app.json
+
+      - name: Update app.json version
+        run: |
           npx json -I -f app.json -e "this.expo.version='$VERSION'"
+          git commit -m "Update app.json version to $VERSION" app.json
 
       - name: Update app.json versionCode
         run: |
           CURRENT_VERSION_CODE=$(node -p "require('./app.json').expo.versionCode")
           NEW_VERSION_CODE=$((CURRENT_VERSION_CODE + 1))
-          npx json -I -f app.json -e "this.expo.versionCode='$NEW_VERSION_CODE'"
+          npx json -I -f app.json -e "this.expo.android.versionCode='$NEW_VERSION_CODE'"
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
 
       - name: Git push version bump
-        run: |
-          git push
+        run: git push
