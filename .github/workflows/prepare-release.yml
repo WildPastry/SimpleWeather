@@ -32,7 +32,7 @@ jobs:
       - name: Checkout release branch
         run: |
           git fetch
-          git checkout ${{ github.event.pull_request.head.ref }}
+          git checkout ${{ github.head.ref }}
 
       - name: Apply version bump (major)
         if: startsWith(github.ref, 'refs/heads/release/major')
@@ -60,4 +60,4 @@ jobs:
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
 
       - name: Git push version bump
-        run: git push
+        run: git status
