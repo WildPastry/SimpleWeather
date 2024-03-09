@@ -2,13 +2,15 @@ name: EAS build
 run-name: EAS build | ${{ github.run_id }} | ${{ github.ref_name }}
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
 
 jobs:
   eas-build:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && (startsWith(github.head_ref, 'release/major') || startsWith(github.head_ref, 'release/minor') || startsWith(github.head_ref, 'release/patch'))
 
     steps:
       - name: Check for EXPO_TOKEN

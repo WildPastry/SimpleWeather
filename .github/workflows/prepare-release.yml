@@ -2,14 +2,14 @@ name: Prepare release
 run-name: Prepare release | ${{ github.run_id }} | branch - ${{ github.ref_name }}
 
 on:
-  pull_request:
-    types: [opened]
+  create:
     branches:
-      - main
+      - "release/*"
 
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
+    if: (startsWith(github.ref_name, 'release/major') || startsWith(github.ref_name, 'release/minor') || startsWith(github.ref_name, 'release/patch'))
 
     steps:
       - name: Checkout code
@@ -48,14 +48,10 @@ jobs:
 
       - name: Update app.json versionCode
         run: |
-          CURRENT_VERSION_CODE=$(node -p "require('./app.json').expo.versionCode")
+          CURRENT_VERSION_CODE=$(node -p "require('./app.json').expo.android.versionCode")
           NEW_VERSION_CODE=$((CURRENT_VERSION_CODE + 1))
-          npx json -I -f app.json -e "this.expo.versionCode='$NEW_VERSION_CODE'"
+          npx json -I -f app.json -e "this.expo.android.versionCode='$NEW_VERSION_CODE'"
           git commit -m "Update app.json versionCode to $NEW_VERSION_CODE" app.json
 
       - name: Git push version bump
-        run: git push origin ${{ github.ref_name }}
-      - id: set-version
-
-        name: Output version change
-        run: npm pkg get version
+        run: git push
