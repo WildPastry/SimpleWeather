@@ -16,6 +16,7 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1",
       "supportsTablet": true,
       "bundleIdentifier": "nz.co.mikeparker.sw"
     },
