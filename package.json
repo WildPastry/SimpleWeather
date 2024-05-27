@@ -35,7 +35,7 @@
     "@reduxjs/toolkit": "^2.2.1",
     "@types/react": "~18.2.64",
     "@types/react-redux": "^7.1.33",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@wildpastry/eslint-config": "^1.6.4",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "eslint": "^8.57.0",
